@@ -1,0 +1,12 @@
+{
+  "id": "range_electric",
+  "name": "Electric range",
+  "matches": [
+    "range",
+    "oven",
+    "stove",
+    "cooktop",
+    "electric range"
+  ],
+  "parts": []
+}

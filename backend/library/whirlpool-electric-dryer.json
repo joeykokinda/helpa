@@ -273,6 +273,60 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "lint_screen",
+            "action": "remove",
+            "caption": "Pull lint screen out"
+          }
+        ],
+        [
+          {
+            "part": "lint",
+            "action": "clean",
+            "caption": "Roll lint off screen"
+          }
+        ],
+        [
+          {
+            "part": "lint_screen",
+            "action": "insert",
+            "caption": "Push lint screen in"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open dryer door"
+          },
+          {
+            "part": "dryer_drum",
+            "action": "look",
+            "caption": "Check drum half full"
+          },
+          {
+            "part": "dryer_door",
+            "action": "close",
+            "caption": "Close dryer door"
+          }
+        ],
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to Normal"
+          }
+        ],
+        [
+          {
+            "part": "vent_hose",
+            "action": "look",
+            "caption": "Check outside vent airflow"
+          }
+        ]
       ]
     },
     {
@@ -434,6 +488,44 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "dryer_door",
+            "action": "close",
+            "caption": "Push door until clicks"
+          }
+        ],
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to Normal"
+          }
+        ],
+        [
+          {
+            "part": "power_button",
+            "action": "press",
+            "caption": "Press power button once"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Hold start button one second"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "look",
+            "caption": "Check plug is tight"
+          }
+        ],
+        []
       ]
     },
     {
@@ -595,6 +687,59 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to Timed Dry"
+          }
+        ],
+        [
+          {
+            "part": "temperature_button",
+            "action": "press",
+            "caption": "Press temp to Medium"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Hold start for one second"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open the dryer door"
+          },
+          {
+            "part": "dryer_drum",
+            "action": "look",
+            "caption": "Feel inside the drum"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "lint_screen",
+            "action": "remove",
+            "caption": "Pull out lint screen"
+          },
+          {
+            "part": "lint",
+            "action": "clean",
+            "caption": "Clean lint off screen"
+          },
+          {
+            "part": "lint_screen",
+            "action": "insert",
+            "caption": "Push screen back in"
+          }
+        ]
       ]
     },
     {
@@ -757,6 +902,60 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull plug from outlet"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open dryer door"
+          },
+          {
+            "part": "moisture_sensor_film",
+            "action": "look",
+            "caption": "Look at sensor strips"
+          }
+        ],
+        [
+          {
+            "part": "moisture_sensor_film",
+            "action": "clean",
+            "caption": "Wipe sensor strips clean"
+          },
+          {
+            "part": "dryer_door",
+            "action": "close",
+            "caption": "Close dryer door"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "insert",
+            "caption": "Push plug into outlet"
+          }
+        ],
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to Timed Dry"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press start button"
+          }
+        ]
       ]
     },
     {
@@ -919,6 +1118,43 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open dryer door"
+          },
+          {
+            "part": "dryer_drum",
+            "action": "look",
+            "caption": "Check loose load inside"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "close",
+            "caption": "Push door shut firmly"
+          }
+        ],
+        [
+          {
+            "part": "leveling_feet",
+            "action": "look",
+            "caption": "Check all four feet"
+          }
+        ],
+        [
+          {
+            "part": "leveling_feet",
+            "action": "turn",
+            "caption": "Twist wobbly foot down"
+          }
+        ],
+        []
       ]
     },
     {
@@ -1104,6 +1340,67 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull plug from outlet"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open the dryer door"
+          },
+          {
+            "part": "drum_light_bulb",
+            "action": "look",
+            "caption": "Find the light cover"
+          }
+        ],
+        [
+          {
+            "part": "drum_light_bulb",
+            "action": "unlock",
+            "caption": "Unscrew the light cover"
+          }
+        ],
+        [
+          {
+            "part": "drum_light_bulb",
+            "action": "remove",
+            "caption": "Twist old bulb out"
+          }
+        ],
+        [
+          {
+            "part": "drum_light_bulb",
+            "action": "insert",
+            "caption": "Screw new bulb in"
+          }
+        ],
+        [
+          {
+            "part": "drum_light_bulb",
+            "action": "lock",
+            "caption": "Replace light cover"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "insert",
+            "caption": "Push plug into outlet"
+          },
+          {
+            "part": "drum_light_bulb",
+            "action": "look",
+            "caption": "Check the new light"
+          }
+        ]
       ]
     },
     {
@@ -1266,6 +1563,60 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open dryer door"
+          },
+          {
+            "part": "dryer_drum",
+            "action": "look",
+            "caption": "Look inside drum"
+          }
+        ],
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to Steam Refresh"
+          }
+        ],
+        [
+          {
+            "part": "options_button",
+            "action": "press",
+            "caption": "Press Wrinkle Shield once"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "close",
+            "caption": "Push door until clicks"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Hold start one second"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open dryer door"
+          },
+          {
+            "part": "dryer_drum",
+            "action": "look",
+            "caption": "Take clothes out now"
+          }
+        ]
       ]
     }
   ],
@@ -1756,5 +2107,6 @@
         ]
       }
     ]
-  }
+  },
+  "rig_id": "dryer_top_vent"
 }

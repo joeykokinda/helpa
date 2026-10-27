@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"strings"
 	"sync"
 )
@@ -87,12 +88,27 @@ func afterPlan(ctx context.Context, photos []string, plan json.RawMessage, emit 
 		} `json:"steps"`
 		LibraryID      string `json:"library_id"`
 		LibraryProblem string `json:"library_problem"`
+		Appliance      string `json:"appliance"`
 	}
 	json.Unmarshal(plan, &parsed)
 	var wait sync.WaitGroup
 	wait.Add(1)
 	go func() {
 		defer wait.Done()
+		// A built-in appliance model beats a generated one: real joints, correct motions.
+		if rig := matchRig(parsed.Appliance); rig != nil {
+			stepBeats := cachedRigBeats(parsed.LibraryID, parsed.LibraryProblem, rig.ID, len(parsed.Steps))
+			if stepBeats == nil {
+				var err error
+				if stepBeats, err = choreograph(ctx, rig, plan); err != nil {
+					log.Printf("choreograph %s: %v", rig.ID, err)
+				}
+			}
+			if stepBeats != nil {
+				emit(event{"type": "rig", "rig": rig.ID, "step_beats": stepBeats})
+				return
+			}
+		}
 		var scene json.RawMessage
 		var err error
 		if entry := findLibraryEntry(parsed.LibraryID); entry != nil {

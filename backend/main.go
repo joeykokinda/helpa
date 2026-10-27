@@ -24,6 +24,12 @@ func main() {
 	if replayDir != "" {
 		log.Printf("REPLAY MODE: serving recorded runs from %s, no Meta API calls", replayDir)
 	}
+	if len(os.Args) > 1 && os.Args[1] == "choreograph-library" {
+		if err := choreographLibrary(context.Background()); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
 	if len(os.Args) > 1 && os.Args[1] == "build-library" {
 		if err := buildLibrary(context.Background(), os.Args[2:]); err != nil {
 			log.Fatal(err)

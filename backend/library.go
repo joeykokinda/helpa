@@ -26,6 +26,7 @@ type libraryProblem struct {
 	Symptoms       []string        `json:"symptoms"`
 	Plan           json.RawMessage `json:"plan"`
 	StepAnimations json.RawMessage `json:"step_animations,omitempty"`
+	RigBeats       [][]beat        `json:"rig_beats,omitempty"`
 }
 
 type libraryEntry struct {
@@ -39,6 +40,7 @@ type libraryEntry struct {
 	Parts           []libraryPart    `json:"parts"`
 	Problems        []libraryProblem `json:"problems"`
 	Scene           json.RawMessage  `json:"scene,omitempty"`
+	RigID           string           `json:"rig_id,omitempty"`
 }
 
 type libraryQuery struct {
@@ -444,4 +446,55 @@ func containsString(values []string, wanted string) bool {
 		}
 	}
 	return false
+}
+
+// cachedRigBeats returns precomputed beats when the plan is a library fix used unchanged.
+func cachedRigBeats(libraryID, problemID, rigID string, stepCount int) [][]beat {
+	entry := findLibraryEntry(libraryID)
+	if entry == nil || entry.RigID != rigID {
+		return nil
+	}
+	for _, problem := range entry.Problems {
+		if problem.ID == problemID && len(problem.RigBeats) == stepCount {
+			return problem.RigBeats
+		}
+	}
+	return nil
+}
+
+// choreographLibrary precomputes rig beats for every library fix whose appliance has a built-in model.
+func choreographLibrary(ctx context.Context) error {
+	for index := range library {
+		entry := &library[index]
+		rig := matchRig(entry.Appliance + " " + entry.ModelFamily)
+		if rig == nil {
+			log.Printf("choreograph %s: no built-in model yet", entry.ID)
+			continue
+		}
+		entry.RigID = rig.ID
+		var wait sync.WaitGroup
+		for problemIndex := range entry.Problems {
+			wait.Add(1)
+			go func() {
+				defer wait.Done()
+				problem := &entry.Problems[problemIndex]
+				stepBeats, err := choreograph(ctx, rig, problem.Plan)
+				if err != nil {
+					log.Printf("choreograph %s/%s: %v", entry.ID, problem.ID, err)
+					return
+				}
+				problem.RigBeats = stepBeats
+			}()
+		}
+		wait.Wait()
+		data, err := json.MarshalIndent(entry, "", "  ")
+		if err != nil {
+			return err
+		}
+		if err := os.WriteFile(filepath.Join("library", entry.ID+".json"), data, 0o644); err != nil {
+			return err
+		}
+		log.Printf("choreograph %s: %s, %d fixes", entry.ID, rig.ID, len(entry.Problems))
+	}
+	return nil
 }

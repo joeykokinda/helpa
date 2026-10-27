@@ -1,0 +1,10 @@
+{
+  "id": "microwave_otr",
+  "name": "Over-the-range microwave",
+  "matches": [
+    "microwave",
+    "over-the-range microwave",
+    "microwave hood"
+  ],
+  "parts": []
+}
