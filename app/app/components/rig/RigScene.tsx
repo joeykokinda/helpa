@@ -169,7 +169,8 @@ function CameraDirector({ beat, def, nodes, controlsRef, userMovedRef }: { beat?
       const view = new THREE.Vector3(...(def?.view ?? [0.6, 0.5, 1])).normalize();
       const fov = THREE.MathUtils.degToRad((camera as THREE.PerspectiveCamera).fov);
       // Close enough to see the part, far enough to keep its surroundings for context.
-      const distance = Math.max(1.05, Math.min(2.6, (size * 1.2 + 0.45) / Math.tan(fov / 2)));
+      // Scale with the part: a button gets a close-up, a door gets the whole appliance.
+      const distance = Math.max(0.42, Math.min(2.6, (size * 1.5 + 0.16) / Math.tan(fov / 2)));
       goal.current.target.copy(center);
       goal.current.position.copy(center).add(view.multiplyScalar(distance));
     }
