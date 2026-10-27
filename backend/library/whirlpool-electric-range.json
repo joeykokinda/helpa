@@ -257,6 +257,43 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "cancel_button",
+            "action": "press",
+            "caption": "Press Cancel once"
+          }
+        ],
+        [
+          {
+            "part": "control_lock_button",
+            "action": "press",
+            "caption": "Hold Control Lock three seconds"
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "part": "bake_button",
+            "action": "press",
+            "caption": "Press Bake button"
+          },
+          {
+            "part": "temp_up_button",
+            "action": "press",
+            "caption": "Choose temperature with arrows"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press Start button"
+          }
+        ]
       ]
     },
     {
@@ -396,6 +433,31 @@
           ],
           "step": 4
         }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "hot_surface_light",
+            "action": "look",
+            "caption": "Check warning light off"
+          }
+        ],
+        [
+          {
+            "part": "burner_right_front",
+            "action": "look",
+            "caption": "Center pan on circle"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "burner_right_front",
+            "action": "look",
+            "caption": "Watch circle for glow"
+          }
+        ]
       ]
     },
     {
@@ -554,6 +616,67 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "oven_rack",
+            "action": "open",
+            "caption": "Pull rack to stop"
+          },
+          {
+            "part": "oven_rack_level",
+            "action": "look",
+            "caption": "Check middle slot"
+          },
+          {
+            "part": "oven_rack",
+            "action": "close",
+            "caption": "Slide rack into slot"
+          },
+          {
+            "part": "oven_door",
+            "action": "close",
+            "caption": "Close oven door"
+          }
+        ],
+        [
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "oven_rack",
+            "action": "look",
+            "caption": "Check gap around pan"
+          },
+          {
+            "part": "oven_door",
+            "action": "close",
+            "caption": "Close oven door"
+          }
+        ],
+        [
+          {
+            "part": "oven_control_panel",
+            "action": "look",
+            "caption": "Look at control panel"
+          },
+          {
+            "part": "temp_down_button",
+            "action": "press",
+            "caption": "Hold down arrow five seconds"
+          }
+        ],
+        [],
+        [],
+        []
       ]
     },
     {
@@ -731,6 +854,80 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "oven_light_cover",
+            "action": "unlock",
+            "caption": "Twist cover left"
+          },
+          {
+            "part": "oven_light_cover",
+            "action": "remove",
+            "caption": "Remove glass cover"
+          }
+        ],
+        [
+          {
+            "part": "oven_light_bulb",
+            "action": "unlock",
+            "caption": "Twist old bulb left"
+          },
+          {
+            "part": "oven_light_bulb",
+            "action": "remove",
+            "caption": "Remove old bulb"
+          }
+        ],
+        [
+          {
+            "part": "oven_light_bulb",
+            "action": "insert",
+            "caption": "Place new bulb"
+          },
+          {
+            "part": "oven_light_bulb",
+            "action": "lock",
+            "caption": "Twist bulb right snug"
+          }
+        ],
+        [
+          {
+            "part": "oven_light_cover",
+            "action": "insert",
+            "caption": "Place glass cover"
+          },
+          {
+            "part": "oven_light_cover",
+            "action": "lock",
+            "caption": "Twist cover right snug"
+          },
+          {
+            "part": "oven_door",
+            "action": "close",
+            "caption": "Close oven door"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "light_button",
+            "action": "press",
+            "caption": "Press oven light button"
+          }
+        ]
       ]
     },
     {
@@ -891,6 +1088,70 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "knob_right_front",
+            "action": "turn",
+            "caption": "Turn knob to Off"
+          },
+          {
+            "part": "knob_left_front",
+            "action": "turn",
+            "caption": "Turn knob to Off"
+          },
+          {
+            "part": "knob_left_rear",
+            "action": "turn",
+            "caption": "Turn knob to Off"
+          },
+          {
+            "part": "knob_right_rear",
+            "action": "turn",
+            "caption": "Turn knob to Off"
+          }
+        ],
+        [
+          {
+            "part": "hot_surface_light",
+            "action": "look",
+            "caption": "Check warning light is off"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_spill",
+            "action": "look",
+            "caption": "Look at burnt spill"
+          },
+          {
+            "part": "cooktop_spill",
+            "action": "clean",
+            "caption": "Cover spill with water"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_spill",
+            "action": "clean",
+            "caption": "Wipe spill softly in circles"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_spill",
+            "action": "clean",
+            "caption": "Repeat soak if needed"
+          }
+        ],
+        [
+          {
+            "part": "glass_cooktop",
+            "action": "clean",
+            "caption": "Dry glass with cloth"
+          }
+        ]
       ]
     },
     {
@@ -1078,6 +1339,64 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "oven_rack",
+            "action": "open",
+            "caption": "Slide rack out"
+          },
+          {
+            "part": "oven_rack",
+            "action": "close",
+            "caption": "Slide rack back in"
+          }
+        ],
+        [
+          {
+            "part": "oven_floor",
+            "action": "look",
+            "caption": "Pour water onto floor"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "steam_clean_button",
+            "action": "press",
+            "caption": "Press Steam Clean button"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "oven_floor_spill",
+            "action": "clean",
+            "caption": "Wipe loosened spill away"
+          },
+          {
+            "part": "oven_floor",
+            "action": "clean",
+            "caption": "Wipe oven floor clean"
+          },
+          {
+            "part": "oven_door",
+            "action": "close",
+            "caption": "Close oven door"
+          }
+        ]
       ]
     }
   ],
@@ -1480,5 +1799,6 @@
         ]
       }
     ]
-  }
+  },
+  "rig_id": "range_electric"
 }

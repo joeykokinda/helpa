@@ -288,6 +288,90 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open the dishwasher door"
+          },
+          {
+            "part": "middle_spray_arm",
+            "action": "turn",
+            "caption": "Spin middle arm full circle"
+          }
+        ],
+        [
+          {
+            "part": "bottom_rack",
+            "action": "open",
+            "caption": "Slide bottom rack out"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "unlock",
+            "caption": "Twist filter left quarter turn"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "remove",
+            "caption": "Lift round filter out"
+          }
+        ],
+        [
+          {
+            "part": "flat_bottom_filter",
+            "action": "remove",
+            "caption": "Lift flat filter out"
+          },
+          {
+            "part": "flat_filter_scraps",
+            "action": "clean",
+            "caption": "Brush food off screen"
+          }
+        ],
+        [
+          {
+            "part": "flat_bottom_filter",
+            "action": "insert",
+            "caption": "Set flat filter flat"
+          }
+        ],
+        [
+          {
+            "part": "round_top_filter",
+            "action": "insert",
+            "caption": "Drop round filter in"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "lock",
+            "caption": "Twist filter right to lock"
+          }
+        ],
+        [
+          {
+            "part": "bottom_rack",
+            "action": "open",
+            "caption": "Pull bottom rack out"
+          },
+          {
+            "part": "bottom_rack",
+            "action": "look",
+            "caption": "Face dirty sides inward"
+          },
+          {
+            "part": "bottom_rack",
+            "action": "close",
+            "caption": "Slide bottom rack in"
+          },
+          {
+            "part": "door",
+            "action": "close",
+            "caption": "Close dishwasher door"
+          }
+        ]
       ]
     },
     {
@@ -476,6 +560,80 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open dishwasher door"
+          },
+          {
+            "part": "standing_water",
+            "action": "look",
+            "caption": "Look at standing water"
+          },
+          {
+            "part": "standing_water",
+            "action": "clean",
+            "caption": "Scoop out standing water"
+          }
+        ],
+        [
+          {
+            "part": "round_top_filter",
+            "action": "unlock",
+            "caption": "Twist filter left"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "remove",
+            "caption": "Lift round filter out"
+          },
+          {
+            "part": "flat_bottom_filter",
+            "action": "remove",
+            "caption": "Lift flat filter out"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "sink_drain_cap",
+            "action": "remove",
+            "caption": "Lift sink drain cap"
+          },
+          {
+            "part": "air_gap_food",
+            "action": "clean",
+            "caption": "Clear food from cap"
+          },
+          {
+            "part": "sink_drain_cap",
+            "action": "insert",
+            "caption": "Replace sink drain cap"
+          }
+        ],
+        [
+          {
+            "part": "flat_bottom_filter",
+            "action": "insert",
+            "caption": "Seat flat filter flat"
+          }
+        ],
+        [
+          {
+            "part": "round_top_filter",
+            "action": "insert",
+            "caption": "Drop round filter in"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "lock",
+            "caption": "Twist filter right"
+          }
+        ],
+        []
       ]
     },
     {
@@ -636,6 +794,58 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open dishwasher door"
+          },
+          {
+            "part": "rinse_aid_holder",
+            "action": "unlock",
+            "caption": "Twist cap open"
+          }
+        ],
+        [
+          {
+            "part": "rinse_aid_holder",
+            "action": "look",
+            "caption": "Fill to full line"
+          },
+          {
+            "part": "rinse_aid_holder",
+            "action": "insert",
+            "caption": "Place cap back"
+          },
+          {
+            "part": "rinse_aid_holder",
+            "action": "lock",
+            "caption": "Twist cap to lock"
+          }
+        ],
+        [
+          {
+            "part": "top_small_rack",
+            "action": "open",
+            "caption": "Slide top rack out"
+          },
+          {
+            "part": "top_small_rack",
+            "action": "close",
+            "caption": "Slide top rack in"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "extended_dry_button",
+            "action": "press",
+            "caption": "Press Extended Dry"
+          }
+        ],
+        []
       ]
     },
     {
@@ -801,6 +1011,83 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open dishwasher door"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "unlock",
+            "caption": "Twist filter left"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "remove",
+            "caption": "Lift round filter out"
+          },
+          {
+            "part": "flat_bottom_filter",
+            "action": "remove",
+            "caption": "Lift flat filter out"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "flat_bottom_filter",
+            "action": "insert",
+            "caption": "Place flat filter flat"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "insert",
+            "caption": "Place round filter in"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "lock",
+            "caption": "Twist filter right"
+          }
+        ],
+        [
+          {
+            "part": "rubber_door_seal",
+            "action": "look",
+            "caption": "Look at door seal"
+          },
+          {
+            "part": "seal_food",
+            "action": "clean",
+            "caption": "Wipe food from seal"
+          }
+        ],
+        [
+          {
+            "part": "bottom_rack",
+            "action": "open",
+            "caption": "Slide bottom rack out"
+          },
+          {
+            "part": "vinegar_cup",
+            "action": "look",
+            "caption": "Place vinegar cup upright"
+          },
+          {
+            "part": "bottom_rack",
+            "action": "close",
+            "caption": "Slide bottom rack in"
+          },
+          {
+            "part": "door",
+            "action": "close",
+            "caption": "Close dishwasher door"
+          }
+        ],
+        []
       ]
     },
     {
@@ -969,6 +1256,95 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open the dishwasher door"
+          },
+          {
+            "part": "rubber_door_seal",
+            "action": "look",
+            "caption": "Look along door seal"
+          }
+        ],
+        [
+          {
+            "part": "seal_food",
+            "action": "clean",
+            "caption": "Wipe food off seal"
+          },
+          {
+            "part": "rubber_door_seal",
+            "action": "look",
+            "caption": "Check seal sits flat"
+          }
+        ],
+        [
+          {
+            "part": "bottom_rack",
+            "action": "open",
+            "caption": "Slide out bottom rack"
+          },
+          {
+            "part": "middle_rack",
+            "action": "open",
+            "caption": "Slide out middle rack"
+          },
+          {
+            "part": "bottom_rack",
+            "action": "close",
+            "caption": "Push bottom rack back"
+          },
+          {
+            "part": "middle_rack",
+            "action": "close",
+            "caption": "Push middle rack back"
+          }
+        ],
+        [
+          {
+            "part": "door_vent",
+            "action": "look",
+            "caption": "Look at door vent"
+          }
+        ],
+        [
+          {
+            "part": "bottom_front_cover",
+            "action": "remove",
+            "caption": "Remove bottom front cover"
+          },
+          {
+            "part": "front_leveling_feet",
+            "action": "look",
+            "caption": "Check feet touch floor"
+          },
+          {
+            "part": "bottom_front_cover",
+            "action": "insert",
+            "caption": "Replace bottom front cover"
+          }
+        ],
+        [
+          {
+            "part": "door",
+            "action": "close",
+            "caption": "Close the dishwasher door"
+          },
+          {
+            "part": "top_edge_buttons",
+            "action": "press",
+            "caption": "Press wash cycle buttons"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press start to run"
+          }
+        ]
       ]
     },
     {
@@ -1129,6 +1505,42 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "door",
+            "action": "close",
+            "caption": "Push door shut firmly"
+          },
+          {
+            "part": "door_latch",
+            "action": "press",
+            "caption": "Push latch until clicks"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "heat_dry_button",
+            "action": "press",
+            "caption": "Press lock button once"
+          },
+          {
+            "part": "top_edge_buttons",
+            "action": "look",
+            "caption": "Check lock light out"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "water_tap_under_sink",
+            "action": "open",
+            "caption": "Turn water tap fully on"
+          }
+        ],
+        []
       ]
     },
     {
@@ -1293,6 +1705,83 @@
             "soap_cup"
           ]
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open the dishwasher door"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "unlock",
+            "caption": "Twist the filter left"
+          },
+          {
+            "part": "round_top_filter",
+            "action": "remove",
+            "caption": "Lift round filter out"
+          },
+          {
+            "part": "flat_bottom_filter",
+            "action": "remove",
+            "caption": "Lift flat filter out"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "rinse_aid_holder",
+            "action": "unlock",
+            "caption": "Open rinse aid cap"
+          },
+          {
+            "part": "rinse_aid_holder",
+            "action": "lock",
+            "caption": "Lock rinse aid cap"
+          }
+        ],
+        [
+          {
+            "part": "bottom_rack",
+            "action": "open",
+            "caption": "Slide bottom rack out"
+          },
+          {
+            "part": "vinegar_cup",
+            "action": "look",
+            "caption": "Place vinegar cup upright"
+          },
+          {
+            "part": "bottom_rack",
+            "action": "close",
+            "caption": "Slide bottom rack in"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "soap_cup",
+            "action": "open",
+            "caption": "Open soap cup lid"
+          },
+          {
+            "part": "detergent_tablet",
+            "action": "look",
+            "caption": "Place tablet in cup"
+          },
+          {
+            "part": "soap_cup",
+            "action": "close",
+            "caption": "Close soap cup lid"
+          },
+          {
+            "part": "door",
+            "action": "close",
+            "caption": "Close dishwasher door"
+          }
+        ]
       ]
     }
   ],
@@ -1827,5 +2316,6 @@
         ]
       }
     ]
-  }
+  },
+  "rig_id": "dishwasher"
 }

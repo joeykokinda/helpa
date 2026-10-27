@@ -471,6 +471,10 @@ func choreographLibrary(ctx context.Context) error {
 			log.Printf("choreograph %s: no built-in model yet", entry.ID)
 			continue
 		}
+		if entry.RigID == rig.ID && allChoreographed(entry) {
+			log.Printf("choreograph %s: already done", entry.ID)
+			continue
+		}
 		entry.RigID = rig.ID
 		var wait sync.WaitGroup
 		for problemIndex := range entry.Problems {
@@ -497,4 +501,13 @@ func choreographLibrary(ctx context.Context) error {
 		log.Printf("choreograph %s: %s, %d fixes", entry.ID, rig.ID, len(entry.Problems))
 	}
 	return nil
+}
+
+func allChoreographed(entry *libraryEntry) bool {
+	for _, problem := range entry.Problems {
+		if problem.RigBeats == nil {
+			return false
+		}
+	}
+	return true
 }

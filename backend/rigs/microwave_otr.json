@@ -4,7 +4,917 @@
   "matches": [
     "microwave",
     "over-the-range microwave",
-    "microwave hood"
+    "microwave hood",
+    "otr microwave",
+    "microwave hood combination"
   ],
-  "parts": []
+  "parts": [
+    {
+      "id": "microwave_door",
+      "label": "Microwave door",
+      "aliases": [
+        "microwave door",
+        "microwave_door",
+        "door",
+        "door latch",
+        "door handle"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0.02
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": -1.7
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.75,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "door_seal_area",
+      "label": "Door seal area",
+      "aliases": [
+        "door seal area",
+        "door_seal_area",
+        "door seal",
+        "door frame",
+        "where the door meets the frame"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        0.4,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "door_seal_grime",
+      "label": "Grime on door edge",
+      "aliases": [
+        "food on the door edge",
+        "door edge grime",
+        "dirty door seal"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0,
+          0.3
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "touch_control_panel",
+      "label": "Touch control panel",
+      "aliases": [
+        "touch control panel",
+        "touch_control_panel",
+        "control panel",
+        "keypad",
+        "display",
+        "buttons"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "cancel_button",
+      "label": "Cancel",
+      "aliases": [
+        "cancel",
+        "cancel button",
+        "stop",
+        "off",
+        "control lock"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "start_button",
+      "label": "Start",
+      "aliases": [
+        "start",
+        "start button",
+        "+30 sec",
+        "heat cup of water"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "clock_button",
+      "label": "Clock",
+      "aliases": [
+        "clock",
+        "clock button",
+        "set clock"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "light_button",
+      "label": "Light",
+      "aliases": [
+        "light button",
+        "light",
+        "cooktop light button",
+        "light hi/lo"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "vent_fan_button",
+      "label": "Vent Fan",
+      "aliases": [
+        "vent fan",
+        "fan",
+        "fan button",
+        "vent fan button",
+        "exhaust fan"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "number_pad",
+      "label": "Number pad",
+      "aliases": [
+        "number pad",
+        "number buttons",
+        "numbers",
+        "digits",
+        "keypad numbers"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "microwave_cavity",
+      "label": "Inside of the microwave",
+      "aliases": [
+        "inside of the microwave",
+        "microwave_cavity",
+        "cavity",
+        "inside",
+        "interior",
+        "walls",
+        "floor under the plate"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        0.25,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "cavity_splatter",
+      "label": "Food splatter",
+      "aliases": [
+        "food splatter",
+        "splatter",
+        "baked-on food",
+        "food splashes",
+        "inside walls"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0,
+          0.35
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "cavity_crumbs",
+      "label": "Crumbs",
+      "aliases": [
+        "crumbs",
+        "crumbs under the plate",
+        "floor crumbs"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.05,
+          0.4
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "waveguide_cover",
+      "label": "Flat inside wall cover",
+      "aliases": [
+        "flat cover on the inside wall",
+        "flat_inside_wall_cover",
+        "waveguide cover",
+        "wall cover",
+        "mica cover"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        -0.5,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "turntable_plate",
+      "label": "Glass turntable plate",
+      "aliases": [
+        "round glass turntable plate",
+        "turntable_glass_plate",
+        "glass plate",
+        "turntable",
+        "glass tray",
+        "turntable plate"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0.4,
+          1
+        ],
+        "distance": 0.42
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "turntable_ring",
+      "label": "Support ring",
+      "aliases": [
+        "turntable support ring with wheels",
+        "turntable_support_ring",
+        "support ring",
+        "roller ring",
+        "ring with wheels"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0.2,
+          1
+        ],
+        "distance": 0.32
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "turntable_hub",
+      "label": "Turntable hub",
+      "aliases": [
+        "hub",
+        "center post",
+        "turntable hub",
+        "coupler",
+        "drive hub"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.7,
+        1
+      ]
+    },
+    {
+      "id": "grease_filters",
+      "label": "Grease filters",
+      "aliases": [
+        "grease filters",
+        "grease_filters",
+        "grease filter",
+        "metal filters",
+        "screens under the microwave"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 0.025
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "grease_filters_drop",
+      "label": "Grease filters",
+      "aliases": [
+        "drop the grease filters",
+        "grease filter drop"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          -1,
+          0.35
+        ],
+        "distance": 0.17
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "grease_filter_grease",
+      "label": "Grease",
+      "aliases": [
+        "grease",
+        "grease buildup",
+        "greasy film"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.15,
+          -0.3
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "cooktop_light_cover",
+      "label": "Cooktop light cover",
+      "aliases": [
+        "cooktop light cover",
+        "cooktop_light_cover",
+        "light cover",
+        "lens"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 1.5
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "cooktop_light_screw",
+      "label": "Cover screw",
+      "aliases": [
+        "cover screw",
+        "light cover screw",
+        "screw"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "angle": 5,
+        "lift": 0.014
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "cooktop_light_bulb",
+      "label": "Cooktop light bulb",
+      "aliases": [
+        "cooktop light bulb",
+        "cooktop_light_bulb",
+        "night light bulb",
+        "surface light bulb"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "angle": 3.4,
+        "lift": 0.06
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "vent_grille",
+      "label": "Vent grille",
+      "aliases": [
+        "vent grille",
+        "vent_grille",
+        "top vent grille",
+        "grille",
+        "vent"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          -1,
+          0,
+          0
+        ],
+        "distance": 0.015
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "vent_grille_tilt",
+      "label": "Vent grille",
+      "aliases": [
+        "tilt the grille",
+        "grille tilt"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          -0.04,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 0.8
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "vent_grille_lift",
+      "label": "Vent grille",
+      "aliases": [
+        "lift the grille out",
+        "grille lift"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0.997,
+          -0.078
+        ],
+        "distance": 0.3
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "vent_grille_screws",
+      "label": "Grille screws",
+      "aliases": [
+        "grille screws",
+        "vent grille screws",
+        "two screws",
+        "screws"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 5,
+        "lift": 0.025
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "charcoal_filter",
+      "label": "Charcoal filter",
+      "aliases": [
+        "charcoal filter",
+        "charcoal_filter",
+        "odor filter",
+        "carbon filter",
+        "recirculating filter"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.28
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "inside_light_cover",
+      "label": "Inside light cover",
+      "aliases": [
+        "inside light bulb cover",
+        "inside_light_cover",
+        "inside light cover",
+        "bulb cover"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": -1.4
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "inside_light_bulb",
+      "label": "Inside light bulb",
+      "aliases": [
+        "inside light bulb",
+        "inside_light_bulb",
+        "oven light",
+        "cavity light bulb",
+        "interior light"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 3.4,
+        "lift": 0.07
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "power_plug",
+      "label": "Power plug",
+      "aliases": [
+        "power cord and plug",
+        "power_cord_and_plug",
+        "plug",
+        "power cord",
+        "outlet",
+        "breaker"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.07
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        -0.45,
+        0.05,
+        1
+      ]
+    }
+  ]
 }

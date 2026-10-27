@@ -233,6 +233,53 @@
           ],
           "step": 4
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "microwave_door",
+            "action": "close",
+            "caption": "Close door until it clicks"
+          }
+        ],
+        [
+          {
+            "part": "microwave_door",
+            "action": "open",
+            "caption": "Open microwave door"
+          },
+          {
+            "part": "microwave_door",
+            "action": "close",
+            "caption": "Close door firmly"
+          }
+        ],
+        [
+          {
+            "part": "touch_control_panel",
+            "action": "look",
+            "caption": "Look at control panel"
+          },
+          {
+            "part": "cancel_button",
+            "action": "press",
+            "caption": "Hold Cancel three seconds"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "look",
+            "caption": "Look at power plug"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press Start button"
+          }
+        ]
       ]
     },
     {
@@ -380,6 +427,73 @@
           ],
           "step": 4
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "cancel_button",
+            "action": "press",
+            "caption": "Press Cancel to stop"
+          }
+        ],
+        [
+          {
+            "part": "microwave_door",
+            "action": "open",
+            "caption": "Open microwave door"
+          },
+          {
+            "part": "microwave_cavity",
+            "action": "look",
+            "caption": "Look for metal inside"
+          }
+        ],
+        [
+          {
+            "part": "cavity_splatter",
+            "action": "clean",
+            "caption": "Wipe away food splatter"
+          },
+          {
+            "part": "microwave_cavity",
+            "action": "clean",
+            "caption": "Wipe inside walls clean"
+          },
+          {
+            "part": "waveguide_cover",
+            "action": "clean",
+            "caption": "Wipe wall cover gently"
+          }
+        ],
+        [
+          {
+            "part": "door_seal_grime",
+            "action": "clean",
+            "caption": "Clean grime from door"
+          },
+          {
+            "part": "door_seal_area",
+            "action": "clean",
+            "caption": "Wipe door frame clean"
+          }
+        ],
+        [
+          {
+            "part": "microwave_door",
+            "action": "close",
+            "caption": "Close microwave door"
+          },
+          {
+            "part": "number_pad",
+            "action": "press",
+            "caption": "Set heating time"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press Start to heat"
+          }
+        ]
       ]
     },
     {
@@ -576,6 +690,117 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "cancel_button",
+            "action": "press",
+            "caption": "Press Cancel to stop"
+          },
+          {
+            "part": "vent_fan_button",
+            "action": "press",
+            "caption": "Press Vent Fan off"
+          }
+        ],
+        [
+          {
+            "part": "grease_filters",
+            "action": "look",
+            "caption": "Look under the microwave"
+          },
+          {
+            "part": "grease_filters",
+            "action": "remove",
+            "caption": "Slide filters from tabs"
+          }
+        ],
+        [
+          {
+            "part": "grease_filter_grease",
+            "action": "clean",
+            "caption": "Wash grease away"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Unplug microwave for safety"
+          },
+          {
+            "part": "vent_grille_screws",
+            "action": "look",
+            "caption": "Look at grille screws"
+          },
+          {
+            "part": "vent_grille_screws",
+            "action": "remove",
+            "caption": "Remove both grille screws"
+          },
+          {
+            "part": "vent_grille_tilt",
+            "action": "open",
+            "caption": "Tilt grille forward"
+          },
+          {
+            "part": "vent_grille_lift",
+            "action": "remove",
+            "caption": "Lift grille out"
+          }
+        ],
+        [
+          {
+            "part": "charcoal_filter",
+            "action": "look",
+            "caption": "Look at charcoal filter"
+          },
+          {
+            "part": "charcoal_filter",
+            "action": "remove",
+            "caption": "Pull old filter out"
+          },
+          {
+            "part": "charcoal_filter",
+            "action": "insert",
+            "caption": "Insert new filter flat"
+          }
+        ],
+        [
+          {
+            "part": "vent_grille_lift",
+            "action": "insert",
+            "caption": "Place grille into hooks"
+          },
+          {
+            "part": "vent_grille_tilt",
+            "action": "close",
+            "caption": "Tilt grille back"
+          },
+          {
+            "part": "vent_grille_screws",
+            "action": "insert",
+            "caption": "Tighten both grille screws"
+          },
+          {
+            "part": "power_plug",
+            "action": "insert",
+            "caption": "Plug microwave back in"
+          }
+        ],
+        [
+          {
+            "part": "grease_filters",
+            "action": "look",
+            "caption": "Look at filter openings"
+          },
+          {
+            "part": "grease_filters",
+            "action": "insert",
+            "caption": "Slide filters until seated"
+          }
+        ]
       ]
     },
     {
@@ -766,6 +991,87 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Unplug microwave power cord"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_light_cover",
+            "action": "look",
+            "caption": "Find light cover underneath"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_light_screw",
+            "action": "remove",
+            "caption": "Remove cover screw"
+          },
+          {
+            "part": "cooktop_light_cover",
+            "action": "open",
+            "caption": "Open light cover"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_light_bulb",
+            "action": "unlock",
+            "caption": "Twist old bulb loose"
+          },
+          {
+            "part": "cooktop_light_bulb",
+            "action": "remove",
+            "caption": "Remove old bulb"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_light_bulb",
+            "action": "insert",
+            "caption": "Insert new bulb"
+          },
+          {
+            "part": "cooktop_light_bulb",
+            "action": "lock",
+            "caption": "Tighten new bulb gently"
+          }
+        ],
+        [
+          {
+            "part": "cooktop_light_cover",
+            "action": "close",
+            "caption": "Close light cover"
+          },
+          {
+            "part": "cooktop_light_screw",
+            "action": "insert",
+            "caption": "Insert cover screw"
+          },
+          {
+            "part": "cooktop_light_screw",
+            "action": "lock",
+            "caption": "Tighten cover screw"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "insert",
+            "caption": "Plug microwave back in"
+          },
+          {
+            "part": "light_button",
+            "action": "press",
+            "caption": "Press light to test"
+          }
+        ]
       ]
     },
     {
@@ -941,6 +1247,54 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "microwave_door",
+            "action": "open",
+            "caption": "Open microwave door"
+          },
+          {
+            "part": "turntable_plate",
+            "action": "remove",
+            "caption": "Lift out glass plate"
+          }
+        ],
+        [
+          {
+            "part": "turntable_ring",
+            "action": "remove",
+            "caption": "Lift out support ring"
+          }
+        ],
+        [
+          {
+            "part": "cavity_crumbs",
+            "action": "clean",
+            "caption": "Wipe floor crumbs clean"
+          }
+        ],
+        [
+          {
+            "part": "turntable_ring",
+            "action": "insert",
+            "caption": "Set ring in groove"
+          }
+        ],
+        [
+          {
+            "part": "turntable_plate",
+            "action": "insert",
+            "caption": "Set glass plate centered"
+          },
+          {
+            "part": "microwave_door",
+            "action": "close",
+            "caption": "Close microwave door"
+          }
+        ],
+        []
       ]
     },
     {
@@ -1035,6 +1389,27 @@
           ],
           "step": 2
         }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "touch_control_panel",
+            "action": "look",
+            "caption": "Look at control panel"
+          },
+          {
+            "part": "clock_button",
+            "action": "press",
+            "caption": "Press Clock button"
+          },
+          {
+            "part": "number_pad",
+            "action": "press",
+            "caption": "Enter correct time"
+          }
+        ],
+        []
       ]
     },
     {
@@ -1208,6 +1583,64 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "vent_grille_screws",
+            "action": "remove",
+            "caption": "Loosen two grille screws"
+          }
+        ],
+        [
+          {
+            "part": "vent_grille_tilt",
+            "action": "open",
+            "caption": "Tilt grille forward"
+          },
+          {
+            "part": "vent_grille_lift",
+            "action": "remove",
+            "caption": "Lift grille out"
+          }
+        ],
+        [
+          {
+            "part": "inside_light_cover",
+            "action": "open",
+            "caption": "Open inside light cover"
+          }
+        ],
+        [
+          {
+            "part": "inside_light_bulb",
+            "action": "remove",
+            "caption": "Remove old inside bulb"
+          },
+          {
+            "part": "inside_light_bulb",
+            "action": "insert",
+            "caption": "Insert new inside bulb"
+          }
+        ],
+        [
+          {
+            "part": "inside_light_cover",
+            "action": "close",
+            "caption": "Close inside light cover"
+          },
+          {
+            "part": "vent_grille_lift",
+            "action": "insert",
+            "caption": "Place grille back"
+          },
+          {
+            "part": "vent_grille_screws",
+            "action": "insert",
+            "caption": "Tighten two grille screws"
+          }
+        ]
       ]
     }
   ],
@@ -1588,5 +2021,6 @@
         ]
       }
     ]
-  }
+  },
+  "rig_id": "microwave_otr"
 }

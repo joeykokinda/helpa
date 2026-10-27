@@ -261,6 +261,52 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Open the lid"
+          },
+          {
+            "part": "laundry",
+            "action": "look",
+            "caption": "Move clothes from edge"
+          },
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close lid until clicks"
+          }
+        ],
+        [
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press and hold Start"
+          }
+        ],
+        [],
+        [],
+        [],
+        [
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close the lid"
+          },
+          {
+            "part": "power_button",
+            "action": "press",
+            "caption": "Press Power button"
+          },
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press and hold Start"
+          }
+        ]
       ]
     },
     {
@@ -423,6 +469,65 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "drain_hose",
+            "action": "look",
+            "caption": "Look at drain hose"
+          }
+        ],
+        [
+          {
+            "part": "drain_hose",
+            "action": "look",
+            "caption": "Check hose for kinks"
+          }
+        ],
+        [
+          {
+            "part": "drain_hose",
+            "action": "insert",
+            "caption": "Push hose four inches"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Open washer lid"
+          },
+          {
+            "part": "laundry",
+            "action": "clean",
+            "caption": "Spread clothes evenly"
+          },
+          {
+            "part": "wash_basket",
+            "action": "look",
+            "caption": "Check clothes are even"
+          }
+        ],
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn to Drain Spin"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close washer lid"
+          },
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press and hold Start"
+          }
+        ]
       ]
     },
     {
@@ -588,6 +693,70 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press Pause button"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Open washer lid"
+          },
+          {
+            "part": "laundry",
+            "action": "clean",
+            "caption": "Spread clothes evenly"
+          }
+        ],
+        [
+          {
+            "part": "laundry_extra",
+            "action": "remove",
+            "caption": "Remove few bulky items"
+          }
+        ],
+        [
+          {
+            "part": "leveling_feet",
+            "action": "look",
+            "caption": "Check washer for rocking"
+          }
+        ],
+        [
+          {
+            "part": "leveling_feet",
+            "action": "turn",
+            "caption": "Twist wobbly foot down"
+          },
+          {
+            "part": "foot_lock_nut",
+            "action": "turn",
+            "caption": "Tighten foot lock nut"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close washer lid"
+          },
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn to Rinse Spin"
+          },
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press Start button"
+          }
+        ]
       ]
     },
     {
@@ -777,6 +946,81 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "hot_water_tap",
+            "action": "open",
+            "caption": "Open hot water tap"
+          },
+          {
+            "part": "cold_water_tap",
+            "action": "open",
+            "caption": "Open cold water tap"
+          }
+        ],
+        [
+          {
+            "part": "water_inlet_hoses",
+            "action": "look",
+            "caption": "Inspect hoses for kinks"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "inlet_hose_coupling",
+            "action": "unlock",
+            "caption": "Loosen hose coupling"
+          },
+          {
+            "part": "inlet_hose_coupling",
+            "action": "remove",
+            "caption": "Remove hose from washer"
+          }
+        ],
+        [
+          {
+            "part": "inlet_valve_screens",
+            "action": "look",
+            "caption": "Look at inlet screen"
+          },
+          {
+            "part": "inlet_screen_debris",
+            "action": "clean",
+            "caption": "Brush grit from screen"
+          }
+        ],
+        [
+          {
+            "part": "inlet_hose_coupling",
+            "action": "insert",
+            "caption": "Place hose onto inlet"
+          },
+          {
+            "part": "inlet_hose_coupling",
+            "action": "lock",
+            "caption": "Tighten hose coupling snug"
+          }
+        ],
+        [
+          {
+            "part": "hot_water_tap",
+            "action": "open",
+            "caption": "Open hot water tap"
+          },
+          {
+            "part": "cold_water_tap",
+            "action": "open",
+            "caption": "Open cold water tap"
+          },
+          {
+            "part": "inlet_hose_coupling",
+            "action": "look",
+            "caption": "Check connection stays dry"
+          }
+        ]
       ]
     },
     {
@@ -957,6 +1201,65 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press Pause button"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Lift lid open"
+          },
+          {
+            "part": "laundry",
+            "action": "look",
+            "caption": "Check clothes under lid"
+          },
+          {
+            "part": "laundry_extra",
+            "action": "clean",
+            "caption": "Push blanket down"
+          }
+        ],
+        [
+          {
+            "part": "lid_lock_crust",
+            "action": "look",
+            "caption": "Look at lid lock"
+          },
+          {
+            "part": "lid_lock_crust",
+            "action": "clean",
+            "caption": "Wipe crust from lock"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close lid gently"
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press Start three seconds"
+          },
+          {
+            "part": "lid_lock",
+            "action": "look",
+            "caption": "Check lid locks"
+          }
+        ]
       ]
     },
     {
@@ -1140,6 +1443,92 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Open washer lid"
+          },
+          {
+            "part": "laundry",
+            "action": "remove",
+            "caption": "Lift all clothes out"
+          },
+          {
+            "part": "removable_agitator",
+            "action": "look",
+            "caption": "Check around center post"
+          },
+          {
+            "part": "wash_basket",
+            "action": "look",
+            "caption": "Check empty tub bottom"
+          }
+        ],
+        [
+          {
+            "part": "wash_basket",
+            "action": "look",
+            "caption": "Tablet in empty tub"
+          }
+        ],
+        [
+          {
+            "part": "bleach_dispenser_cup",
+            "action": "look",
+            "caption": "Look at bleach cup"
+          },
+          {
+            "part": "dispenser_gunk",
+            "action": "clean",
+            "caption": "Wipe bleach cup clean"
+          },
+          {
+            "part": "lid_lock_crust",
+            "action": "clean",
+            "caption": "Wipe lid rim clean"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close lid firmly"
+          },
+          {
+            "part": "lid_lock",
+            "action": "look",
+            "caption": "Check lid clicked shut"
+          }
+        ],
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn to Clean Washer"
+          }
+        ],
+        [
+          {
+            "part": "start_pause_button",
+            "action": "press",
+            "caption": "Press and hold Start"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Open lid fully"
+          },
+          {
+            "part": "wash_basket",
+            "action": "look",
+            "caption": "Let tub air dry"
+          }
+        ]
       ]
     }
   ],
@@ -1586,5 +1975,6 @@
         ]
       }
     ]
-  }
+  },
+  "rig_id": "washer_top_load"
 }

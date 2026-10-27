@@ -269,6 +269,97 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "power_button",
+            "action": "press",
+            "caption": "Press power button off"
+          },
+          {
+            "part": "power_cord",
+            "action": "remove",
+            "caption": "Unplug power cord"
+          }
+        ],
+        [
+          {
+            "part": "filter_access_door",
+            "action": "look",
+            "caption": "Look at bottom flap"
+          }
+        ],
+        [
+          {
+            "part": "filter_access_door",
+            "action": "open",
+            "caption": "Open bottom filter flap"
+          },
+          {
+            "part": "small_drain_hose",
+            "action": "remove",
+            "caption": "Pull out drain hose"
+          },
+          {
+            "part": "drain_hose_cap",
+            "action": "remove",
+            "caption": "Remove hose cap"
+          },
+          {
+            "part": "drain_hose_cap",
+            "action": "insert",
+            "caption": "Replace hose cap"
+          }
+        ],
+        [
+          {
+            "part": "drain_filter_handle",
+            "action": "unlock",
+            "caption": "Twist filter left"
+          },
+          {
+            "part": "drain_pump_filter",
+            "action": "remove",
+            "caption": "Lift filter out"
+          }
+        ],
+        [
+          {
+            "part": "filter_debris",
+            "action": "clean",
+            "caption": "Remove lint and debris"
+          }
+        ],
+        [
+          {
+            "part": "drain_pump_filter",
+            "action": "insert",
+            "caption": "Push filter fully in"
+          },
+          {
+            "part": "drain_filter_handle",
+            "action": "lock",
+            "caption": "Lock handle upright"
+          },
+          {
+            "part": "small_drain_hose",
+            "action": "insert",
+            "caption": "Push drain hose back"
+          },
+          {
+            "part": "filter_access_door",
+            "action": "close",
+            "caption": "Close bottom flap"
+          }
+        ],
+        [
+          {
+            "part": "main_drain_hose",
+            "action": "look",
+            "caption": "Look at drain hose"
+          }
+        ]
       ]
     },
     {
@@ -447,6 +538,87 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Open the washer door"
+          },
+          {
+            "part": "laundry",
+            "action": "remove",
+            "caption": "Remove all clothes"
+          },
+          {
+            "part": "seal_items",
+            "action": "look",
+            "caption": "Check seal folds"
+          },
+          {
+            "part": "washer_drum",
+            "action": "look",
+            "caption": "Check drum is empty"
+          }
+        ],
+        [
+          {
+            "part": "washer_drum",
+            "action": "look",
+            "caption": "Place tablet in drum"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "close",
+            "caption": "Close door firmly"
+          }
+        ],
+        [
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn to Clean Washer"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press and hold start"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Open the washer door"
+          },
+          {
+            "part": "door_seal",
+            "action": "look",
+            "caption": "Check seal folds"
+          },
+          {
+            "part": "seal_items",
+            "action": "remove",
+            "caption": "Remove trapped items"
+          },
+          {
+            "part": "seal_grime",
+            "action": "clean",
+            "caption": "Wipe seal folds clean"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Leave door slightly open"
+          }
+        ]
       ]
     },
     {
@@ -629,6 +801,75 @@
           ],
           "step": 6
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "hot_water_tap",
+            "action": "close",
+            "caption": "Close hot water tap"
+          },
+          {
+            "part": "cold_water_tap",
+            "action": "close",
+            "caption": "Close cold water tap"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Open washer door"
+          },
+          {
+            "part": "seal_grime",
+            "action": "clean",
+            "caption": "Wipe door seal clean"
+          }
+        ],
+        [
+          {
+            "part": "seal_items",
+            "action": "look",
+            "caption": "Look inside seal folds"
+          },
+          {
+            "part": "seal_items",
+            "action": "remove",
+            "caption": "Remove items from seal"
+          },
+          {
+            "part": "washer_door",
+            "action": "close",
+            "caption": "Close washer door"
+          }
+        ],
+        [
+          {
+            "part": "detergent_drawer",
+            "action": "open",
+            "caption": "Open detergent drawer"
+          },
+          {
+            "part": "detergent_drawer",
+            "action": "remove",
+            "caption": "Pull drawer out"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "detergent_drawer",
+            "action": "insert",
+            "caption": "Slide drawer in"
+          },
+          {
+            "part": "detergent_drawer",
+            "action": "close",
+            "caption": "Close drawer fully"
+          }
+        ],
+        []
       ]
     },
     {
@@ -793,6 +1034,70 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Open the washer door"
+          },
+          {
+            "part": "laundry",
+            "action": "remove",
+            "caption": "Remove all the clothes"
+          },
+          {
+            "part": "washer_door",
+            "action": "close",
+            "caption": "Close the washer door"
+          }
+        ],
+        [
+          {
+            "part": "washer_top",
+            "action": "look",
+            "caption": "Push top corners gently"
+          }
+        ],
+        [
+          {
+            "part": "washer_top",
+            "action": "look",
+            "caption": "Check level across top"
+          }
+        ],
+        [
+          {
+            "part": "leveling_feet",
+            "action": "look",
+            "caption": "Find the low foot"
+          },
+          {
+            "part": "leveling_feet",
+            "action": "turn",
+            "caption": "Turn low foot level"
+          }
+        ],
+        [
+          {
+            "part": "foot_lock_nut",
+            "action": "turn",
+            "caption": "Tighten nut against washer"
+          }
+        ],
+        [
+          {
+            "part": "washer_top",
+            "action": "look",
+            "caption": "Rock washer to check"
+          },
+          {
+            "part": "leveling_feet",
+            "action": "look",
+            "caption": "Check feet sit firm"
+          }
+        ]
       ]
     },
     {
@@ -951,6 +1256,75 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Open washer door"
+          },
+          {
+            "part": "seal_items",
+            "action": "look",
+            "caption": "Check seal for clothes"
+          },
+          {
+            "part": "washer_door",
+            "action": "close",
+            "caption": "Push door until clicks"
+          }
+        ],
+        [
+          {
+            "part": "control_lock_button",
+            "action": "press",
+            "caption": "Hold lock button three seconds"
+          }
+        ],
+        [
+          {
+            "part": "hot_water_tap",
+            "action": "open",
+            "caption": "Turn hot tap fully open"
+          },
+          {
+            "part": "cold_water_tap",
+            "action": "open",
+            "caption": "Turn cold tap fully open"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Hold start three seconds"
+          }
+        ],
+        [
+          {
+            "part": "power_cord",
+            "action": "remove",
+            "caption": "Pull plug from outlet"
+          }
+        ],
+        [
+          {
+            "part": "power_cord",
+            "action": "insert",
+            "caption": "Push plug into outlet"
+          },
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to cycle"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Hold start to begin"
+          }
+        ]
       ]
     },
     {
@@ -1112,6 +1486,59 @@
           ],
           "step": 5
         }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "power_button",
+            "action": "press",
+            "caption": "Press power button once"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "hot_water_tap",
+            "action": "open",
+            "caption": "Open hot water tap"
+          },
+          {
+            "part": "cold_water_tap",
+            "action": "open",
+            "caption": "Open cold water tap"
+          }
+        ],
+        [
+          {
+            "part": "water_inlet_hoses",
+            "action": "look",
+            "caption": "Look at water hoses"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Gently open washer door"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "close",
+            "caption": "Close washer door"
+          },
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn to Drain and Spin"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press Start to run"
+          }
+        ]
       ]
     }
   ],
@@ -1602,5 +2029,6 @@
         ]
       }
     ]
-  }
+  },
+  "rig_id": "washer_front_load"
 }
