@@ -4,3 +4,4 @@ __pycache__/
 .env
 spike/sample.jpg
 backend/helpa
+spike/muse.*
