@@ -1,0 +1,1849 @@
+{
+  "id": "whirlpool-dishwasher",
+  "appliance": "built-in dishwasher",
+  "brand": "Whirlpool",
+  "model_family": "Whirlpool Plastic Tub Dishwasher (WDT730HAM series, Owner's Manual W11532445)",
+  "model_numbers": [
+    "WDT730HAMZ",
+    "WDP730HAMZ",
+    "WDT540HAMZ",
+    "WDP540HAMZ",
+    "WDP540HAMB",
+    "WDP560HAMW",
+    "WDP560HAMZ",
+    "WDP560HAMB"
+  ],
+  "sticker_location": "Open the door and look on the left side of the tub frame, on the rim around the inside opening.",
+  "manual_urls": [
+    "https://www.whirlpool.com/owners-center-pdp.WDT730HAMZ.html",
+    "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf"
+  ],
+  "parts": [
+    {
+      "id": "round_top_filter",
+      "label": "round top filter",
+      "where": "The small round screen in the floor of the tub, under the bottom rack."
+    },
+    {
+      "id": "flat_bottom_filter",
+      "label": "flat bottom filter",
+      "where": "The flat screen in the floor of the tub, under the round top filter."
+    },
+    {
+      "id": "bottom_of_tub",
+      "label": "bottom of the tub",
+      "where": "The floor inside the dishwasher, under the bottom rack."
+    },
+    {
+      "id": "bottom_spray_arm",
+      "label": "bottom spray arm",
+      "where": "The long flat arm in the floor of the tub, under the bottom rack."
+    },
+    {
+      "id": "middle_spray_arm",
+      "label": "middle spray arm",
+      "where": "The long flat arm fixed under the middle rack."
+    },
+    {
+      "id": "top_spray_arm",
+      "label": "top spray arm",
+      "where": "The small spray arm on the ceiling inside the tub."
+    },
+    {
+      "id": "bottom_rack",
+      "label": "bottom rack",
+      "where": "The large rolling rack at the bottom inside the door."
+    },
+    {
+      "id": "middle_rack",
+      "label": "middle rack",
+      "where": "The rolling rack in the middle, above the bottom rack."
+    },
+    {
+      "id": "top_small_rack",
+      "label": "top small rack",
+      "where": "The shallow rack at the very top, for long forks and knives."
+    },
+    {
+      "id": "fork_and_knife_basket",
+      "label": "fork and knife basket",
+      "where": "The basket with holes, in the bottom rack or on the door."
+    },
+    {
+      "id": "soap_cup",
+      "label": "soap cup",
+      "where": "The covered box on the inside of the door."
+    },
+    {
+      "id": "rinse_aid_holder",
+      "label": "rinse aid holder",
+      "where": "The round filler next to the soap cup, inside the door."
+    },
+    {
+      "id": "rubber_door_seal",
+      "label": "rubber door seal",
+      "where": "The soft rubber strip around the edge of the tub opening."
+    },
+    {
+      "id": "door_latch",
+      "label": "door latch",
+      "where": "The catch at the top middle of the door opening."
+    },
+    {
+      "id": "top_edge_buttons",
+      "label": "top edge buttons",
+      "where": "The buttons on the top edge of the door."
+    },
+    {
+      "id": "front_leveling_feet",
+      "label": "front leveling feet",
+      "where": "The small screw feet at the front corners, behind the bottom cover."
+    },
+    {
+      "id": "bottom_front_cover",
+      "label": "bottom front cover",
+      "where": "The panel across the bottom front, below the door."
+    },
+    {
+      "id": "sink_drain_cap",
+      "label": "sink drain cap",
+      "where": "The small metal or plastic cap on the sink, beside the tap, if fitted."
+    },
+    {
+      "id": "heating_ring",
+      "label": "heating ring",
+      "where": "The dark ring in the floor of the tub, around the filters."
+    },
+    {
+      "id": "door_vent",
+      "label": "door vent",
+      "where": "The small vent opening on the door, where steam comes out."
+    },
+    {
+      "id": "water_tap_under_sink",
+      "label": "water tap under sink",
+      "where": "The water tap under the sink, on the pipe going to the dishwasher."
+    }
+  ],
+  "problems": [
+    {
+      "id": "dishes_not_clean",
+      "symptoms": [
+        "Food is still stuck on my dishes",
+        "My dishes feel gritty after washing",
+        "The top rack dishes are still dirty"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "Dirty dishes often mean water cannot spin or flow freely. A blocked spray arm or a dirty floor filter is the usual cause.",
+        "tools": [
+          "soft brush",
+          "old toothbrush"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Let hot dishes and water cool before reaching inside.",
+          "Keep sharp knives pointing down in the basket."
+        ],
+        "steps": [
+          {
+            "instruction": "Spin the middle spray arm by hand",
+            "details": [
+              "It should turn all the way round.",
+              "Move any tall item that hits it."
+            ],
+            "target_part": "middle spray arm",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The arm turns in a full circle without hitting anything."
+          },
+          {
+            "instruction": "Twist the round top filter left and lift",
+            "details": [
+              "Turn it a quarter turn to the left.",
+              "Pull out the bottom rack first if needed."
+            ],
+            "target_part": "round top filter",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The round filter is out in your hand."
+          },
+          {
+            "instruction": "Rinse the flat bottom filter under water",
+            "details": [
+              "Lift the flat filter out too.",
+              "Use a soft brush on stuck food.",
+              "Do not use a hard scouring pad."
+            ],
+            "target_part": "flat bottom filter",
+            "photo": -1,
+            "motion": "rinse",
+            "show_3d": false,
+            "check": "You can see through the clean screen with no food on it."
+          },
+          {
+            "instruction": "Push the flat bottom filter down flat",
+            "details": [
+              "It should sit flat with no gaps.",
+              "Check no food is left under it."
+            ],
+            "target_part": "flat bottom filter",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The flat filter lies flat in the tub floor."
+          },
+          {
+            "instruction": "Twist the round top filter right",
+            "details": [
+              "Turn a quarter turn to the right.",
+              "It should not spin freely when locked."
+            ],
+            "target_part": "round top filter",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "The round filter stays put when you try to turn it."
+          },
+          {
+            "instruction": "Face dirty sides down and inward",
+            "details": [
+              "Leave space between plates and bowls.",
+              "Keep big pans off the spray arms."
+            ],
+            "target_part": "bottom rack",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "Dirty sides face the middle and nothing blocks the arms."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Spin middle arm freely",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "middle_spray_arm",
+            "middle_rack"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Twist filter left lift",
+          "distance": 5,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "round_top_filter",
+            "flat_bottom_filter"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Rinse flat filter clean",
+          "distance": 5,
+          "motion": "rinse",
+          "part_ids": [
+            "flat_bottom_filter"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Push flat filter flat",
+          "distance": 2,
+          "motion": "push_in",
+          "part_ids": [
+            "flat_bottom_filter",
+            "bottom_of_tub"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Twist filter right lock",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "round_top_filter",
+            "flat_bottom_filter"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Load dishes facing inward",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "bottom_rack",
+            "bottom_spray_arm"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "water_left_in_bottom",
+      "symptoms": [
+        "There is water in the bottom after washing",
+        "My dishwasher will not drain",
+        "Water sits over the filter"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "Water left behind often means food is blocking the floor filter or the sink drain. A little water around the filter can be normal.",
+        "tools": [
+          "cup",
+          "bucket",
+          "towel",
+          "soft brush"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn off power at the breaker before reaching in water near parts.",
+          "Do not pour drain cleaner into the dishwasher.",
+          "Mop up spills so you do not slip."
+        ],
+        "steps": [
+          {
+            "instruction": "Scoop water from bottom of the tub",
+            "details": [
+              "Use a cup and bucket.",
+              "Put towels on the floor first."
+            ],
+            "target_part": "bottom of the tub",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Most standing water is out of the tub floor."
+          },
+          {
+            "instruction": "Twist the round top filter left and lift",
+            "details": [
+              "Turn it a quarter turn to the left.",
+              "Lift out the flat filter too."
+            ],
+            "target_part": "round top filter",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "Both filters are out and you can see the tub floor."
+          },
+          {
+            "instruction": "Rinse the flat bottom filter under water",
+            "details": [
+              "Brush off food and grease gently.",
+              "Pick out seeds or glass below it carefully."
+            ],
+            "target_part": "flat bottom filter",
+            "photo": -1,
+            "motion": "rinse",
+            "show_3d": false,
+            "check": "The screen is clean and the hole below it is clear."
+          },
+          {
+            "instruction": "Pull food from the sink drain cap",
+            "details": [
+              "If you have this cap on your sink.",
+              "Lift the cap and clear food under it."
+            ],
+            "target_part": "sink drain cap",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The cap and the hole under it are clear of food."
+          },
+          {
+            "instruction": "Push the flat bottom filter down flat",
+            "details": [
+              "Seat it flat with no gaps."
+            ],
+            "target_part": "flat bottom filter",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The flat filter lies flat in the tub floor."
+          },
+          {
+            "instruction": "Twist the round top filter right",
+            "details": [
+              "Turn a quarter turn to the right.",
+              "It should lock and not spin freely."
+            ],
+            "target_part": "round top filter",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "The round filter is locked in place."
+          },
+          {
+            "instruction": "Press Start for a short rinse",
+            "details": [
+              "Close the door firmly first.",
+              "Listen for water draining into the sink."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "Water drains away and only a little remains by the filter."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Scoop standing water out",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "bottom_of_tub",
+            "tub"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Twist filter left lift out",
+          "distance": 5,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "round_top_filter",
+            "flat_bottom_filter",
+            "bottom_of_tub"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Rinse flat filter clean",
+          "distance": 10,
+          "motion": "rinse",
+          "part_ids": [
+            "flat_bottom_filter"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Lift cap clear food",
+          "distance": 8,
+          "motion": "lift",
+          "part_ids": [
+            "sink_drain_cap"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Seat flat filter flat",
+          "distance": 5,
+          "motion": "push_in",
+          "part_ids": [
+            "flat_bottom_filter",
+            "bottom_of_tub"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Twist filter right lock",
+          "distance": 5,
+          "motion": "twist_cw",
+          "part_ids": [
+            "round_top_filter",
+            "flat_bottom_filter"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Press Start run rinse",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons",
+            "door"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "dishes_still_wet",
+      "symptoms": [
+        "My dishes are wet at the end",
+        "Cups still have water on top",
+        "Plastic tubs never dry"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "Wet dishes are often due to empty rinse aid or cups that hold water. Plastic always dries slower than glass or plates.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Dishes may be hot at the end of a cycle.",
+          "Open the door slowly to let steam out."
+        ],
+        "steps": [
+          {
+            "instruction": "Twist the rinse aid holder cap open",
+            "details": [
+              "The holder is inside the door.",
+              "Turn the cap and lift it off."
+            ],
+            "target_part": "rinse aid holder",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The round filler hole inside the door is open."
+          },
+          {
+            "instruction": "Fill the rinse aid holder slowly",
+            "details": [
+              "Fill up to the full mark.",
+              "Wipe up any spills.",
+              "Put the cap back and lock it."
+            ],
+            "target_part": "rinse aid holder",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The holder looks full and the cap is locked."
+          },
+          {
+            "instruction": "Move plastic cups to top small rack",
+            "details": [
+              "Plastic dries best up high.",
+              "Keep plastic off the bottom rack."
+            ],
+            "target_part": "top small rack",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Plastic cups sit in the top rack, not the bottom."
+          },
+          {
+            "instruction": "Tilt glasses in the middle rack",
+            "details": [
+              "Lean glasses so water runs off.",
+              "Do not sit glasses flat over prongs."
+            ],
+            "target_part": "middle rack",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "Glasses lean at an angle with no pools on top."
+          },
+          {
+            "instruction": "Press Extended Dry on top edge",
+            "details": [
+              "Pick it before starting the wash.",
+              "Heat Dry also helps smaller loads."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The dry light you picked is lit on the door edge."
+          },
+          {
+            "instruction": "Close door and press Start",
+            "details": [
+              "Push the door until it clicks."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The wash starts and the buttons light up."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Open rinse aid cap",
+          "distance": 2.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "rinse_aid_holder",
+            "door"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Fill rinse aid holder",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "rinse_aid_holder"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Move plastics to top",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "top_small_rack",
+            "bottom_rack"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Tilt glasses to drain",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "middle_rack"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Press Extended Dry option",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons",
+            "door"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Close door press Start",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons",
+            "door"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "bad_smell",
+      "symptoms": [
+        "My dishwasher smells bad when opened",
+        "It smells like old food",
+        "The inside smells sour"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "Smells usually come from old food trapped in the filter or on the door seal. Cleaning both and running an empty wash usually clears it.",
+        "tools": [
+          "soft brush",
+          "soft cloth",
+          "measuring cup"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Let the tub cool before cleaning inside.",
+          "Only use cleaners made for dishwashers."
+        ],
+        "steps": [
+          {
+            "instruction": "Twist the round top filter left and lift",
+            "details": [
+              "Turn it a quarter turn to the left.",
+              "Lift out the flat filter too."
+            ],
+            "target_part": "round top filter",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "Both filters are out in your hand."
+          },
+          {
+            "instruction": "Rinse the flat bottom filter under water",
+            "details": [
+              "Brush off all trapped food.",
+              "Rinse the round filter too."
+            ],
+            "target_part": "flat bottom filter",
+            "photo": -1,
+            "motion": "rinse",
+            "show_3d": false,
+            "check": "Both screens look clean with no food stuck on them."
+          },
+          {
+            "instruction": "Twist the round top filter right",
+            "details": [
+              "Put the flat filter in flat first.",
+              "Lock the round filter with a quarter turn."
+            ],
+            "target_part": "round top filter",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "The round filter is locked and does not spin freely."
+          },
+          {
+            "instruction": "Wipe the rubber door seal all around",
+            "details": [
+              "Use a damp cloth with mild soap.",
+              "Wipe food out of the folds."
+            ],
+            "target_part": "rubber door seal",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The rubber strip looks clean all around the opening."
+          },
+          {
+            "instruction": "Place vinegar cup upright on bottom rack",
+            "details": [
+              "Put 2 cups white vinegar in cup.",
+              "Use a cup safe for dishwashers.",
+              "Take out all dishes and forks."
+            ],
+            "target_part": "bottom rack",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "A full vinegar cup stands upright on the empty bottom rack."
+          },
+          {
+            "instruction": "Run one empty wash without soap",
+            "details": [
+              "Do not add any soap.",
+              "Pick a normal wash cycle."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The empty wash finishes and the tub smells clean."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Twist filter left, lift out",
+          "distance": 10,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "round_top_filter",
+            "flat_bottom_filter"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Rinse filters clean under water",
+          "distance": 0,
+          "motion": "rinse",
+          "part_ids": [
+            "flat_bottom_filter",
+            "round_top_filter"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Replace filters, twist lock right",
+          "distance": 5,
+          "motion": "twist_cw",
+          "part_ids": [
+            "round_top_filter",
+            "flat_bottom_filter"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe door seal clean",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "rubber_door_seal"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Place vinegar cup on rack",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "bottom_rack"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Run empty wash cycle",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "leaking_from_door",
+      "symptoms": [
+        "Water leaks out of the door",
+        "There is a puddle in front",
+        "Water drips when I open it"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "Door leaks often come from food or a fork stuck in the seal, or too many soap suds. A torn rubber seal can also leak.",
+        "tools": [
+          "soft cloth",
+          "towel"
+        ],
+        "replacement_parts": [
+          "rubber door seal"
+        ],
+        "safety": [
+          "Turn off power and water if leaking is heavy.",
+          "Stop if you see suds pouring out.",
+          "Mop up water so you do not slip."
+        ],
+        "steps": [
+          {
+            "instruction": "Look along the rubber door seal",
+            "details": [
+              "Run your eye around the whole strip.",
+              "Look for food, forks, or tears."
+            ],
+            "target_part": "rubber door seal",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see the whole seal and anything stuck on it."
+          },
+          {
+            "instruction": "Wipe food off the rubber door seal",
+            "details": [
+              "Use a damp soft cloth.",
+              "Clear food from the bottom edge too."
+            ],
+            "target_part": "rubber door seal",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The seal is clean and sits flat with no tears."
+          },
+          {
+            "instruction": "Move items poking past the racks",
+            "details": [
+              "Check both racks for sticking-out items.",
+              "Nothing should touch the door seal."
+            ],
+            "target_part": "bottom rack",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "No item sticks out past the front of the racks."
+          },
+          {
+            "instruction": "Check the door vent for drips",
+            "details": [
+              "A few drops after opening can be steam water.",
+              "Steady dripping during washing is not normal."
+            ],
+            "target_part": "door vent",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The vent area is dry or has only a few drops."
+          },
+          {
+            "instruction": "Check front leveling feet touch floor",
+            "details": [
+              "Both front feet should sit flat.",
+              "If it rocks or leans, book a fitter."
+            ],
+            "target_part": "front leveling feet",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Both front feet rest flat and the tub does not rock."
+          },
+          {
+            "instruction": "Run a short wash and watch",
+            "details": [
+              "Use only dishwasher soap, never dish soap.",
+              "Watch the door edges for drips."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The wash runs with no drips at the door."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Inspect entire door seal",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "rubber_door_seal"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe seal clean",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "rubber_door_seal"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Push racks fully in",
+          "distance": 10,
+          "motion": "push_in",
+          "part_ids": [
+            "bottom_rack",
+            "middle_rack"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Check vent for drips",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "door_vent",
+            "door"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Check feet touch floor",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "front_leveling_feet",
+            "bottom_front_cover"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Press start to test",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons",
+            "door"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "will_not_start",
+      "symptoms": [
+        "Nothing happens when I press start",
+        "My dishwasher will not turn on",
+        "It stopped and will not go again"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "A dishwasher that will not start often has an unlatched door, locked buttons, or a delayed start. Power and water checks come next.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Do not force the door if it will not close.",
+          "If the breaker keeps tripping, stop and call for help."
+        ],
+        "steps": [
+          {
+            "instruction": "Push the door firmly until it clicks",
+            "details": [
+              "Push at the top middle of door.",
+              "It must latch before it can start."
+            ],
+            "target_part": "door latch",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The door stays shut and you heard a click."
+          },
+          {
+            "instruction": "Slide the bottom rack fully in",
+            "details": [
+              "A backwards rack can block the door.",
+              "Turn it round if the door will not shut."
+            ],
+            "target_part": "bottom rack",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The rack rolls fully in and the door closes easily."
+          },
+          {
+            "instruction": "Press the button beside lock light",
+            "details": [
+              "Do this only if the lock light glows.",
+              "The light should go out."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "No lock light shows on the top edge buttons."
+          },
+          {
+            "instruction": "Press Cancel once on top buttons",
+            "details": [
+              "This clears a delayed start too.",
+              "Wait a moment for lights to clear."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "Old cycle lights go out on the door edge."
+          },
+          {
+            "instruction": "Turn on the water tap fully",
+            "details": [
+              "The tap is under the sink.",
+              "Turn it until it stops opening."
+            ],
+            "target_part": "water tap under sink",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The under-sink tap is fully turned on."
+          },
+          {
+            "instruction": "Press Start on the top buttons",
+            "details": [
+              "Close the door within a few seconds.",
+              "Lights should come on right away."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The dishwasher starts filling and lights stay on."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Push door until clicks",
+          "distance": -5,
+          "motion": "push_in",
+          "part_ids": [
+            "door_latch",
+            "door"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Slide bottom rack in",
+          "distance": -10,
+          "motion": "push_in",
+          "part_ids": [
+            "bottom_rack"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Press button to unlock",
+          "distance": -1,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Press Cancel to clear",
+          "distance": -1,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Turn water tap on",
+          "distance": 2,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "water_tap_under_sink"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Press Start then close",
+          "distance": -1,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons",
+            "door"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "white_film_and_spots",
+      "symptoms": [
+        "Glasses look cloudy or white",
+        "There are white spots on dishes",
+        "A white film covers the inside"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "White film is usually hard water build-up inside the machine. Cleaning the filter, adding rinse aid, and a vinegar wash help clear it.",
+        "tools": [
+          "soft brush",
+          "measuring cup"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Do not use vinegar too often, it can damage parts.",
+          "Let the tub cool before cleaning inside."
+        ],
+        "steps": [
+          {
+            "instruction": "Twist the round top filter left and lift",
+            "details": [
+              "Turn it a quarter turn to the left.",
+              "Lift out the flat filter too."
+            ],
+            "target_part": "round top filter",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "Both filters are out in your hand."
+          },
+          {
+            "instruction": "Rinse the flat bottom filter under water",
+            "details": [
+              "Brush off white build-up gently.",
+              "Rinse the round filter too, then refit both."
+            ],
+            "target_part": "flat bottom filter",
+            "photo": -1,
+            "motion": "rinse",
+            "show_3d": false,
+            "check": "The screens look clean with no white crust on them."
+          },
+          {
+            "instruction": "Fill the rinse aid holder slowly",
+            "details": [
+              "Open the cap inside the door.",
+              "Fill to the full mark and lock cap."
+            ],
+            "target_part": "rinse aid holder",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The rinse aid holder looks full with the cap locked."
+          },
+          {
+            "instruction": "Place vinegar cup upright on bottom rack",
+            "details": [
+              "Put 2 cups white vinegar in cup.",
+              "Take out all dishes first."
+            ],
+            "target_part": "bottom rack",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "A vinegar cup stands upright on the empty bottom rack."
+          },
+          {
+            "instruction": "Run one empty wash without soap",
+            "details": [
+              "Do not add any soap.",
+              "Pick a normal wash cycle."
+            ],
+            "target_part": "top edge buttons",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The empty wash finishes and white film looks lighter."
+          },
+          {
+            "instruction": "Put one tablet in soap cup",
+            "details": [
+              "Use dishwasher tablets, not dish soap.",
+              "Close the soap cup lid for next wash."
+            ],
+            "target_part": "soap cup",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "One tablet sits in the soap cup with the lid shut."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Twist top filter left lift",
+          "distance": 5.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "round_top_filter",
+            "flat_bottom_filter"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Rinse filters clean under water",
+          "distance": 10.0,
+          "motion": "rinse",
+          "part_ids": [
+            "flat_bottom_filter",
+            "round_top_filter"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Fill rinse aid to full",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "rinse_aid_holder",
+            "door"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Place vinegar cup on rack",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "bottom_rack",
+            "door"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Run empty normal wash cycle",
+          "distance": 1.0,
+          "motion": "press",
+          "part_ids": [
+            "top_edge_buttons"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Place tablet close lid",
+          "distance": 2.0,
+          "motion": "push_in",
+          "part_ids": [
+            "soap_cup",
+            "door"
+          ],
+          "step": 5
+        }
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#d7dde2",
+        "id": "cabinet",
+        "label": "cabinet",
+        "opacity": 0.16,
+        "position": [
+          0,
+          43,
+          -2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          60,
+          87,
+          58
+        ]
+      },
+      {
+        "color": "#eef3f5",
+        "id": "tub",
+        "label": "stainless tub",
+        "opacity": 0.28,
+        "position": [
+          0,
+          49,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          54,
+          68,
+          52
+        ]
+      },
+      {
+        "color": "#f4f6f7",
+        "id": "door",
+        "label": "door - open",
+        "opacity": 0.9,
+        "position": [
+          0,
+          14,
+          58
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          59,
+          64,
+          3
+        ]
+      },
+      {
+        "color": "#bfc7cc",
+        "id": "bottom_of_tub",
+        "label": "bottom of the tub",
+        "opacity": 1.0,
+        "position": [
+          0,
+          16,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          52,
+          2,
+          50
+        ]
+      },
+      {
+        "color": "#777f85",
+        "id": "flat_bottom_filter",
+        "label": "flat bottom filter",
+        "opacity": 0.95,
+        "position": [
+          0,
+          17.5,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          24,
+          1,
+          20
+        ]
+      },
+      {
+        "color": "#aeb8bd",
+        "id": "round_top_filter",
+        "label": "round top filter",
+        "opacity": 1.0,
+        "position": [
+          0,
+          19,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          13,
+          3,
+          13
+        ]
+      },
+      {
+        "color": "#3f464b",
+        "id": "heating_ring",
+        "label": "heating ring",
+        "opacity": 1.0,
+        "position": [
+          0,
+          17.5,
+          -1
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "torus",
+        "size": [
+          36,
+          3,
+          36
+        ]
+      },
+      {
+        "color": "#9da8ae",
+        "id": "bottom_spray_arm",
+        "label": "bottom spray arm",
+        "opacity": 1.0,
+        "position": [
+          0,
+          22,
+          -1
+        ],
+        "rotation": [
+          0,
+          15,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          46,
+          2,
+          8
+        ]
+      },
+      {
+        "color": "#9da8ae",
+        "id": "middle_spray_arm",
+        "label": "middle spray arm",
+        "opacity": 1.0,
+        "position": [
+          0,
+          40,
+          -1
+        ],
+        "rotation": [
+          0,
+          -20,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          44,
+          2,
+          7
+        ]
+      },
+      {
+        "color": "#9da8ae",
+        "id": "top_spray_arm",
+        "label": "top spray arm",
+        "opacity": 1.0,
+        "position": [
+          0,
+          80,
+          -1
+        ],
+        "rotation": [
+          0,
+          35,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          22,
+          2,
+          6
+        ]
+      },
+      {
+        "color": "#c9d1d6",
+        "id": "bottom_rack",
+        "label": "bottom rack",
+        "opacity": 0.55,
+        "position": [
+          0,
+          27,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          50,
+          10,
+          46
+        ]
+      },
+      {
+        "color": "#c9d1d6",
+        "id": "middle_rack",
+        "label": "middle rack",
+        "opacity": 0.55,
+        "position": [
+          0,
+          50,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          50,
+          10,
+          46
+        ]
+      },
+      {
+        "color": "#c9d1d6",
+        "id": "top_small_rack",
+        "label": "top small rack",
+        "opacity": 0.55,
+        "position": [
+          0,
+          71,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          48,
+          4,
+          42
+        ]
+      },
+      {
+        "color": "#8fb7c9",
+        "id": "fork_and_knife_basket",
+        "label": "fork and knife basket",
+        "opacity": 0.85,
+        "position": [
+          16,
+          30,
+          15
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          15,
+          15,
+          13
+        ]
+      },
+      {
+        "color": "#ffffff",
+        "id": "soap_cup",
+        "label": "soap cup",
+        "opacity": 1.0,
+        "position": [
+          -11,
+          16.5,
+          68
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          15,
+          3,
+          11
+        ]
+      },
+      {
+        "color": "#4a90c2",
+        "id": "rinse_aid_holder",
+        "label": "rinse aid holder",
+        "opacity": 1.0,
+        "position": [
+          9,
+          16.5,
+          68
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          9,
+          3.5,
+          9
+        ]
+      },
+      {
+        "color": "#25282a",
+        "id": "rubber_door_seal",
+        "label": "rubber door seal",
+        "opacity": 0.65,
+        "position": [
+          0,
+          49,
+          25.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          55,
+          70,
+          2
+        ]
+      },
+      {
+        "color": "#a8b0b5",
+        "id": "door_latch",
+        "label": "door latch",
+        "opacity": 1.0,
+        "position": [
+          0,
+          83,
+          26
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          9,
+          4,
+          4
+        ]
+      },
+      {
+        "color": "#222629",
+        "id": "top_edge_buttons",
+        "label": "top edge buttons",
+        "opacity": 1.0,
+        "position": [
+          0,
+          16,
+          88
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          38,
+          2.5,
+          6
+        ]
+      },
+      {
+        "color": "#34383b",
+        "id": "front_leveling_feet",
+        "label": "front leveling feet",
+        "opacity": 1.0,
+        "position": [
+          0,
+          2.5,
+          26
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          52,
+          5,
+          5
+        ]
+      },
+      {
+        "color": "#596066",
+        "id": "bottom_front_cover",
+        "label": "bottom front cover",
+        "opacity": 1.0,
+        "position": [
+          0,
+          9,
+          28.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          58,
+          12,
+          2
+        ]
+      },
+      {
+        "color": "#6b7277",
+        "id": "door_vent",
+        "label": "door vent",
+        "opacity": 1.0,
+        "position": [
+          19,
+          16,
+          79
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          11,
+          1.5,
+          6
+        ]
+      },
+      {
+        "color": "#c0c6ca",
+        "id": "sink_drain_cap",
+        "label": "sink drain cap",
+        "opacity": 1.0,
+        "position": [
+          48,
+          86,
+          8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          11,
+          3,
+          11
+        ]
+      },
+      {
+        "color": "#3f7fbf",
+        "id": "water_tap_under_sink",
+        "label": "water tap under sink",
+        "opacity": 1.0,
+        "position": [
+          46,
+          34,
+          -8
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ],
+        "shape": "cylinder",
+        "size": [
+          6,
+          14,
+          6
+        ]
+      }
+    ]
+  }
+}

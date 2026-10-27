@@ -1,0 +1,1760 @@
+{
+  "id": "whirlpool-electric-dryer",
+  "appliance": "electric dryer",
+  "brand": "Whirlpool",
+  "model_family": "Whirlpool 7.0 cu. ft. Top Load Electric Dryer with Moisture Sensor",
+  "model_numbers": [
+    "WED6150PW",
+    "WED6150PB",
+    "WED5010LW",
+    "WED5050LW"
+  ],
+  "sticker_location": "Open the dryer door and look on the rim around the door opening, inside the door pocket. The white or silver sticker there shows the model and serial numbers.",
+  "manual_urls": [
+    "https://www.whirlpool.com/content/dam/global/documents/202311/owners-manual-w11691173-revA.pdf",
+    "https://www.whirlpool.com/content/dam/global/documents/202306/quick-start-guide-w11423864-revD.pdf",
+    "https://www.whirlpool.com/content/dam/global/documents/202106/cycle-guide-w11423872-revc.pdf"
+  ],
+  "parts": [
+    {
+      "id": "lint_screen",
+      "label": "lint screen",
+      "where": "On top of the dryer, near the back. Pull it toward you to take it out."
+    },
+    {
+      "id": "lint_screen_slot",
+      "label": "lint screen slot",
+      "where": "The narrow opening on top of the dryer where the lint screen slides in."
+    },
+    {
+      "id": "cycle_knob",
+      "label": "cycle knob",
+      "where": "The big turning knob on the control panel at the top back of the dryer."
+    },
+    {
+      "id": "power_button",
+      "label": "power button",
+      "where": "On the control panel at the top back of the dryer. It turns the dryer on or off."
+    },
+    {
+      "id": "start_button",
+      "label": "start button",
+      "where": "On the control panel, marked Start/Pause. Press and hold it to start."
+    },
+    {
+      "id": "temperature_button",
+      "label": "temperature button",
+      "where": "On the control panel, marked Temp. It changes how hot the air gets."
+    },
+    {
+      "id": "options_button",
+      "label": "options button",
+      "where": "On the control panel, marked Options. It turns on extra help like Wrinkle Shield."
+    },
+    {
+      "id": "dryer_door",
+      "label": "dryer door",
+      "where": "The big door on the front of the dryer that opens to the round tub inside."
+    },
+    {
+      "id": "door_latch",
+      "label": "door latch",
+      "where": "The catch on the dryer door that clicks shut when you push the door closed."
+    },
+    {
+      "id": "dryer_drum",
+      "label": "dryer drum",
+      "where": "The big round tub inside the dryer where clothes tumble."
+    },
+    {
+      "id": "moisture_sensor_strips",
+      "label": "moisture sensor strips",
+      "where": "Two shiny metal strips just inside the drum, near the door opening. They feel how wet the clothes are."
+    },
+    {
+      "id": "drum_light_bulb",
+      "label": "drum light bulb",
+      "where": "Behind a small cover on the back wall inside the drum, seen when you open the door."
+    },
+    {
+      "id": "drying_rack",
+      "label": "drying rack",
+      "where": "A flat rack that sits still inside the drum for shoes or sweaters, if your dryer has one."
+    },
+    {
+      "id": "outside_vent_hood",
+      "label": "outside vent hood",
+      "where": "The flap on the outside wall of your home where warm air blows out."
+    },
+    {
+      "id": "vent_hose",
+      "label": "vent hose",
+      "where": "The wide silver tube behind the dryer that carries warm air to the outside."
+    },
+    {
+      "id": "leveling_feet",
+      "label": "leveling feet",
+      "where": "Four small feet at the bottom corners of the dryer that twist up or down."
+    },
+    {
+      "id": "power_plug",
+      "label": "power plug",
+      "where": "The big plug on the cord behind the dryer, in the wall outlet."
+    },
+    {
+      "id": "home_breaker_box",
+      "label": "home breaker box",
+      "where": "Your home's breaker box, often in the garage, basement, or a utility closet. This dryer uses two breakers."
+    },
+    {
+      "id": "water_inlet_hose",
+      "label": "water inlet hose",
+      "where": "On steam models, the water hose connected to the back of the dryer."
+    }
+  ],
+  "problems": [
+    {
+      "id": "clothes_still_damp_long_dry_time",
+      "symptoms": [
+        "My clothes are still damp after a full cycle",
+        "It takes two runs to dry towels",
+        "The dryer runs forever and clothes feel warm but wet"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED6150PW",
+        "appliance": "electric dryer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202311/owners-manual-w11691173-revA.pdf",
+        "diagnosis": "A blocked lint screen or blocked outside vent is the most common cause. Too many clothes in the drum can also stop air moving through the load.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Clean the lint screen before every load.",
+          "Do not run the dryer with the lint screen loose, damaged, or missing.",
+          "If the vent inside the wall needs cleaning, have a qualified vent cleaner do it."
+        ],
+        "steps": [
+          {
+            "instruction": "Pull the lint screen toward you",
+            "details": [
+              "It is on top of the dryer, near the back."
+            ],
+            "target_part": "lint screen",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The lint screen is fully out of its slot."
+          },
+          {
+            "instruction": "Roll lint off screen with fingers",
+            "details": [
+              "Do not wash it for this quick clean.",
+              "Wet lint is hard to remove."
+            ],
+            "target_part": "lint screen",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "You can see through the screen clearly."
+          },
+          {
+            "instruction": "Push lint screen firmly back in",
+            "details": [
+              "Push until it sits flat and snug."
+            ],
+            "target_part": "lint screen",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The screen sits flat in its slot."
+          },
+          {
+            "instruction": "Take out half the load",
+            "details": [
+              "Clothes need room to tumble.",
+              "Dry towels separately from light clothes."
+            ],
+            "target_part": "dryer drum",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The drum is only about half to three-quarters full."
+          },
+          {
+            "instruction": "Turn cycle knob to Normal",
+            "details": [
+              "Normal uses medium heat for mixed loads."
+            ],
+            "target_part": "cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The knob points to Normal."
+          },
+          {
+            "instruction": "Hold hand under outside vent hood",
+            "details": [
+              "Run the dryer 5 to 10 minutes first.",
+              "Air should feel strong, like a hair dryer on high."
+            ],
+            "target_part": "outside vent hood",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Strong warm air blows out and the flap opens."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Pull lint screen out",
+          "distance": 20.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "lint_screen",
+            "lint_screen_slot"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Roll lint off screen",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "lint_screen"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Push lint screen in",
+          "distance": 20.0,
+          "motion": "push_in",
+          "part_ids": [
+            "lint_screen",
+            "lint_screen_slot"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Remove half the load",
+          "distance": 30.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "dryer_drum",
+            "dryer_door"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Turn knob to Normal",
+          "distance": 3.0,
+          "motion": "twist_cw",
+          "part_ids": [
+            "cycle_knob",
+            "control_panel"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Check outside vent airflow",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "outside_vent_hood",
+            "vent_hose"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "dryer_will_not_start",
+      "symptoms": [
+        "I press start and nothing happens",
+        "The dryer won't turn on at all",
+        "It just beeps and won't go"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED6150PW",
+        "appliance": "electric dryer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/quick-start-guide-w11423864-revD.pdf",
+        "diagnosis": "Usually the door is not latched, no cycle is chosen, or the start button was only tapped. A tripped home breaker can also stop it.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Do not reach inside the dryer while the drum is moving.",
+          "If both breakers keep tripping, call an electrician."
+        ],
+        "steps": [
+          {
+            "instruction": "Push door firmly until it clicks",
+            "details": [
+              "Move any clothes blocking the latch."
+            ],
+            "target_part": "door latch",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The door stays shut when you let go."
+          },
+          {
+            "instruction": "Turn cycle knob to Normal",
+            "details": [
+              "The dryer will not start with no cycle chosen."
+            ],
+            "target_part": "cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The knob points to a drying cycle."
+          },
+          {
+            "instruction": "Press the power button once",
+            "details": [
+              "Look for lights on the control panel."
+            ],
+            "target_part": "power button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "Control panel lights turn on."
+          },
+          {
+            "instruction": "Hold start button for one second",
+            "details": [
+              "Hold until the status lights come on, then let go.",
+              "A quick tap may not start it."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The drum starts turning."
+          },
+          {
+            "instruction": "Check power plug is pushed in",
+            "details": [
+              "The plug is behind the dryer.",
+              "Do not pull the dryer out by its door."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The plug sits tight in the outlet."
+          },
+          {
+            "instruction": "Turn both dryer breakers off, then on",
+            "details": [
+              "This dryer uses two breakers.",
+              "They are in your home breaker box."
+            ],
+            "target_part": "home breaker box",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "Both breakers are switched fully on."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Push door until clicks shut",
+          "distance": 3,
+          "motion": "push_in",
+          "part_ids": [
+            "door_latch",
+            "dryer_door"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Turn knob to Normal cycle",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "cycle_knob",
+            "control_panel"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Press power button once",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "power_button",
+            "control_panel"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Hold start one second",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "start_button",
+            "control_panel"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Push power plug firmly in",
+          "distance": 3,
+          "motion": "push_in",
+          "part_ids": [
+            "power_plug",
+            "cabinet"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Reset both dryer breakers",
+          "distance": 2,
+          "motion": "press",
+          "part_ids": [
+            "home_breaker_box"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "dryer_tumbles_but_no_heat",
+      "symptoms": [
+        "The drum turns but the clothes stay cold",
+        "It runs but there's no heat at all",
+        "Clothes come out cold and wet"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED6150PW",
+        "appliance": "electric dryer",
+        "manual_url": "https://producthelp.whirlpool.com/Laundry/Dryers/Product_Info/Dryer_Product_Assistance/Dryer_is_Not_Heating",
+        "diagnosis": "The Air Only cycle makes no heat by design, so check that first. If a heated cycle is chosen, one of the two home breakers may have tripped.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Unplug the dryer before checking anything behind it.",
+          "If it still makes no heat on a heated cycle, book a service visit."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn cycle knob to Timed Dry",
+            "details": [
+              "Do not use Air Only. It never heats."
+            ],
+            "target_part": "cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The knob points to Timed Dry, not Air Only."
+          },
+          {
+            "instruction": "Press temperature button to Medium",
+            "details": [
+              "Medium is a safe heated choice for most clothes."
+            ],
+            "target_part": "temperature button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The Medium temperature light is on."
+          },
+          {
+            "instruction": "Hold start button for one second",
+            "details": [
+              "Let the empty dryer run for 5 minutes."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The dryer runs with the door closed."
+          },
+          {
+            "instruction": "Open door and feel inside drum",
+            "details": [
+              "Feel the air and the drum wall.",
+              "It should feel warm after 5 minutes."
+            ],
+            "target_part": "dryer drum",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The inside of the drum feels warm."
+          },
+          {
+            "instruction": "Turn both dryer breakers off, then on",
+            "details": [
+              "One breaker runs the drum, the other runs the heat.",
+              "Both must be on for heat."
+            ],
+            "target_part": "home breaker box",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "Both breakers are switched fully on."
+          },
+          {
+            "instruction": "Pull the lint screen toward you",
+            "details": [
+              "Clean it, then push it firmly back in.",
+              "A blocked screen can cause long, cool drying."
+            ],
+            "target_part": "lint screen",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The clean screen is back in place."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn knob to Timed Dry",
+          "distance": 2.0,
+          "motion": "twist_cw",
+          "part_ids": [
+            "cycle_knob",
+            "control_panel"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Press Temp to Medium",
+          "distance": -1.0,
+          "motion": "press",
+          "part_ids": [
+            "temperature_button",
+            "control_panel"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Press Start one second",
+          "distance": -1.0,
+          "motion": "press",
+          "part_ids": [
+            "start_button",
+            "control_panel"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Feel drum for warmth",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "dryer_drum",
+            "dryer_door"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Reset both dryer breakers",
+          "distance": 1.0,
+          "motion": "press",
+          "part_ids": [
+            "home_breaker_box"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Pull lint screen out",
+          "distance": 15.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "lint_screen",
+            "lint_screen_slot"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "dryer_stops_before_clothes_are_dry",
+      "symptoms": [
+        "It turns off and my clothes are still damp",
+        "The cycle ends way too early",
+        "Small loads never get dry"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED6150PW",
+        "appliance": "electric dryer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202106/cycle-guide-w11423872-revc.pdf",
+        "diagnosis": "Sensor cycles stop when the metal sensor strips think clothes are dry. Very small loads may not touch the strips, and dryer-sheet coating on the strips can fool them.",
+        "tools": [
+          "soft cloth"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Unplug the dryer before wiping inside the drum.",
+          "Do not use anything sharp on the sensor strips."
+        ],
+        "steps": [
+          {
+            "instruction": "Unplug the dryer power plug",
+            "details": [
+              "Pull the plug from the wall outlet."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The plug is out of the outlet."
+          },
+          {
+            "instruction": "Open door and find sensor strips",
+            "details": [
+              "Two shiny metal strips just inside the drum.",
+              "Look near the door opening."
+            ],
+            "target_part": "moisture sensor strips",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see two shiny metal strips."
+          },
+          {
+            "instruction": "Wipe sensor strips with soft cloth",
+            "details": [
+              "Use a dry or slightly damp soft cloth.",
+              "Wipe away any white or waxy coating."
+            ],
+            "target_part": "moisture sensor strips",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The strips look clean and shiny."
+          },
+          {
+            "instruction": "Plug the dryer back in",
+            "details": [
+              "Push the plug firmly into the outlet."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The plug sits tight in the outlet."
+          },
+          {
+            "instruction": "Turn cycle knob to Timed Dry",
+            "details": [
+              "Use Timed Dry for very small loads.",
+              "Small loads may not touch the sensor strips."
+            ],
+            "target_part": "cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The knob points to Timed Dry."
+          },
+          {
+            "instruction": "Hold start button for one second",
+            "details": [
+              "Check clothes when the cycle ends."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The dryer starts and keeps running."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Unplug dryer power plug",
+          "distance": 8,
+          "motion": "pull_out",
+          "part_ids": [
+            "power_plug"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Find sensor strips inside",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "moisture_sensor_strips",
+            "dryer_door",
+            "dryer_drum"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe strips clean with cloth",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "moisture_sensor_strips"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Plug dryer back in",
+          "distance": 8,
+          "motion": "push_in",
+          "part_ids": [
+            "power_plug"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Set knob to Timed Dry",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "cycle_knob",
+            "control_panel"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Press and hold Start",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_button",
+            "control_panel"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "thumping_banging_or_shaking",
+      "symptoms": [
+        "It thumps over and over",
+        "The dryer shakes and makes a banging noise",
+        "It's much louder than it used to be"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED6150PW",
+        "appliance": "electric dryer",
+        "manual_url": "https://producthelp.whirlpool.com/Laundry/Dryers/Dryer/Noise/Thumping_Sound_-_Dryer",
+        "diagnosis": "Sheets and blankets often roll into a tight ball that thumps as it tumbles. A dryer that is not level, or a missing foot, can also rock and knock.",
+        "tools": [
+          "level or phone level app"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Stop the dryer before reaching inside.",
+          "Ask another adult to help if the dryer must be moved."
+        ],
+        "steps": [
+          {
+            "instruction": "Press start button to pause dryer",
+            "details": [
+              "Wait until the drum stops turning."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The drum has stopped."
+          },
+          {
+            "instruction": "Open door and untangle the load",
+            "details": [
+              "Shake out sheets and blankets loosely.",
+              "Take out shoes. They thump loudly."
+            ],
+            "target_part": "dryer drum",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "Clothes are loose, not in a tight ball."
+          },
+          {
+            "instruction": "Push door firmly until it clicks",
+            "details": [
+              "Make sure no clothes block the latch."
+            ],
+            "target_part": "door latch",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The door stays shut."
+          },
+          {
+            "instruction": "Rock dryer gently corner to corner",
+            "details": [
+              "It should not wobble.",
+              "All four feet should touch the floor."
+            ],
+            "target_part": "leveling feet",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The dryer does not rock."
+          },
+          {
+            "instruction": "Twist the wobbly foot down",
+            "details": [
+              "Turn it until it touches the floor firmly.",
+              "Check front feet at the bottom front corners."
+            ],
+            "target_part": "leveling feet",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "All four feet touch the floor and the dryer is steady."
+          },
+          {
+            "instruction": "Hold start button for one second",
+            "details": [
+              "Listen for the first minute.",
+              "A light thump after long non-use should fade."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The dryer runs without steady thumping."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Press Start to pause",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_button"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Open door untangle load",
+          "distance": 20,
+          "motion": "pull_out",
+          "part_ids": [
+            "dryer_drum",
+            "dryer_door"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Push door until clicks",
+          "distance": 5,
+          "motion": "push_in",
+          "part_ids": [
+            "door_latch",
+            "dryer_door"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Check for rocking wobble",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "leveling_feet",
+            "cabinet"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Twist foot down steady",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "leveling_feet"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Hold Start to restart",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_button"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "drum_light_not_working",
+      "symptoms": [
+        "The light inside the dryer is out",
+        "It's dark inside the drum",
+        "The bulb inside doesn't come on"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED6150PW",
+        "appliance": "electric dryer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202311/owners-manual-w11691173-revA.pdf",
+        "diagnosis": "The small bulb inside the drum has likely burned out. The manual shows how to change it with a new 10 W appliance bulb.",
+        "tools": [
+          "1/4 inch nut driver or socket wrench",
+          "clean towel"
+        ],
+        "replacement_parts": [
+          "10 W appliance bulb"
+        ],
+        "safety": [
+          "Unplug the dryer before changing the bulb.",
+          "Let a hot old bulb cool before touching it.",
+          "Use a 10 W appliance bulb only."
+        ],
+        "steps": [
+          {
+            "instruction": "Unplug the dryer power plug",
+            "details": [
+              "Pull the plug from the wall outlet."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The plug is out of the outlet."
+          },
+          {
+            "instruction": "Open door and find light cover",
+            "details": [
+              "It is on the back wall inside the drum."
+            ],
+            "target_part": "drum light bulb",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see the small light cover."
+          },
+          {
+            "instruction": "Unscrew the light cover screw",
+            "details": [
+              "Use a 1/4 inch nut driver or socket wrench.",
+              "The screw is at the lower right of the cover."
+            ],
+            "target_part": "drum light bulb",
+            "photo": -1,
+            "motion": "unscrew",
+            "show_3d": true,
+            "check": "The cover comes off in your hand."
+          },
+          {
+            "instruction": "Twist old bulb left and out",
+            "details": [
+              "Twist counterclockwise gently.",
+              "If it is stuck, wait until it is fully cool."
+            ],
+            "target_part": "drum light bulb",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The old bulb is out."
+          },
+          {
+            "instruction": "Screw new bulb in gently",
+            "details": [
+              "Use a 10 W appliance bulb only.",
+              "Turn clockwise until snug. Do not force it."
+            ],
+            "target_part": "drum light bulb",
+            "photo": -1,
+            "motion": "screw_in",
+            "show_3d": true,
+            "check": "The new bulb sits firm and straight."
+          },
+          {
+            "instruction": "Screw light cover back on",
+            "details": [
+              "Put the cover back, then tighten its screw."
+            ],
+            "target_part": "drum light bulb",
+            "photo": -1,
+            "motion": "screw_in",
+            "show_3d": true,
+            "check": "The cover is secure."
+          },
+          {
+            "instruction": "Plug the dryer back in",
+            "details": [
+              "Open the door to check the light."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The drum light comes on when the door opens."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Unplug dryer power cord",
+          "distance": 10,
+          "motion": "pull_out",
+          "part_ids": [
+            "power_plug"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Locate drum light cover",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "drum_light_bulb",
+            "dryer_drum",
+            "dryer_door"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Unscrew light cover screw",
+          "distance": 2,
+          "motion": "unscrew",
+          "part_ids": [
+            "drum_light_bulb"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Twist old bulb out",
+          "distance": 3,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "drum_light_bulb"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Screw new bulb in",
+          "distance": 2,
+          "motion": "screw_in",
+          "part_ids": [
+            "drum_light_bulb"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Replace light cover securely",
+          "distance": 2,
+          "motion": "screw_in",
+          "part_ids": [
+            "drum_light_bulb"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "z",
+          "caption": "Plug dryer back in",
+          "distance": 10,
+          "motion": "push_in",
+          "part_ids": [
+            "power_plug"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "clothes_wrinkled_after_sitting",
+      "symptoms": [
+        "Clothes come out all wrinkled",
+        "I left a load sitting and now it's creased",
+        "Everything looks crushed when I open the door"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED6150PW",
+        "appliance": "electric dryer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/quick-start-guide-w11423864-revD.pdf",
+        "diagnosis": "Wrinkles set when a finished load sits still in a warm drum. The Wrinkle Shield option keeps tumbling the load, and Steam Refresh can relax wrinkles in dry clothes.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Do not dry items with foam, rubber, or plastic on a heated cycle.",
+          "Check clothing labels before using heat."
+        ],
+        "steps": [
+          {
+            "instruction": "Shake each item out by hand",
+            "details": [
+              "Give shirts and pants a good snap shake."
+            ],
+            "target_part": "dryer drum",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Clothes are loose and shaken out."
+          },
+          {
+            "instruction": "Turn cycle knob to Steam Refresh",
+            "details": [
+              "Use for dry, wrinkled clothes only.",
+              "Do not add dryer sheets."
+            ],
+            "target_part": "cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The knob points to Steam Refresh."
+          },
+          {
+            "instruction": "Press options button once",
+            "details": [
+              "One press turns on Wrinkle Shield.",
+              "It tumbles the load on and off after the cycle."
+            ],
+            "target_part": "options button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The Wrinkle Shield light is on."
+          },
+          {
+            "instruction": "Push door firmly until it clicks",
+            "details": [
+              "Make sure no clothes block the latch."
+            ],
+            "target_part": "door latch",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The door stays shut."
+          },
+          {
+            "instruction": "Hold start button for one second",
+            "details": [
+              "Hold until the status lights come on, then let go."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The dryer starts tumbling."
+          },
+          {
+            "instruction": "Take clothes out when cycle ends",
+            "details": [
+              "Hang or fold them right away.",
+              "This stops new wrinkles setting in."
+            ],
+            "target_part": "dryer door",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "Clothes are out and hung or folded."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Shake clothes loose in drum",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "dryer_drum",
+            "drying_rack"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Turn knob to Steam Refresh",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "cycle_knob",
+            "control_panel"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Press Wrinkle Shield on",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "options_button",
+            "control_panel"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Push door shut to click",
+          "distance": 3,
+          "motion": "push_in",
+          "part_ids": [
+            "door_latch",
+            "dryer_door"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Hold Start to begin",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_button",
+            "control_panel"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Remove clothes promptly",
+          "distance": 20,
+          "motion": "pull_out",
+          "part_ids": [
+            "dryer_door",
+            "dryer_drum"
+          ],
+          "step": 5
+        }
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#f4f6f7",
+        "id": "cabinet",
+        "label": "Cabinet (see-through shell)",
+        "opacity": 0.18,
+        "position": [
+          0,
+          52,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          74,
+          96,
+          68
+        ]
+      },
+      {
+        "color": "#eef1f3",
+        "id": "top",
+        "label": "Top panel (see-through)",
+        "opacity": 0.35,
+        "position": [
+          0,
+          101,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          74,
+          4,
+          68
+        ]
+      },
+      {
+        "color": "#e8ecee",
+        "id": "control_panel",
+        "label": "Control panel backsplash (see-through)",
+        "opacity": 0.45,
+        "position": [
+          0,
+          110,
+          -28
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          74,
+          18,
+          12
+        ]
+      },
+      {
+        "color": "#d7dde2",
+        "id": "lint_screen",
+        "label": "Lint screen",
+        "opacity": 1.0,
+        "position": [
+          20,
+          106,
+          3
+        ],
+        "rotation": [
+          -18,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          12,
+          0.8,
+          28
+        ]
+      },
+      {
+        "color": "#343a40",
+        "id": "lint_screen_slot",
+        "label": "Lint screen slot",
+        "opacity": 1.0,
+        "position": [
+          20,
+          103.5,
+          -16
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          14,
+          1,
+          22
+        ]
+      },
+      {
+        "color": "#24282c",
+        "id": "cycle_knob",
+        "label": "Cycle knob",
+        "opacity": 1.0,
+        "position": [
+          -22,
+          110,
+          -20
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          10,
+          5,
+          10
+        ]
+      },
+      {
+        "color": "#222629",
+        "id": "power_button",
+        "label": "Power button",
+        "opacity": 1.0,
+        "position": [
+          2,
+          110,
+          -21
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          4,
+          2,
+          4
+        ]
+      },
+      {
+        "color": "#1f7a6d",
+        "id": "start_button",
+        "label": "Start / Pause button",
+        "opacity": 1.0,
+        "position": [
+          28,
+          110,
+          -21
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          5.5,
+          2,
+          5.5
+        ]
+      },
+      {
+        "color": "#33383d",
+        "id": "temperature_button",
+        "label": "Temperature button (Temp)",
+        "opacity": 1.0,
+        "position": [
+          11,
+          110,
+          -21
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          3.5,
+          2,
+          3.5
+        ]
+      },
+      {
+        "color": "#33383d",
+        "id": "options_button",
+        "label": "Options button (Wrinkle Shield)",
+        "opacity": 1.0,
+        "position": [
+          19,
+          110,
+          -21
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          3.5,
+          2,
+          3.5
+        ]
+      },
+      {
+        "color": "#dfe6eb",
+        "id": "dryer_door",
+        "label": "Dryer door — open",
+        "opacity": 0.75,
+        "position": [
+          43,
+          58,
+          20
+        ],
+        "rotation": [
+          90,
+          0,
+          -55
+        ],
+        "shape": "cylinder",
+        "size": [
+          52,
+          4,
+          52
+        ]
+      },
+      {
+        "color": "#aeb8c0",
+        "id": "door_latch",
+        "label": "Door latch",
+        "opacity": 1.0,
+        "position": [
+          24,
+          58,
+          34
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          3,
+          6,
+          2
+        ]
+      },
+      {
+        "color": "#b9c4cc",
+        "id": "dryer_drum",
+        "label": "Dryer drum",
+        "opacity": 0.38,
+        "position": [
+          0,
+          58,
+          2
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          58,
+          52,
+          58
+        ]
+      },
+      {
+        "color": "#f2f7fb",
+        "id": "moisture_sensor_strips",
+        "label": "Moisture sensor strips (two shiny strips)",
+        "opacity": 1.0,
+        "position": [
+          0,
+          35,
+          29
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          12,
+          5,
+          1
+        ]
+      },
+      {
+        "color": "#ffd94d",
+        "id": "drum_light_bulb",
+        "label": "Drum light bulb",
+        "opacity": 1.0,
+        "position": [
+          14,
+          82,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "sphere",
+        "size": [
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "color": "#cfd8de",
+        "id": "drying_rack",
+        "label": "Drying rack (inside drum)",
+        "opacity": 0.9,
+        "position": [
+          0,
+          44,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          42,
+          2,
+          38
+        ]
+      },
+      {
+        "color": "#e3e7ea",
+        "id": "outside_vent_hood",
+        "label": "Outside vent hood",
+        "opacity": 1.0,
+        "position": [
+          38,
+          68,
+          -84
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          26,
+          20,
+          6
+        ]
+      },
+      {
+        "color": "#c9ced3",
+        "id": "vent_hose",
+        "label": "Vent hose (behind dryer)",
+        "opacity": 1.0,
+        "position": [
+          20,
+          48,
+          -60
+        ],
+        "rotation": [
+          25,
+          0,
+          12
+        ],
+        "shape": "cylinder",
+        "size": [
+          10,
+          48,
+          10
+        ]
+      },
+      {
+        "color": "#202428",
+        "id": "leveling_feet",
+        "label": "Leveling feet (at four bottom corners)",
+        "opacity": 1.0,
+        "position": [
+          0,
+          2,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          64,
+          4,
+          58
+        ]
+      },
+      {
+        "color": "#111417",
+        "id": "power_plug",
+        "label": "Power plug (behind dryer)",
+        "opacity": 1.0,
+        "position": [
+          -8,
+          32,
+          -52
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          7,
+          9,
+          5
+        ]
+      },
+      {
+        "color": "#969ea6",
+        "id": "home_breaker_box",
+        "label": "Home breaker box (two dryer breakers)",
+        "opacity": 1.0,
+        "position": [
+          92,
+          78,
+          -52
+        ],
+        "rotation": [
+          0,
+          -15,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          32,
+          56,
+          12
+        ]
+      },
+      {
+        "color": "#3a7bd5",
+        "id": "water_inlet_hose",
+        "label": "Water inlet hose — steam models (behind dryer)",
+        "opacity": 1.0,
+        "position": [
+          -24,
+          56,
+          -50
+        ],
+        "rotation": [
+          10,
+          0,
+          8
+        ],
+        "shape": "cylinder",
+        "size": [
+          2.5,
+          40,
+          2.5
+        ]
+      }
+    ]
+  }
+}

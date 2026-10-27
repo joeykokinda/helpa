@@ -1,0 +1,1592 @@
+{
+  "id": "whirlpool-otr-microwave",
+  "appliance": "over-the-range microwave",
+  "brand": "Whirlpool",
+  "model_family": "WMH31017H 1.7 cu. ft. Microwave Hood Combination with Electronic Touch Controls",
+  "model_numbers": [
+    "WMH31017HW",
+    "WMH31017HB",
+    "WMH31017HS",
+    "WMH31017HZ"
+  ],
+  "sticker_location": "Open the door and look on the front face of the microwave opening, behind the door. The model and serial sticker is there.",
+  "manual_urls": [
+    "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf"
+  ],
+  "parts": [
+    {
+      "id": "grease_filters",
+      "label": "grease filters",
+      "where": "Two flat metal screens on the underside of the microwave, above the cooktop."
+    },
+    {
+      "id": "charcoal_filter",
+      "label": "charcoal filter",
+      "where": "Hidden behind the vent grille at the top front of the microwave."
+    },
+    {
+      "id": "vent_grille",
+      "label": "vent grille",
+      "where": "The long strip across the top front of the microwave, above the door."
+    },
+    {
+      "id": "turntable_glass_plate",
+      "label": "round glass turntable plate",
+      "where": "The round glass plate sitting in the middle inside the microwave."
+    },
+    {
+      "id": "turntable_support_ring",
+      "label": "turntable support ring with wheels",
+      "where": "The ring with small wheels under the round glass plate inside."
+    },
+    {
+      "id": "microwave_cavity",
+      "label": "inside of the microwave",
+      "where": "The walls, floor and ceiling of the box where food goes."
+    },
+    {
+      "id": "flat_inside_wall_cover",
+      "label": "flat cover on the inside wall",
+      "where": "The flat panel on the inside wall of the microwave. Clean it gently, do not remove it."
+    },
+    {
+      "id": "microwave_door",
+      "label": "microwave door",
+      "where": "The large door on the front that opens to put food in."
+    },
+    {
+      "id": "door_seal_area",
+      "label": "door seal area",
+      "where": "The edge of the door and the frame it touches when the door closes."
+    },
+    {
+      "id": "touch_control_panel",
+      "label": "touch control panel",
+      "where": "The flat button panel to the right of the door on the front."
+    },
+    {
+      "id": "cooktop_light_cover",
+      "label": "cooktop light cover",
+      "where": "The small cover on the underside of the microwave, above the cooktop."
+    },
+    {
+      "id": "cooktop_light_bulb",
+      "label": "cooktop light bulb",
+      "where": "Under the small cover on the underside of the microwave."
+    },
+    {
+      "id": "inside_light_cover",
+      "label": "inside light bulb cover",
+      "where": "Behind the vent grille at the top front, over the inside light bulb."
+    },
+    {
+      "id": "inside_light_bulb",
+      "label": "inside light bulb",
+      "where": "Behind the vent grille at the top front of the microwave."
+    },
+    {
+      "id": "power_cord_and_plug",
+      "label": "power cord and plug",
+      "where": "The cord from the top of the microwave, usually plugged in inside the cabinet above it."
+    }
+  ],
+  "problems": [
+    {
+      "id": "microwave_will_not_start",
+      "symptoms": [
+        "It won't start at all",
+        "I press Start and nothing happens",
+        "The screen says door",
+        "Buttons beep but it won't cook"
+      ],
+      "plan": {
+        "appliance": "over-the-range microwave",
+        "brand": "Whirlpool",
+        "diagnosis": "The door may not be fully closed, or the controls may be locked. A power problem can also stop it starting.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "model_number": "WMH31017HZ",
+        "replacement_parts": [],
+        "safety": [
+          "Do not use the microwave if the door is bent or does not close properly.",
+          "Do not open the back or inside panels of the microwave.",
+          "If water does not heat after these checks, stop and call for service."
+        ],
+        "steps": [
+          {
+            "check": "The door is shut flat with no gaps.",
+            "details": [
+              "Push until you hear it click.",
+              "Remove any spacer stuck inside the door."
+            ],
+            "instruction": "Firmly close the microwave door until it clicks",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "microwave door"
+          },
+          {
+            "check": "The door has been opened and shut again.",
+            "details": [
+              "This clears a door message on the screen.",
+              "The message appears after the door sits closed too long."
+            ],
+            "instruction": "Open and close the door once again",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "microwave door"
+          },
+          {
+            "check": "The small padlock picture is gone from the screen.",
+            "details": [
+              "Hold Cancel for about 3 seconds.",
+              "Wait for two beeps."
+            ],
+            "instruction": "Hold Cancel for three seconds to unlock controls",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "touch control panel"
+          },
+          {
+            "check": "The plug feels tight and cannot wiggle loose.",
+            "details": [
+              "Look in the cabinet above the microwave.",
+              "Also check your home breaker has not tripped."
+            ],
+            "instruction": "Check the plug sits tight in its outlet",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "power cord and plug"
+          },
+          {
+            "check": "The water feels warm after two minutes.",
+            "details": [
+              "Use a microwave-safe cup with 1 cup cold water.",
+              "If it stays cold, call for service."
+            ],
+            "instruction": "Press Start and heat cup of water",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "touch control panel"
+          }
+        ],
+        "tools": [
+          "microwave-safe cup"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Firmly close door until clicks",
+          "distance": 8,
+          "motion": "push_in",
+          "part_ids": [
+            "microwave_door",
+            "door_seal_area"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Open then close door again",
+          "distance": 8,
+          "motion": "push_in",
+          "part_ids": [
+            "microwave_door",
+            "door_seal_area"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Hold Cancel three seconds",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Check plug sits tight",
+          "distance": 2,
+          "motion": "push_in",
+          "part_ids": [
+            "power_cord_and_plug",
+            "cabinet"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Press Start heat water",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel"
+          ],
+          "step": 4
+        }
+      ]
+    },
+    {
+      "id": "sparking_inside_microwave",
+      "symptoms": [
+        "I see sparks inside",
+        "There are blue flashes when it cooks",
+        "It crackles and flashes with some dishes"
+      ],
+      "plan": {
+        "appliance": "over-the-range microwave",
+        "brand": "Whirlpool",
+        "diagnosis": "Sparks are often caused by metal in the microwave or baked-on food splashes. Cleaning the inside and removing metal usually stops it.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "model_number": "WMH31017HZ",
+        "replacement_parts": [],
+        "safety": [
+          "Stop the microwave right away if you see sparks.",
+          "Do not put metal, foil liners, twist ties or gold-trim dishes inside.",
+          "If sparking continues after cleaning, stop using it and call for service."
+        ],
+        "steps": [
+          {
+            "check": "The microwave has stopped and the screen is clear.",
+            "details": [
+              "Press Cancel once.",
+              "Leave the door closed for a moment if food flared."
+            ],
+            "instruction": "Press Cancel and stop the microwave now",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "touch control panel"
+          },
+          {
+            "check": "No fork, foil or metal dish is left inside.",
+            "details": [
+              "Use oven mitts if the dish is hot.",
+              "Check for twist ties and foil wrappers too."
+            ],
+            "instruction": "Open door and remove any metal items",
+            "motion": "pull_out",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "microwave door"
+          },
+          {
+            "check": "The inside walls look clean with no baked-on splashes.",
+            "details": [
+              "Use mild soap, water and a soft cloth.",
+              "Never use rough pads or metal scrapers.",
+              "Wipe the flat cover gently, do not remove it."
+            ],
+            "instruction": "Wipe inside walls with soft soapy cloth",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "inside of the microwave"
+          },
+          {
+            "check": "The door edge and frame look clean and smooth.",
+            "details": [
+              "Wipe where the door touches the frame.",
+              "Old food here can cause sparks."
+            ],
+            "instruction": "Wipe the area where door meets frame",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "door seal area"
+          },
+          {
+            "check": "The water heats with no sparks or flashes.",
+            "details": [
+              "Use a microwave-safe cup.",
+              "Stay nearby and watch the test.",
+              "Stop at once if sparks return."
+            ],
+            "instruction": "Heat one cup water and watch carefully",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "touch control panel"
+          }
+        ],
+        "tools": [
+          "soft cloth",
+          "mild soap"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Press Cancel to stop",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Remove metal from cavity",
+          "distance": 15.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "microwave_door",
+            "microwave_cavity"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe cavity clean gently",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "microwave_cavity",
+            "flat_inside_wall_cover"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Clean door seal area",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "door_seal_area",
+            "microwave_door"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Heat water test safely",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel",
+            "microwave_cavity"
+          ],
+          "step": 4
+        }
+      ]
+    },
+    {
+      "id": "vent_not_pulling_smells",
+      "symptoms": [
+        "The fan doesn't pull smoke anymore",
+        "Cooking smells hang around the kitchen",
+        "Steam from pots isn't being cleared",
+        "The vent sounds on but does nothing"
+      ],
+      "plan": {
+        "appliance": "over-the-range microwave",
+        "brand": "Whirlpool",
+        "diagnosis": "The screens under the microwave are likely clogged with grease. The hidden charcoal filter may also be old and full.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "model_number": "WMH31017HZ",
+        "replacement_parts": [
+          "charcoal filter",
+          "grease filters"
+        ],
+        "safety": [
+          "Make sure all controls are off and the microwave is cool first.",
+          "Do not keep using the fan with the filters taken out.",
+          "Unplug the microwave before removing the vent grille screws."
+        ],
+        "steps": [
+          {
+            "check": "The fan and lights are off and the underside feels cool.",
+            "details": [
+              "Press Cancel and turn the fan off.",
+              "Wait until the cooktop below is cool too."
+            ],
+            "instruction": "Turn off microwave and let it cool",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "touch control panel"
+          },
+          {
+            "check": "Both grease filters are out in your hands.",
+            "details": [
+              "They are on the underside, above the cooktop.",
+              "Slide away from the small tab, then let them drop down."
+            ],
+            "instruction": "Slide grease filters away from their tabs",
+            "motion": "pull_out",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "grease filters"
+          },
+          {
+            "check": "The filters look clean and are fully dry.",
+            "details": [
+              "Use warm water with mild soap.",
+              "The manual also allows the dishwasher.",
+              "Let them dry fully before putting them back."
+            ],
+            "instruction": "Wash grease filters in warm soapy water",
+            "motion": "rinse",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "grease filters"
+          },
+          {
+            "check": "The vent grille is off and set aside safely.",
+            "details": [
+              "Remove the 2 screws on the grille.",
+              "Slide it left, tilt it forward, then lift it out.",
+              "Keep the screws in a safe cup."
+            ],
+            "instruction": "Unscrew and lift off the top vent grille",
+            "motion": "unscrew",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "vent grille"
+          },
+          {
+            "check": "The new charcoal filter sits flat in its hooks.",
+            "details": [
+              "The old one cannot be washed, replace it about every 6 months.",
+              "Put the wire mesh side facing the front."
+            ],
+            "instruction": "Swap old charcoal filter for a new one",
+            "motion": "pull_out",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "charcoal filter"
+          },
+          {
+            "check": "The grille sits flat and both screws are tight.",
+            "details": [
+              "Push the bottom hooks into their holes first.",
+              "Tilt it back, slide right, then add screws."
+            ],
+            "instruction": "Put vent grille back and tighten both screws",
+            "motion": "screw_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "vent grille"
+          },
+          {
+            "check": "Both filters sit flat and do not wobble.",
+            "details": [
+              "Push one end into the opening opposite the tab.",
+              "Swing up and slide toward the tab."
+            ],
+            "instruction": "Slide clean grease filters back until seated",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "grease filters"
+          }
+        ],
+        "tools": [
+          "Phillips screwdriver",
+          "mild soap",
+          "soft cloth",
+          "small cup for screws"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn off, let cool",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Slide grease filters out",
+          "distance": -6,
+          "motion": "pull_out",
+          "part_ids": [
+            "grease_filters"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Wash filters until clean",
+          "distance": 3,
+          "motion": "rinse",
+          "part_ids": [
+            "grease_filters"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Remove vent grille screws",
+          "distance": 2,
+          "motion": "unscrew",
+          "part_ids": [
+            "vent_grille",
+            "charcoal_filter"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Replace old charcoal filter",
+          "distance": 12,
+          "motion": "pull_out",
+          "part_ids": [
+            "charcoal_filter",
+            "vent_grille"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Reinstall vent grille securely",
+          "distance": 2,
+          "motion": "screw_in",
+          "part_ids": [
+            "vent_grille",
+            "charcoal_filter"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Slide clean filters back",
+          "distance": 6,
+          "motion": "push_in",
+          "part_ids": [
+            "grease_filters"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "cooktop_light_not_working",
+      "symptoms": [
+        "The light over my stove went out",
+        "I press Light and nothing happens",
+        "The cooktop underneath is dark"
+      ],
+      "plan": {
+        "appliance": "over-the-range microwave",
+        "brand": "Whirlpool",
+        "diagnosis": "The small bulb under the microwave has probably burned out. It is made to be changed at home.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "model_number": "WMH31017HZ",
+        "replacement_parts": [
+          "cooktop light bulb"
+        ],
+        "safety": [
+          "Unplug the microwave or turn its breaker off before changing the bulb.",
+          "Let the old bulb cool before touching it.",
+          "Use only the bulb type your manual asks for, not an LED unless the manual says so."
+        ],
+        "steps": [
+          {
+            "check": "The microwave screen is dark and will not turn on.",
+            "details": [
+              "Unplug it, or switch its breaker off.",
+              "The plug is usually in the cabinet above."
+            ],
+            "instruction": "Unplug microwave or turn its breaker off",
+            "motion": "pull_out",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "power cord and plug"
+          },
+          {
+            "check": "You can see the small cover above the cooktop.",
+            "details": [
+              "Look on the underside of the microwave.",
+              "It is held by small screws."
+            ],
+            "instruction": "Find light cover on underside of microwave",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "cooktop light cover"
+          },
+          {
+            "check": "The cover is open and you can see the bulb.",
+            "details": [
+              "Keep the screw in a safe cup.",
+              "Open the cover gently, do not force it."
+            ],
+            "instruction": "Remove cover screw and open light cover",
+            "motion": "unscrew",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "cooktop light cover"
+          },
+          {
+            "check": "The old bulb is out.",
+            "details": [
+              "Twist gently, do not squeeze hard.",
+              "If stuck, stop and let it cool more."
+            ],
+            "instruction": "Twist out old bulb and remove it",
+            "motion": "twist_ccw",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "cooktop light bulb"
+          },
+          {
+            "check": "The new bulb sits tight and does not wobble.",
+            "details": [
+              "Screw it in by hand only.",
+              "Do not overtighten it."
+            ],
+            "instruction": "Screw in new bulb by hand only",
+            "motion": "screw_in",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "cooktop light bulb"
+          },
+          {
+            "check": "The cover is closed and its screw is tight.",
+            "details": [
+              "Close the cover flat first.",
+              "Then put the screw back."
+            ],
+            "instruction": "Replace cover and tighten its screw",
+            "motion": "screw_in",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "cooktop light cover"
+          },
+          {
+            "check": "The light under the microwave comes on.",
+            "details": [
+              "Plug it back in or turn the breaker on.",
+              "Press the Light button to test high and low."
+            ],
+            "instruction": "Plug microwave back in and test light",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "power cord and plug"
+          }
+        ],
+        "tools": [
+          "Phillips screwdriver",
+          "small cup for screws"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Unplug microwave power cord",
+          "distance": 8.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "power_cord_and_plug"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Find underside light cover",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "cooktop_light_cover"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Open cooktop light cover",
+          "distance": 3.0,
+          "motion": "unscrew",
+          "part_ids": [
+            "cooktop_light_cover"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "x",
+          "caption": "Remove old cooktop bulb",
+          "distance": 5.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "cooktop_light_bulb",
+            "cooktop_light_cover"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "x",
+          "caption": "Install new cooktop bulb",
+          "distance": 5.0,
+          "motion": "screw_in",
+          "part_ids": [
+            "cooktop_light_bulb"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Replace light cover securely",
+          "distance": 2.0,
+          "motion": "screw_in",
+          "part_ids": [
+            "cooktop_light_cover",
+            "cooktop_light_bulb"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Restore power test light",
+          "distance": 8.0,
+          "motion": "push_in",
+          "part_ids": [
+            "power_cord_and_plug",
+            "cooktop_light_bulb"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "turntable_rumbling_or_not_spinning",
+      "symptoms": [
+        "It thumps and rumbles when it runs",
+        "The plate stopped turning",
+        "My mug wobbles around in circles",
+        "It makes a grinding noise"
+      ],
+      "plan": {
+        "appliance": "over-the-range microwave",
+        "brand": "Whirlpool",
+        "diagnosis": "The glass plate or the wheeled ring under it is likely dirty or sitting crooked. Cleaning and reseating them usually fixes the noise.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "model_number": "WMH31017HZ",
+        "replacement_parts": [
+          "round glass turntable plate",
+          "turntable support ring with wheels"
+        ],
+        "safety": [
+          "Let the plate cool before lifting it out.",
+          "Do not run the microwave without the glass plate in place.",
+          "Use a microwave-safe cup for the water test."
+        ],
+        "steps": [
+          {
+            "check": "The glass plate is out on a soft towel.",
+            "details": [
+              "Lift it straight up with both hands.",
+              "It can be slippery, go slowly."
+            ],
+            "instruction": "Remove round glass plate from inside microwave",
+            "motion": "lift",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "round glass turntable plate"
+          },
+          {
+            "check": "The plate and wheeled ring look clean.",
+            "details": [
+              "Wash with mild soap and water.",
+              "The plate can also go in the dishwasher.",
+              "Dry both pieces fully."
+            ],
+            "instruction": "Lift out support ring and wash both pieces",
+            "motion": "rinse",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "turntable support ring with wheels"
+          },
+          {
+            "check": "The floor inside looks clean and dry.",
+            "details": [
+              "Crumbs under the wheels cause thumping.",
+              "Use a soft cloth, not a rough pad."
+            ],
+            "instruction": "Wipe crumbs from floor under the plate",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "inside of the microwave"
+          },
+          {
+            "check": "The ring sits flat and rolls smoothly by hand.",
+            "details": [
+              "Line it up in the groove in the floor.",
+              "Give it a gentle spin to check."
+            ],
+            "instruction": "Set support ring flat in its center groove",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "turntable support ring with wheels"
+          },
+          {
+            "check": "The plate sits flat and does not rock.",
+            "details": [
+              "Lower it onto the center and the ring.",
+              "Turn it a little until it settles down."
+            ],
+            "instruction": "Set glass plate onto its center post",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "round glass turntable plate"
+          },
+          {
+            "check": "The plate turns smoothly with no thumping sound.",
+            "details": [
+              "Use 1 cup of water in a microwave-safe cup.",
+              "Run it for one minute and listen."
+            ],
+            "instruction": "Heat cup of water and listen closely",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "touch control panel"
+          }
+        ],
+        "tools": [
+          "soft cloth",
+          "mild soap",
+          "towel",
+          "microwave-safe cup"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Lift out glass plate",
+          "distance": 12,
+          "motion": "lift",
+          "part_ids": [
+            "turntable_glass_plate",
+            "microwave_cavity"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Remove ring wash both",
+          "distance": 12,
+          "motion": "rinse",
+          "part_ids": [
+            "turntable_support_ring",
+            "turntable_glass_plate"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe cavity floor clean",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "microwave_cavity"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Reseat support ring centered",
+          "distance": -8,
+          "motion": "push_in",
+          "part_ids": [
+            "turntable_support_ring",
+            "microwave_cavity"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Reseat glass plate flat",
+          "distance": -8,
+          "motion": "push_in",
+          "part_ids": [
+            "turntable_glass_plate",
+            "turntable_support_ring"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Press start test run",
+          "distance": -1.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel",
+            "microwave_cavity"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "display_flashing_after_power_cut",
+      "symptoms": [
+        "The screen is flashing PF",
+        "The clock just shows a flashing colon",
+        "It won't cook since the power blinked"
+      ],
+      "plan": {
+        "appliance": "over-the-range microwave",
+        "brand": "Whirlpool",
+        "diagnosis": "A flashing colon or PF just means the power went out. The clock simply needs to be set again.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "model_number": "WMH31017HZ",
+        "replacement_parts": [],
+        "safety": [
+          "This is normal after a power cut, it is not a fault code to fear.",
+          "A letter followed by a number is different, call for help with that.",
+          "Never open the microwave cabinet to look for a reset switch."
+        ],
+        "steps": [
+          {
+            "check": "The flashing display has cleared.",
+            "details": [
+              "Press Cancel once.",
+              "This does not harm any settings."
+            ],
+            "instruction": "Press Cancel to clear the flashing display",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "touch control panel"
+          },
+          {
+            "check": "The numbers you want are showing on the screen.",
+            "details": [
+              "This clock uses 12-hour time.",
+              "Type the time with the number buttons."
+            ],
+            "instruction": "Press Clock and enter correct time",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "touch control panel"
+          },
+          {
+            "check": "The clock stops flashing and shows the time steadily.",
+            "details": [
+              "Press Clock or Start to save it.",
+              "The microwave should now cook normally."
+            ],
+            "instruction": "Press Clock again to save the time",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "touch control panel"
+          }
+        ],
+        "tools": []
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Press Cancel to clear display",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Press Clock enter correct time",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Press Clock again to save",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "touch_control_panel"
+          ],
+          "step": 2
+        }
+      ]
+    },
+    {
+      "id": "inside_light_not_working",
+      "symptoms": [
+        "It's dark inside when I open the door",
+        "The inside light stopped coming on",
+        "I can't see my food cooking"
+      ],
+      "plan": {
+        "appliance": "over-the-range microwave",
+        "brand": "Whirlpool",
+        "diagnosis": "The bulb that lights the inside has probably burned out. It hides behind the top front grille and can be changed at home.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "model_number": "WMH31017HZ",
+        "replacement_parts": [
+          "inside light bulb"
+        ],
+        "safety": [
+          "Unplug the microwave or turn its breaker off before removing the grille.",
+          "Let the old bulb cool before touching it.",
+          "Use only the bulb type your manual asks for."
+        ],
+        "steps": [
+          {
+            "check": "The microwave screen is dark and will not turn on.",
+            "details": [
+              "Unplug it, or switch its breaker off.",
+              "The plug is usually in the cabinet above."
+            ],
+            "instruction": "Unplug microwave or turn its breaker off",
+            "motion": "pull_out",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "power cord and plug"
+          },
+          {
+            "check": "Both grille screws are safe in a cup.",
+            "details": [
+              "The grille is the strip above the door.",
+              "You only need to loosen its 2 screws."
+            ],
+            "instruction": "Remove two screws from top vent grille",
+            "motion": "unscrew",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "vent grille"
+          },
+          {
+            "check": "The grille is off and set aside safely.",
+            "details": [
+              "Slide it left first.",
+              "Then tilt forward and lift it out."
+            ],
+            "instruction": "Slide grille left, tilt and lift it out",
+            "motion": "lift",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "vent grille"
+          },
+          {
+            "check": "You can see the small bulb under its cover.",
+            "details": [
+              "Open the cover gently.",
+              "Do not pull on any wires."
+            ],
+            "instruction": "Open inside light cover behind grille",
+            "motion": "lift",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "inside light bulb cover"
+          },
+          {
+            "check": "The new bulb sits tight and does not wobble.",
+            "details": [
+              "Twist the old one out gently.",
+              "Screw the new one in by hand only."
+            ],
+            "instruction": "Twist out old bulb, screw in new one",
+            "motion": "twist_ccw",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "inside light bulb"
+          },
+          {
+            "check": "The grille sits flat and both screws are tight.",
+            "details": [
+              "Push the bottom hooks into their holes.",
+              "Tilt back, slide right, close the bulb cover, add screws.",
+              "Plug back in and open the door to test."
+            ],
+            "instruction": "Put vent grille back and tighten screws",
+            "motion": "screw_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "vent grille"
+          }
+        ],
+        "tools": [
+          "Phillips screwdriver",
+          "small cup for screws"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Unplug power cord safely",
+          "distance": 8,
+          "motion": "pull_out",
+          "part_ids": [
+            "power_cord_and_plug",
+            "cabinet",
+            "top"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Loosen two grille screws",
+          "distance": 2,
+          "motion": "unscrew",
+          "part_ids": [
+            "vent_grille",
+            "top"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Slide left lift grille out",
+          "distance": 10,
+          "motion": "lift",
+          "part_ids": [
+            "vent_grille",
+            "charcoal_filter"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Open bulb cover gently",
+          "distance": 4,
+          "motion": "lift",
+          "part_ids": [
+            "inside_light_cover",
+            "inside_light_bulb"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Replace old bulb with new",
+          "distance": 3,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "inside_light_bulb",
+            "inside_light_cover"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Reattach grille tighten screws",
+          "distance": 2,
+          "motion": "screw_in",
+          "part_ids": [
+            "vent_grille",
+            "inside_light_cover"
+          ],
+          "step": 5
+        }
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#C9D1D8",
+        "id": "cabinet",
+        "label": "see-through stainless cabinet shell",
+        "opacity": 0.18,
+        "position": [
+          0,
+          21.5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          76,
+          43,
+          40
+        ]
+      },
+      {
+        "color": "#AEB8C0",
+        "id": "top",
+        "label": "top cabinet panel",
+        "opacity": 0.35,
+        "position": [
+          0,
+          42.4,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          76.5,
+          1.8,
+          40.5
+        ]
+      },
+      {
+        "color": "#E9EEF1",
+        "id": "microwave_cavity",
+        "label": "inside of the microwave",
+        "opacity": 0.38,
+        "position": [
+          -11,
+          23,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          52,
+          27,
+          36
+        ]
+      },
+      {
+        "color": "#2A343B",
+        "id": "microwave_door",
+        "label": "microwave door, shown open on its left hinge",
+        "opacity": 0.92,
+        "position": [
+          -44,
+          22,
+          47
+        ],
+        "rotation": [
+          0,
+          -102,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          56,
+          36,
+          3.5
+        ]
+      },
+      {
+        "color": "#111518",
+        "id": "door_seal_area",
+        "label": "door seal area on the inner edge of the door",
+        "opacity": 0.55,
+        "position": [
+          -42.8,
+          22,
+          45.2
+        ],
+        "rotation": [
+          0,
+          -102,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          50,
+          32,
+          0.8
+        ]
+      },
+      {
+        "color": "#171A1C",
+        "id": "touch_control_panel",
+        "label": "touch control panel",
+        "opacity": 1.0,
+        "position": [
+          28,
+          20,
+          20.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          19,
+          34,
+          1.6
+        ]
+      },
+      {
+        "color": "#454D54",
+        "id": "vent_grille",
+        "label": "vent grille across the top front",
+        "opacity": 1.0,
+        "position": [
+          0,
+          39.5,
+          20.8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          76,
+          7,
+          1.5
+        ]
+      },
+      {
+        "color": "#24282B",
+        "id": "charcoal_filter",
+        "label": "charcoal filter behind the vent grille",
+        "opacity": 1.0,
+        "position": [
+          -14,
+          39.5,
+          18.6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          32,
+          5,
+          2
+        ]
+      },
+      {
+        "color": "#F4E3A1",
+        "id": "inside_light_cover",
+        "label": "inside light bulb cover behind the vent grille",
+        "opacity": 0.55,
+        "position": [
+          23,
+          39,
+          18.2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          12,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "#FFD34D",
+        "id": "inside_light_bulb",
+        "label": "inside light bulb",
+        "opacity": 1.0,
+        "position": [
+          23,
+          39,
+          18.2
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          2.5,
+          5,
+          2.5
+        ]
+      },
+      {
+        "color": "#E7DCC0",
+        "id": "flat_inside_wall_cover",
+        "label": "flat cover on the right inside wall - do not remove",
+        "opacity": 1.0,
+        "position": [
+          14.7,
+          24,
+          -2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          0.8,
+          14,
+          20
+        ]
+      },
+      {
+        "color": "#8E9AA2",
+        "id": "turntable_support_ring",
+        "label": "turntable support ring with wheels",
+        "opacity": 1.0,
+        "position": [
+          -11,
+          10.2,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          24,
+          1.2,
+          24
+        ]
+      },
+      {
+        "color": "#BFE6F2",
+        "id": "turntable_glass_plate",
+        "label": "round glass turntable plate",
+        "opacity": 0.65,
+        "position": [
+          -11,
+          11.4,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          32,
+          1.2,
+          32
+        ]
+      },
+      {
+        "color": "#9EABB3",
+        "id": "grease_filters",
+        "label": "grease filters on the underside",
+        "opacity": 1.0,
+        "position": [
+          -8,
+          0.4,
+          -5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          56,
+          0.8,
+          26
+        ]
+      },
+      {
+        "color": "#F7EBC0",
+        "id": "cooktop_light_cover",
+        "label": "cooktop light cover on the underside",
+        "opacity": 0.7,
+        "position": [
+          15,
+          0.4,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          22,
+          0.8,
+          10
+        ]
+      },
+      {
+        "color": "#FFD76A",
+        "id": "cooktop_light_bulb",
+        "label": "cooktop light bulb under its cover",
+        "opacity": 1.0,
+        "position": [
+          15,
+          1.4,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ],
+        "shape": "cylinder",
+        "size": [
+          3,
+          9,
+          3
+        ]
+      },
+      {
+        "color": "#101214",
+        "id": "power_cord_and_plug",
+        "label": "power cord and plug rising from the top into the cabinet above",
+        "opacity": 1.0,
+        "position": [
+          24,
+          49,
+          -10
+        ],
+        "rotation": [
+          18,
+          0,
+          14
+        ],
+        "shape": "cylinder",
+        "size": [
+          1.5,
+          14,
+          1.5
+        ]
+      }
+    ]
+  }
+}

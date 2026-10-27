@@ -1,0 +1,1590 @@
+{
+  "id": "whirlpool-top-load-washer",
+  "appliance": "top-load washer",
+  "brand": "Whirlpool",
+  "model_family": "Whirlpool WTW5000-series 4.5-4.8 cu. ft. top-load washers with built-in faucet",
+  "model_numbers": [
+    "WTW5010LW",
+    "WTW5015LW",
+    "WTW5057LW",
+    "WTW5020SW",
+    "WTW5025SW"
+  ],
+  "sticker_location": "Beneath the washer lid on the tub rim. Lift the lid and look around the edge of the tub opening.",
+  "manual_urls": [
+    "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+    "https://www.whirlpool.com/content/dam/global/documents/202408/quick-start-guide-w11646249-revD.pdf",
+    "https://www.whirlpool.com/content/dam/global/documents/202408/saftey-and-installation-instructions-w11646252-revD.pdf"
+  ],
+  "parts": [
+    {
+      "id": "lid",
+      "label": "Lid",
+      "where": "The big cover on top that lifts up to reach the clothes."
+    },
+    {
+      "id": "lid_lock",
+      "label": "Lid lock",
+      "where": "The small latch under the edge of the lid opening, where the lid meets the washer body."
+    },
+    {
+      "id": "model_and_serial_tag",
+      "label": "Model and serial tag",
+      "where": "Under the lid, on the rim around the tub opening."
+    },
+    {
+      "id": "wash_basket",
+      "label": "Wash basket",
+      "where": "The large round drum inside the washer that holds the clothes."
+    },
+    {
+      "id": "removable_agitator",
+      "label": "Removable agitator",
+      "where": "The tall center post in the middle of the tub on agitator models. It lifts out for bulky loads."
+    },
+    {
+      "id": "impeller_plate",
+      "label": "Impeller plate",
+      "where": "The low, flat turning plate in the center bottom of the tub on impeller models instead of a tall post."
+    },
+    {
+      "id": "built_in_water_faucet",
+      "label": "Built-in water faucet",
+      "where": "The small spout at the back inside top of the tub. Its button is on the back control panel."
+    },
+    {
+      "id": "bleach_dispenser_cup",
+      "label": "Bleach dispenser cup",
+      "where": "The small marked cup in the top rim inside the tub for liquid bleach only."
+    },
+    {
+      "id": "cycle_knob",
+      "label": "Cycle knob",
+      "where": "The big turning knob on the raised back panel. Turn it to pick a wash cycle."
+    },
+    {
+      "id": "settings_knob",
+      "label": "Settings knob",
+      "where": "The smaller knob next to the big cycle knob on the back panel, for water level or other choices on some models."
+    },
+    {
+      "id": "power_button",
+      "label": "Power button",
+      "where": "The Power button on the back control panel, near the cycle knob."
+    },
+    {
+      "id": "start_pause_button",
+      "label": "Start/Pause button",
+      "where": "The Start/Pause button on the back control panel. Hold it to start a cycle."
+    },
+    {
+      "id": "drain_hose",
+      "label": "Drain hose",
+      "where": "The gray ribbed hose at the back that carries dirty water to the sink or drain pipe."
+    },
+    {
+      "id": "water_inlet_hoses",
+      "label": "Water inlet hoses",
+      "where": "The pair of hoses at the back that bring hot and cold water from the wall taps to the washer."
+    },
+    {
+      "id": "inlet_valve_screens",
+      "label": "Inlet valve screens",
+      "where": "Tiny screens just inside the hose connections on the back of the washer, where the water hoses screw on."
+    },
+    {
+      "id": "leveling_feet",
+      "label": "Leveling feet",
+      "where": "The four small screw feet at the bottom corners of the washer that touch the floor."
+    },
+    {
+      "id": "power_cord",
+      "label": "Power cord",
+      "where": "The plug and cord coming from the back of the washer to the wall outlet."
+    }
+  ],
+  "problems": [
+    {
+      "id": "will_not_start",
+      "symptoms": [
+        "I press start and nothing happens",
+        "The washer will not start",
+        "No lights or no sound when I try to start it"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WTW5057LW",
+        "appliance": "top-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "diagnosis": "The lid may not be fully latched, or the control may need a simple reset. The washer will not run until the lid is closed and Start is held.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Do not reach inside if the tub is moving.",
+          "Unplug the washer before checking the cord or outlet."
+        ],
+        "steps": [
+          {
+            "instruction": "Close the lid until it clicks shut.",
+            "details": [
+              "Move clothes away from the lid edge.",
+              "The lid should sit flat all around."
+            ],
+            "target_part": "Lid",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The lid sits flat and closed."
+          },
+          {
+            "instruction": "Press and hold Start for three seconds.",
+            "details": [
+              "A short press may not start it.",
+              "Watch for a light or a sound."
+            ],
+            "target_part": "Start/Pause button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "Lights come on or the washer starts filling."
+          },
+          {
+            "instruction": "Unplug the washer from the wall outlet.",
+            "details": [
+              "Pull the plug, not the cord."
+            ],
+            "target_part": "Power cord",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The plug is fully out of the outlet."
+          },
+          {
+            "instruction": "Wait five minutes with the washer unplugged.",
+            "details": [
+              "This lets the control reset."
+            ],
+            "target_part": "Power cord",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "Five full minutes have passed."
+          },
+          {
+            "instruction": "Plug the washer back in firmly.",
+            "details": [
+              "Use a grounded three-prong outlet.",
+              "Do not use an extension cord."
+            ],
+            "target_part": "Power cord",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The plug is pushed in all the way."
+          },
+          {
+            "instruction": "Press Power, then hold Start again.",
+            "details": [
+              "Close the lid first if it opened."
+            ],
+            "target_part": "Power button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The washer lights up and begins the cycle."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Close lid until clicks shut",
+          "distance": 15,
+          "motion": "push_in",
+          "part_ids": [
+            "lid",
+            "lid_lock"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Press and hold Start button",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_pause_button",
+            "top"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Unplug washer from outlet",
+          "distance": 15,
+          "motion": "pull_out",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Wait five minutes to reset",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Plug washer back in",
+          "distance": 15,
+          "motion": "push_in",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Press Power then Start",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "power_button",
+            "start_pause_button"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "not_draining_wet_clothes",
+      "symptoms": [
+        "There is water left in the tub",
+        "Clothes are soaking wet at the end",
+        "It will not drain or spin"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WTW5057LW",
+        "appliance": "top-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "diagnosis": "A kinked drain hose or an uneven, tightly packed load often stops draining and spinning. Too much soap can also slow the spin.",
+        "tools": [
+          "Old towel"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Unplug the washer before moving hoses.",
+          "Wipe up spilled water to avoid slipping."
+        ],
+        "steps": [
+          {
+            "instruction": "Look behind washer at gray drain hose.",
+            "details": [
+              "Find it at the back of the washer.",
+              "It goes to a sink or drain pipe."
+            ],
+            "target_part": "Drain hose",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see the full drain hose behind the washer."
+          },
+          {
+            "instruction": "Straighten any bends or kinks in hose.",
+            "details": [
+              "Water must flow freely through it.",
+              "Clear anything blocking the sink drain."
+            ],
+            "target_part": "Drain hose",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The hose runs smoothly with no sharp bends."
+          },
+          {
+            "instruction": "Push hose only four inches into drain pipe.",
+            "details": [
+              "No more than about 4.5 inches inside.",
+              "Do not tape over the drain opening."
+            ],
+            "target_part": "Drain hose",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "Only a short end of hose is in the pipe."
+          },
+          {
+            "instruction": "Spread wet clothes evenly around tub wall.",
+            "details": [
+              "Drop clothes in loose piles, not one lump.",
+              "Take some out if the tub looks stuffed."
+            ],
+            "target_part": "Wash basket",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Clothes sit evenly around the tub wall."
+          },
+          {
+            "instruction": "Turn knob to Drain and Spin.",
+            "details": [
+              "Use Rinse and Spin if that is listed instead."
+            ],
+            "target_part": "Cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The knob points to Drain and Spin."
+          },
+          {
+            "instruction": "Press and hold Start for three seconds.",
+            "details": [
+              "Close the lid before starting."
+            ],
+            "target_part": "Start/Pause button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "Water drains out and the tub spins."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Inspect gray drain hose behind",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "drain_hose"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Straighten hose remove sharp bends",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "drain_hose"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Insert hose four inches only",
+          "distance": 10,
+          "motion": "push_in",
+          "part_ids": [
+            "drain_hose"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Spread clothes evenly around tub",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "wash_basket",
+            "removable_agitator"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Turn knob to Drain Spin",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "cycle_knob",
+            "top"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Close lid press Start",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_pause_button",
+            "lid"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "shaking_banging_walking",
+      "symptoms": [
+        "It shakes and bangs during spin",
+        "The washer walks across the floor",
+        "It is very loud when spinning"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WTW5057LW",
+        "appliance": "top-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "diagnosis": "Clothes bunched on one side make the tub thump and shake. A washer that rocks on its feet will shake even more.",
+        "tools": [
+          "Adjustable wrench"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Stop the cycle and wait until the tub stops.",
+          "Do not reach in while the tub is moving."
+        ],
+        "steps": [
+          {
+            "instruction": "Press Pause and wait until tub stops.",
+            "details": [
+              "Wait until all movement and sound stop."
+            ],
+            "target_part": "Start/Pause button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The tub is completely still."
+          },
+          {
+            "instruction": "Open lid and spread clothes around wall.",
+            "details": [
+              "Untangle sheets and towels first.",
+              "Drop items in loose, even piles."
+            ],
+            "target_part": "Wash basket",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "Clothes are spread evenly, not in one lump."
+          },
+          {
+            "instruction": "Remove a few items if tub looks stuffed.",
+            "details": [
+              "A very full tub may not spin well.",
+              "Wash heavy blankets separately."
+            ],
+            "target_part": "Wash basket",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The load looks loose, not packed tight."
+          },
+          {
+            "instruction": "Rock washer gently from opposite front corners.",
+            "details": [
+              "Push one corner, then the other.",
+              "All four feet should touch the floor."
+            ],
+            "target_part": "Leveling feet",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can tell if the washer rocks or sits firm."
+          },
+          {
+            "instruction": "Twist the wobbly foot down until firm.",
+            "details": [
+              "Turn it until that corner stops rocking.",
+              "Use a wrench on the lock nut if needed."
+            ],
+            "target_part": "Leveling feet",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "The washer no longer rocks corner to corner."
+          },
+          {
+            "instruction": "Turn knob to Rinse and Spin.",
+            "details": [
+              "Close the lid, then hold Start."
+            ],
+            "target_part": "Cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The washer spins smoothly without banging."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Press Pause, wait still",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_pause_button",
+            "tub"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Spread clothes evenly inside",
+          "distance": 15,
+          "motion": "lift",
+          "part_ids": [
+            "wash_basket",
+            "lid"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Remove excess heavy items",
+          "distance": 20,
+          "motion": "lift",
+          "part_ids": [
+            "wash_basket"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Rock to test stability",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "leveling_feet",
+            "cabinet"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Twist wobbly foot down",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "leveling_feet",
+            "cabinet"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Test Rinse and Spin",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "cycle_knob",
+            "lid",
+            "start_pause_button"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "not_filling_or_slow_fill",
+      "symptoms": [
+        "No water is going in",
+        "It takes forever to fill",
+        "It fills and drains at the same time"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WTW5057LW",
+        "appliance": "top-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "diagnosis": "Both wall taps must be on and the hoses must not be kinked. Tiny screens where the hoses join the washer can get clogged with grit.",
+        "tools": [
+          "Bucket",
+          "Old towel",
+          "Old soft toothbrush",
+          "Pliers"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn both water taps off before unscrewing hoses.",
+          "Unplug the washer before working behind it.",
+          "Stop and call for help if you see a leak you cannot stop."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn both wall water taps fully on.",
+            "details": [
+              "Both hot and cold taps must be open.",
+              "They are on the wall behind the washer."
+            ],
+            "target_part": "Water inlet hoses",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "Both wall taps are fully open."
+          },
+          {
+            "instruction": "Straighten any kinks in water inlet hoses.",
+            "details": [
+              "Follow each hose from wall to washer.",
+              "Move the washer slightly if a hose is pinched."
+            ],
+            "target_part": "Water inlet hoses",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Both hoses run smoothly with no sharp bends."
+          },
+          {
+            "instruction": "Turn off both wall water taps.",
+            "details": [
+              "Turn them the other way until water stops."
+            ],
+            "target_part": "Water inlet hoses",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": false,
+            "check": "Both wall taps are off."
+          },
+          {
+            "instruction": "Unscrew one inlet hose behind the washer.",
+            "details": [
+              "Hold a bucket under it for drips.",
+              "Use pliers gently only if hand-tight will not move."
+            ],
+            "target_part": "Water inlet hoses",
+            "photo": -1,
+            "motion": "unscrew",
+            "show_3d": true,
+            "check": "The hose end is free and over the bucket."
+          },
+          {
+            "instruction": "Brush the tiny screen inside hose opening.",
+            "details": [
+              "Use an old soft toothbrush with mild soap.",
+              "Do not pull the screen out."
+            ],
+            "target_part": "Inlet valve screens",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The small screen looks clear, with no grit."
+          },
+          {
+            "instruction": "Screw hose back on by hand.",
+            "details": [
+              "Make it snug, but do not force it.",
+              "Repeat for the other hose if needed."
+            ],
+            "target_part": "Water inlet hoses",
+            "photo": -1,
+            "motion": "screw_in",
+            "show_3d": true,
+            "check": "The hose is snug and straight."
+          },
+          {
+            "instruction": "Turn taps on and check for leaks.",
+            "details": [
+              "Dry the fittings, then feel for drips.",
+              "Turn taps off at once if it leaks."
+            ],
+            "target_part": "Water inlet hoses",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "Fittings stay dry with taps on."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Turn both wall taps on",
+          "distance": 2.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "water_inlet_hoses"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Straighten hoses remove kinks",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "water_inlet_hoses"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Turn both wall taps off",
+          "distance": 2.0,
+          "motion": "twist_cw",
+          "part_ids": [
+            "water_inlet_hoses"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Unscrew inlet hose over bucket",
+          "distance": 10.0,
+          "motion": "unscrew",
+          "part_ids": [
+            "water_inlet_hoses",
+            "inlet_valve_screens"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Brush screen clear gently",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "inlet_valve_screens",
+            "water_inlet_hoses"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Screw hose back snug",
+          "distance": 10.0,
+          "motion": "screw_in",
+          "part_ids": [
+            "water_inlet_hoses",
+            "inlet_valve_screens"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Turn taps on check leaks",
+          "distance": 2.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "water_inlet_hoses"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "lid_will_not_lock",
+      "symptoms": [
+        "The lid lock light keeps flashing",
+        "It says the lid will not lock",
+        "It will not spin because the lid is open"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WTW5057LW",
+        "appliance": "top-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "diagnosis": "Clothes tucked under the lid or soap crust around the latch can stop the lid from locking. Clearing the edge and resetting often helps.",
+        "tools": [
+          "Soft damp cloth"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Do not force the lid down.",
+          "If the lock looks cracked or broken, stop and call for service."
+        ],
+        "steps": [
+          {
+            "instruction": "Press Pause and wait until tub stops.",
+            "details": [
+              "Wait until all movement stops."
+            ],
+            "target_part": "Start/Pause button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The tub is completely still."
+          },
+          {
+            "instruction": "Lift lid and move clothes away from edges.",
+            "details": [
+              "Check all around under the lid.",
+              "Push bulky items down into the tub."
+            ],
+            "target_part": "Lid",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "Nothing is caught under the lid edge."
+          },
+          {
+            "instruction": "Wipe white crust from around lid lock.",
+            "details": [
+              "Use a soft, damp cloth.",
+              "Clean where the lid meets the body."
+            ],
+            "target_part": "Lid lock",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The latch area looks clean and clear."
+          },
+          {
+            "instruction": "Close the lid until it clicks shut.",
+            "details": [
+              "Press down gently at the front edge."
+            ],
+            "target_part": "Lid",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The lid sits flat and closed."
+          },
+          {
+            "instruction": "Unplug the washer from the wall outlet.",
+            "details": [
+              "Leave it unplugged for five minutes.",
+              "This resets the control."
+            ],
+            "target_part": "Power cord",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The plug is out and five minutes pass."
+          },
+          {
+            "instruction": "Plug washer back in after five minutes.",
+            "details": [
+              "Then close the lid again."
+            ],
+            "target_part": "Power cord",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The plug is firmly in the outlet."
+          },
+          {
+            "instruction": "Press and hold Start for three seconds.",
+            "details": [
+              "Listen for the lid locking click."
+            ],
+            "target_part": "Start/Pause button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The lid locks and the cycle starts."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Press Pause wait stop",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_pause_button"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Lift lid clear clothes",
+          "distance": 30,
+          "motion": "lift",
+          "part_ids": [
+            "lid"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe crust from lock",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "lid_lock"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Close lid until clicks",
+          "distance": 25,
+          "motion": "push_in",
+          "part_ids": [
+            "lid"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Unplug washer reset control",
+          "distance": 20,
+          "motion": "pull_out",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Plug washer back in",
+          "distance": 20,
+          "motion": "push_in",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "z",
+          "caption": "Press Start lid locks",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_pause_button",
+            "lid_lock"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "smelly_washer_clothes_not_fresh",
+      "symptoms": [
+        "The washer smells musty",
+        "Clothes do not smell fresh after washing",
+        "There is gunk around the lid"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WTW5057LW",
+        "appliance": "top-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "diagnosis": "Soap and dirt build up inside the tub over time, especially with too much soap. A monthly Clean Washer cycle clears the build-up.",
+        "tools": [
+          "Soft cloth"
+        ],
+        "replacement_parts": [
+          "Washer cleaner tablet"
+        ],
+        "safety": [
+          "Do not mix bleach with other cleaners.",
+          "Keep cleaner tablets away from children and pets."
+        ],
+        "steps": [
+          {
+            "instruction": "Take all clothes out of the tub.",
+            "details": [
+              "Check for socks stuck around the center post."
+            ],
+            "target_part": "Wash basket",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The tub is completely empty."
+          },
+          {
+            "instruction": "Put one cleaning tablet in tub bottom.",
+            "details": [
+              "Put it in the tub, not any cup.",
+              "Do not add soap or other cleaners."
+            ],
+            "target_part": "Wash basket",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "One tablet sits at the bottom of the tub."
+          },
+          {
+            "instruction": "Wipe gunk from around lid and bleach cup.",
+            "details": [
+              "Use a soft, damp cloth.",
+              "Dry with a towel when clean."
+            ],
+            "target_part": "Bleach dispenser cup",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The rim and cup look clean."
+          },
+          {
+            "instruction": "Close the lid until it clicks shut.",
+            "details": [],
+            "target_part": "Lid",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The lid sits flat and closed."
+          },
+          {
+            "instruction": "Turn knob to Clean Washer cycle.",
+            "details": [
+              "If there is no Clean Washer, check the cycle guide online.",
+              "Use the cleaning cycle it lists."
+            ],
+            "target_part": "Cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The knob points to the cleaning cycle."
+          },
+          {
+            "instruction": "Press and hold Start for three seconds.",
+            "details": [
+              "Let the cycle run without stopping it."
+            ],
+            "target_part": "Start/Pause button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The cleaning cycle starts and runs."
+          },
+          {
+            "instruction": "Leave lid open after cycle ends.",
+            "details": [
+              "This helps the tub dry out.",
+              "Leave it open between washes too."
+            ],
+            "target_part": "Lid",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The lid stays open and the tub can dry."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Empty all clothes from tub",
+          "distance": 20,
+          "motion": "lift",
+          "part_ids": [
+            "wash_basket",
+            "removable_agitator"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Drop cleaner tablet inside",
+          "distance": 25,
+          "motion": "push_in",
+          "part_ids": [
+            "wash_basket"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe lid rim and cup",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "bleach_dispenser_cup",
+            "lid"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Close lid until clicks",
+          "distance": 10,
+          "motion": "push_in",
+          "part_ids": [
+            "lid",
+            "lid_lock"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Select Clean Washer cycle",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "cycle_knob"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Press Start for three seconds",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_pause_button"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Leave lid open to dry",
+          "distance": 15,
+          "motion": "lift",
+          "part_ids": [
+            "lid"
+          ],
+          "step": 6
+        }
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#dfe6ea",
+        "id": "cabinet",
+        "label": "Cabinet — see-through outer shell",
+        "opacity": 0.22,
+        "position": [
+          0,
+          50,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "rounded_box",
+        "size": [
+          68,
+          92,
+          68
+        ]
+      },
+      {
+        "color": "#e8eef1",
+        "id": "top",
+        "label": "Top and raised back control panel — see-through",
+        "opacity": 0.35,
+        "position": [
+          0,
+          106,
+          -30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "rounded_box",
+        "size": [
+          68,
+          20,
+          8
+        ]
+      },
+      {
+        "color": "#c7d3d8",
+        "id": "tub",
+        "label": "Outer tub — see-through",
+        "opacity": 0.2,
+        "position": [
+          0,
+          58,
+          -2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          62,
+          72,
+          62
+        ]
+      },
+      {
+        "color": "#eef3f5",
+        "id": "lid",
+        "label": "Lid — shown open",
+        "opacity": 0.9,
+        "position": [
+          0,
+          120,
+          -33
+        ],
+        "rotation": [
+          -102,
+          0,
+          0
+        ],
+        "shape": "rounded_box",
+        "size": [
+          58,
+          3,
+          54
+        ]
+      },
+      {
+        "color": "#37474f",
+        "id": "lid_lock",
+        "label": "Lid lock",
+        "opacity": 1,
+        "position": [
+          0,
+          95,
+          27
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "rounded_box",
+        "size": [
+          9,
+          3,
+          5
+        ]
+      },
+      {
+        "color": "#ffffff",
+        "id": "model_and_serial_tag",
+        "label": "Model and serial tag",
+        "opacity": 1,
+        "position": [
+          -15,
+          96,
+          -23
+        ],
+        "rotation": [
+          0,
+          15,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          14,
+          1,
+          5
+        ]
+      },
+      {
+        "color": "#aebfc7",
+        "id": "wash_basket",
+        "label": "Wash basket",
+        "opacity": 0.6,
+        "position": [
+          0,
+          59,
+          -2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          54,
+          62,
+          54
+        ]
+      },
+      {
+        "color": "#f7f7f7",
+        "id": "removable_agitator",
+        "label": "Removable agitator",
+        "opacity": 1,
+        "position": [
+          0,
+          54,
+          -2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          15,
+          48,
+          15
+        ]
+      },
+      {
+        "color": "#607d8b",
+        "id": "impeller_plate",
+        "label": "Impeller plate — flat plate under the agitator base",
+        "opacity": 1,
+        "position": [
+          0,
+          30,
+          -2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          34,
+          5,
+          34
+        ]
+      },
+      {
+        "color": "#b3e5fc",
+        "id": "built_in_water_faucet",
+        "label": "Built-in water faucet",
+        "opacity": 1,
+        "position": [
+          0,
+          92,
+          -21
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          4,
+          11,
+          4
+        ]
+      },
+      {
+        "color": "#d6ecff",
+        "id": "bleach_dispenser_cup",
+        "label": "Bleach dispenser cup",
+        "opacity": 1,
+        "position": [
+          -22,
+          95,
+          19
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          10,
+          4,
+          10
+        ]
+      },
+      {
+        "color": "#f5f5f5",
+        "id": "cycle_knob",
+        "label": "Cycle knob",
+        "opacity": 1,
+        "position": [
+          0,
+          108,
+          -24
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          11,
+          5,
+          11
+        ]
+      },
+      {
+        "color": "#e0e6e9",
+        "id": "settings_knob",
+        "label": "Settings knob",
+        "opacity": 1,
+        "position": [
+          -18,
+          108,
+          -24
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          7,
+          4,
+          7
+        ]
+      },
+      {
+        "color": "#263238",
+        "id": "power_button",
+        "label": "Power button",
+        "opacity": 1,
+        "position": [
+          15,
+          108,
+          -25
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          4,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "#2e7d6b",
+        "id": "start_pause_button",
+        "label": "Start/Pause button",
+        "opacity": 1,
+        "position": [
+          24,
+          108,
+          -25
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          5,
+          3,
+          5
+        ]
+      },
+      {
+        "color": "#9aa5ab",
+        "id": "drain_hose",
+        "label": "Drain hose — gray ribbed hose at the back",
+        "opacity": 1,
+        "position": [
+          -23,
+          56,
+          -49
+        ],
+        "rotation": [
+          55,
+          0,
+          12
+        ],
+        "shape": "cylinder",
+        "size": [
+          5,
+          62,
+          5
+        ]
+      },
+      {
+        "color": "#7d9bb3",
+        "id": "water_inlet_hoses",
+        "label": "Water inlet hoses — hot and cold pair at the back",
+        "opacity": 1,
+        "position": [
+          17,
+          88,
+          -48
+        ],
+        "rotation": [
+          48,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          9,
+          42,
+          9
+        ]
+      },
+      {
+        "color": "#ffb74d",
+        "id": "inlet_valve_screens",
+        "label": "Inlet valve screens — inside the rear hose connections",
+        "opacity": 1,
+        "position": [
+          17,
+          93,
+          -35
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          9,
+          3,
+          9
+        ]
+      },
+      {
+        "color": "#263238",
+        "id": "leveling_feet",
+        "label": "Leveling feet — four screw feet at the bottom corners",
+        "opacity": 1,
+        "position": [
+          0,
+          2,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "rounded_box",
+        "size": [
+          58,
+          4,
+          58
+        ]
+      },
+      {
+        "color": "#111111",
+        "id": "power_cord",
+        "label": "Power cord and plug",
+        "opacity": 1,
+        "position": [
+          29,
+          66,
+          -49
+        ],
+        "rotation": [
+          62,
+          0,
+          -22
+        ],
+        "shape": "cylinder",
+        "size": [
+          3,
+          54,
+          3
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1606 @@
+{
+  "id": "whirlpool-front-load-washer",
+  "appliance": "front-load washer",
+  "brand": "Whirlpool",
+  "model_family": "WFW5720 4.5 cu. ft. Smart Front Load ENERGY STAR Washer with FreshFlow Vent System",
+  "model_numbers": [
+    "WFW5720RW",
+    "WFW5720RR",
+    "WFW5720RU"
+  ],
+  "sticker_location": "Open the washer door and look inside the door, on the rim of the round opening.",
+  "manual_urls": [
+    "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+    "https://www.whirlpool.com/content/dam/global/documents/202501/cycle-guide-w11712046a-cg.pdf"
+  ],
+  "parts": [
+    {
+      "id": "power_cord",
+      "label": "power cord",
+      "where": "Plugs into the wall outlet behind the washer."
+    },
+    {
+      "id": "drain_pump_filter",
+      "label": "drain pump filter",
+      "where": "At the bottom front of the washer, behind the small flap or bottom drawer."
+    },
+    {
+      "id": "small_drain_hose",
+      "label": "small black drain hose",
+      "where": "Next to the drain pump filter, behind the bottom front flap."
+    },
+    {
+      "id": "detergent_drawer",
+      "label": "detergent drawer",
+      "where": "Top left front of the washer, above the door. Pull it toward you."
+    },
+    {
+      "id": "door_seal",
+      "label": "gray door seal",
+      "where": "The gray rubber ring around the round door opening."
+    },
+    {
+      "id": "washer_door",
+      "label": "washer door",
+      "where": "The large round glass door on the front of the washer."
+    },
+    {
+      "id": "washer_drum",
+      "label": "washer drum",
+      "where": "The big metal tub you put clothes in, behind the door."
+    },
+    {
+      "id": "cycle_knob",
+      "label": "cycle knob",
+      "where": "On the front control panel above the door."
+    },
+    {
+      "id": "start_button",
+      "label": "start button",
+      "where": "On the front control panel, marked Start/Pause."
+    },
+    {
+      "id": "control_lock_button",
+      "label": "control lock button",
+      "where": "On the front control panel, marked Control Lock or shown with a lock sign."
+    },
+    {
+      "id": "leveling_feet",
+      "label": "leveling feet",
+      "where": "Four small feet under the bottom corners of the washer."
+    },
+    {
+      "id": "water_inlet_hoses",
+      "label": "water inlet hoses",
+      "where": "Two hoses at the back of the washer, joining it to the wall taps."
+    },
+    {
+      "id": "main_drain_hose",
+      "label": "main drain hose",
+      "where": "The thick hose at the back that goes into the wall pipe or sink."
+    },
+    {
+      "id": "water_taps",
+      "label": "water taps",
+      "where": "Hot and cold taps on the wall behind the washer."
+    }
+  ],
+  "problems": [
+    {
+      "id": "not_draining",
+      "symptoms": [
+        "Water is still in the drum",
+        "Washer shows F9 E1",
+        "Washer stops before spinning",
+        "Clothes are soaking wet at the end"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFW5720RW",
+        "appliance": "front-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+        "diagnosis": "Water cannot get out fast enough, often because the drain pump filter is blocked with lint or small items. Checking the drain hose position also helps, as a hose pushed too far down can cause trouble.",
+        "tools": [
+          "flat pan",
+          "old towel",
+          "small bowl"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the washer off and unplug it before opening the filter.",
+          "Expect water to come out, so keep the pan and towel ready.",
+          "Do not run the washer with the filter out."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn washer off and unplug it",
+            "details": [
+              "Wait until the drum has stopped moving."
+            ],
+            "target_part": "power cord",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The lights on the panel are off and the plug is out."
+          },
+          {
+            "instruction": "Put flat pan under bottom front flap",
+            "details": [
+              "The flap is low on the front.",
+              "A towel under the pan catches spills."
+            ],
+            "target_part": "drain pump filter",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The pan sits flat under the bottom front area."
+          },
+          {
+            "instruction": "Pull black hose out and remove plug",
+            "details": [
+              "Let the water run into the pan.",
+              "Put the plug back when water stops."
+            ],
+            "target_part": "small black drain hose",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "Water has drained into the pan and the plug is back in."
+          },
+          {
+            "instruction": "Twist filter left and lift it out",
+            "details": [
+              "Turn slowly, more water may drip out.",
+              "If stuck, wiggle gently, do not force it."
+            ],
+            "target_part": "drain pump filter",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The round filter is out in your hand."
+          },
+          {
+            "instruction": "Rinse filter under tap and remove lint",
+            "details": [
+              "Pick off coins, hair grips and lint by hand."
+            ],
+            "target_part": "drain pump filter",
+            "photo": -1,
+            "motion": "rinse",
+            "show_3d": false,
+            "check": "You can see through the filter and no lint is left."
+          },
+          {
+            "instruction": "Twist filter right until handle stands upright",
+            "details": [
+              "Push it fully in first.",
+              "Turn until it stops and the handle is upright."
+            ],
+            "target_part": "drain pump filter",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "The filter handle is upright and will not turn more."
+          },
+          {
+            "instruction": "Check main drain hose sits loosely in pipe",
+            "details": [
+              "Only the end should go into the pipe.",
+              "Do not tape it tightly into the pipe."
+            ],
+            "target_part": "main drain hose",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The hose end is in the pipe but not pushed far down."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Unplug washer power cord",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Place pan under filter",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "drain_pump_filter"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Pull hose out to drain",
+          "distance": 10,
+          "motion": "pull_out",
+          "part_ids": [
+            "small_drain_hose"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Twist filter out left",
+          "distance": 8,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "drain_pump_filter"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Rinse filter clean",
+          "distance": 5,
+          "motion": "rinse",
+          "part_ids": [
+            "drain_pump_filter"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Twist filter in right",
+          "distance": 8,
+          "motion": "twist_cw",
+          "part_ids": [
+            "drain_pump_filter"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Check drain hose position",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "main_drain_hose"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "smelly_washer",
+      "symptoms": [
+        "Washer smells musty",
+        "Clothes smell after washing",
+        "Black marks inside the door seal",
+        "Clean Washer light is flashing"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFW5720RW",
+        "appliance": "front-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+        "diagnosis": "Soap and dirt build up inside the drum and door seal and cause the smell. A monthly Clean Washer cycle and wiping the seal usually clears it.",
+        "tools": [
+          "soft cloth",
+          "washer cleaner tablet"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Do not mix bleach with other cleaners.",
+          "Keep the cleaner tablet away from children.",
+          "Leave the door open only where children and pets are supervised."
+        ],
+        "steps": [
+          {
+            "instruction": "Take all clothes out of drum",
+            "details": [
+              "Check pockets and the seal folds too."
+            ],
+            "target_part": "washer drum",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The drum is completely empty."
+          },
+          {
+            "instruction": "Put cleaning tablet directly into drum",
+            "details": [
+              "Put it in the drum, not the drawer."
+            ],
+            "target_part": "washer drum",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The tablet sits at the bottom of the empty drum."
+          },
+          {
+            "instruction": "Close door firmly until it clicks",
+            "details": [],
+            "target_part": "washer door",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The door stays shut when you let go."
+          },
+          {
+            "instruction": "Choose Clean Washer cycle on knob",
+            "details": [
+              "Turn the knob until Clean Washer lights up."
+            ],
+            "target_part": "cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Clean Washer is shown on the panel."
+          },
+          {
+            "instruction": "Hold start button until cycle starts",
+            "details": [
+              "Hold for about three seconds."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The door locks and the cycle begins."
+          },
+          {
+            "instruction": "Wipe gray seal folds with damp cloth",
+            "details": [
+              "Pull the seal back gently to reach inside.",
+              "Pick out lint and small items."
+            ],
+            "target_part": "gray door seal",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The seal folds look clean and dry."
+          },
+          {
+            "instruction": "Leave door open after cycle ends",
+            "details": [
+              "A small gap is enough to let it dry."
+            ],
+            "target_part": "washer door",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The door is left open a little."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Empty clothes from drum",
+          "distance": 20.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "washer_drum"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Place tablet inside drum",
+          "distance": 15.0,
+          "motion": "push_in",
+          "part_ids": [
+            "washer_drum"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Close door until clicks",
+          "distance": 10.0,
+          "motion": "push_in",
+          "part_ids": [
+            "washer_door"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Select Clean Washer cycle",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "cycle_knob"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Press and hold start",
+          "distance": 1.0,
+          "motion": "press",
+          "part_ids": [
+            "start_button"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Wipe seal folds clean",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "door_seal"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "z",
+          "caption": "Leave door slightly open",
+          "distance": 12.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "washer_door"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "leaking_from_front",
+      "symptoms": [
+        "Water puddle in front of washer",
+        "Water drips from the door",
+        "Water leaks from the drawer",
+        "Floor is wet after a wash"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFW5720RW",
+        "appliance": "front-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+        "diagnosis": "Front leaks often come from a dirty door seal, something stuck in the seal, or a drawer that is clogged or not fully closed. Cleaning these parts usually stops the drip.",
+        "tools": [
+          "soft cloth",
+          "old towel"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn off the water taps if water is flowing out.",
+          "Unplug the washer before reaching under the seal.",
+          "Mop up water so nobody slips."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn off both water taps behind washer",
+            "details": [
+              "Turn both taps until they stop."
+            ],
+            "target_part": "water taps",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "Both taps are turned fully off."
+          },
+          {
+            "instruction": "Pull seal back and wipe it clean",
+            "details": [
+              "Use a damp cloth around the whole ring.",
+              "Clean the glass where it touches the seal."
+            ],
+            "target_part": "gray door seal",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "No hair, lint or grit is left on the seal."
+          },
+          {
+            "instruction": "Remove stuck items from under seal",
+            "details": [
+              "Feel slowly around the folds with your fingers.",
+              "Look for socks, coins and hair grips."
+            ],
+            "target_part": "gray door seal",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The seal folds are empty and the small holes are clear."
+          },
+          {
+            "instruction": "Pull detergent drawer out toward you",
+            "details": [
+              "Press the release tab and pull straight out."
+            ],
+            "target_part": "detergent drawer",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The drawer is out in your hand."
+          },
+          {
+            "instruction": "Rinse drawer under tap and wipe dry",
+            "details": [
+              "Scrub off old soap with a cloth.",
+              "Dispensers are not dishwasher safe."
+            ],
+            "target_part": "detergent drawer",
+            "photo": -1,
+            "motion": "rinse",
+            "show_3d": false,
+            "check": "The drawer looks clean with no soap lumps."
+          },
+          {
+            "instruction": "Slide drawer back until fully closed",
+            "details": [
+              "Line it up with the guides and push gently."
+            ],
+            "target_part": "detergent drawer",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The drawer front sits flush with the washer."
+          },
+          {
+            "instruction": "Turn taps on and run short wash",
+            "details": [
+              "Watch the door and drawer for drips."
+            ],
+            "target_part": "water taps",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": false,
+            "check": "No water drips from the door or drawer."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn off both taps",
+          "distance": 0.0,
+          "motion": "twist_cw",
+          "part_ids": [
+            "water_taps"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Wipe door seal clean",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "door_seal"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Clear debris under seal",
+          "distance": 5.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "door_seal"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Pull drawer straight out",
+          "distance": 20.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "detergent_drawer"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Rinse drawer under tap",
+          "distance": 0.0,
+          "motion": "rinse",
+          "part_ids": [
+            "detergent_drawer"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Push drawer fully closed",
+          "distance": 20.0,
+          "motion": "push_in",
+          "part_ids": [
+            "detergent_drawer"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "z",
+          "caption": "Turn taps on check leaks",
+          "distance": 0.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "water_taps"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "shaking_and_noisy",
+      "symptoms": [
+        "Washer shakes a lot",
+        "Washer walks across the floor",
+        "Loud banging during spin",
+        "Washer is noisy and vibrates"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFW5720RW",
+        "appliance": "front-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+        "diagnosis": "The washer is probably not level, or one foot is not firmly on the floor. A single heavy item or a tightly packed load can also make it bang.",
+        "tools": [
+          "spirit level or phone level app",
+          "9/16 inch open-end or adjustable wrench"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Unplug the washer before adjusting the feet.",
+          "Get another adult to help tip or hold the washer.",
+          "Do not put hands under a tipped washer."
+        ],
+        "steps": [
+          {
+            "instruction": "Take clothes out and close door",
+            "details": [
+              "An empty washer is easier to check."
+            ],
+            "target_part": "washer door",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The drum is empty and the door is shut."
+          },
+          {
+            "instruction": "Rock washer corner to corner by hand",
+            "details": [
+              "Push gently at the top corners.",
+              "If it rocks, a foot needs adjusting."
+            ],
+            "target_part": "leveling feet",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can tell if the washer rocks or sits firm."
+          },
+          {
+            "instruction": "Place level across top front edge",
+            "details": [
+              "Check side to side, then front to back."
+            ],
+            "target_part": "leveling feet",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The level shows which side is low."
+          },
+          {
+            "instruction": "Turn low foot with wrench to level",
+            "details": [
+              "Turn right to lower, left to raise.",
+              "Only turn a little at a time."
+            ],
+            "target_part": "leveling feet",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "All four feet feel firmly on the floor."
+          },
+          {
+            "instruction": "Tighten nut against washer bottom with wrench",
+            "details": [
+              "Hold the foot still while you tighten.",
+              "This stops the foot moving later."
+            ],
+            "target_part": "leveling feet",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The nut is tight against the bottom of the washer."
+          },
+          {
+            "instruction": "Rock washer again and check level",
+            "details": [
+              "Repeat the foot turning if it still rocks."
+            ],
+            "target_part": "leveling feet",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The washer does not rock and the level looks even."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Close washer door",
+          "distance": -5.0,
+          "motion": "push_in",
+          "part_ids": [
+            "washer_door"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Rock washer to check",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "leveling_feet",
+            "cabinet"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "x",
+          "caption": "Check top with level",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "top",
+            "leveling_feet"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Turn low foot level",
+          "distance": 1.5,
+          "motion": "twist_cw",
+          "part_ids": [
+            "leveling_feet"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Tighten lock nut",
+          "distance": 1.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "leveling_feet"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Recheck rock and level",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "leveling_feet",
+            "cabinet"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "will_not_start",
+      "symptoms": [
+        "Washer will not start",
+        "Buttons do not respond",
+        "Washer shows LoC or LC",
+        "Nothing happens when I press start"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFW5720RW",
+        "appliance": "front-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+        "diagnosis": "The control lock may be on, the door may not be fully shut, or the start button was not held long enough. Water taps also need to be fully open.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Do not force the door open.",
+          "Keep hands dry when plugging the washer in."
+        ],
+        "steps": [
+          {
+            "instruction": "Push door firmly until it clicks shut",
+            "details": [
+              "Check no clothes are trapped in the seal."
+            ],
+            "target_part": "washer door",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The door is shut and will not pull open."
+          },
+          {
+            "instruction": "Hold control lock button three seconds",
+            "details": [
+              "This turns the lock off if LoC showed.",
+              "Hold the button itself, not words below it."
+            ],
+            "target_part": "control lock button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The LoC or LC sign disappears."
+          },
+          {
+            "instruction": "Turn both water taps fully open",
+            "details": [
+              "Both hot and cold must be on."
+            ],
+            "target_part": "water taps",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "Both taps are turned fully on."
+          },
+          {
+            "instruction": "Hold start button for three seconds",
+            "details": [
+              "Keep holding until you hear it start.",
+              "The door lock may take ten seconds."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The door locks and the cycle starts."
+          },
+          {
+            "instruction": "Unplug washer and wait five minutes",
+            "details": [
+              "This resets the controls."
+            ],
+            "target_part": "power cord",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The plug is out and the panel is dark."
+          },
+          {
+            "instruction": "Plug washer back in and try again",
+            "details": [
+              "Choose a cycle and hold start again."
+            ],
+            "target_part": "power cord",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The panel lights up when plugged back in."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Push door until clicks shut",
+          "distance": 5.0,
+          "motion": "push_in",
+          "part_ids": [
+            "washer_door",
+            "door_seal"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Hold lock button three seconds",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "control_lock_button"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Turn both taps fully open",
+          "distance": 2.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "water_taps",
+            "water_taps"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Hold start button three seconds",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "start_button"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Unplug washer wait five minutes",
+          "distance": 12.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Plug washer back in",
+          "distance": 12.0,
+          "motion": "push_in",
+          "part_ids": [
+            "power_cord"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "door_wont_open_low_water",
+      "symptoms": [
+        "Door will not open",
+        "Door is locked and clothes inside",
+        "Washer shows F8 E1 or Lo FL",
+        "Controls do not respond"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFW5720RW",
+        "appliance": "front-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+        "diagnosis": "The washer did not sense enough water coming in, so it locked the door for safety. Pressing power starts a drain routine that can unlock it once water flow is fixed.",
+        "tools": [
+          "old towel"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Do not force or pry the door open.",
+          "Turn off taps if you see a leak.",
+          "Wait for the drum to stop before opening."
+        ],
+        "steps": [
+          {
+            "instruction": "Press power button once only",
+            "details": [
+              "This starts the drain routine.",
+              "The pump may run for several minutes."
+            ],
+            "target_part": "start button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "You hear the pump running."
+          },
+          {
+            "instruction": "Wait ten minutes beside the washer",
+            "details": [
+              "Do not unplug it during this time."
+            ],
+            "target_part": "washer door",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The pump stops and the lock light goes off."
+          },
+          {
+            "instruction": "Turn both water taps fully open",
+            "details": [
+              "Both hot and cold must be connected and on."
+            ],
+            "target_part": "water taps",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "Both taps are turned fully on."
+          },
+          {
+            "instruction": "Straighten water hoses at the back",
+            "details": [
+              "Smooth out any sharp bends or kinks.",
+              "Do not pull the washer out alone."
+            ],
+            "target_part": "water inlet hoses",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The hoses run smoothly with no sharp bends."
+          },
+          {
+            "instruction": "Pull door handle gently to open",
+            "details": [
+              "Only pull when the lock light is off."
+            ],
+            "target_part": "washer door",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The door opens without forcing it."
+          },
+          {
+            "instruction": "Run Drain and Spin cycle empty",
+            "details": [
+              "This checks water can drain away properly."
+            ],
+            "target_part": "cycle knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The empty cycle finishes with no error shown."
+          }
+        ],
+        "library_id": "",
+        "library_problem": ""
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Press power once only",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "start_button"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Wait ten minutes beside washer",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "washer_door"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Open both water taps fully",
+          "distance": 2,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "water_taps",
+            "water_taps"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Straighten rear water hoses",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "water_inlet_hoses",
+            "water_inlet_hoses"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Gently pull door open",
+          "distance": 30,
+          "motion": "pull_out",
+          "part_ids": [
+            "washer_door"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Run Drain Spin empty",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "cycle_knob"
+          ],
+          "step": 5
+        }
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#dce6ec",
+        "id": "cabinet",
+        "label": "cabinet",
+        "opacity": 0.16,
+        "position": [
+          0.0,
+          50.0,
+          0.0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          68.0,
+          92.0,
+          72.0
+        ]
+      },
+      {
+        "color": "#f2f4f5",
+        "id": "top",
+        "label": "top",
+        "opacity": 0.95,
+        "position": [
+          0.0,
+          97.0,
+          0.0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          68.0,
+          2.0,
+          73.0
+        ]
+      },
+      {
+        "color": "#93a3ad",
+        "id": "tub",
+        "label": "outer tub",
+        "opacity": 0.32,
+        "position": [
+          0.0,
+          54.0,
+          -4.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          56.0,
+          44.0,
+          56.0
+        ]
+      },
+      {
+        "color": "#b9c2c7",
+        "id": "washer_drum",
+        "label": "washer drum",
+        "opacity": 0.9,
+        "position": [
+          0.0,
+          54.0,
+          -1.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          50.0,
+          42.0,
+          50.0
+        ]
+      },
+      {
+        "color": "#656a6e",
+        "id": "door_seal",
+        "label": "gray door seal",
+        "opacity": 1.0,
+        "position": [
+          0.0,
+          54.0,
+          27.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "torus",
+        "size": [
+          52.0,
+          9.0,
+          52.0
+        ]
+      },
+      {
+        "color": "#9fc9dd",
+        "id": "washer_door",
+        "label": "washer door",
+        "opacity": 0.55,
+        "position": [
+          -43.0,
+          54.0,
+          39.0
+        ],
+        "rotation": [
+          90,
+          -58,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          57.0,
+          5.0,
+          57.0
+        ]
+      },
+      {
+        "color": "#eef3f6",
+        "id": "detergent_drawer",
+        "label": "detergent drawer",
+        "opacity": 1.0,
+        "position": [
+          -20.0,
+          88.0,
+          46.0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          23.0,
+          10.0,
+          26.0
+        ]
+      },
+      {
+        "color": "#34424c",
+        "id": "cycle_knob",
+        "label": "cycle knob",
+        "opacity": 1.0,
+        "position": [
+          -1.0,
+          88.0,
+          37.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          12.0,
+          4.0,
+          12.0
+        ]
+      },
+      {
+        "color": "#1f6f6b",
+        "id": "start_button",
+        "label": "start button",
+        "opacity": 1.0,
+        "position": [
+          17.0,
+          88.0,
+          37.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          6.5,
+          2.5,
+          6.5
+        ]
+      },
+      {
+        "color": "#30383e",
+        "id": "control_lock_button",
+        "label": "control lock button",
+        "opacity": 1.0,
+        "position": [
+          26.5,
+          88.0,
+          37.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          5.0,
+          2.5,
+          5.0
+        ]
+      },
+      {
+        "color": "#dfe4e7",
+        "id": "drain_pump_filter",
+        "label": "drain pump filter",
+        "opacity": 1.0,
+        "position": [
+          22.0,
+          10.0,
+          37.5
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          9.0,
+          4.0,
+          9.0
+        ]
+      },
+      {
+        "color": "#111314",
+        "id": "small_drain_hose",
+        "label": "small black drain hose",
+        "opacity": 1.0,
+        "position": [
+          13.5,
+          10.0,
+          39.0
+        ],
+        "rotation": [
+          65,
+          0,
+          18
+        ],
+        "shape": "capsule",
+        "size": [
+          2.5,
+          13.0,
+          2.5
+        ]
+      },
+      {
+        "color": "#17191a",
+        "id": "power_cord",
+        "label": "power cord",
+        "opacity": 1.0,
+        "position": [
+          39.0,
+          52.0,
+          -43.0
+        ],
+        "rotation": [
+          18,
+          0,
+          38
+        ],
+        "shape": "capsule",
+        "size": [
+          2.5,
+          58.0,
+          2.5
+        ]
+      },
+      {
+        "color": "#7c868d",
+        "id": "main_drain_hose",
+        "label": "main drain hose",
+        "opacity": 1.0,
+        "position": [
+          19.0,
+          56.0,
+          -47.0
+        ],
+        "rotation": [
+          0,
+          0,
+          -14
+        ],
+        "shape": "capsule",
+        "size": [
+          5.0,
+          56.0,
+          5.0
+        ]
+      },
+      {
+        "color": "#b03a32",
+        "id": "water_inlet_hoses",
+        "label": "water inlet hoses - hot",
+        "opacity": 1.0,
+        "position": [
+          -19.0,
+          70.0,
+          -45.0
+        ],
+        "rotation": [
+          8,
+          0,
+          5
+        ],
+        "shape": "capsule",
+        "size": [
+          3.5,
+          38.0,
+          3.5
+        ]
+      },
+      {
+        "color": "#2c6faa",
+        "id": "water_inlet_hoses",
+        "label": "water inlet hoses - cold",
+        "opacity": 1.0,
+        "position": [
+          -8.0,
+          70.0,
+          -45.0
+        ],
+        "rotation": [
+          8,
+          0,
+          -5
+        ],
+        "shape": "capsule",
+        "size": [
+          3.5,
+          38.0,
+          3.5
+        ]
+      },
+      {
+        "color": "#b03a32",
+        "id": "water_taps",
+        "label": "water taps - hot",
+        "opacity": 1.0,
+        "position": [
+          -19.0,
+          90.0,
+          -50.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          7.0,
+          7.0,
+          7.0
+        ]
+      },
+      {
+        "color": "#2c6faa",
+        "id": "water_taps",
+        "label": "water taps - cold",
+        "opacity": 1.0,
+        "position": [
+          -8.0,
+          90.0,
+          -50.0
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          7.0,
+          7.0,
+          7.0
+        ]
+      },
+      {
+        "color": "#222527",
+        "id": "leveling_feet",
+        "label": "leveling feet",
+        "opacity": 1.0,
+        "position": [
+          -28.0,
+          2.0,
+          28.0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          6.0,
+          4.0,
+          6.0
+        ]
+      },
+      {
+        "color": "#222527",
+        "id": "leveling_feet",
+        "label": "leveling feet",
+        "opacity": 1.0,
+        "position": [
+          28.0,
+          2.0,
+          28.0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          6.0,
+          4.0,
+          6.0
+        ]
+      },
+      {
+        "color": "#222527",
+        "id": "leveling_feet",
+        "label": "leveling feet",
+        "opacity": 1.0,
+        "position": [
+          -28.0,
+          2.0,
+          -28.0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          6.0,
+          4.0,
+          6.0
+        ]
+      },
+      {
+        "color": "#222527",
+        "id": "leveling_feet",
+        "label": "leveling feet",
+        "opacity": 1.0,
+        "position": [
+          28.0,
+          2.0,
+          -28.0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          6.0,
+          4.0,
+          6.0
+        ]
+      }
+    ]
+  }
+}

@@ -30,6 +30,15 @@ func main() {
 	http.HandleFunc("POST /api/fix", handleFix)
 	http.HandleFunc("POST /api/check", handleCheck)
 	http.HandleFunc("POST /api/transcribe", handleTranscribe)
+	http.HandleFunc("GET /api/library/{id}", func(writer http.ResponseWriter, request *http.Request) {
+		entry := findLibraryEntry(request.PathValue("id"))
+		if entry == nil {
+			http.NotFound(writer, request)
+			return
+		}
+		writer.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(writer).Encode(entry)
+	})
 	http.HandleFunc("GET /api/health", func(writer http.ResponseWriter, _ *http.Request) { writer.Write([]byte("ok")) })
 	address := os.Getenv("ADDR")
 	if address == "" {

@@ -1,0 +1,1484 @@
+{
+  "id": "whirlpool-electric-range",
+  "appliance": "freestanding electric range",
+  "brand": "Whirlpool",
+  "model_family": "Whirlpool 30-inch Freestanding Electric Range with No Preheat Mode — WFES3030R, WFES3330R and WFES3530R series",
+  "model_numbers": [
+    "WFES3030RB",
+    "WFES3030RS",
+    "WFES3030RW",
+    "WFES3330RB",
+    "WFES3330RS",
+    "WFES3330RW",
+    "WFES3330RZ",
+    "WFES3530RB",
+    "WFES3530RS",
+    "WFES3530RW"
+  ],
+  "sticker_location": "On the frame behind a top corner of the oven door, or on either side of the storage drawer. Open the oven door or pull the bottom drawer out and look along the front frame for the white or metal plate that says Model and Serial.",
+  "manual_urls": [
+    "https://www.whirlpool.com/content/dam/global/documents/202603/owners-manual-w11617173-revd.pdf",
+    "https://www.whirlpool.com/content/dam/global/documents/202506/control-guide-w11630367-revb.pdf"
+  ],
+  "parts": [
+    {
+      "id": "glass_cooktop",
+      "label": "glass cooktop",
+      "where": "The flat glass top where pans sit, on top of the range."
+    },
+    {
+      "id": "cooktop_burner_circles",
+      "label": "cooktop burner circles",
+      "where": "The circles marked on the glass top. Each circle is one hot spot for a pan."
+    },
+    {
+      "id": "burner_control_knobs",
+      "label": "burner control knobs",
+      "where": "On the raised back panel at the back of the cooktop. Turn one to heat the matching circle."
+    },
+    {
+      "id": "oven_control_panel",
+      "label": "oven control panel",
+      "where": "In the middle of the raised back panel, with a small screen and buttons like Bake, Start and Cancel."
+    },
+    {
+      "id": "control_lock_button",
+      "label": "Control Lock button",
+      "where": "On the oven control panel on the raised back panel. It locks the buttons so they do not respond."
+    },
+    {
+      "id": "hot_surface_warning_light",
+      "label": "hot surface warning light",
+      "where": "A small light on the back control panel. It stays on while any part of the glass top is too hot to touch."
+    },
+    {
+      "id": "oven_racks",
+      "label": "oven racks",
+      "where": "The metal shelves inside the oven. They slide in and out on side rails."
+    },
+    {
+      "id": "oven_door",
+      "label": "oven door",
+      "where": "The big front door with a window, below the cooktop. It opens down toward you."
+    },
+    {
+      "id": "oven_door_seal",
+      "label": "oven door seal",
+      "where": "The soft strip around the edge of the oven opening, behind the door. It keeps heat inside."
+    },
+    {
+      "id": "oven_light_bulb",
+      "label": "oven light bulb",
+      "where": "Inside the oven, behind a small round glass cover on the back wall of the oven."
+    },
+    {
+      "id": "oven_light_cover",
+      "label": "oven light cover",
+      "where": "The small round glass cover on the back wall inside the oven, over the light bulb."
+    },
+    {
+      "id": "oven_floor",
+      "label": "oven floor",
+      "where": "The flat bottom inside the oven, under the lowest rack."
+    },
+    {
+      "id": "oven_vent",
+      "label": "oven vent",
+      "where": "Along the back of the cooktop, in front of the raised back panel. Hot air from the oven leaves here, so keep it clear."
+    },
+    {
+      "id": "storage_drawer",
+      "label": "storage drawer",
+      "where": "The shallow drawer at the very bottom front, below the oven door."
+    },
+    {
+      "id": "leveling_legs",
+      "label": "leveling legs",
+      "where": "Small feet at the bottom corners underneath the range. Turning them raises or lowers that corner."
+    },
+    {
+      "id": "anti_tip_bracket",
+      "label": "anti-tip bracket",
+      "where": "A metal bracket on the floor or wall behind the range. One back foot slides into it so the range cannot tip forward."
+    }
+  ],
+  "problems": [
+    {
+      "id": "oven_will_not_start",
+      "symptoms": [
+        "The oven won't turn on",
+        "I press Bake and nothing happens",
+        "The buttons don't respond",
+        "It worked before the power blinked"
+      ],
+      "plan": {
+        "appliance": "freestanding electric range",
+        "brand": "Whirlpool",
+        "diagnosis": "The buttons may be locked, a delayed start may be set, or the control may need a power reset. These checks are safe and need no tools.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202603/owners-manual-w11617173-revd.pdf",
+        "model_number": "WFES3030RS",
+        "replacement_parts": [],
+        "safety": [
+          "Let the oven and cooktop cool before testing.",
+          "Keep hands and cloths away from hot burner circles.",
+          "If the breaker trips again, stop and call an electrician."
+        ],
+        "steps": [
+          {
+            "check": "The screen shows the time of day again.",
+            "details": [
+              "This clears a delayed start or a stopped cycle."
+            ],
+            "instruction": "Press Cancel button once.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The lock picture or word is gone from the screen.",
+            "details": [
+              "Hold until you hear a tone.",
+              "No buttons work while the lock is on."
+            ],
+            "instruction": "Hold Control Lock button three seconds.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "Control Lock button"
+          },
+          {
+            "check": "The screen goes dark.",
+            "details": [
+              "Use the breaker marked for the range.",
+              "Wait one full minute before the next step."
+            ],
+            "instruction": "Turn range breaker off.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The screen lights up and shows the time.",
+            "details": [],
+            "instruction": "Turn range breaker back on.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The screen asks for or shows a temperature.",
+            "details": [
+              "Use the up and down arrows to pick it."
+            ],
+            "instruction": "Press Bake and choose temperature.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The oven starts warming and the screen shows preheating.",
+            "details": [
+              "If it still will not start, book a repair visit."
+            ],
+            "instruction": "Press Start button.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          }
+        ],
+        "tools": []
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Press Cancel to clear cycle",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Hold Control Lock three seconds",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "control_lock_button",
+            "oven_control_panel"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Turn range breaker off",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Turn range breaker on",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Press Bake choose temperature",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Press Start to begin heating",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "one_burner_will_not_heat",
+      "symptoms": [
+        "One burner won't heat up",
+        "This spot gets warm but won't boil",
+        "The burner doesn't glow red",
+        "Food cooks slowly on one burner"
+      ],
+      "plan": {
+        "appliance": "freestanding electric range",
+        "brand": "Whirlpool",
+        "diagnosis": "A pan that is too small, not flat, or off-center can heat poorly. The red glow also turns on and off in normal use, so watch for real heat, not a steady glow.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202506/control-guide-w11630367-revb.pdf",
+        "model_number": "WFES3030RS",
+        "replacement_parts": [],
+        "safety": [
+          "Let the glass cool before moving pans or wiping.",
+          "Do not put your hand on a burner circle to test it.",
+          "Turn all knobs off when you finish."
+        ],
+        "steps": [
+          {
+            "check": "The knob points to Off.",
+            "details": [],
+            "instruction": "Turn that burner knob off.",
+            "motion": "twist_cw",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "burner control knobs"
+          },
+          {
+            "check": "The hot surface warning light is off.",
+            "details": [
+              "This can take a while after cooking."
+            ],
+            "instruction": "Wait until warning light goes off.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "hot surface warning light"
+          },
+          {
+            "check": "The pan sits flat and covers most of the circle.",
+            "details": [
+              "Pick a circle about the same size as the pan.",
+              "Do not let the pan hang far past the circle."
+            ],
+            "instruction": "Center flat pan on burner circle.",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "cooktop burner circles"
+          },
+          {
+            "check": "The small cooktop-on light on the back panel is lit.",
+            "details": [],
+            "instruction": "Turn knob to medium heat.",
+            "motion": "twist_cw",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "burner control knobs"
+          },
+          {
+            "check": "The circle glows red at times and the pan gets hot.",
+            "details": [
+              "The glow will turn on and off. That is normal.",
+              "If there is no heat at all, book a repair visit."
+            ],
+            "instruction": "Watch circle for red glow.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "cooktop burner circles"
+          }
+        ],
+        "tools": [
+          "flat-bottomed pan"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn burner knob off",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "burner_control_knobs",
+            "oven_control_panel"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Wait warning light off",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "hot_surface_warning_light",
+            "glass_cooktop"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Center flat pan on circle",
+          "distance": 5,
+          "motion": "push_in",
+          "part_ids": [
+            "cooktop_burner_circles",
+            "glass_cooktop"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Turn knob to medium",
+          "distance": 3,
+          "motion": "twist_cw",
+          "part_ids": [
+            "burner_control_knobs",
+            "oven_control_panel"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Watch red glow cycle",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "cooktop_burner_circles",
+            "glass_cooktop"
+          ],
+          "step": 4
+        }
+      ]
+    },
+    {
+      "id": "food_bakes_too_hot_or_cold",
+      "symptoms": [
+        "Everything burns on the bottom",
+        "My cakes are raw in the middle",
+        "The oven seems hotter than the setting",
+        "Baking takes much longer than the recipe says"
+      ],
+      "plan": {
+        "appliance": "freestanding electric range",
+        "brand": "Whirlpool",
+        "diagnosis": "Crowded pans or the wrong rack spot can bake unevenly. If the same food is always overdone or underdone, you can shift the oven temperature setting a little.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202506/control-guide-w11630367-revb.pdf",
+        "model_number": "WFES3030RS",
+        "replacement_parts": [],
+        "safety": [
+          "Move racks only when the oven is cool.",
+          "Use oven mitts for any hot pan.",
+          "Change the setting by a small amount only."
+        ],
+        "steps": [
+          {
+            "check": "The rack sits level in a middle slot.",
+            "details": [
+              "Pull the rack to the stop, lift the front, then slide it in."
+            ],
+            "instruction": "Move baking rack to middle slot.",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven racks"
+          },
+          {
+            "check": "You can see a gap all around the pan.",
+            "details": [
+              "Leave about two inches around pans and walls.",
+              "Do not stack one pan over another."
+            ],
+            "instruction": "Leave space around baking pan.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven racks"
+          },
+          {
+            "check": "The screen shows the current temperature setting, like 0.",
+            "details": [
+              "Hold the down arrow on the oven control panel."
+            ],
+            "instruction": "Hold Temp/Time down arrow five seconds.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The number moves only a little, such as 10 degrees.",
+            "details": [
+              "Food too done: lower it. Food underdone: raise it.",
+              "Each tap changes it by five degrees."
+            ],
+            "instruction": "Tap arrows to adjust temperature slightly.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The screen returns to the time of day.",
+            "details": [],
+            "instruction": "Press Start to save setting.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The test food bakes the way you expect.",
+            "details": [
+              "Wait for the preheat tone before putting food in.",
+              "If it is still far off, book a repair visit."
+            ],
+            "instruction": "Bake same food once more.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven door"
+          }
+        ],
+        "tools": [
+          "oven mitts"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Move rack to middle",
+          "distance": 20.0,
+          "motion": "push_in",
+          "part_ids": [
+            "oven_racks"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Leave space around pan",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "oven_racks"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Hold down arrow five seconds",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Tap arrows adjust temperature",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Press Start to save",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Bake food test again",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "oven_door"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "oven_light_out",
+      "symptoms": [
+        "The oven light is out",
+        "It's dark inside the oven",
+        "The light doesn't come on when I open the door"
+      ],
+      "plan": {
+        "appliance": "freestanding electric range",
+        "brand": "Whirlpool",
+        "diagnosis": "The inside light most likely needs a new bulb. It uses a standard 40-watt appliance bulb, changed from inside the oven with the power off.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202603/owners-manual-w11617173-revd.pdf",
+        "model_number": "WFES3330RS",
+        "replacement_parts": [
+          "40-watt appliance oven light bulb"
+        ],
+        "safety": [
+          "Turn the range breaker off before touching the bulb.",
+          "Make sure the oven and cooktop are fully cool.",
+          "Do not use a regular household bulb that is not made for ovens."
+        ],
+        "steps": [
+          {
+            "check": "The screen and lights are off.",
+            "details": [
+              "Make sure the oven is cool first.",
+              "This makes the bulb safe to touch."
+            ],
+            "instruction": "Turn range breaker off.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven light bulb"
+          },
+          {
+            "check": "The round glass cover is in your hand.",
+            "details": [
+              "It is on the back wall inside the oven.",
+              "Turn gently. Do not force a stuck cover."
+            ],
+            "instruction": "Twist light cover left and remove.",
+            "motion": "twist_ccw",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven light cover"
+          },
+          {
+            "check": "The old bulb is out of its socket.",
+            "details": [],
+            "instruction": "Twist old bulb left and remove.",
+            "motion": "twist_ccw",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven light bulb"
+          },
+          {
+            "check": "The new bulb sits firmly and does not wobble.",
+            "details": [
+              "Use a 40-watt appliance bulb.",
+              "Turn until snug. Do not over-tighten."
+            ],
+            "instruction": "Twist new bulb right until snug.",
+            "motion": "screw_in",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven light bulb"
+          },
+          {
+            "check": "The cover is back in place and snug.",
+            "details": [],
+            "instruction": "Twist light cover right until snug.",
+            "motion": "twist_cw",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven light cover"
+          },
+          {
+            "check": "The screen lights up again.",
+            "details": [],
+            "instruction": "Turn range breaker back on.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "Light fills the oven when you open the door.",
+            "details": [
+              "The light does not come on during self-cleaning. That is normal."
+            ],
+            "instruction": "Press Light button to test.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          }
+        ],
+        "tools": [
+          "soft cloth"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Power off before touching",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "oven_light_bulb"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Twist cover left remove",
+          "distance": 3,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "oven_light_cover"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Twist old bulb out",
+          "distance": 3,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "oven_light_bulb"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Screw new bulb snug",
+          "distance": 2,
+          "motion": "screw_in",
+          "part_ids": [
+            "oven_light_bulb"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Twist cover right snug",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "oven_light_cover"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Restore power at breaker",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "oven_control_panel"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "z",
+          "caption": "Press light test bulb",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel",
+            "oven_light_bulb"
+          ],
+          "step": 6
+        }
+      ]
+    },
+    {
+      "id": "burnt_on_cooktop_spill",
+      "symptoms": [
+        "There's burnt food stuck on the glass top",
+        "The cooktop has black marks that won't wipe off",
+        "Sugar spilled and hardened on the burner"
+      ],
+      "plan": {
+        "appliance": "freestanding electric range",
+        "brand": "Whirlpool",
+        "diagnosis": "Burnt food on the glass usually loosens with water and time, once the top is fully cool. Scrubbing hard or using rough pads can scratch the glass.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202603/owners-manual-w11617173-revd.pdf",
+        "model_number": "WFES3030RS",
+        "replacement_parts": [],
+        "safety": [
+          "Wait until the glass is at room temperature.",
+          "Do not use steel wool or rough scrub pads.",
+          "Keep the burner knobs off while cleaning."
+        ],
+        "steps": [
+          {
+            "check": "All knobs point to Off.",
+            "details": [],
+            "instruction": "Turn all burner knobs off.",
+            "motion": "twist_cw",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "burner control knobs"
+          },
+          {
+            "check": "The hot surface warning light is off.",
+            "details": [
+              "The glass should feel cool, not warm."
+            ],
+            "instruction": "Wait until warning light goes off.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "hot surface warning light"
+          },
+          {
+            "check": "The spill stays wet and starts to soften.",
+            "details": [
+              "Cover the whole mark with water.",
+              "Wait at least five minutes."
+            ],
+            "instruction": "Cover spill with water five minutes.",
+            "motion": "rinse",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "glass cooktop"
+          },
+          {
+            "check": "Most of the spill lifts onto the sponge.",
+            "details": [
+              "Use a soft, non-scratch sponge only.",
+              "Wipe in small circles with light pressure."
+            ],
+            "instruction": "Wipe spill with soft sponge.",
+            "motion": "rinse",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "glass cooktop"
+          },
+          {
+            "check": "The mark fades a little more each round.",
+            "details": [
+              "Add more water if the spot dries out."
+            ],
+            "instruction": "Repeat soaking if mark remains.",
+            "motion": "rinse",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "glass cooktop"
+          },
+          {
+            "check": "The glass looks clean and dry, with no streaks.",
+            "details": [],
+            "instruction": "Dry glass with soft cloth.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "glass cooktop"
+          }
+        ],
+        "tools": [
+          "water",
+          "soft non-scratch sponge",
+          "soft cloth"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn all knobs off",
+          "distance": 2,
+          "motion": "twist_cw",
+          "part_ids": [
+            "burner_control_knobs"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Wait for light off",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "hot_surface_warning_light",
+            "glass_cooktop"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Soak spill with water",
+          "distance": 1,
+          "motion": "rinse",
+          "part_ids": [
+            "glass_cooktop",
+            "cooktop_burner_circles"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "x",
+          "caption": "Wipe gently with sponge",
+          "distance": 5,
+          "motion": "rinse",
+          "part_ids": [
+            "glass_cooktop",
+            "cooktop_burner_circles"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Repeat soak if needed",
+          "distance": 1,
+          "motion": "rinse",
+          "part_ids": [
+            "glass_cooktop",
+            "cooktop_burner_circles"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Dry glass clean",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "glass_cooktop"
+          ],
+          "step": 5
+        }
+      ]
+    },
+    {
+      "id": "light_oven_spill_and_smell",
+      "symptoms": [
+        "There's a cheese spill on the oven bottom",
+        "The oven smells when it heats up",
+        "There's light smoke from a spill inside"
+      ],
+      "plan": {
+        "appliance": "freestanding electric range",
+        "brand": "Whirlpool",
+        "diagnosis": "For a light, fresh spill on the oven floor, the Steam Clean setting uses plain water and heat to loosen it. It works best soon after the spill, before it dries hard.",
+        "library_id": "",
+        "library_problem": "",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202603/owners-manual-w11617173-revd.pdf",
+        "model_number": "WFES3330RS",
+        "replacement_parts": [],
+        "safety": [
+          "Let the oven cool to room temperature first.",
+          "Use plain water only. Do not add oven cleaner.",
+          "Keep the door closed while the cycle runs."
+        ],
+        "steps": [
+          {
+            "check": "The oven walls feel cool to the touch.",
+            "details": [
+              "If the screen shows HOT, wait and try later."
+            ],
+            "instruction": "Let oven cool completely.",
+            "motion": "none",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven floor"
+          },
+          {
+            "check": "Only the racks and the spill remain inside.",
+            "details": [
+              "Take out pans, foil and loose burnt bits."
+            ],
+            "instruction": "Take pans and loose bits out.",
+            "motion": "pull_out",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven racks"
+          },
+          {
+            "check": "A shallow pool of water covers the spill area.",
+            "details": [
+              "Use about twelve ounces of water.",
+              "Filtered or distilled water works best."
+            ],
+            "instruction": "Pour twelve ounces water onto oven floor.",
+            "motion": "rinse",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven floor"
+          },
+          {
+            "check": "The door is shut all the way.",
+            "details": [],
+            "instruction": "Close oven door fully.",
+            "motion": "push_in",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven door"
+          },
+          {
+            "check": "Steam Clean shows on the screen.",
+            "details": [
+              "Use this only if your panel has a Steam Clean button."
+            ],
+            "instruction": "Press Steam Clean button.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The countdown starts on the screen.",
+            "details": [
+              "The cycle takes about forty minutes."
+            ],
+            "instruction": "Press Start button.",
+            "motion": "press",
+            "photo": -1,
+            "show_3d": false,
+            "target_part": "oven control panel"
+          },
+          {
+            "check": "The oven floor wipes clean with little effort.",
+            "details": [
+              "Wait until the screen shows End.",
+              "Use a sponge or soft brush for stubborn spots.",
+              "Run it once more if soil remains."
+            ],
+            "instruction": "Wipe water and loosened spill away.",
+            "motion": "rinse",
+            "photo": -1,
+            "show_3d": true,
+            "target_part": "oven floor"
+          }
+        ],
+        "tools": [
+          "measuring cup",
+          "water",
+          "sponge or soft cloth"
+        ]
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Let oven cool completely",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "oven_floor",
+            "tub"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Remove racks and debris",
+          "distance": 20,
+          "motion": "pull_out",
+          "part_ids": [
+            "oven_racks",
+            "tub"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Pour water onto oven floor",
+          "distance": 5,
+          "motion": "rinse",
+          "part_ids": [
+            "oven_floor",
+            "tub"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Close oven door fully",
+          "distance": 25,
+          "motion": "push_in",
+          "part_ids": [
+            "oven_door",
+            "oven_door_seal"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Press Steam Clean button",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel",
+            "control_lock_button"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Press Start to begin",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "oven_control_panel",
+            "control_lock_button"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe loosened spill away",
+          "distance": 5,
+          "motion": "rinse",
+          "part_ids": [
+            "oven_floor",
+            "oven_door"
+          ],
+          "step": 6
+        }
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#c9ced4",
+        "id": "cabinet",
+        "label": "range cabinet",
+        "opacity": 0.18,
+        "position": [
+          0,
+          48,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          76,
+          84,
+          64
+        ]
+      },
+      {
+        "color": "#8f9499",
+        "id": "tub",
+        "label": "oven cavity",
+        "opacity": 0.14,
+        "position": [
+          0,
+          64,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          64,
+          50,
+          54
+        ]
+      },
+      {
+        "color": "#111111",
+        "id": "glass_cooktop",
+        "label": "glass cooktop",
+        "opacity": 1.0,
+        "position": [
+          0,
+          92.5,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          75,
+          1.5,
+          60
+        ]
+      },
+      {
+        "color": "#4a1515",
+        "id": "cooktop_burner_circles",
+        "label": "cooktop burner circles",
+        "opacity": 0.9,
+        "position": [
+          0,
+          93.5,
+          -4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          62,
+          0.7,
+          42
+        ]
+      },
+      {
+        "color": "#202226",
+        "id": "burner_control_knobs",
+        "label": "burner control knobs",
+        "opacity": 1.0,
+        "position": [
+          0,
+          102,
+          -32
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ],
+        "shape": "cylinder",
+        "size": [
+          7,
+          74,
+          7
+        ]
+      },
+      {
+        "color": "#17181c",
+        "id": "oven_control_panel",
+        "label": "oven control panel",
+        "opacity": 1.0,
+        "position": [
+          0,
+          103,
+          -31
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          40,
+          20,
+          4
+        ]
+      },
+      {
+        "color": "#3f7fbf",
+        "id": "control_lock_button",
+        "label": "Control Lock button",
+        "opacity": 1.0,
+        "position": [
+          13,
+          99,
+          -28.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          10,
+          3.5,
+          1.5
+        ]
+      },
+      {
+        "color": "#ff7a1a",
+        "id": "hot_surface_warning_light",
+        "label": "hot surface warning light",
+        "opacity": 1.0,
+        "position": [
+          -27,
+          108,
+          -28.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          4,
+          3,
+          1.5
+        ]
+      },
+      {
+        "color": "#d7dde3",
+        "id": "oven_racks",
+        "label": "oven racks",
+        "opacity": 0.95,
+        "position": [
+          0,
+          56,
+          4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          60,
+          1.5,
+          45
+        ]
+      },
+      {
+        "color": "#b8bec6",
+        "id": "oven_door",
+        "label": "oven door",
+        "opacity": 0.95,
+        "position": [
+          0,
+          27,
+          57
+        ],
+        "rotation": [
+          85,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          74,
+          54,
+          4
+        ]
+      },
+      {
+        "color": "#2b2b2e",
+        "id": "oven_door_seal",
+        "label": "oven door seal",
+        "opacity": 0.32,
+        "position": [
+          0,
+          64,
+          30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          66,
+          52,
+          2
+        ]
+      },
+      {
+        "color": "#ffd76a",
+        "id": "oven_light_bulb",
+        "label": "oven light bulb",
+        "opacity": 1.0,
+        "position": [
+          18,
+          76,
+          -23
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          4,
+          6,
+          4
+        ]
+      },
+      {
+        "color": "#eef3f5",
+        "id": "oven_light_cover",
+        "label": "oven light cover",
+        "opacity": 0.55,
+        "position": [
+          18,
+          76,
+          -21
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          8,
+          3,
+          8
+        ]
+      },
+      {
+        "color": "#3d4147",
+        "id": "oven_floor",
+        "label": "oven floor",
+        "opacity": 1.0,
+        "position": [
+          0,
+          39.5,
+          3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          62,
+          2,
+          48
+        ]
+      },
+      {
+        "color": "#777d85",
+        "id": "oven_vent",
+        "label": "oven vent",
+        "opacity": 1.0,
+        "position": [
+          0,
+          93.5,
+          -27
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          72,
+          2,
+          6
+        ]
+      },
+      {
+        "color": "#aeb5bd",
+        "id": "storage_drawer",
+        "label": "storage drawer",
+        "opacity": 1.0,
+        "position": [
+          0,
+          15,
+          20
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          68,
+          17,
+          48
+        ]
+      },
+      {
+        "color": "#34383d",
+        "id": "leveling_legs",
+        "label": "leveling legs",
+        "opacity": 1.0,
+        "position": [
+          0,
+          3,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          68,
+          6,
+          56
+        ]
+      },
+      {
+        "color": "#9aa1a9",
+        "id": "anti_tip_bracket",
+        "label": "anti-tip bracket",
+        "opacity": 1.0,
+        "position": [
+          20,
+          5,
+          -41
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          24,
+          10,
+          5
+        ]
+      }
+    ]
+  }
+}
