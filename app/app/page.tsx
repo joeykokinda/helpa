@@ -6,6 +6,7 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import Capture from "./components/Capture";
+import CheckMoment, { type CheckState } from "./components/CheckMoment";
 import Helpa, { type HelpaMood } from "./components/Helpa";
 import Icon from "./components/Icons";
 import Onboarding, { hasOnboarded } from "./components/Onboarding";
@@ -78,9 +79,9 @@ export default function Home() {
   const [sceneFailed, setSceneFailed] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [view, setView] = useState<"3d" | "photo">("3d");
-  const [checking, setChecking] = useState(false);
-  const [checkResult, setCheckResult] = useState<{ done: boolean; feedback: string } | null>(null);
+  const [check, setCheck] = useState<CheckState | null>(null);
   const checkInputRef = useRef<HTMLInputElement>(null);
+  const checkToken = useRef(0);
 
   const showTutorial = tutorial === "open" || (tutorial === "auto" && firstRun === true);
 
@@ -172,7 +173,7 @@ export default function Home() {
     const next = plan.steps[index];
     setStepIndex(index);
     setStage("step");
-    setCheckResult(null);
+    closeCheck();
     setView(next.show_3d ? "3d" : "photo");
     stopSpeaking();
     say(next.instruction, "pointing");
@@ -189,20 +190,42 @@ export default function Home() {
     enterStep(Math.max(0, index));
   };
 
+  const showCheck = (next: CheckState | null) =>
+    setCheck((current) => {
+      if (current && current.photoUrl !== next?.photoUrl) URL.revokeObjectURL(current.photoUrl);
+      return next;
+    });
+
+  const closeCheck = () => {
+    checkToken.current++;
+    showCheck(null);
+  };
+
   const runCheck = async (file: File | undefined) => {
     if (!file || !step) return;
-    setChecking(true);
-    setCheckResult(null);
-    say("Let me see…", "thinking", false);
+    const token = ++checkToken.current;
+    const photoUrl = URL.createObjectURL(file);
+    stopSpeaking();
+    showCheck({ phase: "checking", photoUrl, feedback: "" });
+    say("Let me look…", "searching");
+    let next: CheckState;
     try {
       const result = await checkStep(await shrinkPhoto(file), step);
-      setCheckResult(result);
-      say(result.feedback, result.done ? "found" : "worried");
+      next = { phase: result.done ? "done" : "retry", photoUrl, feedback: tidy(result.feedback) };
     } catch (error) {
-      say(error instanceof Error ? error.message : "I couldn't check that, try again?", "worried");
-    } finally {
-      setChecking(false);
+      next = { phase: "error", photoUrl, feedback: error instanceof Error ? error.message : "I couldn't check that. Can you try again?" };
     }
+    // The person may have gone back or moved on while Helpa was looking.
+    if (token !== checkToken.current) return;
+    showCheck(next);
+    stopSpeaking();
+    say(next.feedback, next.phase === "done" ? "celebrate" : "worried");
+  };
+
+  const backToStep = () => {
+    closeCheck();
+    stopSpeaking();
+    setMood("pointing");
   };
 
   const restart = () => {
@@ -237,20 +260,86 @@ export default function Home() {
     screen = <PlanScreen plan={plan} mood={mood} speaking={speaking} onStart={() => enterStep(0)} onRestart={restart} onHelp={openTutorial} />;
   else if (stage === "step" && plan && step) {
     const has3d = step.show_3d && !sceneFailed;
-    let visual: ReactNode;
+    const lastStep = stepIndex + 1 === plan.steps.length;
+    const stepMask = stepMasks[stepIndex] ? [stepMasks[stepIndex]] : [];
+    let visual: ReactNode = null;
     if (view === "3d" && has3d) visual = scene ? <Scene3D scene={scene} stepIndex={stepIndex} /> : <SceneSkeleton text="Building your 3D model" />;
-    else if (stepPhoto) visual = <PartPhoto photoUrl={stepPhoto} samTexts={stepMasks[stepIndex] ? [stepMasks[stepIndex]] : []} label={step.target_part} />;
-    else
+    else if (stepPhoto) visual = <PartPhoto photoUrl={stepPhoto} samTexts={stepMask} label={step.target_part} />;
+    else if (step.target_part)
       visual = (
-        <div className="visual-helpa">
-          <div className="hero-blob" aria-hidden="true" />
-          <Helpa mood={checking ? "thinking" : "explaining"} size={150} />
-          {step.target_part && <p className="visual-helpa-label">Look for the {step.target_part}</p>}
+        <div className="visual-target">
+          <span className="visual-target-icon" aria-hidden="true">
+            <Icon name="scan" size={34} />
+          </span>
+          <p>
+            Look for the <strong>{tidy(step.target_part)}</strong>
+          </p>
+        </div>
+      );
+    // Only one 3D view at a time: while checking, the guide moves into the comparison.
+    let guide: ReactNode = null;
+    if (has3d && scene) guide = <Scene3D scene={scene} stepIndex={stepIndex} />;
+    else if (stepPhoto) guide = <PartPhoto photoUrl={stepPhoto} samTexts={stepMask} />;
+
+    const retake = () => checkInputRef.current?.click();
+    let actions: ReactNode;
+    if (!check)
+      actions = (
+        <div className="bottom-bar bottom-bar-row">
+          <button className="btn-square press" onClick={() => goToStep(stepIndex - 1)} disabled={stepIndex === 0} aria-label="Back">
+            <Icon name="back" />
+          </button>
+          <button className="btn btn-secondary press" onClick={retake}>
+            <Icon name="camera" size={20} />
+            Check my work
+          </button>
+          <button className="btn btn-primary press" onClick={() => goToStep(stepIndex + 1)}>
+            {lastStep ? "All done" : "Next"}
+          </button>
+        </div>
+      );
+    else if (check.phase === "checking")
+      actions = (
+        <div className="bottom-bar">
+          <button className="btn btn-secondary press" onClick={backToStep}>
+            Cancel
+          </button>
+        </div>
+      );
+    else if (check.phase === "done")
+      actions = (
+        <div className="bottom-bar bottom-bar-pair">
+          <button className="btn btn-secondary press" onClick={backToStep}>
+            Stay here
+          </button>
+          <button className="btn btn-primary press" onClick={() => goToStep(stepIndex + 1)}>
+            {lastStep ? "Finish" : "Next step"}
+            <Icon name="next" size={20} />
+          </button>
+        </div>
+      );
+    else
+      actions = (
+        <div className="bottom-bar bottom-bar-pair">
+          {check.phase === "retry" ? (
+            <button className="btn btn-secondary press" onClick={() => goToStep(stepIndex + 1)}>
+              Skip, it&apos;s fine
+            </button>
+          ) : (
+            <button className="btn btn-secondary press" onClick={backToStep}>
+              Back to step
+            </button>
+          )}
+          <button className="btn btn-primary press" onClick={retake}>
+            <Icon name="camera" size={20} />
+            Try again
+          </button>
         </div>
       );
 
     screen = (
       <section key="step" className="screen step" aria-label={`Step ${stepIndex + 1}`}>
+        {check?.phase === "done" && <Confetti />}
         <div className="topbar">
           <button className="icon-button press" onClick={() => setStage("plan")} aria-label="Back to the plan">
             <Icon name="close" />
@@ -265,101 +354,72 @@ export default function Home() {
 
         <div className="screen-body">
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div key={stepIndex} className="step-content" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.25, ease: "easeOut" }}>
-              <div className="step-head">
-                <p className="eyebrow">
-                  Step {stepIndex + 1} of {plan.steps.length}
-                </p>
-                <button className="corner-helpa press" onClick={() => say(step.instruction, "pointing")} aria-label="Hear this step again">
-                  <Helpa mood={mood} speaking={speaking} size={64} />
-                  <span className="corner-helpa-badge" aria-hidden="true">
-                    <Icon name="speaker" size={14} />
-                  </span>
-                </button>
-              </div>
-              <h1 className="step-text">{tidy(step.instruction)}</h1>
-
-              {has3d && stepPhoto && (
-                <div className="segmented" role="tablist" aria-label="View">
-                  <button role="tab" aria-selected={view === "3d"} className="press" onClick={() => setView("3d")}>
-                    <Icon name="cube" size={16} /> 3D guide
+            {check ? (
+              <motion.div key="check" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ duration: 0.25, ease: "easeOut" }}>
+                <CheckMoment check={check} speaking={speaking} doneLooksLike={tidy(step.check ?? "")} guide={guide} onBack={backToStep} />
+              </motion.div>
+            ) : (
+              <motion.div key={stepIndex} className="step-content" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.25, ease: "easeOut" }}>
+                <div className="step-head">
+                  <button className="step-helpa press" onClick={() => say(step.instruction, "pointing")} aria-label="Hear this step again">
+                    <Helpa mood={mood} speaking={speaking} size={56} />
+                    <span className="step-helpa-badge" aria-hidden="true">
+                      <Icon name="speaker" size={12} />
+                    </span>
                   </button>
-                  <button role="tab" aria-selected={view === "photo"} className="press" onClick={() => setView("photo")}>
-                    <Icon name="image" size={16} /> Your photo
-                  </button>
+                  <div>
+                    <p className="eyebrow">
+                      Step {stepIndex + 1} of {plan.steps.length}
+                    </p>
+                    <p className="step-hint" aria-hidden="true">
+                      {speaking ? "Reading it out loud" : "Tap me to hear it again"}
+                    </p>
+                  </div>
                 </div>
-              )}
-              <div className="visual-card">
-                {visual}
-                {checking && (
-                  <div className="checking-overlay" aria-live="polite">
-                    <div className="scan-sweep" aria-hidden="true" />
-                    <span>Helpa is looking…</span>
+                <h1 className="step-text">{tidy(step.instruction)}</h1>
+
+                {has3d && stepPhoto && (
+                  <div className="segmented" role="tablist" aria-label="View">
+                    <button role="tab" aria-selected={view === "3d"} className="press" onClick={() => setView("3d")}>
+                      <Icon name="cube" size={16} /> 3D guide
+                    </button>
+                    <button role="tab" aria-selected={view === "photo"} className="press" onClick={() => setView("photo")}>
+                      <Icon name="image" size={16} /> Your photo
+                    </button>
                   </div>
                 )}
-              </div>
+                {visual && <div className="visual-card">{visual}</div>}
 
-              <AnimatePresence>
-                {checkResult && (
-                  <motion.div
-                    ref={(node) => node?.scrollIntoView({ behavior: "smooth", block: "nearest" })}
-                    className={`check ${checkResult.done ? "check-ok" : "check-retry"}`}
-                    role="status"
-                    initial={{ opacity: 0, y: 12, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <span className="check-icon" aria-hidden="true">
-                      {checkResult.done ? <Icon name="check" size={20} strokeWidth={3} /> : "!"}
-                    </span>
-                    <div>
-                      <strong>{checkResult.done ? "Looks done!" : "Not quite yet"}</strong>
-                      <p>{tidy(checkResult.feedback)}</p>
-                    </div>
-                  </motion.div>
+                {step.details?.length > 0 && (
+                  <details className="more-help">
+                    <summary className="press">
+                      More help
+                      <Icon name="chevronDown" size={18} />
+                    </summary>
+                    <ul>
+                      {step.details.map((line) => (
+                        <li key={line}>{tidy(line)}</li>
+                      ))}
+                    </ul>
+                  </details>
                 )}
-              </AnimatePresence>
-
-              {step.details?.length > 0 && (
-                <details className="more-help">
-                  <summary className="press">
-                    More help
-                    <Icon name="chevronDown" size={18} />
-                  </summary>
-                  <ul>
-                    {step.details.map((line) => (
-                      <li key={line}>{tidy(line)}</li>
-                    ))}
-                  </ul>
-                </details>
-              )}
-            </motion.div>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
 
-        <div className="bottom-bar bottom-bar-row">
-          <button className="btn-square press" onClick={() => goToStep(stepIndex - 1)} disabled={stepIndex === 0} aria-label="Back">
-            <Icon name="back" />
-          </button>
-          <button className="btn btn-secondary press" onClick={() => checkInputRef.current?.click()} disabled={checking}>
-            <Icon name="camera" size={20} />
-            {checking ? "Checking" : "Check my work"}
-          </button>
-          <button className="btn btn-primary press" onClick={() => goToStep(stepIndex + 1)}>
-            {stepIndex + 1 === plan.steps.length ? "All done" : "Next"}
-          </button>
-          <input
-            ref={checkInputRef}
-            type="file"
-            accept="image/*"
-            capture="environment"
-            hidden
-            onChange={(changeEvent) => {
-              runCheck(changeEvent.target.files?.[0]);
-              changeEvent.target.value = "";
-            }}
-          />
-        </div>
+        {actions}
+        <input
+          ref={checkInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          hidden
+          onChange={(changeEvent) => {
+            runCheck(changeEvent.target.files?.[0]);
+            changeEvent.target.value = "";
+          }}
+        />
       </section>
     );
   } else if (stage === "done") screen = <Done plan={plan} mood={mood} speaking={speaking} onRestart={restart} />;
@@ -438,13 +498,13 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble }: 
               <PartPhoto photoUrl={photoUrl} samTexts={masks} />
               <div className="scan-sweep" aria-hidden="true" />
             </div>
-            <BubbleRow mood={mood} speaking={speaking} bubble={bubble} size={92} />
+            <BubbleRow mood={mood} speaking={speaking} bubble={bubble} size={88} />
           </>
         ) : (
           <div className="working-hero">
             <div className="hero-stage">
               <div className="hero-blob hero-blob-pulse" aria-hidden="true" />
-              <Helpa mood={mood} speaking={speaking} size={190} />
+              <Helpa mood={mood} speaking={speaking} size={180} />
             </div>
             <motion.p key={bubble} className="bubble bubble-center" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
               {bubble}
@@ -528,10 +588,12 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
           <Icon name="back" />
         </button>
         <span className="topbar-title">Your plan</span>
-        <ThemeToggle />
-            <button className="icon-button press" onClick={onHelp} aria-label="How Helpa works">
-          <Icon name="help" />
-        </button>
+        <div className="topbar-actions">
+          <ThemeToggle />
+          <button className="icon-button press" onClick={onHelp} aria-label="How Helpa works">
+            <Icon name="help" />
+          </button>
+        </div>
       </div>
       <div className="screen-body">
         <BubbleRow mood={mood} speaking={speaking} bubble={plan.safety.length ? "Good news, you can fix this! Read the safety bits first." : "Good news, you can fix this! Here's your plan."} />
@@ -656,16 +718,19 @@ function Confetti() {
 function Done({ plan, mood, speaking, onRestart }: { plan: Plan | null; mood: HelpaMood; speaking: boolean; onRestart: () => void }) {
   // Only claim savings when a technician would really have been called for this fix.
   const saved = plan?.pro_visit_cost ?? 0;
+  const aftercare = plan?.aftercare ? tidy(plan.aftercare) : "";
   return (
     <section className="screen done" aria-label="All done">
       <Confetti />
       <div className="screen-body done-body">
         <div className="hero-stage">
           <div className="hero-blob" aria-hidden="true" />
-          <Helpa mood={mood} speaking={speaking} size={200} />
+          <Helpa mood={mood} speaking={speaking} size={180} />
         </div>
-        <h1 className="display">You fixed it!</h1>
-        <p className="lede">That was all you. Helpa is very proud.</p>
+        <div className="done-headline">
+          <h1 className="display">You fixed it!</h1>
+          <p className="lede">That was all you. Helpa is very proud.</p>
+        </div>
         {saved > 0 && (
           <motion.div className="card saved-card" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, type: "spring", stiffness: 220, damping: 18 }}>
             <span className="saved-label">You skipped a repair visit worth about</span>
@@ -673,14 +738,8 @@ function Done({ plan, mood, speaking, onRestart }: { plan: Plan | null; mood: He
             <span className="saved-note">Typical technician cost for this fix. Real prices vary by area.</span>
           </motion.div>
         )}
-        {plan?.aftercare && (
-          <motion.div className="card saved-card" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, type: "spring", stiffness: 220, damping: 18 }}>
-            <span className="saved-label">Keep it this way</span>
-            <span className="saved-note">{plan.aftercare}</span>
-          </motion.div>
-        )}
         {plan && (
-          <div className="stat-row">
+          <motion.div className="stat-row" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <div className="card stat">
               <strong>{plan.steps.length}</strong>
               <span>steps done</span>
@@ -689,7 +748,18 @@ function Done({ plan, mood, speaking, onRestart }: { plan: Plan | null; mood: He
               <strong>0</strong>
               <span>repair visits</span>
             </div>
-          </div>
+          </motion.div>
+        )}
+        {aftercare && (
+          <motion.div className="card tip-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+            <span className="tip-icon" aria-hidden="true">
+              <Icon name="sparkle" size={20} />
+            </span>
+            <div>
+              <strong>Keep it this way</strong>
+              <p>{aftercare}</p>
+            </div>
+          </motion.div>
         )}
       </div>
       <div className="bottom-bar">

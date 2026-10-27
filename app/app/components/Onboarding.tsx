@@ -91,7 +91,7 @@ export default function Onboarding({ onFinish }: { onFinish: () => void }) {
           >
             <div className="hero-stage">
               <div className="hero-blob" aria-hidden="true" />
-              <Helpa mood={slide.mood} size={220} />
+              <Helpa mood={slide.mood} size={200} />
             </div>
             <h1 className="display">{slide.title}</h1>
             <p className="lede">{slide.body}</p>

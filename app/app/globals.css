@@ -2060,3 +2060,281 @@ a:focus-visible {
   color: #111112;
   font-size: 13px;
 }
+
+/* Step without a 3D model or photo: a calm "where to look" card instead of a second Helpa. */
+.visual-target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 24px;
+  background: linear-gradient(180deg, var(--accent-soft), var(--surface));
+  font-size: 18px;
+  text-align: center;
+}
+
+.visual-target-icon {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
+  background: var(--surface);
+  color: var(--accent-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Check my work: a moment with Helpa */
+.check-moment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.check-title {
+  align-self: stretch;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent-strong);
+  text-align: center;
+  outline: none;
+}
+
+.check-title-done {
+  color: var(--ok);
+}
+
+.check-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.check-stage > svg {
+  position: relative;
+}
+
+.speech-bubble-center {
+  max-width: 100%;
+  text-align: center;
+  font-weight: 650;
+  line-height: 1.4;
+  box-shadow: var(--shadow);
+  border: 0;
+}
+
+.speech-bubble-center::after {
+  left: calc(50% - 7px);
+  border: 0;
+}
+
+.check-done .speech-bubble-center {
+  background: var(--ok-soft);
+}
+
+.check-done .speech-bubble-center::after {
+  background: var(--ok-soft);
+}
+
+.check-photo {
+  position: relative;
+  width: min(100%, 300px);
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--surface-2);
+  box-shadow: var(--shadow);
+}
+
+.check-photo img {
+  display: block;
+  width: 100%;
+  height: min(34dvh, 300px);
+  object-fit: cover;
+}
+
+.check-photo-done {
+  box-shadow: var(--shadow), 0 0 0 4px var(--ok);
+}
+
+.check-badge {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 4px 12px rgb(0 0 0 / 0.25));
+}
+
+.check-badge circle {
+  fill: var(--ok);
+}
+
+.check-badge path {
+  stroke: #ffffff;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Near-square tiles: the 3D view frames by height, so a tall tile would crop the model's sides. */
+.compare-tile {
+  position: relative;
+  display: grid;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.compare-tile > img,
+.compare-tile .part-photo img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+}
+
+.compare-tile .part-photo {
+  height: 100%;
+}
+
+.compare-tile .scene-3d {
+  height: 100%;
+}
+
+/* The 3D view's own buttons and captions are too big for a half-width tile. */
+.compare-tile .scene-controls,
+.compare-tile .scene-caption,
+.compare-tile .scene-pin-label {
+  display: none;
+}
+
+.compare-tile-text {
+  place-items: center;
+  padding: 16px 14px 44px;
+  background: var(--ok-soft);
+}
+
+.compare-tile-text p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--foreground);
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.compare-tile-text svg {
+  color: var(--ok);
+}
+
+.tile-label {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgb(21 20 19 / 0.8);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tile-label-ok {
+  background: var(--ok);
+}
+
+.done-looks {
+  display: flex;
+  gap: 12px;
+  align-self: stretch;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: var(--ok-soft);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.done-looks strong {
+  display: block;
+  font-weight: 800;
+}
+
+.done-looks-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ok);
+  color: #ffffff;
+}
+
+.check-back {
+  margin-top: -6px;
+}
+
+/* Short screens (phones in landscape): smaller Helpas so content fits and nothing clips. */
+@media (max-height: 560px) {
+  .hero-stage {
+    padding: 4px;
+  }
+  .hero-stage > svg {
+    width: 120px;
+    height: 120px;
+  }
+  .onboarding-slide {
+    gap: 8px;
+  }
+  .display {
+    font-size: 28px;
+  }
+  .helpa-row > svg,
+  .camera-helpa > svg {
+    width: 56px;
+    height: 56px;
+  }
+  .camera-helpa {
+    margin-top: 0;
+  }
+  .brackets {
+    display: none;
+  }
+  .camera-bottom {
+    gap: 10px;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+  }
+  .shutter {
+    width: 68px;
+    height: 68px;
+  }
+  .check-stage > svg {
+    width: 80px;
+    height: 80px;
+  }
+  .check-photo img {
+    height: 44dvh;
+  }
+  .compare {
+    width: min(100%, 52dvh * 2 + 10px);
+  }
+  .scene-3d,
+  .scene-skeleton {
+    height: 56dvh;
+  }
+}

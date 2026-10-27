@@ -219,30 +219,33 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
         </AnimatePresence>
 
         <div className="topbar camera-top">
-          <div className="camera-helpa">
-            <Helpa mood={mood} speaking={speaking} size={84} />
-            <motion.p key={bubble} className="hint-pill" aria-live="polite" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}>
-              {bubble}
-            </motion.p>
-          </div>
-          {torch !== "unsupported" && (
-            <button
-              className={`icon-button glass press ${torch === "on" ? "torch-on" : ""}`}
-              onClick={() => {
-                setTorchOn(torch !== "on");
-              }}
-              aria-label={torch === "on" ? "Turn flashlight off" : "Turn flashlight on"}
-              aria-pressed={torch === "on"}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill={torch === "on" ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
-                <path d="M13 2 4 14h7l-1 8 9-12h-7z" />
-              </svg>
+          <span className="wordmark camera-wordmark">helpa</span>
+          <div className="topbar-actions">
+            {torch !== "unsupported" && (
+              <button
+                className={`icon-button glass press ${torch === "on" ? "torch-on" : ""}`}
+                onClick={() => {
+                  setTorchOn(torch !== "on");
+                }}
+                aria-label={torch === "on" ? "Turn flashlight off" : "Turn flashlight on"}
+                aria-pressed={torch === "on"}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill={torch === "on" ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M13 2 4 14h7l-1 8 9-12h-7z" />
+                </svg>
+              </button>
+            )}
+            <ThemeToggle className="icon-button glass press" />
+            <button className="icon-button glass press" onClick={onHelp} aria-label="How Helpa works">
+              <Icon name="help" />
             </button>
-          )}
-          <ThemeToggle className="icon-button glass press" />
-          <button className="icon-button glass press" onClick={onHelp} aria-label="How Helpa works">
-            <Icon name="help" />
-          </button>
+          </div>
+        </div>
+        <div className="camera-helpa">
+          <Helpa mood={mood} speaking={speaking} size={64} />
+          <motion.p key={bubble} className="hint-pill" aria-live="polite" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}>
+            {bubble}
+          </motion.p>
         </div>
 
         <div className={`brackets ${scanning ? "brackets-scanning" : ""}`} aria-hidden="true">
@@ -307,15 +310,17 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
             ) : (
               <span className="wordmark">helpa</span>
             )}
-            <ThemeToggle />
-            <button className="icon-button press" onClick={onHelp} aria-label="How Helpa works">
-              <Icon name="help" />
-            </button>
+            <div className="topbar-actions">
+              <ThemeToggle />
+              <button className="icon-button press" onClick={onHelp} aria-label="How Helpa works">
+                <Icon name="help" />
+              </button>
+            </div>
           </div>
 
           <div className="screen-body">
             <div className="helpa-row">
-              <Helpa mood={mood} speaking={speaking} size={96} />
+              <Helpa mood={mood} speaking={speaking} size={88} />
               <motion.p key={bubble} className="bubble" aria-live="polite" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
                 {bubble}
               </motion.p>

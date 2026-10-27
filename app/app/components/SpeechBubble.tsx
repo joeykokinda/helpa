@@ -8,6 +8,8 @@ type SpeechBubbleProps = {
   /** Milliseconds per character while typing. */
   typingSpeed?: number;
   className?: string;
+  /** False shows the whole line at once, for text the person needs to read right away. */
+  typed?: boolean;
 };
 
 function TypedText({ text, typingSpeed }: { text: string; typingSpeed: number }) {
@@ -33,7 +35,7 @@ function TypedText({ text, typingSpeed }: { text: string; typingSpeed: number })
   );
 }
 
-export default function SpeechBubble({ text, typingSpeed = 28, className }: SpeechBubbleProps) {
+export default function SpeechBubble({ text, typingSpeed = 28, className, typed = true }: SpeechBubbleProps) {
   const reduced = useReducedMotion() ?? false;
 
   return (
@@ -47,7 +49,7 @@ export default function SpeechBubble({ text, typingSpeed = 28, className }: Spee
     >
       <p aria-live="polite">
         <span className="visually-hidden">{text}</span>
-        {reduced ? <span aria-hidden="true">{text}</span> : <TypedText text={text} typingSpeed={typingSpeed} />}
+        {reduced || !typed ? <span aria-hidden="true">{text}</span> : <TypedText text={text} typingSpeed={typingSpeed} />}
       </p>
     </motion.div>
   );
