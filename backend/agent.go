@@ -89,19 +89,14 @@ type event map[string]any
 func runAgent(ctx context.Context, photos []string, complaint string, emit func(event)) error {
 	input := []any{userMessage(fmt.Sprintf("Problem: %s\nI attached %d photos.", complaint, len(photos)), photos...)}
 	for turn := 0; turn < maxAgentTurns; turn++ {
-		reply, err := createResponse(ctx, map[string]any{
+		var calls []outputItem
+		items, err := streamResponse(ctx, map[string]any{
 			"model":        "muse-wonder-1.0",
 			"instructions": agentInstructions,
 			"reasoning":    map[string]any{"effort": "low"},
 			"tools":        agentTools,
 			"input":        input,
-		})
-		if err != nil {
-			return err
-		}
-		var calls []outputItem
-		for _, item := range reply.Output {
-			input = append(input, item.raw)
+		}, func(item outputItem) {
 			switch item.Type {
 			case "message":
 				if text := strings.TrimSpace(item.text()); text != "" {
@@ -112,6 +107,12 @@ func runAgent(ctx context.Context, photos []string, complaint string, emit func(
 			case "function_call":
 				calls = append(calls, item)
 			}
+		})
+		if err != nil {
+			return err
+		}
+		for _, item := range items {
+			input = append(input, item.raw)
 		}
 		if len(calls) == 0 {
 			return fmt.Errorf("agent stopped without submitting a plan")

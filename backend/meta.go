@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -95,6 +96,64 @@ func createResponse(ctx context.Context, body map[string]any) (response, error) 
 		return response{}, fmt.Errorf("meta api: %s", parsed.Error.Message)
 	}
 	return parsed, nil
+}
+
+// streamResponse runs a streamed Responses call, handing each output item to onItem as soon as it
+// completes, so web searches show up on the phone live instead of after the whole turn.
+func streamResponse(ctx context.Context, body map[string]any, onItem func(outputItem)) ([]outputItem, error) {
+	body["stream"] = true
+	payload, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	request, err := http.NewRequestWithContext(ctx, http.MethodPost, metaBaseURL+"/responses", bytes.NewReader(payload))
+	if err != nil {
+		return nil, err
+	}
+	request.Header.Set("Authorization", "Bearer "+metaAPIKey)
+	request.Header.Set("Content-Type", "application/json")
+	reply, err := http.DefaultClient.Do(request)
+	if err != nil {
+		return nil, err
+	}
+	defer reply.Body.Close()
+	if reply.StatusCode != http.StatusOK {
+		data, _ := io.ReadAll(reply.Body)
+		return nil, fmt.Errorf("meta api %d: %s", reply.StatusCode, data)
+	}
+	var items []outputItem
+	scanner := bufio.NewScanner(reply.Body)
+	scanner.Buffer(make([]byte, 0, 1<<20), 16<<20)
+	for scanner.Scan() {
+		line, found := strings.CutPrefix(scanner.Text(), "data: ")
+		if !found || line == "[DONE]" {
+			continue
+		}
+		var streamEvent struct {
+			Type     string          `json:"type"`
+			Item     json.RawMessage `json:"item"`
+			Message  string          `json:"message"`
+			Response *response       `json:"response"`
+		}
+		if err := json.Unmarshal([]byte(line), &streamEvent); err != nil {
+			return nil, fmt.Errorf("bad stream event: %w", err)
+		}
+		switch streamEvent.Type {
+		case "response.output_item.done":
+			var item outputItem
+			if err := json.Unmarshal(streamEvent.Item, &item); err != nil {
+				return nil, err
+			}
+			items = append(items, item)
+			onItem(item)
+		case "response.failed", "error":
+			if streamEvent.Response != nil && streamEvent.Response.Error != nil {
+				return nil, fmt.Errorf("meta api: %s", streamEvent.Response.Error.Message)
+			}
+			return nil, fmt.Errorf("meta api stream error: %s", line)
+		}
+	}
+	return items, scanner.Err()
 }
 
 func userMessage(text string, imageURLs ...string) map[string]any {
