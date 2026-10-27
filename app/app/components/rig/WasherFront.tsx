@@ -29,7 +29,7 @@ const panelTop = height - 0.011;
 
 const catalog = catalogJson as RigCatalog;
 
-export const enamel = { color: "#f4f5f7", roughness: 0.3, metalness: 0.04 };
+export const enamel = { color: "#fbfbfc", roughness: 0.28, metalness: 0.04 };
 export const chrome = { color: "#dfe3e8", metalness: 0.92, roughness: 0.2 };
 export const rubber = { color: "#24262a", roughness: 0.85, metalness: 0 };
 
@@ -90,20 +90,19 @@ export function fabricTexture(color: string) {
   return canvasTexture(`fabric-${color}`, 64, 64, (context) => {
     context.fillStyle = color;
     context.fillRect(0, 0, 64, 64);
-    context.globalAlpha = 0.18;
-    for (let line = 0; line < 64; line += 2) {
-      context.fillStyle = line % 4 ? "#ffffff" : "#000000";
-      context.fillRect(0, line, 64, 1);
-      context.fillRect(line, 0, 1, 64);
+    // fine weave plus soft mottling; no long stripes, which turn into rings at the blob poles
+    const random = seededRandom(color.length * 97 + color.charCodeAt(1));
+    for (let speck = 0; speck < 900; speck++) {
+      context.fillStyle = random() > 0.5 ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.12)";
+      context.fillRect(random() * 64, random() * 64, 1 + random() * 2, 1);
     }
-    // folds
-    context.globalAlpha = 0.25;
-    const random = seededRandom(color.length * 97);
-    for (let fold = 0; fold < 6; fold++) {
-      context.fillStyle = "#000000";
-      context.fillRect(0, random() * 64, 64, 2 + random() * 3);
+    for (let shade = 0; shade < 14; shade++) {
+      context.fillStyle = `rgba(0,0,0,${0.04 + random() * 0.06})`;
+      context.beginPath();
+      context.arc(random() * 64, random() * 64, 4 + random() * 10, 0, Math.PI * 2);
+      context.fill();
     }
-  }, [3, 3]);
+  }, [2, 2]);
 }
 
 /** Crusty white-blue detergent residue. */
@@ -205,6 +204,14 @@ export function Cavity({ position, size }: { position: [number, number, number];
 export function WallTap({ id, x, y, z, handleColor }: { id: string; x: number; y: number; z: number; handleColor: string }) {
   return (
     <group position={[x, y, z]}>
+      <mesh position={[0, 0.5, 0.03]}>
+        <cylinderGeometry args={[0.011, 0.011, 1, 16]} />
+        <meshStandardMaterial color="#c58a5a" metalness={0.7} roughness={0.35} />
+      </mesh>
+      <mesh position={[0, 0, 0.03]}>
+        <sphereGeometry args={[0.013, 16, 12]} />
+        <meshStandardMaterial color="#c58a5a" metalness={0.7} roughness={0.35} />
+      </mesh>
       <mesh position={[0, 0, 0.004]}>
         <cylinderGeometry args={[0.03, 0.03, 0.008, 32]} />
         <meshStandardMaterial {...chrome} />
@@ -332,10 +339,16 @@ export function OutletAndPlug({ x, y, z, cordTo }: { x: number; y: number; z: nu
 /** The back wall behind the machine, one-sided so the camera can look through it from behind. */
 export function BackWall({ z }: { z: number }) {
   return (
-    <mesh position={[0, 1.1, z]} receiveShadow>
-      <planeGeometry args={[3.2, 2.2]} />
-      <meshBasicMaterial color="#f3efe9" />
-    </mesh>
+    <group>
+      <mesh position={[0, 1.1, z]} receiveShadow>
+        <planeGeometry args={[3.2, 2.2]} />
+        <meshBasicMaterial color="#e9e1d4" />
+      </mesh>
+      <mesh position={[0, 0.04, z + 0.006]}>
+        <boxGeometry args={[3.2, 0.08, 0.012]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.5} />
+      </mesh>
+    </group>
   );
 }
 
@@ -416,7 +429,7 @@ function Cabinet() {
       ))}
       <mesh position={[0, panelCenterY, -front + 0.006]}>
         <boxGeometry args={[width - 0.02, panelHeight, 0.012]} />
-        <meshStandardMaterial color="#d7dadf" roughness={0.6} />
+        <meshStandardMaterial color="#eceef1" roughness={0.5} />
       </mesh>
       {/* control strip */}
       <RoundedBox args={[0.405, 0.085, 0.006]} radius={0.003} position={[0.1275, 0.915, front + 0.003]}>
@@ -481,12 +494,12 @@ function DoorSeal() {
       </RigPart>
       {/* a sock, a coin and a hair grip caught in the fold */}
       <RigPart id="seal_items" position={[0, -0.212, -0.055]}>
-        <mesh position={[-0.05, 0, 0]} rotation={[0.2, 0.3, Math.PI / 2 - 0.15]}>
-          <capsuleGeometry args={[0.011, 0.05, 6, 12]} />
-          <meshStandardMaterial map={fabricTexture("#c77d8e")} roughness={0.95} />
+        <mesh position={[-0.05, 0.002, 0]} rotation={[0.2, 0.3, Math.PI / 2 - 0.15]}>
+          <capsuleGeometry args={[0.015, 0.075, 6, 14]} />
+          <meshStandardMaterial map={fabricTexture("#e0607a")} roughness={0.95} />
         </mesh>
         <mesh position={[0.045, -0.006, 0.005]} rotation={[0.2, 0, 0.05]}>
-          <cylinderGeometry args={[0.012, 0.012, 0.002, 28]} />
+          <cylinderGeometry args={[0.014, 0.014, 0.0025, 28]} />
           <meshStandardMaterial color="#d2a24c" metalness={0.9} roughness={0.3} />
         </mesh>
         <mesh position={[0.075, -0.003, -0.01]} rotation={[0, 0.6, 0.1]}>
@@ -535,19 +548,23 @@ function Drum() {
         })}
       </RigPart>
       <RigPart id="laundry" position={[0, -0.185, -0.2]}>
-        <ClothesHeap
-          blobs={[
-            { position: [-0.07, 0, -0.06], scale: [0.11, 0.05, 0.09], color: "#3f5f8f", tilt: 0.2 },
-            { position: [0.08, 0.005, 0], scale: [0.1, 0.05, 0.1], color: "#f1efe9", tilt: -0.15 },
-            { position: [0.0, 0.03, 0.06], scale: [0.09, 0.045, 0.07], color: "#c0504d", tilt: 0.3 },
-            { position: [-0.02, 0.02, -0.16], scale: [0.12, 0.05, 0.08], color: "#7d8a74", tilt: -0.2 },
-            { position: [0.1, 0.02, -0.14], scale: [0.07, 0.04, 0.07], color: "#e3c565", tilt: 0.1 },
-          ]}
-        />
+        <ClothesHeap blobs={frontLoadClothes} />
       </RigPart>
     </group>
   );
 }
+
+/** A loose pile of wet clothes lying in the bottom of the drum. */
+const frontLoadClothes = [
+  { position: [-0.09, -0.01, -0.05], scale: [0.1, 0.03, 0.08], color: "#3f5f8f", tilt: 0.35 },
+  { position: [-0.03, 0.015, 0.02], scale: [0.09, 0.025, 0.07], color: "#2f4a72", tilt: -0.25 },
+  { position: [0.08, 0.0, 0.0], scale: [0.09, 0.03, 0.1], color: "#f1efe9", tilt: -0.45 },
+  { position: [0.03, 0.035, 0.07], scale: [0.08, 0.022, 0.06], color: "#c0504d", tilt: 0.5 },
+  { position: [-0.06, 0.03, -0.15], scale: [0.1, 0.028, 0.07], color: "#7d8a74", tilt: -0.3 },
+  { position: [0.09, 0.025, -0.13], scale: [0.07, 0.025, 0.08], color: "#e3c565", tilt: 0.25 },
+  { position: [0.0, 0.05, -0.08], scale: [0.11, 0.02, 0.05], color: "#d9d4ea", tilt: 0.6 },
+  { position: [0.12, -0.02, 0.06], scale: [0.05, 0.03, 0.06], color: "#3a3d42", tilt: -0.2 },
+] satisfies { position: [number, number, number]; scale: [number, number, number]; color: string; tilt: number }[];
 
 function Door() {
   const ringGeometry = useMemo(() => {
@@ -875,6 +892,8 @@ function BehindTheWasher() {
 export function WasherFrontModel() {
   return (
     <group>
+      {/* soft fill from behind so the back of the machine is not a black slab */}
+      <directionalLight position={[-1.2, 1.6, -2.4]} intensity={0.7} />
       <Cabinet />
       <DoorSeal />
       <Drum />
