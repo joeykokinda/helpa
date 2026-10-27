@@ -104,7 +104,7 @@ function Cabinet() {
 function Drum() {
   const texture = useMemo(() => perforatedTexture(), []);
   return (
-    <group position={[doorCenter[0], doorCenter[1], -0.02]}>
+    <RigPart id="dryer_drum" position={[doorCenter[0], doorCenter[1], -0.02]}>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[0.3, 0.3, 0.6, 64, 1, true]} />
         <meshStandardMaterial map={texture} side={THREE.BackSide} metalness={0.55} roughness={0.38} />
@@ -128,7 +128,7 @@ function Drum() {
         <torusGeometry args={[openingRadius + 0.004, 0.012, 16, 64]} />
         <meshStandardMaterial color="#2b2d31" roughness={0.8} />
       </mesh>
-    </group>
+    </RigPart>
   );
 }
 
@@ -276,9 +276,6 @@ function InsideDrum() {
           <meshStandardMaterial color="#fff6d8" emissive="#ffe08a" emissiveIntensity={0.4} roughness={0.2} />
         </mesh>
       </RigPart>
-      <RigPart id="dryer_drum">
-        <group />
-      </RigPart>
     </group>
   );
 }
@@ -294,7 +291,7 @@ function BehindTheDryer() {
       {/* wall behind */}
       <mesh position={[0, 1.1, -front - 0.24]} receiveShadow>
         <planeGeometry args={[3.2, 2.2]} />
-        <meshBasicMaterial color="#f3efe9" />
+        <meshBasicMaterial color="#f3efe9" toneMapped={false} />
       </mesh>
       <RigPart id="vent_hose">
         <mesh>

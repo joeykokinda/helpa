@@ -13,7 +13,9 @@ import Onboarding, { hasOnboarded } from "./components/Onboarding";
 import PartPhoto from "./components/PartPhoto";
 import { checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
 import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
+import type { Beat } from "./lib/rig/types";
 
+const RigStep = dynamic(() => import("./components/rig/RigStep"), { ssr: false });
 const Scene3D = dynamic(() => import("./components/Scene3D"), {
   ssr: false,
   loading: () => <SceneSkeleton text="Building your 3D model" />,
@@ -76,6 +78,8 @@ export default function Home() {
   const [stepMasks, setStepMasks] = useState<Record<number, string>>({});
   const [plan, setPlan] = useState<Plan | null>(null);
   const [scene, setScene] = useState<Scene | null>(null);
+  // A built-in appliance model with beats per step; preferred over the generated scene when present.
+  const [rig, setRig] = useState<{ id: string; stepBeats: Beat[][] } | null>(null);
   const [sceneFailed, setSceneFailed] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [view, setView] = useState<"3d" | "photo">("3d");
@@ -128,6 +132,9 @@ export default function Home() {
         say(agentEvent.plan.diagnosis);
         if (agentEvent.plan.safety.length) setTimeout(() => setMood("worried"), 400);
         break;
+      case "rig":
+        setRig({ id: agentEvent.rig, stepBeats: agentEvent.step_beats });
+        break;
       case "model":
         setScene(agentEvent.scene);
         break;
@@ -154,6 +161,7 @@ export default function Home() {
     setStepMasks({});
     setPlan(null);
     setScene(null);
+    setRig(null);
     setSceneFailed(false);
     setPhotoUrls(photos.map((photo) => URL.createObjectURL(photo)));
     say("Okay, let me take a look!", "thinking");
@@ -174,7 +182,7 @@ export default function Home() {
     setStepIndex(index);
     setStage("step");
     closeCheck();
-    setView(next.show_3d ? "3d" : "photo");
+    setView(rig ? ((rig.stepBeats[index]?.length ?? 0) > 0 ? "3d" : "photo") : next.show_3d ? "3d" : "photo");
     stopSpeaking();
     say(next.instruction, "pointing");
   };
@@ -259,11 +267,13 @@ export default function Home() {
   else if (stage === "plan" && plan)
     screen = <PlanScreen plan={plan} mood={mood} speaking={speaking} onStart={() => enterStep(0)} onRestart={restart} onHelp={openTutorial} />;
   else if (stage === "step" && plan && step) {
-    const has3d = step.show_3d && !sceneFailed;
+    const rigBeats = rig?.stepBeats[stepIndex] ?? [];
+    const has3d = rig ? rigBeats.length > 0 : step.show_3d && !sceneFailed;
+    const guide3d = rig ? <RigStep rigId={rig.id} stepBeats={rig.stepBeats} stepIndex={stepIndex} /> : scene ? <Scene3D scene={scene} stepIndex={stepIndex} /> : null;
     const lastStep = stepIndex + 1 === plan.steps.length;
     const stepMask = stepMasks[stepIndex] ? [stepMasks[stepIndex]] : [];
     let visual: ReactNode = null;
-    if (view === "3d" && has3d) visual = scene ? <Scene3D scene={scene} stepIndex={stepIndex} /> : <SceneSkeleton text="Building your 3D model" />;
+    if (view === "3d" && has3d) visual = guide3d ?? <SceneSkeleton text="Building your 3D model" />;
     else if (stepPhoto) visual = <PartPhoto photoUrl={stepPhoto} samTexts={stepMask} label={step.target_part} />;
     else if (step.target_part)
       visual = (
@@ -278,7 +288,7 @@ export default function Home() {
       );
     // Only one 3D view at a time: while checking, the guide moves into the comparison.
     let guide: ReactNode = null;
-    if (has3d && scene) guide = <Scene3D scene={scene} stepIndex={stepIndex} />;
+    if (has3d && guide3d) guide = guide3d;
     else if (stepPhoto) guide = <PartPhoto photoUrl={stepPhoto} samTexts={stepMask} />;
 
     const retake = () => checkInputRef.current?.click();

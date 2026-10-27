@@ -114,8 +114,10 @@ function BeatArrow({ beat, def, nodes }: { beat?: Beat; def?: RigPartDef; nodes:
     if (joint.kind === "debris") direction = new THREE.Vector3(...joint.away).applyQuaternion(worldQuaternion).normalize();
     if (reverse) direction.negate();
     const length = joint.kind === "debris" ? 0.16 : Math.max(0.1, radius * 1.4);
-    // Pulls start at the part and point out; presses come from outside and point in.
-    const start = joint.kind === "press" ? center.clone().sub(direction.clone().multiplyScalar(length + 0.03)) : center.clone().add(direction.clone().multiplyScalar(Math.max(size.x, size.y, size.z) * 0.5 + 0.02));
+    // Pulls start at the part and point out; presses, inserts and closes come from outside and point in.
+    const extent = Math.abs(size.clone().dot(direction)) * 0.5;
+    const inward = joint.kind === "press" || reverse;
+    const start = inward ? center.clone().sub(direction.clone().multiplyScalar(extent + length + 0.04)) : center.clone().add(direction.clone().multiplyScalar(extent + 0.02));
     group.position.copy(start).add(direction.clone().multiplyScalar(nudge * 0.02));
     group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction);
     straightRef.current!.scale.setScalar(length);
@@ -256,7 +258,7 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSc
           <Model />
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.001, 0]} receiveShadow>
             <circleGeometry args={[2.2, 64]} />
-            <meshStandardMaterial color="#f1ede7" roughness={1} />
+            <meshBasicMaterial color="#f1ede7" toneMapped={false} />
           </mesh>
           <ContactShadows position={[0, 0.001, 0]} scale={3} blur={2.4} far={1.2} opacity={0.4} resolution={512} />
           <BeatArrow beat={beat} def={beat ? defs[beat.part] : undefined} nodes={nodesRef} />

@@ -6,7 +6,1012 @@
     "oven",
     "stove",
     "cooktop",
-    "electric range"
+    "electric range",
+    "freestanding electric range",
+    "glass top range"
   ],
-  "parts": []
+  "parts": [
+    {
+      "id": "glass_cooktop",
+      "label": "Glass cooktop",
+      "aliases": [
+        "glass cooktop",
+        "glass_cooktop",
+        "cooktop",
+        "glass top",
+        "ceramic glass top",
+        "stovetop"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        0.3,
+        1.1,
+        0.9
+      ]
+    },
+    {
+      "id": "cooktop_spill",
+      "label": "Burnt-on spill",
+      "aliases": [
+        "burnt-on spill",
+        "burnt on spill",
+        "spill",
+        "burnt food",
+        "cooktop spill",
+        "stain on glass"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0.05,
+          0.3
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.2,
+        1,
+        0.8
+      ]
+    },
+    {
+      "id": "burner_right_front",
+      "label": "Right front burner",
+      "aliases": [
+        "cooktop burner circles",
+        "cooktop_burner_circles",
+        "burner circle",
+        "burner",
+        "element",
+        "right front burner",
+        "surface element"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.25,
+        1.1,
+        0.8
+      ]
+    },
+    {
+      "id": "burner_left_front",
+      "label": "Left front burner",
+      "aliases": [
+        "left front burner",
+        "left front element"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        -0.25,
+        1.1,
+        0.8
+      ]
+    },
+    {
+      "id": "burner_left_rear",
+      "label": "Left rear burner",
+      "aliases": [
+        "left rear burner",
+        "left rear element"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        -0.25,
+        1.1,
+        0.8
+      ]
+    },
+    {
+      "id": "burner_right_rear",
+      "label": "Right rear burner",
+      "aliases": [
+        "right rear burner",
+        "right rear element"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.25,
+        1.1,
+        0.8
+      ]
+    },
+    {
+      "id": "knob_right_front",
+      "label": "Right front knob",
+      "aliases": [
+        "burner control knobs",
+        "burner_control_knobs",
+        "burner knob",
+        "knob",
+        "control knob",
+        "right front knob"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -2.6
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "knob_left_front",
+      "label": "Left front knob",
+      "aliases": [
+        "left front knob"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -2.6
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        -0.25,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "knob_left_rear",
+      "label": "Left rear knob",
+      "aliases": [
+        "left rear knob"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -2.6
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        -0.25,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "knob_right_rear",
+      "label": "Right rear knob",
+      "aliases": [
+        "right rear knob"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -2.6
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "oven_control_panel",
+      "label": "Oven control panel",
+      "aliases": [
+        "oven control panel",
+        "oven_control_panel",
+        "control panel",
+        "touch pad",
+        "keypad",
+        "display",
+        "screen",
+        "range breaker",
+        "breaker"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "cancel_button",
+      "label": "Cancel",
+      "aliases": [
+        "cancel",
+        "cancel button",
+        "off"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "control_lock_button",
+      "label": "Control Lock",
+      "aliases": [
+        "control lock",
+        "control lock button",
+        "control_lock_button",
+        "lock",
+        "child lock"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "bake_button",
+      "label": "Bake",
+      "aliases": [
+        "bake",
+        "bake button"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "broil_button",
+      "label": "Broil",
+      "aliases": [
+        "broil",
+        "broil button"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "steam_clean_button",
+      "label": "Steam Clean",
+      "aliases": [
+        "steam clean",
+        "steam clean button",
+        "clean"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "keep_warm_button",
+      "label": "Keep Warm",
+      "aliases": [
+        "keep warm"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "temp_up_button",
+      "label": "Temp/Time up",
+      "aliases": [
+        "temp/time up arrow",
+        "up arrow",
+        "temperature up",
+        "arrows",
+        "temp/time arrows"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "temp_down_button",
+      "label": "Temp/Time down",
+      "aliases": [
+        "temp/time down arrow",
+        "down arrow",
+        "temperature down"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "timer_button",
+      "label": "Timer",
+      "aliases": [
+        "timer",
+        "timer set/off"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "light_button",
+      "label": "Oven Light",
+      "aliases": [
+        "light button",
+        "oven light button",
+        "light"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "clock_button",
+      "label": "Clock",
+      "aliases": [
+        "clock",
+        "clock button"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "start_button",
+      "label": "Start",
+      "aliases": [
+        "start",
+        "start button"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "hot_surface_light",
+      "label": "Hot surface light",
+      "aliases": [
+        "hot surface warning light",
+        "hot_surface_warning_light",
+        "hot surface light",
+        "warning light",
+        "hot light"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        -0.1,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "oven_door",
+      "label": "Oven door",
+      "aliases": [
+        "oven door",
+        "oven_door",
+        "door"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0.025
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 1.5
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.85,
+        0.45,
+        1
+      ]
+    },
+    {
+      "id": "oven_window",
+      "label": "Oven window",
+      "aliases": [
+        "oven window",
+        "door glass",
+        "window",
+        "oven door glass"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        0.2,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "oven_door_seal",
+      "label": "Door seal",
+      "aliases": [
+        "oven door seal",
+        "oven_door_seal",
+        "door gasket",
+        "gasket",
+        "seal"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "oven_rack",
+      "label": "Oven rack",
+      "aliases": [
+        "oven racks",
+        "oven_racks",
+        "oven rack",
+        "rack",
+        "baking rack",
+        "lower rack",
+        "racks"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.3
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.55,
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "oven_rack_level",
+      "label": "Rack height",
+      "aliases": [
+        "rack position",
+        "rack slot",
+        "middle slot",
+        "rack level",
+        "rack height"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.13
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.9,
+        0.45,
+        1
+      ]
+    },
+    {
+      "id": "oven_rack_upper",
+      "label": "Upper rack",
+      "aliases": [
+        "upper rack",
+        "top rack",
+        "upper oven rack"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.3
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.55,
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "oven_light_cover",
+      "label": "Light cover",
+      "aliases": [
+        "oven light cover",
+        "oven_light_cover",
+        "light cover",
+        "glass light cover",
+        "bulb cover"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 1.8,
+        "lift": 0.03
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "oven_light_bulb",
+      "label": "Oven light bulb",
+      "aliases": [
+        "oven light bulb",
+        "oven_light_bulb",
+        "light bulb",
+        "bulb",
+        "oven light",
+        "40-watt appliance bulb"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 3.4,
+        "lift": 0.07
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "oven_floor",
+      "label": "Oven floor",
+      "aliases": [
+        "oven floor",
+        "oven_floor",
+        "oven bottom",
+        "inside the oven"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        0.15,
+        0.85,
+        1
+      ]
+    },
+    {
+      "id": "oven_floor_spill",
+      "label": "Oven floor spill",
+      "aliases": [
+        "oven spill",
+        "spill on oven floor",
+        "light oven spill",
+        "spill",
+        "loosened spill",
+        "soil"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.08,
+          0.4
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.85,
+        1
+      ]
+    },
+    {
+      "id": "oven_vent",
+      "label": "Oven vent",
+      "aliases": [
+        "oven vent",
+        "oven_vent",
+        "vent",
+        "cooktop vent"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.2,
+        1,
+        0.7
+      ]
+    },
+    {
+      "id": "storage_drawer",
+      "label": "Storage drawer",
+      "aliases": [
+        "storage drawer",
+        "storage_drawer",
+        "bottom drawer",
+        "drawer",
+        "warming drawer"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.33
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.5,
+        1
+      ]
+    },
+    {
+      "id": "leveling_legs",
+      "label": "Leveling leg",
+      "aliases": [
+        "leveling legs",
+        "leveling_legs",
+        "leveling leg",
+        "legs",
+        "feet",
+        "foot"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 3.2
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.8,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "anti_tip_bracket",
+      "label": "Anti-tip bracket",
+      "aliases": [
+        "anti-tip bracket",
+        "anti_tip_bracket",
+        "anti tip bracket",
+        "tip bracket",
+        "back foot"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        1,
+        0.45,
+        0.3
+      ]
+    }
+  ]
 }

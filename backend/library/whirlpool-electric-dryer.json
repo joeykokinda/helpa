@@ -19,7 +19,7 @@
     {
       "id": "lint_screen",
       "label": "lint screen",
-      "where": "On top of the dryer, near the back. Pull it toward you to take it out."
+      "where": "On top of the dryer, near the back. Pull it straight up to take it out."
     },
     {
       "id": "lint_screen_slot",
@@ -135,7 +135,7 @@
         ],
         "steps": [
           {
-            "instruction": "Pull the lint screen toward you",
+            "instruction": "Pull the lint screen straight up",
             "details": [
               "It is on top of the dryer, near the back."
             ],
@@ -606,7 +606,7 @@
             "check": "Both breakers are switched fully on."
           },
           {
-            "instruction": "Pull the lint screen toward you",
+            "instruction": "Pull the lint screen straight up",
             "details": [
               "Clean it, then push it firmly back in.",
               "A blocked screen can cause long, cool drying."
@@ -1845,7 +1845,7 @@
       {
         "color": "#dfe6eb",
         "id": "dryer_door",
-        "label": "Dryer door — open",
+        "label": "Dryer door \u2014 open",
         "opacity": 0.75,
         "position": [
           43,
@@ -2087,7 +2087,7 @@
       {
         "color": "#3a7bd5",
         "id": "water_inlet_hose",
-        "label": "Water inlet hose — steam models (behind dryer)",
+        "label": "Water inlet hose \u2014 steam models (behind dryer)",
         "opacity": 1.0,
         "position": [
           -24,

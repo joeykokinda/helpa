@@ -1,3 +1,4 @@
+import type { Beat } from "./rig/types";
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export type Motion =
@@ -71,6 +72,7 @@ export type AgentEvent =
   | { type: "library"; brand: string; appliance: string; model_family: string }
   | { type: "parts"; photo: number; phrase: string; found: number; sam: string }
   | { type: "plan"; plan: Plan }
+  | { type: "rig"; rig: string; step_beats: Beat[][] }
   | { type: "model"; scene: Scene }
   | { type: "model_error"; message: string }
   | { type: "step_parts"; step: number; photo: number; found: number; sam: string }
