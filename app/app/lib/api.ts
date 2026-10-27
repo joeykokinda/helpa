@@ -35,6 +35,9 @@ export type Plan = {
   steps: PlanStep[];
   library_id: string;
   library_problem: string;
+  /** Typical cost of a technician for this fix; 0 when nobody would call one. Missing on older plans. */
+  pro_visit_cost?: number;
+  aftercare?: string;
 };
 
 export type ScenePart = {

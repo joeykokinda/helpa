@@ -61,7 +61,7 @@ var planSchema = map[string]any{
 	"type":                 "object",
 	"additionalProperties": false,
 	"required": []string{"brand", "model_number", "appliance", "manual_url", "diagnosis", "tools", "replacement_parts",
-		"safety", "steps", "library_id", "library_problem"},
+		"safety", "steps", "library_id", "library_problem", "pro_visit_cost", "aftercare"},
 	"properties": map[string]any{
 		"brand":             map[string]any{"type": "string"},
 		"model_number":      map[string]any{"type": "string"},
@@ -74,6 +74,9 @@ var planSchema = map[string]any{
 		"steps":             map[string]any{"type": "array", "items": stepSchema},
 		"library_id":        map[string]any{"type": "string", "description": "The lookup_library id this plan is based on, or empty."},
 		"library_problem":   map[string]any{"type": "string", "description": "The library problem id reused unchanged, or empty."},
+		"pro_visit_cost": map[string]any{"type": "integer", "description": "Typical US cost in dollars of paying a technician for THIS exact fix. " +
+			"0 when people would not normally call anyone (cleaning a lint screen, pressing a reset button)."},
+		"aftercare": map[string]any{"type": "string", "description": "One short tip to stop this happening again, e.g. 'Clean the lint screen after every load.'"},
 	},
 }
 

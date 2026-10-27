@@ -38,7 +38,6 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   const [flash, setFlash] = useState(0);
   const trackRef = useRef<MediaStreamTrack | null>(null);
   const [torch, setTorch] = useState<"unsupported" | "off" | "on">("unsupported");
-  const torchTouchedRef = useRef(false);
   const darkWarnedRef = useRef(false);
 
   const setTorchOn = async (on: boolean) => {
@@ -50,7 +49,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
     }
   };
 
-  // Watch how bright the picture is; in a dark cabinet, turn the flashlight on (once, unless the user chose).
+  // Watch how bright the picture is; in a dark cabinet, suggest the flashlight once.
   useEffect(() => {
     if (camera !== "ready") return;
     const sample = document.createElement("canvas");
@@ -65,14 +64,9 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       for (let index = 0; index < pixels.length; index += 4) total += pixels[index] * 0.299 + pixels[index + 1] * 0.587 + pixels[index + 2] * 0.114;
       const brightness = total / (pixels.length / 4);
       if (brightness > 50) return;
-      if (torch === "off" && !torchTouchedRef.current) {
-        torchTouchedRef.current = true;
-        setTorchOn(true);
-        say("It's dark in there, so I turned on your flashlight.", "found", false);
-      } else if (torch === "unsupported" && !darkWarnedRef.current) {
-        darkWarnedRef.current = true;
-        say("It's pretty dark. Can you add some light so I can see?", "worried", false);
-      }
+      if (darkWarnedRef.current || torch === "on") return;
+      darkWarnedRef.current = true;
+      say(torch === "off" ? "It's dark in there. Tap the lightning button for your flashlight." : "It's pretty dark. Can you add some light so I can see?", "worried", false);
     }, 1200);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,6 +101,16 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Browsers can't write to the gallery directly; a download lands in the phone's Downloads, which shows in Photos.
+  const saveToCameraRoll = (blobs: Blob[]) =>
+    blobs.forEach((blob, index) => {
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `helpa-${new Date().toISOString().replace(/[:.]/g, "-")}-${index}.jpg`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 4000);
+    });
+
   const addPhotos = (blobs: Blob[]) =>
     setPhotos((current) => [...current, ...blobs.map((blob) => ({ blob, url: URL.createObjectURL(blob) }))].slice(-maxPhotos));
 
@@ -123,7 +127,9 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
     if (!videoRef.current || camera !== "ready" || scanning) return;
     if (captureMode === "photo") {
       setFlash((count) => count + 1);
-      addPhotos([await captureFrame(videoRef.current)]);
+      const photo = await captureFrame(videoRef.current);
+      addPhotos([photo]);
+      saveToCameraRoll([photo]);
       say("Nice shot! Add another angle, or tap Next.", "found", false);
       return;
     }
@@ -136,6 +142,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       setFlash((count) => count + 1);
     }
     addPhotos(frames);
+    saveToCameraRoll(frames);
     setScanning(false);
     say("Got all sides! Tap Next when you're ready.", "found", false);
   };
@@ -222,7 +229,6 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
             <button
               className={`icon-button glass press ${torch === "on" ? "torch-on" : ""}`}
               onClick={() => {
-                torchTouchedRef.current = true;
                 setTorchOn(torch !== "on");
               }}
               aria-label={torch === "on" ? "Turn flashlight off" : "Turn flashlight on"}

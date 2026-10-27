@@ -18,8 +18,11 @@ import (
 const maxUploadBytes = 40 << 20
 
 func main() {
-	if metaAPIKey == "" {
-		log.Fatal("META_API_KEY is not set")
+	if metaAPIKey == "" && replayDir == "" {
+		log.Fatal("META_API_KEY is not set (or set HELPA_REPLAY to a fixtures folder)")
+	}
+	if replayDir != "" {
+		log.Printf("REPLAY MODE: serving recorded runs from %s, no Meta API calls", replayDir)
 	}
 	if len(os.Args) > 1 && os.Args[1] == "build-library" {
 		if err := buildLibrary(context.Background(), os.Args[2:]); err != nil {
@@ -41,6 +44,9 @@ func main() {
 	})
 	http.HandleFunc("GET /api/health", func(writer http.ResponseWriter, _ *http.Request) { writer.Write([]byte("ok")) })
 	address := os.Getenv("ADDR")
+	if replayDir != "" && address == "" {
+		address = "127.0.0.1:8096"
+	}
 	if address == "" {
 		address = "127.0.0.1:8095"
 	}
@@ -129,6 +135,11 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 			flusher.Flush()
 		}
 	}
+	if replayDir != "" {
+		replayFix(writer, request, complaint, emit)
+		emit(event{"type": "done"})
+		return
+	}
 	if err := runAgent(request.Context(), photos, complaint, emit); err != nil {
 		log.Printf("agent: %v", err)
 		emit(event{"type": "error", "message": err.Error()})
@@ -139,6 +150,10 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 // handleCheck judges a photo taken after a step.
 func handleCheck(writer http.ResponseWriter, request *http.Request) {
 	if !parseUpload(writer, request) {
+		return
+	}
+	if replayDir != "" {
+		replayCheck(writer)
 		return
 	}
 	photos, err := readPhotos(request, "photo")
@@ -159,6 +174,10 @@ func handleCheck(writer http.ResponseWriter, request *http.Request) {
 // handleTranscribe forwards a 16 kHz mono WAV to Muse Voice Transcribe and returns {"text": ...}.
 func handleTranscribe(writer http.ResponseWriter, request *http.Request) {
 	if !parseUpload(writer, request) {
+		return
+	}
+	if replayDir != "" {
+		replayTranscribe(writer)
 		return
 	}
 	file, _, err := request.FormFile("audio")

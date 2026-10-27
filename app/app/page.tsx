@@ -37,24 +37,6 @@ function capitalize(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-// ponytail: static ballpark per appliance, swap for real regional pricing if it ever matters
-const repairVisitCost: [RegExp, number][] = [
-  [/fridge|refrigerator|freezer/i, 200],
-  [/water heater|furnace|hvac|air condition/i, 250],
-  [/washer|washing/i, 150],
-  [/dishwasher/i, 150],
-  [/dryer/i, 140],
-  [/oven|range|stove|cooktop/i, 160],
-  [/toilet|faucet|sink|drain|plumb/i, 175],
-  [/disposal|disposer/i, 125],
-  [/microwave|hood/i, 110],
-];
-
-function savedEstimate(plan: Plan | null) {
-  const label = `${plan?.appliance ?? ""} ${plan?.diagnosis ?? ""}`;
-  return repairVisitCost.find(([pattern]) => pattern.test(label))?.[1] ?? 120;
-}
-
 const toolEmoji: [RegExp, string][] = [
   [/screwdriver/i, "🪛"],
   [/wrench|hex|allen|key|pliers/i, "🔧"],
@@ -672,8 +654,8 @@ function Confetti() {
 }
 
 function Done({ plan, mood, speaking, onRestart }: { plan: Plan | null; mood: HelpaMood; speaking: boolean; onRestart: () => void }) {
-  const saved = savedEstimate(plan);
-  const appliance = known(plan?.appliance) || "appliance";
+  // Only claim savings when a technician would really have been called for this fix.
+  const saved = plan?.pro_visit_cost ?? 0;
   return (
     <section className="screen done" aria-label="All done">
       <Confetti />
@@ -684,11 +666,19 @@ function Done({ plan, mood, speaking, onRestart }: { plan: Plan | null; mood: He
         </div>
         <h1 className="display">You fixed it!</h1>
         <p className="lede">That was all you. Helpa is very proud.</p>
-        <motion.div className="card saved-card" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, type: "spring", stiffness: 220, damping: 18 }}>
-          <span className="saved-label">You saved about</span>
-          <strong className="saved-amount">${saved}</strong>
-          <span className="saved-note">Estimate based on a typical repair visit for a {appliance}. Real prices vary by area.</span>
-        </motion.div>
+        {saved > 0 && (
+          <motion.div className="card saved-card" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, type: "spring", stiffness: 220, damping: 18 }}>
+            <span className="saved-label">You skipped a repair visit worth about</span>
+            <strong className="saved-amount">${saved}</strong>
+            <span className="saved-note">Typical technician cost for this fix. Real prices vary by area.</span>
+          </motion.div>
+        )}
+        {plan?.aftercare && (
+          <motion.div className="card saved-card" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, type: "spring", stiffness: 220, damping: 18 }}>
+            <span className="saved-label">Keep it this way</span>
+            <span className="saved-note">{plan.aftercare}</span>
+          </motion.div>
+        )}
         {plan && (
           <div className="stat-row">
             <div className="card stat">
