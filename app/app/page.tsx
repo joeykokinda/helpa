@@ -1,133 +1,295 @@
 "use client";
 
-import { useRef, useState, type PointerEvent } from "react";
-import Helpa, { HELPA_MOODS, type HelpaMood } from "./components/Helpa";
+import dynamic from "next/dynamic";
+import { useRef, useState } from "react";
+import Capture from "./components/Capture";
+import Helpa, { type HelpaMood } from "./components/Helpa";
+import PartPhoto from "./components/PartPhoto";
 import SpeechBubble from "./components/SpeechBubble";
+import { checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
+import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
 
-const moodLines: Record<HelpaMood, string> = {
-  idle: "Hi, I'm Helpa! What needs fixing today?",
-  listening: "I'm listening. Tell me what's going on.",
-  thinking: "Hmm, let me think about that for a second.",
-  searching: "Looking for your manual now...",
-  found: "Found it! Here's the manual for your dishwasher.",
-  explaining: "First, turn the dial to off and unplug it.",
-  pointing: "This round cap is the filter. Twist it to the left.",
-  worried: "Careful! Switch off the power before you touch that.",
-  celebrate: "You did it! Everything is fixed.",
-};
+const Scene3D = dynamic(() => import("./components/Scene3D"), {
+  ssr: false,
+  loading: () => <div className="scene-3d scene-loading">Building your 3D model…</div>,
+});
 
-type Point = { x: number; y: number };
+/** The bubble stays short; the full text is on the page and spoken aloud. */
+function firstSentence(text: string) {
+  const sentence = text.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? text;
+  return sentence.length > 90 ? `${sentence.slice(0, 87).trimEnd()}…` : sentence;
+}
 
-export default function Playground() {
+type Stage = "start" | "working" | "plan" | "step" | "done";
+
+export default function Home() {
+  const [stage, setStage] = useState<Stage>("start");
   const [mood, setMood] = useState<HelpaMood>("idle");
   const [speaking, setSpeaking] = useState(false);
-  const [size, setSize] = useState(240);
-  const [lookAt, setLookAt] = useState<Point | undefined>(undefined);
-  const [targetDot, setTargetDot] = useState<Point | undefined>(undefined);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const helpaRef = useRef<HTMLDivElement>(null);
+  const [bubble, setBubble] = useState("Hi, I'm Helpa! Show me what's broken, or just tell me.");
+  const [trail, setTrail] = useState<string[]>([]);
+  const [photoUrls, setPhotoUrls] = useState<string[]>([]);
+  const [partMasks, setPartMasks] = useState<Record<number, string[]>>({});
+  const [stepMasks, setStepMasks] = useState<Record<number, string>>({});
+  const [plan, setPlan] = useState<Plan | null>(null);
+  const [scene, setScene] = useState<Scene | null>(null);
+  const [sceneFailed, setSceneFailed] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
+  const [view, setView] = useState<"3d" | "photo">("3d");
+  const [checking, setChecking] = useState(false);
+  const [checkResult, setCheckResult] = useState<{ done: boolean; feedback: string } | null>(null);
+  const checkInputRef = useRef<HTMLInputElement>(null);
 
-  const aimAt = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== "mouse" && event.buttons === 0) return;
-    const stage = stageRef.current?.getBoundingClientRect();
-    const helpa = helpaRef.current?.getBoundingClientRect();
-    if (!stage || !helpa) return;
-    const reach = Math.max(helpa.width, 120);
-    setLookAt({
-      x: (event.clientX - (helpa.left + helpa.width / 2)) / reach,
-      y: (event.clientY - (helpa.top + helpa.height / 2)) / reach,
-    });
-    setTargetDot({ x: event.clientX - stage.left, y: event.clientY - stage.top });
+  const say = (text: string, nextMood: HelpaMood = "explaining", aloud = true) => {
+    setBubble(firstSentence(text));
+    setMood(nextMood);
+    if (aloud) speak(text, setSpeaking);
   };
 
-  const forgetAim = () => {
-    setLookAt(undefined);
-    setTargetDot(undefined);
+  const handleEvent = (agentEvent: AgentEvent) => {
+    switch (agentEvent.type) {
+      case "say":
+        say(agentEvent.text, "thinking");
+        break;
+      case "search":
+        setMood("searching");
+        setTrail((current) => [...current, describeSearch(agentEvent.action)]);
+        break;
+      case "parts":
+        if (agentEvent.found > 0) {
+          setMood("found");
+          setPartMasks((current) => ({ ...current, [agentEvent.photo]: [...(current[agentEvent.photo] ?? []), agentEvent.sam] }));
+          setTrail((current) => [...current, `Found the ${agentEvent.phrase}`]);
+        }
+        break;
+      case "plan":
+        setPlan(agentEvent.plan);
+        setStage("plan");
+        say(agentEvent.plan.diagnosis);
+        if (agentEvent.plan.safety.length) setTimeout(() => setMood("worried"), 400);
+        break;
+      case "model":
+        setScene(agentEvent.scene);
+        break;
+      case "model_error":
+        setSceneFailed(true);
+        break;
+      case "step_parts":
+        if (agentEvent.found > 0) setStepMasks((current) => ({ ...current, [agentEvent.step]: agentEvent.sam }));
+        break;
+      case "error":
+        say("Hmm, something went wrong on my end. Can we try that again?", "worried");
+        setStage("start");
+        break;
+    }
   };
+
+  const start = async (photos: Blob[], description: string) => {
+    stopSpeaking();
+    setStage("working");
+    setTrail([]);
+    setPartMasks({});
+    setStepMasks({});
+    setPlan(null);
+    setScene(null);
+    setSceneFailed(false);
+    setPhotoUrls(photos.map((photo) => URL.createObjectURL(photo)));
+    say("Okay, let me take a look!", "thinking");
+    try {
+      await streamFix(photos, description, handleEvent);
+    } catch {
+      say("I couldn't reach my workshop. Check your connection and try again?", "worried");
+      setStage("start");
+    }
+  };
+
+  const step = plan?.steps[stepIndex];
+
+  const enterStep = (index: number) => {
+    if (!plan) return;
+    setStepIndex(index);
+    setStage("step");
+    setCheckResult(null);
+    stopSpeaking();
+    say(plan.steps[index].instruction, "pointing");
+  };
+
+  const goToStep = (index: number) => {
+    if (!plan) return;
+    if (index >= plan.steps.length) {
+      setStage("done");
+      stopSpeaking();
+      say("You did it! That's fixed. I'm proud of you.", "celebrate");
+      return;
+    }
+    enterStep(Math.max(0, index));
+  };
+
+  const runCheck = async (file: File | undefined) => {
+    if (!file || !step) return;
+    setChecking(true);
+    say("Let me see…", "thinking", false);
+    try {
+      const result = await checkStep(await shrinkPhoto(file), step);
+      setCheckResult(result);
+      say(result.feedback, result.done ? "found" : "worried");
+    } catch (error) {
+      say(error instanceof Error ? error.message : "I couldn't check that, try again?", "worried");
+    } finally {
+      setChecking(false);
+    }
+  };
+
+  const stepPhoto = step && step.photo >= 0 ? photoUrls[step.photo] : undefined;
+  const helpaSize = stage === "start" || stage === "done" ? 180 : 108;
 
   return (
-    <main className="page">
-      <header className="page-header">
-        <h1>Helpa</h1>
-        <p>Mascot playground. Tap or drag on the stage to set where Helpa looks and points.</p>
+    <main className="app">
+      <header className={`helpa-header helpa-header-${stage}`}>
+        <Helpa mood={mood} speaking={speaking} size={helpaSize} />
+        <SpeechBubble text={bubble} />
       </header>
 
-      <section
-        ref={stageRef}
-        className="card stage"
-        onPointerDown={aimAt}
-        onPointerMove={aimAt}
-        onPointerLeave={forgetAim}
-        aria-label="Helpa stage"
-      >
-        <SpeechBubble text={moodLines[mood]} />
-        {targetDot && <span className="look-target" style={{ left: targetDot.x, top: targetDot.y }} />}
-        <div ref={helpaRef} className="stage-helpa">
-          <Helpa mood={mood} speaking={speaking} lookAt={lookAt} size={size} />
-        </div>
-      </section>
+      {stage === "start" && (
+        <Capture onSubmit={start} onListening={(listening) => setMood(listening ? "listening" : "idle")} onSay={(text) => say(text)} />
+      )}
 
-      <section className="card controls" aria-label="Controls">
-        <div className="control-group">
-          <span className="label">Mood</span>
-          <div className="pill-row">
-            {HELPA_MOODS.map((moodOption) => (
-              <button
-                key={moodOption}
-                type="button"
-                className="pill"
-                aria-pressed={mood === moodOption}
-                onClick={() => setMood(moodOption)}
-              >
-                {moodOption}
-              </button>
+      {stage === "working" && (
+        <section className="card working" aria-live="polite">
+          <h2 className="section-title">Helpa is on it</h2>
+          {photoUrls.map((url, index) => (
+            <PartPhoto key={url} photoUrl={url} samTexts={partMasks[index] ?? []} />
+          ))}
+          <ol className="trail">
+            {trail.slice(-6).map((line, index) => (
+              <li key={`${line}-${index}`}>{line}</li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {stage === "plan" && plan && (
+        <section className="plan">
+          <div className="card">
+            <p className="eyebrow">
+              {plan.brand} {plan.model_number}
+            </p>
+            <h2 className="section-title">What&apos;s going on</h2>
+            <p>{plan.diagnosis}</p>
+            {plan.manual_url && (
+              <a className="source" href={plan.manual_url} target="_blank" rel="noreferrer">
+                From the manual: {new URL(plan.manual_url).hostname}
+              </a>
+            )}
+          </div>
+          {plan.safety.length > 0 && (
+            <div className="card card-safety">
+              <h2 className="section-title">Safety first</h2>
+              <ul>
+                {plan.safety.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="card">
+            <h2 className="section-title">What you need</h2>
+            <ul className="chips">
+              {plan.tools.map((tool) => (
+                <li key={tool}>{tool}</li>
+              ))}
+            </ul>
+            {plan.replacement_parts.length > 0 && (
+              <>
+                <p className="label">If a part needs replacing</p>
+                <ul className="chips chips-parts">
+                  {plan.replacement_parts.map((part) => (
+                    <li key={part}>{part}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+          <button
+            className="pill pill-primary pill-wide"
+            onClick={() => enterStep(0)}
+          >
+            Let&apos;s do it, {plan.steps.length} steps
+          </button>
+        </section>
+      )}
+
+      {stage === "step" && plan && step && (
+        <section className="step">
+          <div className="step-progress" aria-label={`Step ${stepIndex + 1} of ${plan.steps.length}`}>
+            {plan.steps.map((_, index) => (
+              <span key={index} className={index <= stepIndex ? "step-dot step-dot-on" : "step-dot"} />
             ))}
           </div>
-        </div>
+          <p className="eyebrow">
+            Step {stepIndex + 1} of {plan.steps.length}
+          </p>
+          <h2 className="step-instruction">{step.instruction}</h2>
 
-        <div className="control-group">
-          <span className="label">Voice</span>
-          <div className="pill-row">
-            <button type="button" className="pill" aria-pressed={speaking} onClick={() => setSpeaking(!speaking)}>
-              {speaking ? "Speaking" : "Quiet"}
+          <div className="view-toggle" role="tablist">
+            <button role="tab" aria-selected={view === "3d"} className="pill" onClick={() => setView("3d")}>
+              3D guide
+            </button>
+            <button role="tab" aria-selected={view === "photo"} className="pill" onClick={() => setView("photo")} disabled={!stepPhoto}>
+              Your photo
             </button>
           </div>
-        </div>
 
-        <label className="control-group">
-          <span className="label">Size</span>
-          <span className="slider-row">
-            <input
-              type="range"
-              min={64}
-              max={300}
-              step={4}
-              value={size}
-              onChange={(event) => setSize(Number(event.target.value))}
-            />
-            <output>{size}px</output>
-          </span>
-        </label>
-      </section>
+          {view === "3d" &&
+            (scene ? (
+              <Scene3D scene={scene} stepIndex={stepIndex} />
+            ) : (
+              <div className="scene-3d scene-loading">{sceneFailed ? "The 3D model didn't come out. Use your photo instead." : "Building your 3D model…"}</div>
+            ))}
+          {view === "photo" && stepPhoto && <PartPhoto photoUrl={stepPhoto} samTexts={stepMasks[stepIndex] ? [stepMasks[stepIndex]] : []} label={step.target_part} />}
 
-      <section className="card control-group" aria-label="All moods at 64 pixels">
-        <span className="label">Every mood at 64px</span>
-        <div className="mood-grid">
-          {HELPA_MOODS.map((moodOption) => (
-            <button
-              key={moodOption}
-              type="button"
-              className="mood-tile"
-              aria-pressed={mood === moodOption}
-              onClick={() => setMood(moodOption)}
-            >
-              <Helpa mood={moodOption} size={64} />
-              {moodOption}
+          {checkResult && <p className={checkResult.done ? "check check-ok" : "check check-retry"}>{checkResult.feedback}</p>}
+
+          <div className="step-actions">
+            <button className="pill" onClick={() => goToStep(stepIndex - 1)} disabled={stepIndex === 0}>
+              Back
             </button>
-          ))}
-        </div>
-        <p className="hint">Small Helpas run their own mood loop so you can check readability at app icon size.</p>
-      </section>
+            <button className="pill" onClick={() => say(step.instruction, "pointing")}>
+              Say it again
+            </button>
+            <button className="pill" onClick={() => checkInputRef.current?.click()} disabled={checking}>
+              {checking ? "Checking…" : "Check my work"}
+            </button>
+            <input
+              ref={checkInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              hidden
+              onChange={(changeEvent) => {
+                runCheck(changeEvent.target.files?.[0]);
+                changeEvent.target.value = "";
+              }}
+            />
+          </div>
+          <button className="pill pill-primary pill-wide" onClick={() => goToStep(stepIndex + 1)}>
+            {stepIndex + 1 === plan.steps.length ? "All done" : "Done, next step"}
+          </button>
+        </section>
+      )}
+
+      {stage === "done" && (
+        <button
+          className="pill pill-primary pill-wide"
+          onClick={() => {
+            setStage("start");
+            say("What else can I help with?", "idle");
+          }}
+        >
+          Fix something else
+        </button>
+      )}
     </main>
   );
 }
+
