@@ -14,21 +14,27 @@ export type Motion =
 
 export type PlanStep = {
   instruction: string;
+  /** 0 to 3 extra lines shown under a "More help" disclosure. */
+  details: string[];
   target_part: string;
   photo: number;
   motion: Motion;
+  show_3d: boolean;
   check: string;
 };
 
 export type Plan = {
   brand: string;
   model_number: string;
+  appliance: string;
   manual_url: string;
   diagnosis: string;
   tools: string[];
   replacement_parts: string[];
   safety: string[];
   steps: PlanStep[];
+  library_id: string;
+  library_problem: string;
 };
 
 export type ScenePart = {
@@ -59,6 +65,7 @@ export type AgentEvent =
   | { type: "say"; text: string }
   | { type: "status"; text: string }
   | { type: "search"; action: SearchAction }
+  | { type: "library"; brand: string; appliance: string; model_family: string }
   | { type: "parts"; photo: number; phrase: string; found: number; sam: string }
   | { type: "plan"; plan: Plan }
   | { type: "model"; scene: Scene }
@@ -109,8 +116,17 @@ export async function checkStep(photo: Blob, step: PlanStep): Promise<{ done: bo
   return response.json();
 }
 
-export function describeSearch(action: SearchAction): string {
-  if (action.type === "open_page" && action.url) return `Reading ${new URL(action.url).hostname}`;
-  if (action.type === "find_in_page") return `Looking for "${action.pattern ?? ""}" in the manual`;
-  return `Searching "${action.query ?? action.queries?.[0] ?? ""}"`;
+function hostname(url: string | undefined) {
+  try {
+    return url ? new URL(url).hostname.replace(/^www\./, "") : "";
+  } catch {
+    return "";
+  }
+}
+
+/** Turns a raw web action into a friendly progress row; the key folds repeats into one row. */
+export function describeSearch(action: SearchAction): { key: string; title: string; detail: string } {
+  if (action.type === "open_page") return { key: "read", title: "Reading the manual", detail: hostname(action.url) };
+  if (action.type === "find_in_page") return { key: "find", title: "Finding the right section", detail: action.pattern ? `Looking for "${action.pattern}"` : "" };
+  return { key: "search", title: "Looking up your model", detail: "Searching official guides" };
 }
