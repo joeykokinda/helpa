@@ -72,7 +72,10 @@ export type AgentEvent =
   | { type: "library"; brand: string; appliance: string; model_family: string }
   | { type: "parts"; photo: number; phrase: string; found: number; sam: string }
   | { type: "plan"; plan: Plan }
-  | { type: "rig"; rig: string; step_beats: Beat[][] }
+  /** A built-in model by id, or rig "generated" with an on-demand recipe and its catalog inline. */
+  | { type: "rig"; rig: string; step_beats: Beat[][]; recipe?: unknown; catalog?: unknown }
+  /** The agent needs an answer before it can continue; reply with POST /api/answer. */
+  | { type: "question"; session: string; question: string; choices: string[] }
   | { type: "model"; scene: Scene }
   | { type: "model_error"; message: string }
   | { type: "step_parts"; step: number; photo: number; found: number; sam: string }
