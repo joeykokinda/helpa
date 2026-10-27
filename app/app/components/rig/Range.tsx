@@ -32,7 +32,7 @@ export const rangeCatalog = catalogJson as RigCatalog;
 
 // ---------- shared helpers (also used by MicrowaveOtr.tsx) ----------
 
-export const stainless = { color: "#dfe3e8", metalness: 0.72, roughness: 0.3 };
+export const stainless = { color: "#f1f3f6", metalness: 0.55, roughness: 0.28 };
 export const chrome = { color: "#e4e8ee", metalness: 0.95, roughness: 0.14 };
 export const blackGlass = { color: "#0b0c0e", metalness: 0.25, roughness: 0.08 };
 const highlight = new THREE.Color("#ff8a2a");
@@ -642,6 +642,11 @@ function OvenDoor() {
             <meshStandardMaterial color="#3f444d" roughness={0.45} />
           </PanelWithHoles>
         </group>
+        {/* inner glass, so an open door reads as a door and not a hole */}
+        <mesh position={[0, 0.335 - doorHeight / 2, -half + 0.006]}>
+          <planeGeometry args={[0.43, 0.25]} />
+          <meshPhysicalMaterial color="#1b2026" roughness={0.05} metalness={0.4} transparent opacity={0.88} clearcoat={1} side={THREE.DoubleSide} />
+        </mesh>
         {/* edges */}
         {[-1, 1].map((side) => (
           <mesh key={side} position={[side * 0.372, 0, 0]}>
@@ -807,30 +812,33 @@ function StorageDrawer() {
   const brushed = useMemo(() => brushedTexture(), []);
   const boxColor = <meshStandardMaterial color="#5b6068" roughness={0.6} metalness={0.3} />;
   return (
-    <RigPart id="storage_drawer" position={[0, 0.1025, front]}>
-      <RoundedBox args={[0.745, 0.142, 0.024]} radius={0.005} position={[0, 0, 0.012]} castShadow>
-        <meshStandardMaterial map={brushed} {...stainless} />
-      </RoundedBox>
-      {/* finger pull under the top lip */}
-      <mesh position={[0, 0.058, 0.0245]}>
-        <boxGeometry args={[0.66, 0.01, 0.002]} />
-        <meshStandardMaterial color="#2b2e33" roughness={0.6} />
-      </mesh>
-      <mesh position={[0, -0.058, -0.26]}>
-        <boxGeometry args={[0.68, 0.006, 0.5]} />
-        {boxColor}
-      </mesh>
-      {[-1, 1].map((side) => (
-        <mesh key={side} position={[side * 0.337, -0.01, -0.26]}>
-          <boxGeometry args={[0.006, 0.1, 0.5]} />
+    // Pulls out to the stop, then lifts off its rails and is set aside, which opens the view to the back feet.
+    <Drift part="storage_drawer" offset={[0.95, 0.02, 0.3]} after={0.6}>
+      <RigPart id="storage_drawer" position={[0, 0.1025, front]}>
+        <RoundedBox args={[0.745, 0.142, 0.024]} radius={0.005} position={[0, 0, 0.012]} castShadow>
+          <meshStandardMaterial map={brushed} {...stainless} />
+        </RoundedBox>
+        {/* finger pull under the top lip */}
+        <mesh position={[0, 0.058, 0.0245]}>
+          <boxGeometry args={[0.66, 0.01, 0.002]} />
+          <meshStandardMaterial color="#2b2e33" roughness={0.6} />
+        </mesh>
+        <mesh position={[0, -0.058, -0.26]}>
+          <boxGeometry args={[0.68, 0.006, 0.5]} />
           {boxColor}
         </mesh>
-      ))}
-      <mesh position={[0, -0.01, -0.507]}>
-        <boxGeometry args={[0.68, 0.1, 0.006]} />
-        {boxColor}
-      </mesh>
-    </RigPart>
+        {[-1, 1].map((side) => (
+          <mesh key={side} position={[side * 0.337, -0.01, -0.26]}>
+            <boxGeometry args={[0.006, 0.1, 0.5]} />
+            {boxColor}
+          </mesh>
+        ))}
+        <mesh position={[0, -0.01, -0.507]}>
+          <boxGeometry args={[0.68, 0.1, 0.006]} />
+          {boxColor}
+        </mesh>
+      </RigPart>
+    </Drift>
   );
 }
 
@@ -980,9 +988,9 @@ const sampleSteps: { instruction: string; beats: Beat[] }[] = [
   {
     instruction: "Check the anti-tip bracket",
     beats: [
-      { part: "storage_drawer", action: "open", caption: "Pull the drawer out" },
+      { part: "storage_drawer", action: "remove", caption: "Pull the drawer out, lift off" },
       { part: "anti_tip_bracket", action: "look", caption: "Back foot sits in bracket" },
-      { part: "storage_drawer", action: "close", caption: "Slide the drawer back" },
+      { part: "storage_drawer", action: "insert", caption: "Slide the drawer back in" },
     ],
   },
 ];
