@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 const metaBaseURL = "https://api.meta.ai/v1"
@@ -65,18 +66,45 @@ func (r response) text() string {
 	return strings.Join(parts, "")
 }
 
-func createResponse(ctx context.Context, body map[string]any) (response, error) {
+// postResponses sends a Responses request, retrying dropped connections and 429/5xx replies.
+func postResponses(ctx context.Context, body map[string]any) (*http.Response, error) {
 	payload, err := json.Marshal(body)
 	if err != nil {
-		return response{}, err
+		return nil, err
 	}
-	request, err := http.NewRequestWithContext(ctx, http.MethodPost, metaBaseURL+"/responses", bytes.NewReader(payload))
-	if err != nil {
-		return response{}, err
+	var lastErr error
+	for attempt := 0; attempt < 3; attempt++ {
+		if attempt > 0 {
+			select {
+			case <-ctx.Done():
+				return nil, ctx.Err()
+			case <-time.After(time.Duration(attempt) * 1500 * time.Millisecond):
+			}
+		}
+		request, err := http.NewRequestWithContext(ctx, http.MethodPost, metaBaseURL+"/responses", bytes.NewReader(payload))
+		if err != nil {
+			return nil, err
+		}
+		request.Header.Set("Authorization", "Bearer "+metaAPIKey)
+		request.Header.Set("Content-Type", "application/json")
+		reply, err := http.DefaultClient.Do(request)
+		if err != nil {
+			lastErr = err
+			continue
+		}
+		if reply.StatusCode == http.StatusTooManyRequests || reply.StatusCode >= 500 {
+			data, _ := io.ReadAll(reply.Body)
+			reply.Body.Close()
+			lastErr = fmt.Errorf("meta api %d: %s", reply.StatusCode, data)
+			continue
+		}
+		return reply, nil
 	}
-	request.Header.Set("Authorization", "Bearer "+metaAPIKey)
-	request.Header.Set("Content-Type", "application/json")
-	reply, err := http.DefaultClient.Do(request)
+	return nil, lastErr
+}
+
+func createResponse(ctx context.Context, body map[string]any) (response, error) {
+	reply, err := postResponses(ctx, body)
 	if err != nil {
 		return response{}, err
 	}
@@ -102,17 +130,7 @@ func createResponse(ctx context.Context, body map[string]any) (response, error) 
 // completes, so web searches show up on the phone live instead of after the whole turn.
 func streamResponse(ctx context.Context, body map[string]any, onItem func(outputItem)) ([]outputItem, error) {
 	body["stream"] = true
-	payload, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	request, err := http.NewRequestWithContext(ctx, http.MethodPost, metaBaseURL+"/responses", bytes.NewReader(payload))
-	if err != nil {
-		return nil, err
-	}
-	request.Header.Set("Authorization", "Bearer "+metaAPIKey)
-	request.Header.Set("Content-Type", "application/json")
-	reply, err := http.DefaultClient.Do(request)
+	reply, err := postResponses(ctx, body)
 	if err != nil {
 		return nil, err
 	}
