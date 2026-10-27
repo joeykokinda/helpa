@@ -63,7 +63,7 @@
       "id": "bottom_rack",
       "label": "Bottom rack",
       "aliases": ["bottom_rack", "bottom rack", "lower rack", "lower dishrack", "bottom dish rack"],
-      "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.42 },
+      "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.5 },
       "actions": ["open", "close", "look"],
       "view": [0.65, 0.85, 1]
     },
@@ -113,15 +113,15 @@
       "aliases": ["middle_spray_arm", "middle spray arm", "upper spray arm", "mid-level spray arm"],
       "joint": { "kind": "turn", "axis": [0, 1, 0], "angle": 6.2832 },
       "actions": ["turn", "look"],
-      "view": [0.35, -0.3, 1]
+      "view": [0.35, 0.95, 1]
     },
     {
       "id": "middle_arm_gunk",
       "label": "Spray hole gunk",
       "aliases": ["middle spray arm holes", "upper spray arm holes", "spray holes", "blocked spray holes", "food in spray holes"],
-      "joint": { "kind": "debris", "away": [0.05, -0.1, 0.3] },
+      "joint": { "kind": "debris", "away": [0.05, 0.08, 0.3] },
       "actions": ["clean", "look"],
-      "view": [0.35, -0.3, 1]
+      "view": [0.35, 0.95, 1]
     },
     {
       "id": "top_spray_arm",
@@ -137,23 +137,23 @@
       "aliases": ["round_top_filter", "round top filter", "upper filter", "upper filter assembly", "cylinder filter", "filter", "filters"],
       "joint": { "kind": "twist", "axis": [0, 1, 0], "angle": 1.5708, "lift": 0.17 },
       "actions": ["remove", "insert", "unlock", "lock", "look"],
-      "view": [0.25, 1.15, 0.8]
+      "view": [0.3, 0.8, 1]
     },
     {
       "id": "round_filter_scraps",
       "label": "Food scraps",
       "aliases": ["food on round filter", "round filter food", "filter debris", "trapped food"],
-      "joint": { "kind": "debris", "away": [0.06, 0.05, 0.28] },
+      "joint": { "kind": "debris", "away": [-0.28, 0.05, 0.06] },
       "actions": ["clean", "look"],
-      "view": [0.25, 0.7, 1]
+      "view": [0.3, 0.8, 1]
     },
     {
       "id": "flat_bottom_filter",
       "label": "Flat bottom filter",
       "aliases": ["flat_bottom_filter", "flat bottom filter", "lower filter", "fine filter", "filter screen"],
-      "joint": { "kind": "slide", "direction": [0, 0.45, 1], "distance": 0.17 },
+      "joint": { "kind": "slide", "direction": [0, 0.6, 1], "distance": 0.12 },
       "actions": ["remove", "insert", "look"],
-      "view": [0.25, 1.05, 0.8]
+      "view": [0.3, 0.8, 1]
     },
     {
       "id": "flat_filter_scraps",
@@ -161,7 +161,7 @@
       "aliases": ["food on flat filter", "flat filter food", "grease on filter", "filter gunk"],
       "joint": { "kind": "debris", "away": [0.05, 0.05, 0.28] },
       "actions": ["clean", "look"],
-      "view": [0.25, 1.05, 0.8]
+      "view": [0.3, 0.8, 1]
     },
     {
       "id": "bottom_of_tub",
@@ -223,7 +223,7 @@
       "id": "rinse_aid_holder",
       "label": "Rinse aid cap",
       "aliases": ["rinse_aid_holder", "rinse aid holder", "rinse aid cap", "rinse aid dispenser", "rinse aid filler"],
-      "joint": { "kind": "twist", "axis": [0, 0, -1], "angle": 1.5708, "lift": 0.05 },
+      "joint": { "kind": "twist", "axis": [0, 0, -1], "angle": 1.5708, "lift": 0.12 },
       "actions": ["remove", "insert", "unlock", "lock", "look"],
       "view": [0.3, 1.2, 0.65]
     },
@@ -231,7 +231,7 @@
       "id": "rinse_aid_bottle",
       "label": "Rinse aid bottle",
       "aliases": ["rinse aid", "rinse aid bottle", "jet dry", "finish rinse aid"],
-      "joint": { "kind": "slide", "direction": [-0.55, 0, 0.83], "distance": 0.2 },
+      "joint": { "kind": "slide", "direction": [-0.862, 0, 0.507], "distance": 0.2 },
       "actions": ["open", "close", "look"],
       "view": [0.35, 1.2, 0.7]
     },
@@ -263,9 +263,9 @@
       "id": "white_film",
       "label": "White film",
       "aliases": ["white film", "hard water film", "limescale", "white residue", "cloudy film"],
-      "joint": { "kind": "debris", "away": [0, 0.05, 0.3] },
+      "joint": { "kind": "debris", "away": [0, 0.05, -0.25] },
       "actions": ["clean", "look"],
-      "view": [0.3, 0.35, 1]
+      "view": [0.25, 1.2, 0.65]
     },
     {
       "id": "vinegar_cup",
@@ -313,7 +313,7 @@
       "aliases": ["water_tap_under_sink", "water tap under sink", "water valve", "shutoff valve", "supply valve", "hot water valve", "water tap"],
       "joint": { "kind": "hinge", "pivot": [0, 0, 0], "axis": [0, 0, 1], "angle": 3.1416 },
       "actions": ["open", "close", "look"],
-      "view": [0.3, 0.2, 1]
+      "view": [-0.45, 0.25, 1]
     },
     {
       "id": "tub",
