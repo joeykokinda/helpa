@@ -19,6 +19,13 @@ Legend: 🤖 agent running · 🛠 Claude · 🙋 rex
 - [ ] 🛠 Verify rex's actual car, washer, dryer, dishwasher by hand against the real units for the demo.
 - [ ] 🛠 Show the model number on screen ("Whirlpool WED5010LW") so the viewer sees it's *their* machine.
 
+## Live Guide: the end game (real-time, visual, not just voice or text)
+- [ ] 🛠 **Guided capture**: Helpa knows where the model sticker or VIN lives for each category and shows it. The mini 3D model highlights the spot ("open the door, it's on the rim"), the live camera looks for it, SAM 3.1 finds the label, and Spark reads the model number. Typing it in is the fallback.
+- [ ] 🛠 **Live step mode**: the camera stays on while you work; frames stream about once a second. SAM 3.1 tracks the part on live video and draws the glow plus an arrow right on the feed (AR overlay); the 3D model plays in a corner; Helpa speaks the next move.
+- [ ] 🛠 **Auto-check**: Helpa watches you do the step and notices when it's done ("got it, the screen's out"), then advances with no button needed. It warns you when you grab the wrong part.
+- [ ] 🛠 Anchored AR on Android (WebXR hit-test and anchors) so arrows stick to the real machine as you move.
+- [ ] 🛠 **Ray-Ban Meta glasses** (Wearables Device Access Toolkit → phone): POV video into the same live loop, Helpa's voice in your ear, hands free. Android wrapper app. A stretch goal, but a huge video moment.
+
 ## Wow moments for Meta tooling
 - [ ] 🛠 SAM 3.1 **live video tracking**: point the camera, the part glows and follows as you move ("where is it?").
 - [ ] 🛠 Muse builds a 3D model of your appliance from one photo (on-demand recipes) — show it assembling.
@@ -57,6 +64,4 @@ Legend: 🤖 agent running · 🛠 Claude · 🙋 rex
 
 ## Parked (only if time allows)
 - Device Connect: read live error codes from smart appliances (local network, Bluetooth, vendor cloud, reverse-engineered protocols written by Muse Code).
-- Ray-Ban Meta glasses for hands-free POV.
-- x402 pay-per-fix from a wallet instead of subscriptions.
 - More hand-built models: toilet, sink P-trap and faucet, fridge, range hood, water heater, HVAC filter.
