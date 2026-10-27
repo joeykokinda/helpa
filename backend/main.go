@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/textproto"
 	"os"
+	"strings"
 	"sync"
 )
 
@@ -37,6 +38,7 @@ func main() {
 		return
 	}
 	http.HandleFunc("POST /api/fix", handleFix)
+	http.HandleFunc("POST /api/answer", handleAnswer)
 	http.HandleFunc("POST /api/check", handleCheck)
 	http.HandleFunc("POST /api/transcribe", handleTranscribe)
 	http.HandleFunc("GET /api/library/{id}", func(writer http.ResponseWriter, request *http.Request) {
@@ -141,16 +143,40 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 			flusher.Flush()
 		}
 	}
+	session := newSession()
+	defer session.close()
 	if replayDir != "" {
-		replayFix(writer, request, complaint, emit)
+		replayFix(request, complaint, session, emit)
 		emit(event{"type": "done"})
 		return
 	}
-	if err := runAgent(request.Context(), photos, complaint, emit); err != nil {
+	if err := runPipeline(request.Context(), photos, complaint, session, emit); err != nil {
 		log.Printf("agent: %v", err)
 		emit(event{"type": "error", "message": err.Error()})
 	}
 	emit(event{"type": "done"})
+}
+
+// handleAnswer feeds the user's answer to a question into the fix stream that is waiting for it.
+func handleAnswer(writer http.ResponseWriter, request *http.Request) {
+	var body struct {
+		Session string `json:"session"`
+		Answer  string `json:"answer"`
+	}
+	if err := json.NewDecoder(http.MaxBytesReader(writer, request.Body, 4096)).Decode(&body); err != nil {
+		http.Error(writer, "send {session, answer}", http.StatusBadRequest)
+		return
+	}
+	answer := strings.TrimSpace(body.Answer)
+	if answer == "" || len(answer) > 300 {
+		http.Error(writer, "answer must be 1 to 300 characters", http.StatusBadRequest)
+		return
+	}
+	if !answerSession(body.Session, answer) {
+		http.Error(writer, "that question is no longer waiting for an answer", http.StatusConflict)
+		return
+	}
+	writer.WriteHeader(http.StatusNoContent)
 }
 
 // handleCheck judges a photo taken after a step.

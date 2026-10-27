@@ -11,7 +11,8 @@ import Helpa, { type HelpaMood } from "./components/Helpa";
 import Icon from "./components/Icons";
 import Onboarding, { hasOnboarded } from "./components/Onboarding";
 import PartPhoto from "./components/PartPhoto";
-import { checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
+import { rigLoaders } from "./components/rig/registry";
+import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
 import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
 import type { Beat } from "./lib/rig/types";
 
@@ -59,7 +60,9 @@ function emojiFor(tool: string) {
 }
 
 type Stage = "start" | "working" | "plan" | "step" | "done";
-type ProgressRow = { key: string; title: string; detail: string };
+/** Rows with a state are parallel tracks (model, research, parts) that stay visible until the plan lands. */
+type ProgressRow = { key: string; title: string; detail: string; state?: "active" | "done" };
+type Question = { session: string; question: string; choices: string[] };
 
 const noSubscription = () => () => {};
 
@@ -79,7 +82,10 @@ export default function Home() {
   const [plan, setPlan] = useState<Plan | null>(null);
   const [scene, setScene] = useState<Scene | null>(null);
   // A built-in appliance model with beats per step; preferred over the generated scene when present.
-  const [rig, setRig] = useState<{ id: string; stepBeats: Beat[][] } | null>(null);
+  // A generated model (rig "generated") carries its recipe and catalog inline for RigStep to render.
+  const [rig, setRig] = useState<{ id: string; stepBeats: Beat[][]; recipe?: unknown; catalog?: unknown } | null>(null);
+  const [question, setQuestion] = useState<Question | null>(null);
+  const identified = useRef(false);
   const [sceneFailed, setSceneFailed] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [view, setView] = useState<"3d" | "photo">("3d");
@@ -99,7 +105,7 @@ export default function Home() {
   const addRow = (row: ProgressRow) =>
     setRows((current) =>
       current.some((existing) => existing.key === row.key)
-        ? current.map((existing) => (existing.key === row.key ? { ...existing, detail: row.detail || existing.detail } : existing))
+        ? current.map((existing) => (existing.key === row.key ? { ...row, detail: row.detail || existing.detail } : existing))
         : [...current, row],
     );
 
@@ -108,6 +114,24 @@ export default function Home() {
       case "say":
         say(agentEvent.text, "thinking");
         addRow({ key: "identify", title: "Figured out what it is", detail: "" });
+        break;
+      case "identify": {
+        const name = [known(agentEvent.brand), known(agentEvent.appliance)].filter(Boolean).join(" ");
+        if (!name) break;
+        addRow({ key: "identify", title: "Figured out what it is", detail: capitalize(name) });
+        if (!identified.current) say(`That looks like ${/^[aeiou]/i.test(name) ? "an" : "a"} ${name}.`, "found");
+        identified.current = true;
+        break;
+      }
+      case "track":
+        addRow({ key: `track-${agentEvent.track}`, title: agentEvent.title, detail: agentEvent.detail, state: agentEvent.state });
+        break;
+      case "question":
+        setQuestion({ session: agentEvent.session, question: agentEvent.question, choices: agentEvent.choices });
+        stopSpeaking();
+        say(agentEvent.question, "explaining");
+        // The question is short; show all of it rather than the bubble's first sentence.
+        setBubble(tidy(agentEvent.question));
         break;
       case "library":
         setLibraryHit({ brand: agentEvent.brand, appliance: agentEvent.appliance, model_family: agentEvent.model_family });
@@ -123,17 +147,22 @@ export default function Home() {
           setMood("found");
           setActivePhoto(agentEvent.photo);
           setPartMasks((current) => ({ ...current, [agentEvent.photo]: [...(current[agentEvent.photo] ?? []), agentEvent.sam] }));
-          addRow({ key: `part-${agentEvent.phrase}`, title: `Spotted the ${agentEvent.phrase}`, detail: "Highlighted on your photo" });
+          addRow({
+            key: `part-${agentEvent.phrase}`,
+            title: `Spotted the ${agentEvent.phrase}`,
+            detail: agentEvent.size_cm ? `About ${Math.round(agentEvent.size_cm)} cm, highlighted on your photo` : "Highlighted on your photo",
+          });
         }
         break;
       case "plan":
+        setQuestion(null);
         setPlan(agentEvent.plan);
         setStage("plan");
         say(agentEvent.plan.diagnosis);
         if (agentEvent.plan.safety.length) setTimeout(() => setMood("worried"), 400);
         break;
       case "rig":
-        setRig({ id: agentEvent.rig, stepBeats: agentEvent.step_beats });
+        setRig({ id: agentEvent.rig, stepBeats: agentEvent.step_beats, recipe: agentEvent.recipe, catalog: agentEvent.catalog });
         break;
       case "model":
         setScene(agentEvent.scene);
@@ -145,6 +174,7 @@ export default function Home() {
         if (agentEvent.found > 0) setStepMasks((current) => ({ ...current, [agentEvent.step]: agentEvent.sam }));
         break;
       case "error":
+        setQuestion(null);
         say("Hmm, something went wrong on my end. Can we try that again?", "worried");
         setStage("start");
         break;
@@ -162,6 +192,8 @@ export default function Home() {
     setPlan(null);
     setScene(null);
     setRig(null);
+    setQuestion(null);
+    identified.current = false;
     setSceneFailed(false);
     setPhotoUrls(photos.map((photo) => URL.createObjectURL(photo)));
     say("Okay, let me take a look!", "thinking");
@@ -173,6 +205,26 @@ export default function Home() {
     }
   };
 
+  const answer = async (text: string) => {
+    const asked = question;
+    const reply = text.trim();
+    if (!asked || !reply) return;
+    setQuestion(null);
+    addRow({ key: `answer-${asked.question}`, title: "You told me", detail: `"${firstSentence(reply)}"` });
+    stopSpeaking();
+    say("Got it, thanks!", "found");
+    try {
+      await answerQuestion(asked.session, reply);
+    } catch {
+      setQuestion(asked);
+      say("I missed that. Can you answer again?", "worried");
+    }
+  };
+
+  // Only models the app can draw count; a generated model falls back to photos until RigStep takes a recipe.
+  const playableRig = rig && rig.id in rigLoaders ? rig : null;
+  const sceneMissing = sceneFailed || (rig !== null && !playableRig);
+
   const step = plan?.steps[stepIndex];
   const stepPhoto = step && step.photo >= 0 ? photoUrls[step.photo] : undefined;
 
@@ -182,7 +234,7 @@ export default function Home() {
     setStepIndex(index);
     setStage("step");
     closeCheck();
-    setView(rig ? ((rig.stepBeats[index]?.length ?? 0) > 0 ? "3d" : "photo") : next.show_3d ? "3d" : "photo");
+    setView(playableRig ? ((playableRig.stepBeats[index]?.length ?? 0) > 0 ? "3d" : "photo") : next.show_3d && !sceneMissing ? "3d" : "photo");
     stopSpeaking();
     say(next.instruction, "pointing");
   };
@@ -263,13 +315,29 @@ export default function Home() {
       />
     );
   else if (stage === "working")
-    screen = <Working rows={rows} libraryHit={libraryHit} photoUrl={photoUrls[activePhoto]} masks={partMasks[activePhoto] ?? []} mood={mood} speaking={speaking} bubble={bubble} />;
+    screen = (
+      <Working
+        rows={rows}
+        libraryHit={libraryHit}
+        photoUrl={photoUrls[activePhoto]}
+        masks={partMasks[activePhoto] ?? []}
+        mood={mood}
+        speaking={speaking}
+        bubble={bubble}
+        question={question}
+        onAnswer={answer}
+      />
+    );
   else if (stage === "plan" && plan)
     screen = <PlanScreen plan={plan} mood={mood} speaking={speaking} onStart={() => enterStep(0)} onRestart={restart} onHelp={openTutorial} />;
   else if (stage === "step" && plan && step) {
-    const rigBeats = rig?.stepBeats[stepIndex] ?? [];
-    const has3d = rig ? rigBeats.length > 0 : step.show_3d && !sceneFailed;
-    const guide3d = rig ? <RigStep rigId={rig.id} stepBeats={rig.stepBeats} stepIndex={stepIndex} /> : scene ? <Scene3D scene={scene} stepIndex={stepIndex} /> : null;
+    const rigBeats = playableRig?.stepBeats[stepIndex] ?? [];
+    const has3d = playableRig ? rigBeats.length > 0 : step.show_3d && !sceneMissing;
+    const guide3d = playableRig ? (
+      <RigStep rigId={playableRig.id} stepBeats={playableRig.stepBeats} stepIndex={stepIndex} />
+    ) : scene ? (
+      <Scene3D scene={scene} stepIndex={stepIndex} />
+    ) : null;
     const lastStep = stepIndex + 1 === plan.steps.length;
     const stepMask = stepMasks[stepIndex] ? [stepMasks[stepIndex]] : [];
     let visual: ReactNode = null;
@@ -482,9 +550,45 @@ type WorkingProps = {
   mood: HelpaMood;
   speaking: boolean;
   bubble: string;
+  question: Question | null;
+  onAnswer: (answer: string) => void;
 };
 
-function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble }: WorkingProps) {
+function QuestionCard({ question, onAnswer }: { question: Question; onAnswer: (answer: string) => void }) {
+  const [typing, setTyping] = useState(false);
+  const [draft, setDraft] = useState("");
+  return (
+    <motion.div className="question-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ type: "spring", stiffness: 280, damping: 22 }}>
+      <div className="question-chips" role="group" aria-label={question.question}>
+        {question.choices.map((choice) => (
+          <button key={choice} className="question-chip press" onClick={() => onAnswer(choice)}>
+            {tidy(choice)}
+          </button>
+        ))}
+      </div>
+      {typing ? (
+        <form
+          className="field question-field"
+          onSubmit={(submitEvent) => {
+            submitEvent.preventDefault();
+            onAnswer(draft);
+          }}
+        >
+          <input autoFocus value={draft} maxLength={300} onChange={(changeEvent) => setDraft(changeEvent.target.value)} placeholder="Type your answer" aria-label="Your answer" />
+          <button className="question-send press" type="submit" disabled={!draft.trim()} aria-label="Send answer">
+            <Icon name="next" size={20} />
+          </button>
+        </form>
+      ) : (
+        <button className="question-other press" onClick={() => setTyping(true)}>
+          <Icon name="keyboard" size={16} /> Type an answer
+        </button>
+      )}
+    </motion.div>
+  );
+}
+
+function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, question, onAnswer }: WorkingProps) {
   const [elapsed, setElapsed] = useState(0);
   useEffect(() => {
     const timer = setInterval(() => setElapsed((seconds) => seconds + 0.5), 500);
@@ -492,6 +596,9 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble }: 
   }, []);
   // ponytail: progress is a feel-good estimate (time plus milestones), not real completion
   const progress = Math.min(0.94, 0.06 + rows.length * 0.07 + (1 - Math.exp(-elapsed / 50)) * 0.55);
+  // Parallel tracks stay pinned under the latest few steps so the fan-out stays visible.
+  const recent = rows.filter((row) => !row.state).slice(-3);
+  const tracks = rows.filter((row) => row.state);
 
   return (
     <section className="screen working" aria-label="Helpa is working">
@@ -522,6 +629,8 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble }: 
           </div>
         )}
 
+        <AnimatePresence>{question && <QuestionCard key={question.session + question.question} question={question} onAnswer={onAnswer} />}</AnimatePresence>
+
         <AnimatePresence>
           {libraryHit && (
             <motion.div className="library-card" initial={{ opacity: 0, scale: 0.85, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ type: "spring", stiffness: 260, damping: 16 }}>
@@ -548,8 +657,8 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble }: 
             <motion.span className="progress-fill" animate={{ width: `${progress * 100}%` }} transition={{ duration: 0.6 }} />
           </div>
           <ol className="checklist" aria-live="polite">
-            {rows.slice(-4).map((row, index, visible) => {
-              const active = index === visible.length - 1;
+            {[...recent, ...tracks].map((row, index) => {
+              const active = row.state ? row.state === "active" : index === recent.length - 1 && !question;
               return (
                 <motion.li key={row.key} className={active ? "row-active" : "row-done"} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                   <span className="row-mark" aria-hidden="true">

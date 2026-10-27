@@ -67,10 +67,14 @@ export type SearchAction = { type: string; query?: string; queries?: string[]; u
 
 export type AgentEvent =
   | { type: "say"; text: string }
+  /** The fast first look, before research; it can come twice when a question's answer sharpens it. */
+  | { type: "identify"; appliance: string; brand: string; model_number: string; confidence: number; symptom: string }
+  /** Progress of one parallel track: the 3D model, the research, or spotting parts on the photos. */
+  | { type: "track"; track: "model" | "research" | "measure"; state: "active" | "done"; title: string; detail: string }
   | { type: "status"; text: string }
   | { type: "search"; action: SearchAction }
   | { type: "library"; brand: string; appliance: string; model_family: string }
-  | { type: "parts"; photo: number; phrase: string; found: number; sam: string }
+  | { type: "parts"; photo: number; phrase: string; found: number; sam: string; size_cm?: number }
   | { type: "plan"; plan: Plan }
   /** A built-in model by id, or rig "generated" with an on-demand recipe and its catalog inline. */
   | { type: "rig"; rig: string; step_beats: Beat[][]; recipe?: unknown; catalog?: unknown }
@@ -104,6 +108,16 @@ export async function streamFix(photos: Blob[], complaint: string, onEvent: (eve
       if (line) onEvent(JSON.parse(line.slice(6)) as AgentEvent);
     }
   }
+}
+
+/** Answers a question the agent asked; the original fix stream carries on. */
+export async function answerQuestion(session: string, answer: string) {
+  const response = await fetch(`${API_URL}/api/answer`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ session, answer }),
+  });
+  if (!response.ok) throw new Error((await response.text()) || "I missed that, try again?");
 }
 
 export async function transcribe(wav: Blob): Promise<string> {

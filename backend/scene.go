@@ -79,8 +79,10 @@ func buildScene(ctx context.Context, photos []string, plan json.RawMessage) (jso
 	return scene, nil
 }
 
-// afterPlan builds the 3D scene and highlights each step's part on its photo, in parallel.
-func afterPlan(ctx context.Context, photos []string, plan json.RawMessage, emit func(event)) {
+// showPlan turns a plan into visuals: per-step photo highlights, and the 3D guide once the model track
+// delivers. The model preference is a built-in rig, then a generated model, then a generic scene; if all of
+// them fail the app falls back to text plus photo steps.
+func showPlan(ctx context.Context, photos []string, plan json.RawMessage, models <-chan modelResult, emit func(event)) {
 	var parsed struct {
 		Steps []struct {
 			TargetPart string `json:"target_part"`
@@ -92,38 +94,6 @@ func afterPlan(ctx context.Context, photos []string, plan json.RawMessage, emit 
 	}
 	json.Unmarshal(plan, &parsed)
 	var wait sync.WaitGroup
-	wait.Add(1)
-	go func() {
-		defer wait.Done()
-		// A built-in appliance model beats a generated one: real joints, correct motions.
-		if rig := matchRig(parsed.Appliance); rig != nil {
-			stepBeats := cachedRigBeats(parsed.LibraryID, parsed.LibraryProblem, rig.ID, len(parsed.Steps))
-			if stepBeats == nil {
-				var err error
-				if stepBeats, err = choreograph(ctx, rig, plan); err != nil {
-					log.Printf("choreograph %s: %v", rig.ID, err)
-				}
-			}
-			if stepBeats != nil {
-				emit(event{"type": "rig", "rig": rig.ID, "step_beats": stepBeats})
-				return
-			}
-		}
-		var scene json.RawMessage
-		var err error
-		if entry := findLibraryEntry(parsed.LibraryID); entry != nil {
-			scene, err = libraryScene(ctx, entry, plan, parsed.LibraryProblem, len(parsed.Steps))
-		}
-		if scene == nil {
-			emit(event{"type": "status", "text": "Building your 3D model"})
-			scene, err = buildScene(ctx, photos, plan)
-		}
-		if err != nil {
-			emit(event{"type": "model_error", "message": err.Error()})
-			return
-		}
-		emit(event{"type": "model", "scene": scene})
-	}()
 	for index, step := range parsed.Steps {
 		if step.Photo < 0 || step.Photo >= len(photos) || strings.TrimSpace(step.TargetPart) == "" {
 			continue
@@ -138,7 +108,54 @@ func afterPlan(ctx context.Context, photos []string, plan json.RawMessage, emit 
 			emit(event{"type": "step_parts", "step": index, "photo": step.Photo, "found": strings.Count(raw, "<|mask"), "sam": raw})
 		}()
 	}
-	wait.Wait()
+	defer wait.Wait()
+
+	var model modelResult
+	select {
+	case model = <-models:
+	case <-ctx.Done():
+		return
+	}
+	if model.generated != nil {
+		stepBeats, err := choreograph(ctx, &model.generated.Catalog, plan)
+		if err == nil {
+			emit(event{"type": "rig", "rig": "generated", "step_beats": stepBeats, "recipe": model.generated.Recipe, "catalog": model.generated.Catalog})
+			return
+		}
+		log.Printf("choreograph generated model: %v", err)
+	}
+	rig := model.rig
+	if rig == nil {
+		// The plan can name the appliance better than a vague first look did.
+		rig = matchRig(parsed.Appliance)
+	}
+	if rig != nil {
+		stepBeats := cachedRigBeats(parsed.LibraryID, parsed.LibraryProblem, rig.ID, len(parsed.Steps))
+		if stepBeats == nil {
+			var err error
+			if stepBeats, err = choreograph(ctx, rig, plan); err != nil {
+				log.Printf("choreograph %s: %v", rig.ID, err)
+			}
+		}
+		if stepBeats != nil {
+			emit(event{"type": "rig", "rig": rig.ID, "step_beats": stepBeats})
+			return
+		}
+	}
+	var scene json.RawMessage
+	var err error
+	if entry := findLibraryEntry(parsed.LibraryID); entry != nil {
+		scene, err = libraryScene(ctx, entry, plan, parsed.LibraryProblem, len(parsed.Steps))
+	}
+	if scene == nil {
+		emit(event{"type": "status", "text": "Building your 3D model"})
+		scene, err = buildScene(ctx, photos, plan)
+	}
+	if err != nil {
+		emit(event{"type": "model_error", "message": err.Error()})
+		return
+	}
+	emit(event{"type": "model", "scene": scene})
 }
 
 var checkSchema = map[string]any{

@@ -19,6 +19,8 @@ var replayPause = map[string]time.Duration{
 	"say": 900 * time.Millisecond, "search": 500 * time.Millisecond, "library": 600 * time.Millisecond,
 	"parts": 700 * time.Millisecond, "plan": 1200 * time.Millisecond, "model": 1500 * time.Millisecond,
 	"step_parts": 200 * time.Millisecond, "status": 300 * time.Millisecond,
+	"identify": 2500 * time.Millisecond, "track": 300 * time.Millisecond, "question": 600 * time.Millisecond,
+	"rig": 1200 * time.Millisecond, "model_error": 1500 * time.Millisecond,
 }
 
 func replayFixture(complaint string) (string, error) {
@@ -35,7 +37,7 @@ func replayFixture(complaint string) (string, error) {
 	return paths[0], nil
 }
 
-func replayFix(writer http.ResponseWriter, request *http.Request, complaint string, emit func(event)) {
+func replayFix(request *http.Request, complaint string, session *fixSession, emit func(event)) {
 	path, err := replayFixture(complaint)
 	if err != nil {
 		emit(event{"type": "error", "message": err.Error()})
@@ -62,6 +64,16 @@ func replayFix(writer http.ResponseWriter, request *http.Request, complaint stri
 		case <-request.Context().Done():
 			return
 		case <-time.After(replayPause[fmt.Sprint(recorded["type"])]):
+		}
+		if recorded["type"] == "question" {
+			// Recorded questions wait for a real answer, so the question UI can be tested for free.
+			recordedChoices, _ := recorded["choices"].([]any)
+			var choices []string
+			for _, choice := range recordedChoices {
+				choices = append(choices, fmt.Sprint(choice))
+			}
+			session.ask(request.Context(), emit, fmt.Sprint(recorded["question"]), choices)
+			continue
 		}
 		emit(recorded)
 	}

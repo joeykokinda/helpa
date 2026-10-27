@@ -1,0 +1,22 @@
+data: {"type": "identify", "appliance": "refrigerator", "brand": "", "model_number": "", "confidence": 0.95, "symptom": "The fridge is not cold enough."}
+
+data: {"type": "track", "track": "model", "state": "active", "title": "Building your model", "detail": "refrigerator"}
+
+data: {"type": "track", "track": "research", "state": "active", "title": "Finding the fix", "detail": ""}
+
+data: {"type": "say", "text": "A warm fridge is usually dusty coils or blocked vents, so let me check the maker's guidance."}
+
+data: {"type": "search", "action": {"type": "search", "query": "refrigerator not cooling clean condenser coils", "queries": ["refrigerator not cooling clean condenser coils"]}}
+
+data: {"type": "question", "session": "0f1d2e3c4b5a69788796a5b4", "question": "Is the freezer still cold?", "choices": ["Yes, freezer is cold", "Both are warm", "Not sure"]}
+
+data: {"type": "say", "text": "Thanks, that helps. I'll put the steps together now."}
+
+data: {"type": "track", "track": "research", "state": "done", "title": "Plan ready", "detail": ""}
+
+data: {"type": "plan", "plan": {"brand": "", "model_number": "", "appliance": "refrigerator", "manual_url": "", "diagnosis": "The coils that release heat are probably clogged with dust, so the fridge can't cool. Cleaning them and freeing the vents usually brings the cold back.", "tools": ["Flashlight", "Vacuum with a brush tool", "Towel"], "replacement_parts": [], "safety": ["Unplug the fridge before you clean under it."], "steps": [{"instruction": "Unplug the fridge", "details": ["Pull the plug straight out of the wall."], "target_part": "power plug", "photo": -1, "motion": "pull_out", "show_3d": false, "check": "The inside light is off."}, {"instruction": "Pull off the grille at the bottom front", "details": ["It clips on, so pull gently at both ends."], "target_part": "long plastic grille at the bottom front", "photo": -1, "motion": "pull_out", "show_3d": true, "check": "The grille is off and you can see under the fridge."}, {"instruction": "Vacuum the dusty coils behind the grille", "details": ["Use the brush tool and go slowly.", "A flashlight helps you see the back."], "target_part": "dusty black coils under the fridge", "photo": -1, "motion": "none", "show_3d": true, "check": "The coils look black, not gray and fuzzy."}, {"instruction": "Clear the vents inside the freezer", "details": ["Move any food that blocks the slots on the back wall."], "target_part": "air slots on the back wall of the freezer", "photo": -1, "motion": "none", "show_3d": true, "check": "Nothing is touching the slots."}, {"instruction": "Clip the grille back and plug it in", "details": ["Wait a few hours for it to cool."], "target_part": "long plastic grille at the bottom front", "photo": -1, "motion": "push_in", "show_3d": false, "check": "The fridge hums and the light is on."}], "library_id": "", "library_problem": "", "pro_visit_cost": 150, "aftercare": "Vacuum the coils every six months."}}
+
+data: {"type": "status", "text": "Building your 3D model"}
+
+data: {"type": "model_error", "message": "replay: no model for this appliance"}
+
