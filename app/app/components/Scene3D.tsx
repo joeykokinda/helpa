@@ -1,6 +1,6 @@
 "use client";
 
-import { Edges, OrbitControls, RoundedBox } from "@react-three/drei";
+import { ContactShadows, Edges, Environment, Lightformer, OrbitControls, RoundedBox } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState, type ComponentRef, type RefObject } from "react";
 import * as THREE from "three";
@@ -11,7 +11,6 @@ type OrbitControlsImpl = ComponentRef<typeof OrbitControls>;
 const centimeters = 0.01;
 const accent = "#ff8a2a";
 const accentDeep = "#c2531a";
-const contextGrey = "#c9ced6";
 
 // One loop: glow at rest, move, hold at the end pose, then reset.
 const restSeconds = 0.9;
@@ -116,6 +115,8 @@ function phaseProgress(elapsed: number, slow: boolean) {
 
 type PartProps = {
   part: ScenePart;
+  /** Size of the main focused part, so much larger parts can turn to glass instead of blocking it. */
+  focusSize?: number;
   animation?: StepAnimation;
   role: "focus" | "context" | "plain";
   moves?: boolean;
@@ -124,7 +125,12 @@ type PartProps = {
   clockStartRef: RefObject<number>;
 };
 
-function Part({ part, animation, role, moves = false, ghost = false, slow, clockStartRef }: PartProps) {
+/** Mixes a color toward white so context parts recede and the focused part pops. */
+function pale(color: string, amount: number) {
+  return new THREE.Color(color).lerp(new THREE.Color("#ffffff"), amount).getStyle();
+}
+
+function Part({ part, focusSize = 0, animation, role, moves = false, ghost = false, slow, clockStartRef }: PartProps) {
   const groupRef = useRef<THREE.Group>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
   const basePosition = useMemo(() => new THREE.Vector3(...vector(part.position, 0)).multiplyScalar(centimeters), [part.position]);
@@ -133,11 +139,12 @@ function Part({ part, animation, role, moves = false, ghost = false, slow, clock
     [part.rotation],
   );
   const look = lookOf(part);
-  const focused = role === "focus";
-  const color = ghost ? accent : role === "context" ? contextGrey : part.color;
-  const baseOpacity = Math.min(1, Math.max(0.08, part.opacity || 1));
-  const opacity = ghost ? 0.06 : role === "context" ? Math.min(baseOpacity, 0.22) : focused ? 1 : baseOpacity;
-  const surfaceOpacity = look === "wire" && !ghost ? Math.min(opacity, 0.12) : look === "mesh" && !ghost ? opacity * 0.7 : opacity;
+  // Only the part that moves is painted orange; other named parts get an orange outline.
+  const focused = role === "focus" && moves;
+  const outlined = role === "focus" && !moves;
+  const partSize = Math.max(...sizeOf(part));
+  // Cabinets, tubs, doors and anything far bigger than the focus become soft x-ray glass so nothing hides it.
+  const shell = !focused && ((part.opacity || 1) < 0.5 || (focusSize > 0 && partSize > focusSize * 3));
 
   useFrame(({ clock }) => {
     const group = groupRef.current;
@@ -153,42 +160,71 @@ function Part({ part, animation, role, moves = false, ghost = false, slow, clock
       group.scale.set(1, pose.squash, 1);
     }
     if (materialRef.current) {
-      materialRef.current.emissiveIntensity = moves && !ghost ? 0.35 + Math.sin(clock.elapsedTime * 3.5) * 0.2 : 0;
+      materialRef.current.emissiveIntensity = focused && !ghost ? 0.25 + Math.sin(clock.elapsedTime * 3.5) * 0.15 : 0;
     }
   });
 
   const [width, height, depth] = sizeOf(part);
+  let color = part.color;
+  let opacity = 1;
+  let edgeColor = "#6b7280";
+  let edgeOpacity = 0.35;
+  if (ghost) {
+    color = accent;
+    opacity = 0.08;
+    edgeColor = accent;
+    edgeOpacity = 0.75;
+  } else if (focused) {
+    color = new THREE.Color(part.color).lerp(new THREE.Color(accent), 0.65).getStyle();
+    edgeColor = accentDeep;
+    edgeOpacity = 0.9;
+  } else if (shell && !outlined) {
+    color = pale(part.color, 0.55);
+    opacity = role === "context" ? 0.1 : 0.16;
+    edgeColor = "#94a3b8";
+    edgeOpacity = role === "context" ? 0.22 : 0.35;
+  } else if (outlined) {
+    color = pale(part.color, 0.35);
+    edgeColor = accentDeep;
+    edgeOpacity = 0.9;
+  } else if (role === "context") {
+    color = pale(part.color, 0.6);
+    edgeOpacity = 0.18;
+  }
+  if (look === "wire" && !ghost) opacity = Math.min(opacity, 0.15);
+
   const material = (
     <meshStandardMaterial
       ref={materialRef}
       color={color}
       emissive={accent}
       emissiveIntensity={0}
-      transparent
-      opacity={surfaceOpacity}
-      depthWrite={surfaceOpacity > 0.9}
-      roughness={0.6}
-      wireframe={look === "mesh" && focused && !ghost}
+      transparent={opacity < 1}
+      opacity={opacity}
+      depthWrite={opacity >= 1}
+      roughness={shell ? 0.2 : 0.55}
+      metalness={shell ? 0 : 0.05}
     />
   );
-  const edgeColor = ghost ? accent : focused ? accentDeep : role === "context" ? "#9aa1ab" : "#5a5f66";
-  const edgeOpacity = ghost ? 0.7 : role === "context" ? 0.18 : 0.85;
-  const wireThreshold = look === "wire" ? 1 : 20;
+  const boxy = part.shape === "box" || part.shape === "rounded_box";
+  const bevel = Math.min(width, height, depth) * (part.shape === "rounded_box" ? 0.22 : 0.1);
+  const wireThreshold = look === "wire" ? 1 : 25;
   return (
     <group ref={groupRef}>
-      {part.shape === "rounded_box" && look === "solid" ? (
-        <RoundedBox args={[width, height, depth]} radius={Math.min(width, height, depth) * 0.15} smoothness={4}>
+      {boxy && look !== "wire" ? (
+        <RoundedBox args={[width, height, depth]} radius={Math.max(0.0008, bevel)} smoothness={3} castShadow={!shell}>
           {material}
-          <Edges color={edgeColor} transparent opacity={edgeOpacity} threshold={20} />
+          <Edges color={edgeColor} transparent opacity={edgeOpacity} threshold={35} />
         </RoundedBox>
       ) : (
-        <mesh>
+        <mesh castShadow={!shell}>
           <PartGeometry part={part} />
           {material}
           <Edges color={edgeColor} transparent opacity={edgeOpacity} threshold={wireThreshold} />
         </mesh>
       )}
-      {look === "wire" && !ghost && <WireGrid width={width} height={height} depth={depth} color={edgeColor} opacity={edgeOpacity} />}
+      {look === "wire" && !ghost && <WireGrid width={width} height={height} depth={depth} color={focused ? accentDeep : edgeColor} opacity={Math.max(edgeOpacity, 0.5)} />}
+      {look === "mesh" && !ghost && focused && <WireGrid width={width} height={height} depth={depth} color={accentDeep} opacity={0.6} />}
     </group>
   );
 }
@@ -313,9 +349,12 @@ function CameraDirector({ target, radius, motion, controls, settledRef }: { targ
     settledRef.current = false;
   }, [framingKey, settledRef]);
 
+  const placedRef = useRef(false);
   useFrame((_, delta) => {
     if (settledRef.current) return;
-    const blend = 1 - Math.exp(-delta * 4);
+    // Start already framed on first load; fly smoothly between steps after that.
+    const blend = placedRef.current ? 1 - Math.exp(-delta * 4) : 1;
+    placedRef.current = true;
     camera.position.lerp(desired, blend);
     const orbit = controls.current;
     if (orbit) {
@@ -428,9 +467,14 @@ export default function Scene3D({ scene, stepIndex }: Scene3DProps) {
   return (
     <div className="scene-3d">
       <Canvas camera={{ position: [1.4, 1.1, 1.8], fov: 38, near: 0.01, far: 50 }} dpr={[1, 2]}>
-        <ambientLight intensity={0.95} />
-        <directionalLight position={[2, 3, 2]} intensity={1.3} />
-        <hemisphereLight args={["#fff6e8", "#d9dde3", 0.6]} />
+        <ambientLight intensity={0.35} />
+        <directionalLight position={[1.5, 3, 2]} intensity={1.6} />
+        <Environment resolution={128}>
+          <Lightformer form="rect" intensity={2.2} position={[0, 4, 2]} scale={[6, 3, 1]} />
+          <Lightformer form="rect" intensity={1.1} color="#ffe9d2" position={[-4, 1.5, 1]} rotation-y={Math.PI / 2} scale={[4, 2, 1]} />
+          <Lightformer form="rect" intensity={0.9} color="#dbe7ff" position={[4, 1.5, -1]} rotation-y={-Math.PI / 2} scale={[4, 2, 1]} />
+        </Environment>
+        <ContactShadows position={[0, 0.001, 0]} scale={3} blur={2.6} far={1.6} opacity={0.35} resolution={512} />
         <StartClock clockStartRef={clockStartRef} restartKey={`${stepIndex}-${replays}-${slow}`} />
         {scene.parts.map((part) => (
           <Part
@@ -439,6 +483,7 @@ export default function Scene3D({ scene, stepIndex }: Scene3DProps) {
             animation={animation}
             role={focusIds.has(part.id) ? "focus" : focusIds.size ? "context" : "plain"}
             moves={movingIds.has(part.id)}
+            focusSize={primary ? Math.max(...sizeOf(primary)) : 0}
             slow={slow}
             clockStartRef={clockStartRef}
           />
