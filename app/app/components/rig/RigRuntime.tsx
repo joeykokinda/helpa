@@ -52,7 +52,9 @@ function applyJoint(def: RigPartDef, amount: number, inner: THREE.Group, materia
     case "twist":
     case "turn": {
       const axis = new THREE.Vector3(...joint.axis).normalize();
-      inner.quaternion.setFromAxisAngle(axis, joint.angle * amount);
+      // Twists turn during the first half (unlock) and lift during the second (remove); turns use the whole range.
+      const turned = joint.kind === "twist" ? Math.min(1, amount / 0.5) : amount;
+      inner.quaternion.setFromAxisAngle(axis, joint.angle * turned);
       if (joint.kind === "twist") {
         // Twist first, then lift out along the axis.
         const lift = Math.max(0, (amount - 0.5) / 0.5);

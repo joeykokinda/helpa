@@ -1,327 +1,1162 @@
 {
   "id": "dishwasher",
   "name": "Built-in dishwasher",
-  "matches": ["dishwasher", "built-in dishwasher", "built in dishwasher", "whirlpool dishwasher", "kitchen dishwasher"],
+  "matches": [
+    "dishwasher",
+    "built-in dishwasher",
+    "built in dishwasher",
+    "whirlpool dishwasher",
+    "kitchen dishwasher"
+  ],
   "parts": [
     {
       "id": "door",
       "label": "Door",
-      "aliases": ["door", "dishwasher door", "front door", "door - open", "door_open"],
-      "joint": { "kind": "hinge", "pivot": [0, 0, 0.05], "axis": [1, 0, 0], "angle": 1.5708 },
-      "actions": ["open", "close", "look"],
-      "view": [0.65, 0.6, 1]
+      "aliases": [
+        "door",
+        "dishwasher door",
+        "front door",
+        "door - open",
+        "door_open"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0.05
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 1.5708
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.65,
+        0.6,
+        1
+      ]
     },
     {
       "id": "door_latch",
       "label": "Door latch",
-      "aliases": ["door_latch", "door latch", "latch", "door catch", "catch", "strike"],
-      "joint": { "kind": "press", "direction": [0, 0, -1], "depth": 0.012 },
-      "actions": ["press", "look"],
-      "view": [0.25, 0.75, 1]
+      "aliases": [
+        "door_latch",
+        "door latch",
+        "latch",
+        "door catch",
+        "catch",
+        "strike"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.012
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.75,
+        1
+      ]
     },
     {
       "id": "top_edge_buttons",
       "label": "Top edge buttons",
-      "aliases": ["top_edge_buttons", "top edge buttons", "buttons", "control panel", "controls", "keypad", "touch pad", "cycle buttons", "lock light"],
-      "joint": { "kind": "press", "direction": [0, -1, 0], "depth": 0.002 },
-      "actions": ["press", "look"],
-      "view": [0.12, 1.15, 0.75]
+      "aliases": [
+        "top_edge_buttons",
+        "top edge buttons",
+        "buttons",
+        "control panel",
+        "controls",
+        "keypad",
+        "touch pad",
+        "cycle buttons",
+        "lock light"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "depth": 0.002
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        1.15,
+        0.75
+      ]
     },
     {
       "id": "start_button",
       "label": "Start button",
-      "aliases": ["start", "start/resume", "start resume", "start button"],
-      "joint": { "kind": "press", "direction": [0, -1, 0], "depth": 0.003 },
-      "actions": ["press", "look"],
-      "view": [0.12, 1.15, 0.75]
+      "aliases": [
+        "start",
+        "start/resume",
+        "start resume",
+        "start button"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        1.15,
+        0.75
+      ]
     },
     {
       "id": "cancel_button",
       "label": "Cancel button",
-      "aliases": ["cancel", "cancel/drain", "cancel drain", "cancel button"],
-      "joint": { "kind": "press", "direction": [0, -1, 0], "depth": 0.003 },
-      "actions": ["press", "look"],
-      "view": [0.12, 1.15, 0.75]
+      "aliases": [
+        "cancel",
+        "cancel/drain",
+        "cancel drain",
+        "cancel button"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        1.15,
+        0.75
+      ]
     },
     {
       "id": "heat_dry_button",
       "label": "Heat Dry button",
-      "aliases": ["heat dry", "heat dry button", "control lock", "lock button", "button beside lock light", "unlock buttons"],
-      "joint": { "kind": "press", "direction": [0, -1, 0], "depth": 0.003 },
-      "actions": ["press", "look"],
-      "view": [0.12, 1.15, 0.75]
+      "aliases": [
+        "heat dry",
+        "heat dry button",
+        "control lock",
+        "lock button",
+        "button beside lock light",
+        "unlock buttons"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        1.15,
+        0.75
+      ]
     },
     {
       "id": "extended_dry_button",
       "label": "Extended Dry button",
-      "aliases": ["extended dry", "extended dry button", "extra dry", "dry option"],
-      "joint": { "kind": "press", "direction": [0, -1, 0], "depth": 0.003 },
-      "actions": ["press", "look"],
-      "view": [0.12, 1.15, 0.75]
+      "aliases": [
+        "extended dry",
+        "extended dry button",
+        "extra dry",
+        "dry option"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "depth": 0.003
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.12,
+        1.15,
+        0.75
+      ]
     },
     {
       "id": "bottom_rack",
       "label": "Bottom rack",
-      "aliases": ["bottom_rack", "bottom rack", "lower rack", "lower dishrack", "bottom dish rack"],
-      "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.5 },
-      "actions": ["open", "close", "look"],
-      "view": [0.65, 0.85, 1]
+      "aliases": [
+        "bottom_rack",
+        "bottom rack",
+        "lower rack",
+        "lower dishrack",
+        "bottom dish rack"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.5
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.65,
+        0.85,
+        1
+      ]
     },
     {
       "id": "middle_rack",
       "label": "Middle rack",
-      "aliases": ["middle_rack", "middle rack", "upper rack", "top rack", "upper dishrack", "glass rack"],
-      "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.32 },
-      "actions": ["open", "close", "look"],
-      "view": [0.65, 0.6, 1]
+      "aliases": [
+        "middle_rack",
+        "middle rack",
+        "upper rack",
+        "top rack",
+        "upper dishrack",
+        "glass rack"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.32
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.65,
+        0.6,
+        1
+      ]
     },
     {
       "id": "top_small_rack",
       "label": "Top small rack",
-      "aliases": ["top_small_rack", "top small rack", "third rack", "third level rack", "cutlery tray", "utensil tray"],
-      "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.28 },
-      "actions": ["open", "close", "look"],
-      "view": [0.6, 0.55, 1]
+      "aliases": [
+        "top_small_rack",
+        "top small rack",
+        "third rack",
+        "third level rack",
+        "cutlery tray",
+        "utensil tray"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.28
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.55,
+        1
+      ]
     },
     {
       "id": "fork_and_knife_basket",
       "label": "Fork and knife basket",
-      "aliases": ["fork_and_knife_basket", "fork and knife basket", "silverware basket", "cutlery basket", "utensil basket"],
-      "joint": { "kind": "slide", "direction": [0, 1, 0], "distance": 0.2 },
-      "actions": ["remove", "insert", "look"],
-      "view": [0.5, 0.9, 1]
+      "aliases": [
+        "fork_and_knife_basket",
+        "fork and knife basket",
+        "silverware basket",
+        "cutlery basket",
+        "utensil basket"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.2
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.9,
+        1
+      ]
     },
     {
       "id": "bottom_spray_arm",
       "label": "Bottom spray arm",
-      "aliases": ["bottom_spray_arm", "bottom spray arm", "lower spray arm", "lower wash arm", "spray arm"],
-      "joint": { "kind": "turn", "axis": [0, 1, 0], "angle": 6.2832 },
-      "actions": ["turn", "look"],
-      "view": [0.25, 1, 1]
+      "aliases": [
+        "bottom_spray_arm",
+        "bottom spray arm",
+        "lower spray arm",
+        "lower wash arm",
+        "spray arm"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 6.2832
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.25,
+        1,
+        1
+      ]
     },
     {
       "id": "bottom_arm_gunk",
       "label": "Bottom arm gunk",
-      "aliases": ["bottom spray arm holes", "lower spray arm holes", "clogged spray holes", "spray arm grime"],
-      "joint": { "kind": "debris", "away": [0.05, 0.08, 0.3] },
-      "actions": ["clean", "look"],
-      "view": [0.25, 1, 1]
+      "aliases": [
+        "bottom spray arm holes",
+        "lower spray arm holes",
+        "clogged spray holes",
+        "spray arm grime"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0.08,
+          0.3
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.25,
+        1,
+        1
+      ]
     },
     {
       "id": "middle_spray_arm",
       "label": "Middle spray arm",
-      "aliases": ["middle_spray_arm", "middle spray arm", "upper spray arm", "mid-level spray arm"],
-      "joint": { "kind": "turn", "axis": [0, 1, 0], "angle": 6.2832 },
-      "actions": ["turn", "look"],
-      "view": [0.35, 0.95, 1]
+      "aliases": [
+        "middle_spray_arm",
+        "middle spray arm",
+        "upper spray arm",
+        "mid-level spray arm"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 6.2832
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.95,
+        1
+      ]
     },
     {
       "id": "middle_arm_gunk",
       "label": "Spray hole gunk",
-      "aliases": ["middle spray arm holes", "upper spray arm holes", "spray holes", "blocked spray holes", "food in spray holes"],
-      "joint": { "kind": "debris", "away": [0.05, 0.08, 0.3] },
-      "actions": ["clean", "look"],
-      "view": [0.35, 0.95, 1]
+      "aliases": [
+        "middle spray arm holes",
+        "upper spray arm holes",
+        "spray holes",
+        "blocked spray holes",
+        "food in spray holes"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0.08,
+          0.3
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.95,
+        1
+      ]
     },
     {
       "id": "top_spray_arm",
       "label": "Top spray arm",
-      "aliases": ["top_spray_arm", "top spray arm", "ceiling spray arm", "upper wash arm"],
-      "joint": { "kind": "turn", "axis": [0, 1, 0], "angle": 6.2832 },
-      "actions": ["turn", "look"],
-      "view": [0.2, -0.45, 1]
+      "aliases": [
+        "top_spray_arm",
+        "top spray arm",
+        "ceiling spray arm",
+        "upper wash arm"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 6.2832
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.2,
+        -0.45,
+        1
+      ]
     },
     {
       "id": "round_top_filter",
       "label": "Round top filter",
-      "aliases": ["round_top_filter", "round top filter", "upper filter", "upper filter assembly", "cylinder filter", "filter", "filters"],
-      "joint": { "kind": "twist", "axis": [0, 1, 0], "angle": 1.5708, "lift": 0.17 },
-      "actions": ["remove", "insert", "unlock", "lock", "look"],
-      "view": [0.3, 0.8, 1]
+      "aliases": [
+        "round_top_filter",
+        "round top filter",
+        "upper filter",
+        "upper filter assembly",
+        "cylinder filter",
+        "filter",
+        "filters"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 1.5708,
+        "lift": 0.17
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.8,
+        1
+      ]
     },
     {
       "id": "round_filter_scraps",
       "label": "Food scraps",
-      "aliases": ["food on round filter", "round filter food", "filter debris", "trapped food"],
-      "joint": { "kind": "debris", "away": [-0.28, 0.05, 0.06] },
-      "actions": ["clean", "look"],
-      "view": [0.3, 0.8, 1]
+      "aliases": [
+        "food on round filter",
+        "round filter food",
+        "filter debris",
+        "trapped food"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          -0.28,
+          0.05,
+          0.06
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.8,
+        1
+      ]
     },
     {
       "id": "flat_bottom_filter",
       "label": "Flat bottom filter",
-      "aliases": ["flat_bottom_filter", "flat bottom filter", "lower filter", "fine filter", "filter screen"],
-      "joint": { "kind": "slide", "direction": [0, 0.6, 1], "distance": 0.12 },
-      "actions": ["remove", "insert", "look"],
-      "view": [0.3, 0.8, 1]
+      "aliases": [
+        "flat_bottom_filter",
+        "flat bottom filter",
+        "lower filter",
+        "fine filter",
+        "filter screen"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0.6,
+          1
+        ],
+        "distance": 0.12
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.8,
+        1
+      ]
     },
     {
       "id": "flat_filter_scraps",
       "label": "Food scraps",
-      "aliases": ["food on flat filter", "flat filter food", "grease on filter", "filter gunk"],
-      "joint": { "kind": "debris", "away": [0.05, 0.05, 0.28] },
-      "actions": ["clean", "look"],
-      "view": [0.3, 0.8, 1]
+      "aliases": [
+        "food on flat filter",
+        "flat filter food",
+        "grease on filter",
+        "filter gunk"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0.05,
+          0.28
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.8,
+        1
+      ]
     },
     {
       "id": "bottom_of_tub",
       "label": "Bottom of the tub",
-      "aliases": ["bottom_of_tub", "bottom of the tub", "tub floor", "tub bottom", "sump", "floor of the tub"],
-      "joint": { "kind": "none" },
-      "actions": ["look"],
-      "view": [0.2, 1.1, 0.9]
+      "aliases": [
+        "bottom_of_tub",
+        "bottom of the tub",
+        "tub floor",
+        "tub bottom",
+        "sump",
+        "floor of the tub"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.2,
+        1.1,
+        0.9
+      ]
     },
     {
       "id": "standing_water",
       "label": "Standing water",
-      "aliases": ["standing water", "water in the bottom", "water left in the tub", "dirty water"],
-      "joint": { "kind": "debris", "away": [0, 0.12, 0.35] },
-      "actions": ["clean", "look"],
-      "view": [0.2, 1.1, 0.9]
+      "aliases": [
+        "standing water",
+        "water in the bottom",
+        "water left in the tub",
+        "dirty water"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.12,
+          0.35
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.2,
+        1.1,
+        0.9
+      ]
     },
     {
       "id": "sump_debris",
       "label": "Seeds and bits",
-      "aliases": ["seeds", "glass", "broken glass", "debris under filter", "drain hole debris", "sump debris"],
-      "joint": { "kind": "debris", "away": [0.05, 0.1, 0.3] },
-      "actions": ["clean", "look"],
-      "view": [0.2, 1.2, 0.75]
+      "aliases": [
+        "seeds",
+        "glass",
+        "broken glass",
+        "debris under filter",
+        "drain hole debris",
+        "sump debris"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0.1,
+          0.3
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.2,
+        1.2,
+        0.75
+      ]
     },
     {
       "id": "heating_ring",
       "label": "Heating ring",
-      "aliases": ["heating_ring", "heating ring", "heating element", "heater"],
-      "joint": { "kind": "none" },
-      "actions": ["look"],
-      "view": [0.2, 1.1, 0.9]
+      "aliases": [
+        "heating_ring",
+        "heating ring",
+        "heating element",
+        "heater"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.2,
+        1.1,
+        0.9
+      ]
     },
     {
       "id": "soap_cup",
       "label": "Soap cup",
-      "aliases": ["soap_cup", "soap cup", "soap cup lid", "detergent dispenser", "detergent cup", "dispenser lid"],
-      "joint": { "kind": "hinge", "pivot": [0, 0, 0], "axis": [1, 0, 0], "angle": 1.75 },
-      "actions": ["open", "close", "look"],
-      "view": [0.3, 1.2, 0.65]
+      "aliases": [
+        "soap_cup",
+        "soap cup",
+        "soap cup lid",
+        "detergent dispenser",
+        "detergent cup",
+        "dispenser lid"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 1.75
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1.2,
+        0.65
+      ]
     },
     {
       "id": "soap_cup_film",
       "label": "Old soap film",
-      "aliases": ["soap film", "detergent residue", "caked soap", "soap cup residue"],
-      "joint": { "kind": "debris", "away": [0, 0, -0.25] },
-      "actions": ["clean", "look"],
-      "view": [0.3, 1.2, 0.65]
+      "aliases": [
+        "soap film",
+        "detergent residue",
+        "caked soap",
+        "soap cup residue"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0,
+          -0.25
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1.2,
+        0.65
+      ]
     },
     {
       "id": "detergent_tablet",
       "label": "Dishwasher tablet",
-      "aliases": ["tablet", "detergent tablet", "dishwasher pod", "pod", "detergent", "dishwasher soap"],
-      "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.13 },
-      "actions": ["open", "close", "look"],
-      "view": [0.3, 1.2, 0.65]
+      "aliases": [
+        "tablet",
+        "detergent tablet",
+        "dishwasher pod",
+        "pod",
+        "detergent",
+        "dishwasher soap"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.13
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1.2,
+        0.65
+      ]
     },
     {
       "id": "rinse_aid_holder",
       "label": "Rinse aid cap",
-      "aliases": ["rinse_aid_holder", "rinse aid holder", "rinse aid cap", "rinse aid dispenser", "rinse aid filler"],
-      "joint": { "kind": "twist", "axis": [0, 0, -1], "angle": 1.5708, "lift": 0.12 },
-      "actions": ["remove", "insert", "unlock", "lock", "look"],
-      "view": [0.3, 1.2, 0.65]
+      "aliases": [
+        "rinse_aid_holder",
+        "rinse aid holder",
+        "rinse aid cap",
+        "rinse aid dispenser",
+        "rinse aid filler"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          -1
+        ],
+        "angle": 1.5708,
+        "lift": 0.12
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1.2,
+        0.65
+      ]
     },
     {
       "id": "rinse_aid_bottle",
       "label": "Rinse aid bottle",
-      "aliases": ["rinse aid", "rinse aid bottle", "jet dry", "finish rinse aid"],
-      "joint": { "kind": "slide", "direction": [-0.862, 0, 0.507], "distance": 0.2 },
-      "actions": ["open", "close", "look"],
-      "view": [0.35, 1.2, 0.7]
+      "aliases": [
+        "rinse aid",
+        "rinse aid bottle",
+        "jet dry",
+        "finish rinse aid"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          -0.862,
+          0,
+          0.507
+        ],
+        "distance": 0.2
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.35,
+        1.2,
+        0.7
+      ]
     },
     {
       "id": "rubber_door_seal",
       "label": "Rubber door seal",
-      "aliases": ["rubber_door_seal", "rubber door seal", "door seal", "door gasket", "gasket", "tub seal"],
-      "joint": { "kind": "none" },
-      "actions": ["look"],
-      "view": [0.55, 0.35, 1]
+      "aliases": [
+        "rubber_door_seal",
+        "rubber door seal",
+        "door seal",
+        "door gasket",
+        "gasket",
+        "tub seal"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.55,
+        0.35,
+        1
+      ]
     },
     {
       "id": "seal_food",
       "label": "Food on the seal",
-      "aliases": ["food on door seal", "dirty seal", "seal grime", "gunk on gasket"],
-      "joint": { "kind": "debris", "away": [-0.04, 0.06, 0.28] },
-      "actions": ["clean", "look"],
-      "view": [0.35, 0.55, 1]
+      "aliases": [
+        "food on door seal",
+        "dirty seal",
+        "seal grime",
+        "gunk on gasket"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          -0.04,
+          0.06,
+          0.28
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.55,
+        1
+      ]
     },
     {
       "id": "door_vent",
       "label": "Door vent",
-      "aliases": ["door_vent", "door vent", "steam vent", "vent"],
-      "joint": { "kind": "none" },
-      "actions": ["look"],
-      "view": [0.2, 1.2, 0.6]
+      "aliases": [
+        "door_vent",
+        "door vent",
+        "steam vent",
+        "vent"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.2,
+        1.2,
+        0.6
+      ]
     },
     {
       "id": "white_film",
       "label": "White film",
-      "aliases": ["white film", "hard water film", "limescale", "white residue", "cloudy film"],
-      "joint": { "kind": "debris", "away": [0, 0.05, -0.25] },
-      "actions": ["clean", "look"],
-      "view": [0.25, 1.2, 0.65]
+      "aliases": [
+        "white film",
+        "hard water film",
+        "limescale",
+        "white residue",
+        "cloudy film"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.05,
+          -0.25
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.25,
+        1.2,
+        0.65
+      ]
     },
     {
       "id": "vinegar_cup",
       "label": "Vinegar cup",
-      "aliases": ["vinegar", "cup of vinegar", "vinegar cup", "measuring cup", "dishwasher cleaner"],
-      "joint": { "kind": "slide", "direction": [0, -1, 0], "distance": 0.26 },
-      "actions": ["open", "close", "look"],
-      "view": [0.4, 0.9, 1]
+      "aliases": [
+        "vinegar",
+        "cup of vinegar",
+        "vinegar cup",
+        "measuring cup",
+        "dishwasher cleaner"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "distance": 0.26
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        1
+      ]
     },
     {
       "id": "bottom_front_cover",
       "label": "Bottom front cover",
-      "aliases": ["bottom_front_cover", "bottom front cover", "kick plate", "toe kick", "access panel", "lower panel"],
-      "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.16 },
-      "actions": ["remove", "insert", "look"],
-      "view": [0.45, 0.3, 1]
+      "aliases": [
+        "bottom_front_cover",
+        "bottom front cover",
+        "kick plate",
+        "toe kick",
+        "access panel",
+        "lower panel"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.16
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.45,
+        0.3,
+        1
+      ]
     },
     {
       "id": "front_leveling_feet",
       "label": "Front leveling feet",
-      "aliases": ["front_leveling_feet", "front leveling feet", "leveling feet", "leveling legs", "feet"],
-      "joint": { "kind": "none" },
-      "actions": ["look"],
-      "view": [0.5, 0.2, 1]
+      "aliases": [
+        "front_leveling_feet",
+        "front leveling feet",
+        "leveling feet",
+        "leveling legs",
+        "feet"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.2,
+        1
+      ]
     },
     {
       "id": "sink_drain_cap",
       "label": "Sink drain cap",
-      "aliases": ["sink_drain_cap", "sink drain cap", "air gap", "air gap cap", "drain cap"],
-      "joint": { "kind": "slide", "direction": [0, 1, 0], "distance": 0.1 },
-      "actions": ["remove", "insert", "look"],
-      "view": [0.4, 0.9, 1]
+      "aliases": [
+        "sink_drain_cap",
+        "sink drain cap",
+        "air gap",
+        "air gap cap",
+        "drain cap"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.1
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        1
+      ]
     },
     {
       "id": "air_gap_food",
       "label": "Food in the cap",
-      "aliases": ["air gap clog", "food in air gap", "drain cap food", "air gap debris"],
-      "joint": { "kind": "debris", "away": [0.1, 0.05, 0.25] },
-      "actions": ["clean", "look"],
-      "view": [0.4, 0.9, 1]
+      "aliases": [
+        "air gap clog",
+        "food in air gap",
+        "drain cap food",
+        "air gap debris"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.1,
+          0.05,
+          0.25
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        1
+      ]
     },
     {
       "id": "water_tap_under_sink",
       "label": "Water tap",
-      "aliases": ["water_tap_under_sink", "water tap under sink", "water valve", "shutoff valve", "supply valve", "hot water valve", "water tap"],
-      "joint": { "kind": "hinge", "pivot": [0, 0, 0], "axis": [0, 0, 1], "angle": 3.1416 },
-      "actions": ["open", "close", "look"],
-      "view": [-0.45, 0.25, 1]
+      "aliases": [
+        "water_tap_under_sink",
+        "water tap under sink",
+        "water valve",
+        "shutoff valve",
+        "supply valve",
+        "hot water valve",
+        "water tap"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 3.1416
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        -0.45,
+        0.25,
+        1
+      ],
+      "rest": 1
     },
     {
       "id": "tub",
       "label": "Tub",
-      "aliases": ["tub", "inside", "interior", "tub walls", "plastic tub", "stainless tub"],
-      "joint": { "kind": "none" },
-      "actions": ["look"],
-      "view": [0.45, 0.4, 1]
+      "aliases": [
+        "tub",
+        "inside",
+        "interior",
+        "tub walls",
+        "plastic tub",
+        "stainless tub"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.45,
+        0.4,
+        1
+      ]
     }
   ]
 }

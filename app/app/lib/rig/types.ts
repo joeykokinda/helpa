@@ -23,6 +23,8 @@ export type RigPartDef = {
   actions: RigAction[];
   /** Where the camera should look from for this part, as a direction from the part. */
   view?: Vec3;
+  /** Joint amount the part starts at, e.g. 1 for water taps that are normally open. Defaults to 0. */
+  rest?: number;
 };
 
 /** One movement in a step: "open the door", "peel off the lint". */
@@ -47,9 +49,11 @@ export function actionTarget(action: RigAction): number | null {
   switch (action) {
     case "open":
     case "remove":
-    case "unlock":
     case "clean":
       return 1;
+    // On twist joints the first half is the turn and the second half is the lift, so unlock only turns.
+    case "unlock":
+      return 0.5;
     case "close":
     case "insert":
     case "lock":
@@ -67,4 +71,9 @@ export function applyBeats(start: RigState, beats: Beat[]): RigState {
     if (target !== null) state[beat.part] = target;
   }
   return state;
+}
+
+/** The state every part starts in before any step has run. */
+export function restState(catalog: RigCatalog): RigState {
+  return Object.fromEntries(catalog.parts.filter((part) => part.rest !== undefined).map((part) => [part.id, part.rest as number]));
 }

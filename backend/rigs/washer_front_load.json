@@ -1,33 +1,788 @@
 {
   "id": "washer_front_load",
   "name": "Front-load washer",
-  "matches": ["front-load washer", "front load washer", "front-loading washer", "front loader", "front-load washing machine"],
+  "matches": [
+    "front-load washer",
+    "front load washer",
+    "front-loading washer",
+    "front loader",
+    "front-load washing machine"
+  ],
   "parts": [
-    { "id": "washer_door", "label": "Washer door", "aliases": ["washer door", "washer_door", "door", "round door", "glass door", "door handle", "porthole", "door glass"], "joint": { "kind": "hinge", "pivot": [-0.29, 0, 0.02], "axis": [0, 1, 0], "angle": -1.9 }, "actions": ["open", "close", "look"], "view": [0.75, 0.3, 1] },
-    { "id": "door_seal", "label": "Door seal", "aliases": ["gray door seal", "door_seal", "door gasket", "rubber seal", "bellows", "boot", "seal", "seal folds"], "joint": { "kind": "none" }, "actions": ["look"], "view": [0.15, 0.3, 1] },
-    { "id": "seal_grime", "label": "Grime in the seal", "aliases": ["mold", "mildew", "grime", "seal grime", "black mold", "dirt in seal", "soap scum"], "joint": { "kind": "debris", "away": [0, 0.05, 0.32] }, "actions": ["clean", "look"], "view": [0.1, 0.55, 1] },
-    { "id": "seal_items", "label": "Items stuck in the seal", "aliases": ["stuck items", "sock", "coins in seal", "hair grips", "items under seal", "small items"], "joint": { "kind": "debris", "away": [0.06, 0.08, 0.32] }, "actions": ["clean", "remove", "look"], "view": [0.1, 0.55, 1] },
-    { "id": "washer_drum", "label": "Drum", "aliases": ["washer drum", "washer_drum", "drum", "tub", "basket", "inner drum", "wash drum"], "joint": { "kind": "none" }, "actions": ["look"], "view": [0.1, 0.3, 1] },
-    { "id": "laundry", "label": "Clothes", "aliases": ["clothes", "laundry", "load", "wet clothes", "washing"], "joint": { "kind": "debris", "away": [0, 0.12, 0.6] }, "actions": ["clean", "remove", "look"], "view": [0.2, 0.4, 1] },
-    { "id": "detergent_drawer", "label": "Detergent drawer", "aliases": ["detergent drawer", "detergent_drawer", "dispenser drawer", "soap drawer", "detergent dispenser", "dispenser", "release tab"], "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.24 }, "actions": ["open", "close", "remove", "insert", "look"], "view": [0.35, 0.9, 1] },
-    { "id": "drawer_residue", "label": "Old soap in drawer", "aliases": ["soap residue", "old soap", "detergent buildup", "drawer gunk", "dispenser cups"], "joint": { "kind": "debris", "away": [0.05, 0.1, 0.22] }, "actions": ["clean", "look"], "view": [0.25, 1, 0.7] },
-    { "id": "cycle_knob", "label": "Cycle knob", "aliases": ["cycle knob", "cycle_knob", "knob", "dial", "cycle selector", "clean washer cycle", "drain and spin"], "joint": { "kind": "turn", "axis": [0, 0, 1], "angle": -1.4 }, "actions": ["turn", "look"], "view": [0.1, 0.2, 1] },
-    { "id": "power_button", "label": "Power button", "aliases": ["power button", "power", "on/off button"], "joint": { "kind": "press", "direction": [0, 0, -1], "depth": 0.004 }, "actions": ["press", "look"], "view": [0, 0.2, 1] },
-    { "id": "control_lock_button", "label": "Control Lock button", "aliases": ["control lock button", "control_lock_button", "control lock", "lock button", "LoC", "child lock"], "joint": { "kind": "press", "direction": [0, 0, -1], "depth": 0.004 }, "actions": ["press", "look"], "view": [0, 0.2, 1] },
-    { "id": "start_button", "label": "Start/Pause button", "aliases": ["start button", "start_button", "start/pause", "start pause button", "start", "pause"], "joint": { "kind": "press", "direction": [0, 0, -1], "depth": 0.004 }, "actions": ["press", "look"], "view": [0, 0.2, 1] },
-    { "id": "washer_top", "label": "Top of the washer", "aliases": ["top", "top panel", "washer top", "top front edge", "cabinet", "top corners", "level"], "joint": { "kind": "none" }, "actions": ["look"], "view": [0.45, 1, 0.9] },
-    { "id": "filter_access_door", "label": "Filter flap", "aliases": ["bottom front flap", "access panel", "filter door", "filter access door", "drain pump filter cover", "bottom flap", "service door", "kick panel"], "joint": { "kind": "hinge", "pivot": [0, -0.063, 0], "axis": [1, 0, 0], "angle": 1.45 }, "actions": ["open", "close", "look"], "view": [0.35, 0.45, 1] },
-    { "id": "small_drain_hose", "label": "Small drain hose", "aliases": ["small black drain hose", "small_drain_hose", "small drain hose", "emergency drain hose", "drain tube", "black hose"], "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.13 }, "actions": ["remove", "insert", "open", "close", "look"], "view": [0.3, 0.45, 1] },
-    { "id": "drain_hose_cap", "label": "Hose cap", "aliases": ["hose plug", "drain hose plug", "drain hose cap", "hose cap", "small hose plug", "stopper"], "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.06 }, "actions": ["remove", "insert", "open", "close", "look"], "view": [0.3, 0.45, 1] },
-    { "id": "drain_pump_filter", "label": "Drain pump filter", "aliases": ["drain pump filter", "drain_pump_filter", "pump filter", "drain filter", "coin trap", "filter"], "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.22 }, "actions": ["remove", "insert", "look"], "view": [0.45, 0.45, 1] },
-    { "id": "drain_filter_handle", "label": "Filter handle", "aliases": ["filter handle", "filter knob", "filter cap", "drain pump filter handle", "twist filter"], "joint": { "kind": "twist", "axis": [0, 0, 1], "angle": 1.57, "lift": 0 }, "actions": ["unlock", "lock", "look"], "view": [0.25, 0.35, 1] },
-    { "id": "filter_debris", "label": "Lint and coins", "aliases": ["lint", "coins", "hair grips", "filter debris", "lint and coins", "debris", "blockage"], "joint": { "kind": "debris", "away": [0.22, 0.06, 0.12] }, "actions": ["clean", "look"], "view": [0.5, 0.55, 1] },
-    { "id": "leveling_feet", "label": "Leveling foot", "aliases": ["leveling feet", "leveling_feet", "levelling feet", "foot", "feet", "low foot"], "joint": { "kind": "turn", "axis": [0, 1, 0], "angle": -3.2 }, "actions": ["turn", "look"], "view": [0.7, 0.25, 1] },
-    { "id": "foot_lock_nut", "label": "Foot lock nut", "aliases": ["lock nut", "jam nut", "foot nut", "nut", "leveling foot nut"], "joint": { "kind": "turn", "axis": [0, 1, 0], "angle": 2.4 }, "actions": ["turn", "look"], "view": [0.7, 0.25, 1] },
-    { "id": "hot_water_tap", "label": "Hot water tap", "aliases": ["water taps", "water_taps", "hot tap", "hot water tap", "taps", "water valve", "wall taps"], "joint": { "kind": "twist", "axis": [0, 0, 1], "angle": 2.6, "lift": 0 }, "actions": ["open", "close", "look"], "view": [0.3, 0.8, 1] },
-    { "id": "cold_water_tap", "label": "Cold water tap", "aliases": ["cold tap", "cold water tap", "cold water valve"], "joint": { "kind": "twist", "axis": [0, 0, 1], "angle": 2.6, "lift": 0 }, "actions": ["open", "close", "look"], "view": [0.3, 0.8, 1] },
-    { "id": "water_inlet_hoses", "label": "Water hoses", "aliases": ["water inlet hoses", "water_inlet_hoses", "inlet hoses", "fill hoses", "water hoses", "supply hoses"], "joint": { "kind": "none" }, "actions": ["look"], "view": [0.6, 0.6, -1] },
-    { "id": "main_drain_hose", "label": "Main drain hose", "aliases": ["main drain hose", "main_drain_hose", "drain hose", "drain pipe", "standpipe"], "joint": { "kind": "none" }, "actions": ["look"], "view": [0.8, 0.5, -1] },
-    { "id": "power_cord", "label": "Power plug", "aliases": ["power cord", "power_cord", "plug", "power plug", "outlet", "wall socket"], "joint": { "kind": "slide", "direction": [0, 0, 1], "distance": 0.07 }, "actions": ["remove", "insert", "look"], "view": [-1, 0.4, -0.6] }
+    {
+      "id": "washer_door",
+      "label": "Washer door",
+      "aliases": [
+        "washer door",
+        "washer_door",
+        "door",
+        "round door",
+        "glass door",
+        "door handle",
+        "porthole",
+        "door glass"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          -0.29,
+          0,
+          0.02
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": -1.9
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.75,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "door_seal",
+      "label": "Door seal",
+      "aliases": [
+        "gray door seal",
+        "door_seal",
+        "door gasket",
+        "rubber seal",
+        "bellows",
+        "boot",
+        "seal",
+        "seal folds"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "seal_grime",
+      "label": "Grime in the seal",
+      "aliases": [
+        "mold",
+        "mildew",
+        "grime",
+        "seal grime",
+        "black mold",
+        "dirt in seal",
+        "soap scum"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.05,
+          0.32
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "seal_items",
+      "label": "Items stuck in the seal",
+      "aliases": [
+        "stuck items",
+        "sock",
+        "coins in seal",
+        "hair grips",
+        "items under seal",
+        "small items"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.06,
+          0.08,
+          0.32
+        ]
+      },
+      "actions": [
+        "clean",
+        "remove",
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "washer_drum",
+      "label": "Drum",
+      "aliases": [
+        "washer drum",
+        "washer_drum",
+        "drum",
+        "tub",
+        "basket",
+        "inner drum",
+        "wash drum"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "laundry",
+      "label": "Clothes",
+      "aliases": [
+        "clothes",
+        "laundry",
+        "load",
+        "wet clothes",
+        "washing"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.12,
+          0.6
+        ]
+      },
+      "actions": [
+        "clean",
+        "remove",
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.4,
+        1
+      ]
+    },
+    {
+      "id": "detergent_drawer",
+      "label": "Detergent drawer",
+      "aliases": [
+        "detergent drawer",
+        "detergent_drawer",
+        "dispenser drawer",
+        "soap drawer",
+        "detergent dispenser",
+        "dispenser",
+        "release tab"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.24
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.9,
+        1
+      ]
+    },
+    {
+      "id": "drawer_residue",
+      "label": "Old soap in drawer",
+      "aliases": [
+        "soap residue",
+        "old soap",
+        "detergent buildup",
+        "drawer gunk",
+        "dispenser cups"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0.1,
+          0.22
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.25,
+        1,
+        0.7
+      ]
+    },
+    {
+      "id": "cycle_knob",
+      "label": "Cycle knob",
+      "aliases": [
+        "cycle knob",
+        "cycle_knob",
+        "knob",
+        "dial",
+        "cycle selector",
+        "clean washer cycle",
+        "drain and spin"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -1.4
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "power_button",
+      "label": "Power button",
+      "aliases": [
+        "power button",
+        "power",
+        "on/off button"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.004
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "control_lock_button",
+      "label": "Control Lock button",
+      "aliases": [
+        "control lock button",
+        "control_lock_button",
+        "control lock",
+        "lock button",
+        "LoC",
+        "child lock"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.004
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "start_button",
+      "label": "Start/Pause button",
+      "aliases": [
+        "start button",
+        "start_button",
+        "start/pause",
+        "start pause button",
+        "start",
+        "pause"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.004
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "washer_top",
+      "label": "Top of the washer",
+      "aliases": [
+        "top",
+        "top panel",
+        "washer top",
+        "top front edge",
+        "cabinet",
+        "top corners",
+        "level"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.45,
+        1,
+        0.9
+      ]
+    },
+    {
+      "id": "filter_access_door",
+      "label": "Filter flap",
+      "aliases": [
+        "bottom front flap",
+        "access panel",
+        "filter door",
+        "filter access door",
+        "drain pump filter cover",
+        "bottom flap",
+        "service door",
+        "kick panel"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          -0.063,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 1.45
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.45,
+        1
+      ]
+    },
+    {
+      "id": "small_drain_hose",
+      "label": "Small drain hose",
+      "aliases": [
+        "small black drain hose",
+        "small_drain_hose",
+        "small drain hose",
+        "emergency drain hose",
+        "drain tube",
+        "black hose"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.13
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.45,
+        1
+      ]
+    },
+    {
+      "id": "drain_hose_cap",
+      "label": "Hose cap",
+      "aliases": [
+        "hose plug",
+        "drain hose plug",
+        "drain hose cap",
+        "hose cap",
+        "small hose plug",
+        "stopper"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.06
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.45,
+        1
+      ]
+    },
+    {
+      "id": "drain_pump_filter",
+      "label": "Drain pump filter",
+      "aliases": [
+        "drain pump filter",
+        "drain_pump_filter",
+        "pump filter",
+        "drain filter",
+        "coin trap",
+        "filter"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.22
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.45,
+        0.45,
+        1
+      ]
+    },
+    {
+      "id": "drain_filter_handle",
+      "label": "Filter handle",
+      "aliases": [
+        "filter handle",
+        "filter knob",
+        "filter cap",
+        "drain pump filter handle",
+        "twist filter"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 1.57,
+        "lift": 0
+      },
+      "actions": [
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "filter_debris",
+      "label": "Lint and coins",
+      "aliases": [
+        "lint",
+        "coins",
+        "hair grips",
+        "filter debris",
+        "lint and coins",
+        "debris",
+        "blockage"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.22,
+          0.06,
+          0.12
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "leveling_feet",
+      "label": "Leveling foot",
+      "aliases": [
+        "leveling feet",
+        "leveling_feet",
+        "levelling feet",
+        "foot",
+        "feet",
+        "low foot"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": -3.2
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "foot_lock_nut",
+      "label": "Foot lock nut",
+      "aliases": [
+        "lock nut",
+        "jam nut",
+        "foot nut",
+        "nut",
+        "leveling foot nut"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 2.4
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "hot_water_tap",
+      "label": "Hot water tap",
+      "aliases": [
+        "water taps",
+        "water_taps",
+        "hot tap",
+        "hot water tap",
+        "taps",
+        "water valve",
+        "wall taps"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 2.6,
+        "lift": 0
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.8,
+        1
+      ],
+      "rest": 1
+    },
+    {
+      "id": "cold_water_tap",
+      "label": "Cold water tap",
+      "aliases": [
+        "cold tap",
+        "cold water tap",
+        "cold water valve"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 2.6,
+        "lift": 0
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.8,
+        1
+      ],
+      "rest": 1
+    },
+    {
+      "id": "water_inlet_hoses",
+      "label": "Water hoses",
+      "aliases": [
+        "water inlet hoses",
+        "water_inlet_hoses",
+        "inlet hoses",
+        "fill hoses",
+        "water hoses",
+        "supply hoses"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.6,
+        -1
+      ]
+    },
+    {
+      "id": "main_drain_hose",
+      "label": "Main drain hose",
+      "aliases": [
+        "main drain hose",
+        "main_drain_hose",
+        "drain hose",
+        "drain pipe",
+        "standpipe"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.8,
+        0.5,
+        -1
+      ]
+    },
+    {
+      "id": "power_cord",
+      "label": "Power plug",
+      "aliases": [
+        "power cord",
+        "power_cord",
+        "plug",
+        "power plug",
+        "outlet",
+        "wall socket"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.07
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        -1,
+        0.4,
+        -0.6
+      ]
+    }
   ]
 }

@@ -4,7 +4,7 @@ import { ContactShadows, Environment, Lightformer, OrbitControls } from "@react-
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState, type ComponentRef, type RefObject } from "react";
 import * as THREE from "three";
-import { applyBeats, pulseActions, type Beat, type RigCatalog, type RigPartDef, type RigState } from "../../lib/rig/types";
+import { applyBeats, pulseActions, restState, type Beat, type RigCatalog, type RigPartDef, type RigState } from "../../lib/rig/types";
 import { RigProvider } from "./RigRuntime";
 
 type OrbitControlsImpl = ComponentRef<typeof OrbitControls>;
@@ -160,9 +160,12 @@ function CameraDirector({ beat, def, nodes, controlsRef, userMovedRef }: { beat?
     userMovedRef.current = false;
   }, [beat, userMovedRef]);
 
+  const framedBeatRef = useRef<Beat | undefined>(undefined);
   useFrame((_, delta) => {
     const node = beat ? nodes.current[beat.part] : undefined;
-    if (node) {
+    // Frame each beat once, where the part is when the beat starts, so the camera doesn't chase debris away.
+    if (node && framedBeatRef.current !== beat) {
+      framedBeatRef.current = beat;
       const box = worldBox(node);
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3()).length();
@@ -229,7 +232,7 @@ type RigSceneProps = {
 export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSceneProps) {
   const defs = useMemo(() => Object.fromEntries(catalog.parts.map((part) => [part.id, part])), [catalog]);
   const beats = stepBeats[stepIndex] ?? [];
-  const start = useMemo(() => applyBeats({}, stepBeats.slice(0, stepIndex).flat()), [stepBeats, stepIndex]);
+  const start = useMemo(() => applyBeats(restState(catalog), stepBeats.slice(0, stepIndex).flat()), [catalog, stepBeats, stepIndex]);
   const amountsRef = useRef<RigState>({ ...start });
   const focusRef = useRef<string | null>(null);
   const nodesRef = useRef<Record<string, THREE.Group>>({});

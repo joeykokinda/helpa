@@ -21,6 +21,7 @@ type rigPart struct {
 	Label   string   `json:"label"`
 	Aliases []string `json:"aliases"`
 	Actions []string `json:"actions"`
+	Rest    float64  `json:"rest,omitempty"`
 }
 
 type rigCatalog struct {
@@ -93,7 +94,12 @@ For every plan step, in order, list the beats that SHOW that step: each beat is 
 Break steps into their real physical sequence, e.g. "clean the lint screen" is: lint_screen remove, lint clean,
 lint_screen insert. Open doors or drawers before reaching inside them, and close them when the step ends if the
 person would. Use only actions listed for that part. Use "look" to point at a part without moving it.
-A step that involves no part of the appliance (wait 5 minutes, check the breaker box) gets an empty beats list.
+Show something whenever a listed part is involved: unplugging is "remove" on the plug or power cord, cleaning
+or rinsing is "clean" on the matching debris part (lint, scraps, grime), checking is "look". Only a step that
+touches no listed part at all (wait 5 minutes, flip the breaker) gets an empty beats list.
+For twist-off parts (filters, caps, bulbs), "unlock" is only the turn and "remove" is the lift out, so use both:
+"unlock" then "remove", and "insert" then "lock" to put it back. Parts marked "starts_open" are open before any
+step (water taps are normally on); close them only when the plan says to turn them off.
 Captions are at most 6 plain words, like "Twist the filter left".`
 
 // choreograph maps a plan's steps onto a rig's parts and actions.
@@ -134,7 +140,17 @@ func choreograph(ctx context.Context, catalog *rigCatalog, plan json.RawMessage)
 			}},
 		},
 	}
-	parts, _ := json.Marshal(catalog.Parts)
+	type partForPrompt struct {
+		ID         string   `json:"id"`
+		Label      string   `json:"label"`
+		Actions    []string `json:"actions"`
+		StartsOpen bool     `json:"starts_open,omitempty"`
+	}
+	described := make([]partForPrompt, len(catalog.Parts))
+	for index, part := range catalog.Parts {
+		described[index] = partForPrompt{part.ID, part.Label, part.Actions, part.Rest > 0}
+	}
+	parts, _ := json.Marshal(described)
 	reply, err := createResponse(ctx, map[string]any{
 		"model":        "muse-spark-1.3",
 		"instructions": choreographInstructions,
