@@ -228,26 +228,24 @@
       },
       "step_animations": [
         {
+          "step": 0,
           "axis": "y",
-          "caption": "Spin middle arm freely",
+          "caption": "Spin middle spray arm",
           "distance": 0,
-          "motion": "none",
-          "part_ids": [
-            "middle_spray_arm",
-            "middle_rack"
-          ],
-          "step": 0
-        },
-        {
-          "axis": "y",
-          "caption": "Twist filter left lift",
-          "distance": 5,
           "motion": "twist_ccw",
           "part_ids": [
-            "round_top_filter",
-            "flat_bottom_filter"
-          ],
-          "step": 1
+            "middle_spray_arm"
+          ]
+        },
+        {
+          "step": 1,
+          "axis": "y",
+          "caption": "Twist left, then lift",
+          "distance": 5,
+          "motion": "unscrew",
+          "part_ids": [
+            "round_top_filter"
+          ]
         },
         {
           "axis": "y",
@@ -260,26 +258,24 @@
           "step": 2
         },
         {
+          "step": 3,
           "axis": "y",
-          "caption": "Push flat filter flat",
+          "caption": "Push flat bottom filter down",
           "distance": 2,
           "motion": "push_in",
           "part_ids": [
-            "flat_bottom_filter",
-            "bottom_of_tub"
-          ],
-          "step": 3
+            "flat_bottom_filter"
+          ]
         },
         {
+          "step": 4,
           "axis": "y",
-          "caption": "Twist filter right lock",
-          "distance": 2,
+          "caption": "Twist round top filter right",
+          "distance": 2.0,
           "motion": "twist_cw",
           "part_ids": [
-            "round_top_filter",
-            "flat_bottom_filter"
-          ],
-          "step": 4
+            "round_top_filter"
+          ]
         },
         {
           "axis": "y",
@@ -420,16 +416,14 @@
           "step": 0
         },
         {
+          "step": 1,
           "axis": "y",
-          "caption": "Twist filter left lift out",
+          "caption": "Twist left and lift out",
           "distance": 5,
-          "motion": "twist_ccw",
+          "motion": "unscrew",
           "part_ids": [
-            "round_top_filter",
-            "flat_bottom_filter",
-            "bottom_of_tub"
-          ],
-          "step": 1
+            "round_top_filter"
+          ]
         },
         {
           "axis": "y",
@@ -452,26 +446,24 @@
           "step": 3
         },
         {
+          "step": 4,
           "axis": "y",
-          "caption": "Seat flat filter flat",
-          "distance": 5,
-          "motion": "push_in",
+          "caption": "Push flat filter down flat",
+          "distance": 1.0,
+          "motion": "press",
           "part_ids": [
-            "flat_bottom_filter",
-            "bottom_of_tub"
-          ],
-          "step": 4
+            "flat_bottom_filter"
+          ]
         },
         {
+          "step": 5,
           "axis": "y",
           "caption": "Twist filter right lock",
           "distance": 5,
           "motion": "twist_cw",
           "part_ids": [
-            "round_top_filter",
-            "flat_bottom_filter"
-          ],
-          "step": 5
+            "round_top_filter"
+          ]
         },
         {
           "axis": "y",
@@ -584,15 +576,14 @@
       },
       "step_animations": [
         {
+          "step": 0,
           "axis": "y",
           "caption": "Open rinse aid cap",
           "distance": 2.0,
-          "motion": "twist_ccw",
+          "motion": "unscrew",
           "part_ids": [
-            "rinse_aid_holder",
-            "door"
-          ],
-          "step": 0
+            "rinse_aid_holder"
+          ]
         },
         {
           "axis": "y",
@@ -605,15 +596,14 @@
           "step": 1
         },
         {
+          "step": 2,
           "axis": "y",
           "caption": "Move plastics to top",
           "distance": 0.0,
           "motion": "none",
           "part_ids": [
-            "top_small_rack",
-            "bottom_rack"
-          ],
-          "step": 2
+            "top_small_rack"
+          ]
         },
         {
           "axis": "y",
@@ -626,15 +616,14 @@
           "step": 3
         },
         {
+          "step": 4,
           "axis": "y",
           "caption": "Press Extended Dry option",
           "distance": 0.5,
           "motion": "press",
           "part_ids": [
-            "top_edge_buttons",
-            "door"
-          ],
-          "step": 4
+            "top_edge_buttons"
+          ]
         },
         {
           "axis": "y",
@@ -752,15 +741,14 @@
       },
       "step_animations": [
         {
+          "step": 0,
           "axis": "y",
           "caption": "Twist filter left, lift out",
           "distance": 10,
-          "motion": "twist_ccw",
+          "motion": "unscrew",
           "part_ids": [
-            "round_top_filter",
-            "flat_bottom_filter"
-          ],
-          "step": 0
+            "round_top_filter"
+          ]
         },
         {
           "axis": "y",
@@ -774,15 +762,14 @@
           "step": 1
         },
         {
+          "step": 2,
           "axis": "y",
-          "caption": "Replace filters, twist lock right",
-          "distance": 5,
+          "caption": "Twist round filter right to lock",
+          "distance": 5.0,
           "motion": "twist_cw",
           "part_ids": [
-            "round_top_filter",
-            "flat_bottom_filter"
-          ],
-          "step": 2
+            "round_top_filter"
+          ]
         },
         {
           "axis": "y",
@@ -962,15 +949,14 @@
           "step": 3
         },
         {
+          "step": 4,
           "axis": "y",
           "caption": "Check feet touch floor",
           "distance": 0,
           "motion": "none",
           "part_ids": [
-            "front_leveling_feet",
-            "bottom_front_cover"
-          ],
-          "step": 4
+            "front_leveling_feet"
+          ]
         },
         {
           "axis": "y",
@@ -1083,15 +1069,14 @@
       },
       "step_animations": [
         {
+          "step": 0,
           "axis": "z",
           "caption": "Push door until clicks",
-          "distance": -5,
+          "distance": -40,
           "motion": "push_in",
           "part_ids": [
-            "door_latch",
             "door"
-          ],
-          "step": 0
+          ]
         },
         {
           "axis": "z",
@@ -1247,15 +1232,14 @@
       },
       "step_animations": [
         {
+          "step": 0,
           "axis": "y",
-          "caption": "Twist top filter left lift",
+          "caption": "Twist left and lift out",
           "distance": 5.0,
-          "motion": "twist_ccw",
+          "motion": "unscrew",
           "part_ids": [
-            "round_top_filter",
-            "flat_bottom_filter"
-          ],
-          "step": 0
+            "round_top_filter"
+          ]
         },
         {
           "axis": "y",
@@ -1280,15 +1264,14 @@
           "step": 2
         },
         {
+          "step": 3,
           "axis": "y",
-          "caption": "Place vinegar cup on rack",
+          "caption": "Place vinegar cup on bottom rack",
           "distance": 0.0,
           "motion": "none",
           "part_ids": [
-            "bottom_rack",
-            "door"
-          ],
-          "step": 3
+            "bottom_rack"
+          ]
         },
         {
           "axis": "y",
@@ -1301,15 +1284,14 @@
           "step": 4
         },
         {
-          "axis": "z",
-          "caption": "Place tablet close lid",
-          "distance": 2.0,
-          "motion": "push_in",
+          "step": 5,
+          "axis": "y",
+          "caption": "Place tablet in soap cup",
+          "distance": 0.0,
+          "motion": "none",
           "part_ids": [
-            "soap_cup",
-            "door"
-          ],
-          "step": 5
+            "soap_cup"
+          ]
         }
       ]
     }

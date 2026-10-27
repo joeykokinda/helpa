@@ -1,5 +1,7 @@
 "use client";
 
+import ThemeToggle from "./components/ThemeToggle";
+
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
@@ -544,7 +546,8 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
           <Icon name="back" />
         </button>
         <span className="topbar-title">Your plan</span>
-        <button className="icon-button press" onClick={onHelp} aria-label="How Helpa works">
+        <ThemeToggle />
+            <button className="icon-button press" onClick={onHelp} aria-label="How Helpa works">
           <Icon name="help" />
         </button>
       </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import ThemeToggle from "./ThemeToggle";
+
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { transcribe } from "../lib/api";
@@ -170,6 +172,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               {bubble}
             </motion.p>
           </div>
+          <ThemeToggle className="icon-button glass press" />
           <button className="icon-button glass press" onClick={onHelp} aria-label="How Helpa works">
             <Icon name="help" />
           </button>
@@ -237,6 +240,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
             ) : (
               <span className="wordmark">helpa</span>
             )}
+            <ThemeToggle />
             <button className="icon-button press" onClick={onHelp} aria-label="How Helpa works">
               <Icon name="help" />
             </button>
