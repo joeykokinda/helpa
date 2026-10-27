@@ -1,0 +1,385 @@
+{
+  "id": "dryer_top_vent",
+  "name": "Top-vent electric dryer",
+  "matches": [
+    "dryer",
+    "electric dryer",
+    "gas dryer",
+    "clothes dryer"
+  ],
+  "parts": [
+    {
+      "id": "dryer_door",
+      "label": "Dryer door",
+      "aliases": [
+        "door",
+        "door latch",
+        "dryer_door",
+        "door_latch"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          -0.29500000000000004,
+          0,
+          0.03
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": -1.95
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.9,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "lint_screen",
+      "label": "Lint screen",
+      "aliases": [
+        "lint filter",
+        "lint trap",
+        "lint_screen_slot",
+        "lint screen slot"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.3
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.45,
+        0.9,
+        1
+      ]
+    },
+    {
+      "id": "lint",
+      "label": "Lint",
+      "aliases": [
+        "lint buildup",
+        "fluff",
+        "lint layer"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.05,
+          0.02,
+          0.28
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "cycle_knob",
+      "label": "Cycle knob",
+      "aliases": [
+        "knob",
+        "dial",
+        "cycle selector"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -1.4
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "power_button",
+      "label": "Power button",
+      "aliases": [
+        "power"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.006
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "start_button",
+      "label": "Start button",
+      "aliases": [
+        "start",
+        "start/pause"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.006
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "temperature_button",
+      "label": "Temp button",
+      "aliases": [
+        "temperature",
+        "temp"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.006
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "options_button",
+      "label": "Options button",
+      "aliases": [
+        "options",
+        "wrinkle shield"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "depth": 0.006
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "dryer_drum",
+      "label": "Drum",
+      "aliases": [
+        "drum",
+        "tub",
+        "dryer_drum"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "moisture_sensor_film",
+      "label": "Sensor strips",
+      "aliases": [
+        "moisture sensor strips",
+        "moisture_sensor_strips",
+        "sensor bars"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          -0.02,
+          0.2
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.5,
+        1
+      ]
+    },
+    {
+      "id": "drum_light_bulb",
+      "label": "Drum light bulb",
+      "aliases": [
+        "light bulb",
+        "drum light",
+        "bulb"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 2.4,
+        "lift": 0.05
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "unlock",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.15,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "vent_hose",
+      "label": "Vent hose",
+      "aliases": [
+        "vent",
+        "exhaust duct",
+        "duct",
+        "outside_vent_hood",
+        "outside vent hood"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        1,
+        0.6,
+        -0.6
+      ]
+    },
+    {
+      "id": "leveling_feet",
+      "label": "Leveling foot",
+      "aliases": [
+        "feet",
+        "leveling foot",
+        "foot"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 3.2
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "power_plug",
+      "label": "Power plug",
+      "aliases": [
+        "plug",
+        "power cord",
+        "outlet"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.07
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        1,
+        0.4,
+        -0.5
+      ]
+    }
+  ]
+}

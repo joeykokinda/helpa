@@ -1,0 +1,8 @@
+{
+  "id": "dishwasher",
+  "name": "Built-in dishwasher",
+  "matches": [
+    "dishwasher"
+  ],
+  "parts": []
+}

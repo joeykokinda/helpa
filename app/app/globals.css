@@ -328,8 +328,15 @@ body {
 }
 
 .topbar-title {
+  flex: 1;
   font-weight: 700;
   font-size: 17px;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
 }
 
 .wordmark {
@@ -374,6 +381,12 @@ body {
 .bottom-bar-row {
   display: grid;
   grid-template-columns: 56px 1.3fr 1fr;
+  gap: 10px;
+}
+
+.bottom-bar-pair {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
   gap: 10px;
 }
 
@@ -675,14 +688,15 @@ a:focus-visible {
   transform-origin: left;
 }
 
+/* Helpa stays at the same height on every slide, whatever the text length. */
 .onboarding-body {
   flex: 1;
   min-height: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0 24px;
-  overflow: hidden;
+  padding: clamp(0px, 6dvh, 64px) 24px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
   touch-action: pan-y;
   cursor: grab;
 }
@@ -738,14 +752,21 @@ a:focus-visible {
 .camera-top {
   position: relative;
   z-index: 2;
-  align-items: flex-start;
 }
 
+.camera-wordmark {
+  color: #ffffff;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.35);
+}
+
+/* Its own row under the buttons, so a long hint never runs into them. */
 .camera-helpa {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-width: 0;
+  gap: 10px;
+  margin: 4px 16px 0 10px;
 }
 
 .camera-helpa > svg {
@@ -754,6 +775,8 @@ a:focus-visible {
 }
 
 .hint-pill {
+  position: relative;
+  max-width: 300px;
   padding: 10px 14px;
   border-radius: 18px;
   background: rgb(255 255 255 / 0.94);
@@ -1571,9 +1594,41 @@ a:focus-visible {
 
 .step-head {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: -14px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: -6px;
+}
+
+/* Helpa's house art sits inside padding in its viewBox; pull it left onto the 16px grid. */
+.step-helpa {
+  position: relative;
+  flex: none;
+  margin-left: -6px;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: none;
+  cursor: pointer;
+}
+
+.step-helpa-badge {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--foreground);
+  color: var(--background);
+  box-shadow: 0 0 0 2px var(--background);
+}
+
+.step-hint {
+  color: var(--secondary);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .step-text {
@@ -1581,27 +1636,6 @@ a:focus-visible {
   font-weight: 800;
   line-height: 1.18;
   letter-spacing: -0.025em;
-}
-
-.corner-helpa {
-  position: relative;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-
-.corner-helpa-badge {
-  position: absolute;
-  right: -2px;
-  top: 2px;
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--foreground);
-  color: var(--background);
 }
 
 .segmented {
@@ -1739,100 +1773,6 @@ a:focus-visible {
   font-weight: 700;
 }
 
-.visual-helpa {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 260px;
-  padding: 24px;
-  background: linear-gradient(180deg, var(--accent-soft), var(--surface));
-}
-
-.visual-helpa .hero-blob {
-  width: 220px;
-  top: 10px;
-}
-
-.visual-helpa > svg {
-  position: relative;
-}
-
-.visual-helpa-label {
-  position: relative;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  font-size: 16px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.checking-overlay {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: end center;
-  padding-bottom: 18px;
-  background: rgb(0 0 0 / 0.18);
-}
-
-.checking-overlay span {
-  position: relative;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: var(--surface);
-  font-weight: 700;
-  box-shadow: var(--shadow);
-}
-
-.check {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  padding: 16px 18px;
-  border-radius: var(--radius);
-  font-size: 16px;
-  line-height: 1.4;
-}
-
-.check strong {
-  display: block;
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.check-ok {
-  background: var(--ok-soft);
-}
-
-.check-retry {
-  background: var(--warn-soft);
-}
-
-.check-icon {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  flex: none;
-  border-radius: 50%;
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 18px;
-}
-
-.check-ok .check-icon {
-  background: var(--ok);
-}
-
-.check-retry .check-icon {
-  background: var(--warn);
-}
-
 .more-help {
   border-radius: 20px;
   background: var(--surface);
@@ -1876,8 +1816,57 @@ a:focus-visible {
 /* Done */
 .done-body {
   align-items: center;
-  justify-content: center;
   text-align: center;
+}
+
+/* Centered when it fits, scrollable from the top when it doesn't (justify-content: center would clip). */
+.done-body > :first-child {
+  margin-top: auto;
+}
+
+.done-body > :last-child {
+  margin-bottom: auto;
+}
+
+.done-body .hero-stage {
+  margin-bottom: -8px;
+}
+
+.done-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tip-card {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 18px;
+  text-align: left;
+}
+
+.tip-card strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.tip-card p {
+  color: var(--secondary);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.tip-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
 }
 
 .saved-card {
@@ -1886,7 +1875,6 @@ a:focus-visible {
   align-items: center;
   gap: 2px;
   width: 100%;
-  margin-top: 8px;
 }
 
 .saved-label {
@@ -2023,4 +2011,52 @@ a:focus-visible {
 .torch-on {
   background: #ffd84d !important;
   color: #111111 !important;
+}
+
+/* Rig scenes (owned by components/rig) */
+.rig-scene {
+  height: min(52vh, 420px);
+}
+.rig-beats {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.rig-beat-dots {
+  display: flex;
+  gap: 6px;
+}
+.rig-beat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(17 17 18 / 0.2);
+  transition: background 0.2s, transform 0.2s;
+}
+.rig-beat-dot-on {
+  background: #ff8a2a;
+  transform: scale(1.3);
+}
+.rig-caption {
+  position: static;
+  transform: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rig-caption-count {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ff8a2a;
+  color: #111112;
+  font-size: 13px;
 }
