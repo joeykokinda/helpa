@@ -36,6 +36,47 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   const [transcribing, setTranscribing] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [flash, setFlash] = useState(0);
+  const trackRef = useRef<MediaStreamTrack | null>(null);
+  const [torch, setTorch] = useState<"unsupported" | "off" | "on">("unsupported");
+  const torchTouchedRef = useRef(false);
+  const darkWarnedRef = useRef(false);
+
+  const setTorchOn = async (on: boolean) => {
+    try {
+      await trackRef.current?.applyConstraints({ advanced: [{ torch: on } as MediaTrackConstraintSet] });
+      setTorch(on ? "on" : "off");
+    } catch {
+      setTorch("unsupported");
+    }
+  };
+
+  // Watch how bright the picture is; in a dark cabinet, turn the flashlight on (once, unless the user chose).
+  useEffect(() => {
+    if (camera !== "ready") return;
+    const sample = document.createElement("canvas");
+    sample.width = sample.height = 24;
+    const context = sample.getContext("2d", { willReadFrequently: true });
+    const timer = window.setInterval(() => {
+      const video = videoRef.current;
+      if (!video || !context || !video.videoWidth || screen !== "camera") return;
+      context.drawImage(video, 0, 0, 24, 24);
+      const pixels = context.getImageData(0, 0, 24, 24).data;
+      let total = 0;
+      for (let index = 0; index < pixels.length; index += 4) total += pixels[index] * 0.299 + pixels[index + 1] * 0.587 + pixels[index + 2] * 0.114;
+      const brightness = total / (pixels.length / 4);
+      if (brightness > 50) return;
+      if (torch === "off" && !torchTouchedRef.current) {
+        torchTouchedRef.current = true;
+        setTorchOn(true);
+        say("It's dark in there, so I turned on your flashlight.", "found", false);
+      } else if (torch === "unsupported" && !darkWarnedRef.current) {
+        darkWarnedRef.current = true;
+        say("It's pretty dark. Can you add some light so I can see?", "worried", false);
+      }
+    }, 1200);
+    return () => window.clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [camera, torch, screen]);
 
   useEffect(() => {
     let stream: MediaStream | undefined;
@@ -52,6 +93,10 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       .getUserMedia({ video: { facingMode: "environment", width: { ideal: 1920 } }, audio: false })
       .then((granted) => {
         stream = granted;
+        const [track] = granted.getVideoTracks();
+        trackRef.current = track ?? null;
+        const capabilities = (track?.getCapabilities?.() ?? {}) as MediaTrackCapabilities & { torch?: boolean };
+        if (capabilities.torch) setTorch("off");
         if (videoRef.current) {
           videoRef.current.srcObject = granted;
           setCamera("ready");
@@ -139,6 +184,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   };
 
   const openDescribe = () => {
+    if (torch === "on") setTorchOn(false);
     say(photos.length ? "Anything else I should know? Or tap Help me fix it." : "Tell me what's going on. Type it, or hold the mic and talk.", "idle", false);
     setScreen("describe");
   };
@@ -172,6 +218,21 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               {bubble}
             </motion.p>
           </div>
+          {torch !== "unsupported" && (
+            <button
+              className={`icon-button glass press ${torch === "on" ? "torch-on" : ""}`}
+              onClick={() => {
+                torchTouchedRef.current = true;
+                setTorchOn(torch !== "on");
+              }}
+              aria-label={torch === "on" ? "Turn flashlight off" : "Turn flashlight on"}
+              aria-pressed={torch === "on"}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill={torch === "on" ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+                <path d="M13 2 4 14h7l-1 8 9-12h-7z" />
+              </svg>
+            </button>
+          )}
           <ThemeToggle className="icon-button glass press" />
           <button className="icon-button glass press" onClick={onHelp} aria-label="How Helpa works">
             <Icon name="help" />

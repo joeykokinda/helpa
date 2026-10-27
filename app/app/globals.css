@@ -2019,3 +2019,8 @@ a:focus-visible {
   font-size: 17px;
   line-height: 1;
 }
+
+.torch-on {
+  background: #ffd84d !important;
+  color: #111111 !important;
+}
