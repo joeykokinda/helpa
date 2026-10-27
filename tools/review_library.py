@@ -44,7 +44,8 @@ class Renderer:
         for moment in moments:
             self.page.wait_for_timeout(max(0, moment - waited))
             waited = moment
-            shots.append(Image.open(io.BytesIO(self.page.locator(".scene-3d").screenshot())))
+            box = self.page.locator(".scene-3d").bounding_box()
+            shots.append(Image.open(io.BytesIO(self.page.screenshot(clip=box, timeout=60000))))
         sheet = Image.new("RGB", (sum(shot.width for shot in shots), shots[0].height), "white")
         offset = 0
         for shot in shots:
