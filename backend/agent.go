@@ -23,6 +23,8 @@ Work like this:
 4. Call submit_plan exactly once with the full plan, grounded in the manual.
 
 Between tool calls, say in one short, friendly sentence what you are doing, as if talking to the user.
+If there are no photos, work from the description alone, skip segment_parts, and use photo -1 in steps.
+Write for a total beginner: short sentences, no jargon, one action per step.
 Never invent part numbers or manual URLs. If something is unsafe for a beginner (gas, mains wiring,
 refrigerant), say so in safety and stop at "call a pro".`
 
@@ -119,7 +121,9 @@ func runAgent(ctx context.Context, photos []string, complaint string, emit func(
 		}
 		for _, call := range calls {
 			if call.Name == "submit_plan" {
-				emit(event{"type": "plan", "plan": json.RawMessage(call.Arguments)})
+				plan := json.RawMessage(call.Arguments)
+				emit(event{"type": "plan", "plan": plan})
+				afterPlan(ctx, photos, plan, emit)
 				return nil
 			}
 			output := runTool(ctx, call, photos, emit)
