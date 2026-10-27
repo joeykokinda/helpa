@@ -10,8 +10,6 @@ import (
 
 var vector3 = map[string]any{"type": "array", "items": map[string]any{"type": "number"}}
 
-var motions = []string{"none", "twist_ccw", "twist_cw", "lift", "pull_out", "push_in", "press", "unscrew", "screw_in", "rinse"}
-
 var sceneSchema = map[string]any{
 	"type":                 "object",
 	"additionalProperties": false,
@@ -87,14 +85,23 @@ func afterPlan(ctx context.Context, photos []string, plan json.RawMessage, emit 
 			TargetPart string `json:"target_part"`
 			Photo      int    `json:"photo"`
 		} `json:"steps"`
+		LibraryID      string `json:"library_id"`
+		LibraryProblem string `json:"library_problem"`
 	}
 	json.Unmarshal(plan, &parsed)
 	var wait sync.WaitGroup
 	wait.Add(1)
 	go func() {
 		defer wait.Done()
-		emit(event{"type": "status", "text": "Building your 3D model"})
-		scene, err := buildScene(ctx, photos, plan)
+		var scene json.RawMessage
+		var err error
+		if entry := findLibraryEntry(parsed.LibraryID); entry != nil {
+			scene, err = libraryScene(ctx, entry, plan, parsed.LibraryProblem, len(parsed.Steps))
+		}
+		if scene == nil {
+			emit(event{"type": "status", "text": "Building your 3D model"})
+			scene, err = buildScene(ctx, photos, plan)
+		}
 		if err != nil {
 			emit(event{"type": "model_error", "message": err.Error()})
 			return

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -19,6 +20,12 @@ const maxUploadBytes = 40 << 20
 func main() {
 	if metaAPIKey == "" {
 		log.Fatal("META_API_KEY is not set")
+	}
+	if len(os.Args) > 1 && os.Args[1] == "build-library" {
+		if err := buildLibrary(context.Background(), os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
+		return
 	}
 	http.HandleFunc("POST /api/fix", handleFix)
 	http.HandleFunc("POST /api/check", handleCheck)
