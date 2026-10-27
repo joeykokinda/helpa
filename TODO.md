@@ -6,6 +6,19 @@ Rubric: Impact 30% · Meta tooling 25% · Technical depth 20% · Demo 25%. Bonus
 
 Legend: 🤖 agent running · 🛠 Claude · 🙋 rex
 
+## Thesis and pitch
+Spatially grounded guidance beats conversational AI. **Helpa understands how your machine works and guides your hands through fixing it:** exact model → interactive 3D twin → reasons about what's wrong → shows the move on the twin and on your live camera → catches your mistakes → confirms the fix actually worked.
+- [ ] 🙋 Submit under **Push the Frontier** (physical-world understanding through human hands); the consumer app is the demonstration.
+- Know the competition: iFixit FixBot (camera ID, voice, repair library). Our edge is the 3D motion on your exact machine, live part highlighting, and verification.
+
+## Trust and reasoning (the 10/10 layer)
+- [ ] 🛠 **Verified vs illustrative**: motions backed by the manual or a hand-built rig are stated with confidence; generated-model motions without documentation are labeled ("check your manual for the release direction") and never stated as fact. Badge in the UI.
+- [ ] 🛠 **Diagnosis that branches**: hypotheses, then a test, then what you observe, then the next branch ("hums or silent?"). Animate each hypothesis in a **3D cutaway that explains why** the fix works.
+- [ ] 🛠 **Outcome check, not just step check**: every plan ends with a test run ("run Rinse Only, does the water go down?"); a failure branches to the next hypothesis.
+- [ ] 🛠 **Mistake catching as the hero moment**: wrong part, wrong orientation, wrong order → a specific correction while you work.
+- [ ] 🛠 **My Home**: save each machine (model, manual, parts, fix history, maintenance reminders); next time Helpa already knows it.
+- [ ] 🛠 Adapt to the person: first-timer vs experienced, Spanish, hands busy → voice.
+
 ## In progress
 - [ ] 🤖 Isometric toon look: outlines, cel shading, grid floor, ortho camera, dashed motion paths, overshoot easing, clean-up sparkles. Applies to every model.
 - [ ] 🤖 On-demand models: recipe format + renderer, per-category blueprints, reference recipes, `generateModel` (Muse builds a model from photo + identity).
@@ -42,7 +55,9 @@ Legend: 🤖 agent running · 🛠 Claude · 🙋 rex
 - [ ] 🛠 Performance pass on a mid-range Android (Seeker): 30+ fps in 3D, fast first paint.
 
 ## Proof it works
-- [ ] 🛠 Evaluation set: 50 real repair problems through the pipeline, scored on right appliance, right fix, safe advice, and 3D shown. Publish the numbers in README and video.
+- [ ] 🙋🛠 **Blind test**: someone outside the team, an unprepared fault, recorded start to finish.
+- [ ] 🙋🛠 **Helpa vs a regular chatbot** with the same manual: completion rate, time to fix, confidence. That number goes in the video.
+- [ ] 🛠 Evaluation set: 50 real repair problems through the pipeline, scored on exact model ID, procedure correctness, part localization, step-check precision (no false "done"), real repair success, time to first actionable step, and how often a person had to step in. Include hard cases and unsafe ones. Publish the numbers in README and video.
 - [ ] 🙋 3–5 real people try it (mom, roommates): capture quotes and real fixes.
 - [ ] 🛠 Spanish (voice + steps) for families and grandparents.
 - [ ] 🛠 Safety: gas, mains wiring, refrigerant → "call a pro" every time; covered in the evaluation set.
@@ -54,6 +69,7 @@ Legend: 🤖 agent running · 🛠 Claude · 🙋 rex
 - [ ] 🛠 App icon, splash, PWA install prompt, share card for X.
 
 ## Video (3 minutes) and launch
+- [ ] 🛠 **90-second hero demo** (one fix, done deep): standing water → sticker read and one question → 3D cutaway of the clog and why → camera highlights the real filter, the twin shows the twist → **you grab the wrong part and Helpa catches it** → clean, reinstall, watched → **test run drains** → saved to My Home. Then the car (exact model), the blind test, the chatbot comparison.
 - [ ] 🛠 Shot list + script: broken things (wet shirt from the dryer, car) → a regular chatbot's wall of text, confusion → Helpa: sticker snap, "I know this one!", 3D of *your* machine, do the fix for real, check, confetti → car with your exact engine → wildcard on-demand model → behind the scenes (parallel agents, self-check) → Meta models on screen + "built during the hackathon".
 - [ ] 🙋 Film with real appliances and real people.
 - [ ] 🛠 Edit plan, captions, on-screen labels for each Meta model.
