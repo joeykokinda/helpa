@@ -40,7 +40,7 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [x] `live-hardening`: lint-screen lock (prompt phrasings + rig region prior), tap-to-anchor fallback so the demo never stalls, door ghost + corner caption fixes, washer sample library match + honest savings, fps on headless and the Seeker.
 - [x] `proof`: per-IP rate limits, body cap, daily Meta budget with sample fallback; 50-case eval set + runner; 10-case chatbot comparison; docs/EVAL.md.
 - [x] Hosted on brach: `scripts/deploy-brach.sh` (Go backend :8095 + standalone Next :3095, user services, linger on).
-- [ ] 🙋 Make it public: `ssh brach 'tailscale funnel --bg --https=443 http://127.0.0.1:3095'` → https://brach.taild3399f.ts.net (blocked for Claude by the permission classifier).
+- [x] Public: https://brach.taild3399f.ts.net (Funnel on).
 
 ## Round 3 (merged)
 - [x] `diagnosis`: library fast path yields when the complaint contradicts it (coil vs glass top); ordered hypotheses with an outcome test and Fixed / Still broken branching; next-hypothesis rig beats (dryer vent); car 3D relevance and a safety stop screen for gas; re-run affected eval cases.
