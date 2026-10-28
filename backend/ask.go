@@ -17,7 +17,8 @@ If something is unsafe for a beginner (gas, mains wiring, refrigerant, anything 
 tell them to call a pro.
 Set start_fix to true only when the person describes a new problem that needs a hands-on fix, and put a one
 sentence description of that problem in complaint (include the machine's brand and model). Otherwise start_fix
-is false and complaint is empty.`
+is false and complaint is empty. If you tell them to call a pro (safety, brakes, airbags, anything beyond a
+beginner), start_fix is false.`
 
 var askSchema = map[string]any{
 	"type":                 "object",
