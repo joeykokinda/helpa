@@ -20,17 +20,20 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [ ] 🛠 **Get help when it's beyond DIY**: when the plan says "replace" or "call a pro":
   - **Parts**: the exact OEM part number for your model, with buy links (Amazon, the manufacturer, appliance parts sites) found by research, the price shown, and the 3D twin showing exactly which piece it is. Then a follow-up guide to install it.
   - **Pros**: nearby repair techs or mechanics (with your location permission) and a ready-to-send summary (model, symptom, what you already tried, photos) so you aren't charged for diagnosis twice.
-- [ ] 🛠 **My Home**: save each machine (model, manual, parts, fix history, maintenance reminders); next time Helpa already knows it.
+- [ ] 🛠 **My Home** (next, after the merges): the main screen is your machines as cards with their mini 3D twins + "Fix something new". Machine page: 3D twin, identity (model, age, manual, part numbers), fix history, care reminders (lint screen, Camry oil interval), and **Ask Helpa**: follow-up chat with that machine's full context (`/api/ask`). Every finished fix saves to history. No login, stored on the phone (IndexedDB).
 - [ ] 🛠 Adapt to the person: first-timer vs experienced, Spanish, hands busy → voice.
 
-## In progress
-- [ ] 🤖 Isometric toon look: outlines, cel shading, grid floor, ortho camera, dashed motion paths, overshoot easing, clean-up sparkles. Applies to every model.
-- [ ] 🤖 On-demand models: recipe format + renderer, per-category blueprints, reference recipes, `generateModel` (Muse builds a model from photo + identity).
-- [ ] 🤖 Parallel pipeline: fast identify, then model / research / measure in parallel, then choreograph. Helpa asks clarifying questions with tap answers. No-visual fallback.
-- [ ] 🤖 New hand-built models: garbage disposal (hex-key jam, reset button) and car oil change (drain plug, filter, dipstick, fill cap).
+## In progress (branches, merging into main)
+- [ ] 🤖 `live-guide`: live camera AR as repair holograms (cyan holo ghost of the real part, scan-sweep materialize, target-lock brackets + labels, glowing trails). Same joints/beats as the 3D rig, one clock. Hybrid render: cutout for slide/lift, perspective plane around the pivot for hinge/twist, pulse for press. SAM re-anchors ~1s, gyro + patch tracking between, confidence fade to the corner 3D. **"Your turn" loop**: demo plays, then Helpa watches the real part → COMPLETED / INCOMPLETE (specific correction) / UNCERTAIN (better angle). Guided sticker/VIN capture with invisible internal zoom (full-res crop); the viewfinder stays a normal camera. Targets: dryer lint screen, dishwasher filter twist+lift, door hinge, Camry drain plug oil.
+- [ ] 🤖 `exact-models`: 2015 Toyota Camry 2.5L (2AR-FE) oil change with real specs; common Whirlpool top-load washer + matching electric dryer with real model numbers; identity chip on plan/step screens; car camera views and puffs fixed; **effects** (oil stream into the pan, filter dribble, pour into fill, dipstick level, lint peel, dishwasher drain) defined in catalog JSON so AR reuses them.
+- [ ] 🤖 `try-and-polish`: Try a sample cards (cached streams), Helpa talks less, done-screen celebration, agent tracks on the working screen, never-blank loading/error, icon/splash/OG share card.
+- [x] Isometric toon look: outlines, cel shading, grid floor, ortho camera, dashed motion paths, overshoot easing, clean-up sparkles. Applies to every model.
+- [x] On-demand models: recipe format + renderer, per-category blueprints, reference recipes, `generateModel` (Muse builds a model from photo + identity).
+- [x] Parallel pipeline: fast identify, then model / research / measure in parallel, then choreograph. Helpa asks clarifying questions with tap answers. No-visual fallback.
+- [x] New hand-built models: garbage disposal (hex-key jam, reset button) and car oil change (drain plug, filter, dipstick, fill cap).
 
 ## Your exact model, not a generic one (the core pitch)
-- [ ] 🙋 Photos of the model stickers on your washer, dryer, dishwasher; your car's year / make / model / engine (or VIN).
+- [x] 🙋 Inputs: 2015 Toyota Camry; "a normal washer and dryer" (we picked a popular Whirlpool pair).
 - [ ] 🛠 Read the identity from the sticker or VIN, then research that model's manual and **exploded parts diagram** (real part positions, sizes, part numbers).
 - [ ] 🛠 Adjustable settings on hand-built models (hinge side, lint screen location, console layout, filter location, finish/colors), filled from research and matched against the user's photo by Muse.
 - [ ] 🛠 Verify rex's actual car, washer, dryer, dishwasher by hand against the real units for the demo.
@@ -53,7 +56,7 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [ ] 🛠 Realtime voice conversation (Voice Transcribe streaming) for hands-free.
 
 ## Holds up live
-- [ ] 🛠 Permanent public URL (brach + Tailscale Funnel or Vercel); retire the laptop tunnel. 🙋 run the Funnel command.
+- [ ] 🛠 Permanent public URL: **Vercel (frontend, logged in as sp3ked) + Railway (Go backend, Meta key as a secret)**, backend rate limits + a daily spend cap, no login for judges; retire the laptop tunnel. 🙋 install and log in to the Railway CLI.
 - [ ] 🛠 **"Try a sample" mode** with preloaded photos (gritty dishwasher, humming disposal, wet clothes dryer, car) so judges get the full experience in 30 seconds without a broken appliance.
 - [ ] 🛠 Loading and error states that never show a blank screen; graceful no-visual fallback.
 - [ ] 🛠 Performance pass on a mid-range Android (Seeker): 30+ fps in 3D, fast first paint.
