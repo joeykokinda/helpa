@@ -56,7 +56,7 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [ ] 🛠 Realtime voice conversation (Voice Transcribe streaming) for hands-free.
 
 ## Holds up live
-- [ ] 🛠 Permanent public URL: **Vercel (frontend, logged in as sp3ked) + Railway (Go backend, Meta key as a secret)**, backend rate limits + a daily spend cap, no login for judges; retire the laptop tunnel. 🙋 install and log in to the Railway CLI.
+- [ ] 🛠 Permanent public URL: **everything on brach** (Go backend + Next frontend as user services, public via Tailscale Funnel), per-IP rate limits + a daily Meta spend cap before it goes public, no login for judges; retire the laptop tunnel.
 - [ ] 🛠 **"Try a sample" mode** with preloaded photos (gritty dishwasher, humming disposal, wet clothes dryer, car) so judges get the full experience in 30 seconds without a broken appliance.
 - [ ] 🛠 Loading and error states that never show a blank screen; graceful no-visual fallback.
 - [ ] 🛠 Performance pass on a mid-range Android (Seeker): 30+ fps in 3D, fast first paint.
