@@ -10,9 +10,10 @@ import { transcribe } from "../lib/api";
 import { captureFrame, shrinkPhoto, toWav } from "../lib/media";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
+import { SampleCards, SampleSheetButton, samplePhoto, type Sample } from "./Samples";
 
 type CaptureProps = {
-  onSubmit: (photos: Blob[], description: string) => void;
+  onSubmit: (photos: Blob[], description: string, sample?: string) => void;
   say: (text: string, mood?: HelpaMood, aloud?: boolean) => void;
   onListening: (listening: boolean) => void;
   onHelp: () => void;
@@ -20,6 +21,8 @@ type CaptureProps = {
   mood: HelpaMood;
   speaking: boolean;
 };
+
+export const cameraPrompt = "Point me at the broken thing, or its model sticker.";
 
 const maxPhotos = 4;
 const scanFrames = 3;
@@ -82,7 +85,8 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
     const noCamera = () => {
       setCamera("failed");
       setScreen("describe");
-      say("Tell me what's going on. You can add a photo too.", "idle", false);
+      // Keep a message Helpa just gave (like a connection problem) instead of the default prompt.
+      if (bubble === cameraPrompt) say("Tell me what's going on. You can add a photo too.", "idle", false);
     };
     if (!navigator.mediaDevices?.getUserMedia) {
       queueMicrotask(noCamera);
@@ -222,8 +226,20 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   };
 
   const openCamera = () => {
-    say("Point me at the broken thing, or its model sticker.", "idle", false);
+    say(cameraPrompt, "idle", false);
     setScreen("camera");
+  };
+
+  const [loadingSample, setLoadingSample] = useState<string>();
+  const trySample = async (sample: Sample) => {
+    setLoadingSample(sample.id);
+    try {
+      onSubmit([await samplePhoto(sample)], sample.complaint, sample.id);
+    } catch {
+      say("I couldn't load that sample. Try another one?", "worried", false);
+    } finally {
+      setLoadingSample(undefined);
+    }
   };
 
   const canSubmit = photos.length > 0 || description.trim().length > 0;
@@ -310,6 +326,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               </button>
             </div>
           )}
+          {photos.length === 0 && !scanning && <SampleSheetButton onPick={trySample} />}
           <div className="mode-switch" role="radiogroup" aria-label="Capture mode">
             {(["photo", "scan"] as const).map((option) => (
               <button key={option} role="radio" aria-checked={captureMode === option} className="press" onClick={() => setCaptureMode(option)} disabled={scanning}>
@@ -383,6 +400,13 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
                 </p>
               )}
             </div>
+
+            {photos.length === 0 && !description.trim() && (
+              <div className="sample-block">
+                <p className="label">Nothing broken right now? Try a sample</p>
+                <SampleCards onPick={trySample} busy={loadingSample} />
+              </div>
+            )}
 
             {!description.trim() && (
               <ul className="suggestions" aria-label="Suggestions">

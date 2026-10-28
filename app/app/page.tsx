@@ -5,8 +5,11 @@ import ThemeToggle from "./components/ThemeToggle";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
-import Capture from "./components/Capture";
+import AgentTracks, { lanesFrom, type ProgressRow } from "./components/AgentTracks";
+import Capture, { cameraPrompt } from "./components/Capture";
 import CheckMoment, { type CheckState } from "./components/CheckMoment";
+import Confetti from "./components/Confetti";
+import Done from "./components/Done";
 import Helpa, { type HelpaMood } from "./components/Helpa";
 import Icon, { type IconName } from "./components/Icons";
 import Onboarding, { hasOnboarded } from "./components/Onboarding";
@@ -14,6 +17,7 @@ import PartPhoto from "./components/PartPhoto";
 import { rigLoaders } from "./components/rig/registry";
 import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
 import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
+import { tidy } from "./lib/text";
 import type { Beat } from "./lib/rig/types";
 
 const RigStep = dynamic(() => import("./components/rig/RigStep"), { ssr: false });
@@ -22,15 +26,15 @@ const Scene3D = dynamic(() => import("./components/Scene3D"), {
   loading: () => <SceneSkeleton text="Building your 3D model" />,
 });
 
-/** Backend text sometimes carries em dashes; the UI reads better with commas. */
-function tidy(text: string) {
-  return text.replace(/\s*—\s*/g, ", ");
-}
 
 /** The bubble stays short; the full text is on the page and spoken aloud. */
 function firstSentence(text: string) {
   const sentence = text.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? text;
   return sentence.length > 90 ? `${sentence.slice(0, 87).trimEnd()}…` : sentence;
+}
+
+function minutesSince(start: number) {
+  return Math.round((Date.now() - start) / 60000);
 }
 
 function known(value: string | undefined) {
@@ -57,8 +61,6 @@ function iconFor(tool: string): IconName {
 }
 
 type Stage = "start" | "working" | "plan" | "step" | "done";
-/** Rows with a state are parallel tracks (model, research, parts) that stay visible until the plan lands. */
-type ProgressRow = { key: string; title: string; detail: string; state?: "active" | "done" };
 type Question = { session: string; question: string; choices: string[] };
 
 const noSubscription = () => () => {};
@@ -69,7 +71,7 @@ export default function Home() {
   const [stage, setStage] = useState<Stage>("start");
   const [mood, setMood] = useState<HelpaMood>("idle");
   const [speaking, setSpeaking] = useState(false);
-  const [bubble, setBubble] = useState("Point me at the broken thing, or its model sticker.");
+  const [bubble, setBubble] = useState(cameraPrompt);
   const [rows, setRows] = useState<ProgressRow[]>([]);
   const [libraryHit, setLibraryHit] = useState<{ brand: string; appliance: string; model_family: string } | null>(null);
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
@@ -85,10 +87,13 @@ export default function Home() {
   const identified = useRef(false);
   const [sceneFailed, setSceneFailed] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
-  const [view, setView] = useState<"3d" | "photo">("3d");
+  // "auto" picks 3D when this step has it; the 3D model can arrive a moment after the plan.
+  const [view, setView] = useState<"auto" | "3d" | "photo">("auto");
   const [check, setCheck] = useState<CheckState | null>(null);
   const checkInputRef = useRef<HTMLInputElement>(null);
   const checkToken = useRef(0);
+  const startedAt = useRef(0);
+  const [fixMinutes, setFixMinutes] = useState(0);
 
   const showTutorial = tutorial === "open" || (tutorial === "auto" && firstRun === true);
 
@@ -113,7 +118,9 @@ export default function Home() {
         addRow({ key: "identify", title: "Figured out what it is", detail: "" });
         break;
       case "identify": {
-        const name = [known(agentEvent.brand), known(agentEvent.appliance)].filter(Boolean).join(" ");
+        // Cars read better by make and model ("Toyota Camry"), appliances by brand and kind ("Whirlpool dryer").
+        const isCar = /^(car|truck|suv|vehicle)$/i.test(agentEvent.appliance.trim());
+        const name = [known(agentEvent.brand), isCar ? known(agentEvent.model_number) || known(agentEvent.appliance) : known(agentEvent.appliance)].filter(Boolean).join(" ");
         if (!name) break;
         addRow({ key: "identify", title: "Figured out what it is", detail: capitalize(name) });
         if (!identified.current) say(`That looks like ${/^[aeiou]/i.test(name) ? "an" : "a"} ${name}.`, "found");
@@ -133,7 +140,9 @@ export default function Home() {
       case "library":
         setLibraryHit({ brand: agentEvent.brand, appliance: agentEvent.appliance, model_family: agentEvent.model_family });
         addRow({ key: "library", title: "Found it in my library", detail: [agentEvent.brand, agentEvent.model_family].filter(Boolean).join(" ") });
-        say(`I know this one! ${agentEvent.brand} ${agentEvent.appliance}.`, "found");
+        // The library card says it on screen; Helpa only says it out loud.
+        speak(tidy(`I know this one! ${agentEvent.brand} ${agentEvent.appliance}.`), setSpeaking);
+        setMood("found");
         break;
       case "search":
         setMood("searching");
@@ -178,9 +187,10 @@ export default function Home() {
     }
   };
 
-  const start = async (photos: Blob[], description: string) => {
+  const start = async (photos: Blob[], description: string, sample?: string) => {
     stopSpeaking();
     setStage("working");
+    startedAt.current = Date.now();
     setRows([{ key: "look", title: photos.length ? "Looking at your photo" : "Understanding the problem", detail: description ? `"${firstSentence(description)}"` : "" }]);
     setLibraryHit(null);
     setActivePhoto(0);
@@ -194,10 +204,26 @@ export default function Home() {
     setSceneFailed(false);
     setPhotoUrls(photos.map((photo) => URL.createObjectURL(photo)));
     say("Okay, let me take a look!", "thinking");
-    try {
-      await streamFix(photos, description, handleEvent);
-    } catch {
-      say("I couldn't reach my workshop. Check your connection and try again?", "worried");
+    let received = 0;
+    let finished = false;
+    const onEvent = (agentEvent: AgentEvent) => {
+      received++;
+      if (agentEvent.type === "plan" || agentEvent.type === "error") finished = true;
+      handleEvent(agentEvent);
+    };
+    for (let attempt = 0; ; attempt++) {
+      try {
+        await streamFix(photos, description, onEvent, sample);
+        break;
+      } catch {
+        // Retrying is only safe before anything arrived; mid-run it would repeat the work and the questions.
+        if (received > 0 || attempt > 0) break;
+        say("My connection blinked. Trying again…", "thinking", false);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+      }
+    }
+    if (!finished) {
+      say(received ? "I lost the connection partway through. Can we try that again?" : "I couldn't reach my workshop. Check your connection and try again?", "worried");
       setStage("start");
     }
   };
@@ -231,7 +257,7 @@ export default function Home() {
     setStepIndex(index);
     setStage("step");
     closeCheck();
-    setView(playableRig ? ((playableRig.stepBeats[index]?.length ?? 0) > 0 ? "3d" : "photo") : next.show_3d && !sceneMissing ? "3d" : "photo");
+    setView("auto");
     stopSpeaking();
     say(next.instruction, "pointing");
   };
@@ -240,6 +266,7 @@ export default function Home() {
     if (!plan) return;
     if (index >= plan.steps.length) {
       setStage("done");
+      setFixMinutes(minutesSince(startedAt.current));
       stopSpeaking();
       say("You did it! That's fixed. I'm proud of you.", "celebrate");
       return;
@@ -338,7 +365,8 @@ export default function Home() {
     const lastStep = stepIndex + 1 === plan.steps.length;
     const stepMask = stepMasks[stepIndex] ? [stepMasks[stepIndex]] : [];
     let visual: ReactNode = null;
-    if (view === "3d" && has3d) visual = guide3d ?? <SceneSkeleton text="Building your 3D model" />;
+    const shownView = view === "auto" ? (has3d ? "3d" : "photo") : view;
+    if (shownView === "3d" && has3d) visual = guide3d ?? <SceneSkeleton text="Building your 3D model" />;
     else if (stepPhoto) visual = <PartPhoto photoUrl={stepPhoto} samTexts={stepMask} label={step.target_part} />;
     else if (step.target_part)
       visual = (
@@ -455,10 +483,10 @@ export default function Home() {
 
                 {has3d && stepPhoto && (
                   <div className="segmented" role="tablist" aria-label="View">
-                    <button role="tab" aria-selected={view === "3d"} className="press" onClick={() => setView("3d")}>
+                    <button role="tab" aria-selected={shownView === "3d"} className="press" onClick={() => setView("3d")}>
                       <Icon name="cube" size={16} /> 3D guide
                     </button>
-                    <button role="tab" aria-selected={view === "photo"} className="press" onClick={() => setView("photo")}>
+                    <button role="tab" aria-selected={shownView === "photo"} className="press" onClick={() => setView("photo")}>
                       <Icon name="image" size={16} /> Your photo
                     </button>
                   </div>
@@ -497,7 +525,7 @@ export default function Home() {
         />
       </section>
     );
-  } else if (stage === "done") screen = <Done plan={plan} mood={mood} speaking={speaking} onRestart={restart} />;
+  } else if (stage === "done") screen = <Done plan={plan} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} />;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -591,11 +619,10 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
     const timer = setInterval(() => setElapsed((seconds) => seconds + 0.5), 500);
     return () => clearInterval(timer);
   }, []);
-  // ponytail: progress is a feel-good estimate (time plus milestones), not real completion
-  const progress = Math.min(0.94, 0.06 + rows.length * 0.07 + (1 - Math.exp(-elapsed / 50)) * 0.55);
-  // Parallel tracks stay pinned under the latest few steps so the fan-out stays visible.
-  const recent = rows.filter((row) => !row.state).slice(-3);
-  const tracks = rows.filter((row) => row.state);
+  const lanes = lanesFrom(rows, Boolean(photoUrl));
+  const lanesDone = lanes.filter((lane) => lane.state === "done").length;
+  // ponytail: progress is a feel-good estimate (time plus finished lanes), not real completion
+  const progress = Math.min(0.94, 0.05 + (lanesDone / lanes.length) * 0.5 + (1 - Math.exp(-elapsed / 40)) * 0.4);
 
   return (
     <section className="screen working" aria-label="Helpa is working">
@@ -647,35 +674,13 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
 
         <div className="card progress-card">
           <div className="progress-head">
-            <strong>Helpa is on it</strong>
+            <strong>{question ? "Waiting for your answer" : "Helpa is on it"}</strong>
             <span>{Math.round(progress * 100)}%</span>
           </div>
           <div className="progress">
             <motion.span className="progress-fill" animate={{ width: `${progress * 100}%` }} transition={{ duration: 0.6 }} />
           </div>
-          <ol className="checklist" aria-live="polite">
-            {[...recent, ...tracks].map((row, index) => {
-              const active = row.state ? row.state === "active" : index === recent.length - 1 && !question;
-              return (
-                <motion.li key={row.key} className={active ? "row-active" : "row-done"} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-                  <span className="row-mark" aria-hidden="true">
-                    {active ? <span className="spinner" /> : <Icon name="check" size={14} strokeWidth={3.2} />}
-                  </span>
-                  <span className="row-text">
-                    {row.title}
-                    {row.detail && <small>{row.detail}</small>}
-                  </span>
-                </motion.li>
-              );
-            })}
-            <li className="row-pending" aria-hidden="true">
-              <span className="row-mark" />
-              <span className="row-text">
-                Making your plan
-                <small className="skeleton skeleton-line" />
-              </span>
-            </li>
-          </ol>
+          <AgentTracks rows={rows} hasPhoto={Boolean(photoUrl)} paused={question !== null} />
         </div>
       </div>
     </section>
@@ -712,9 +717,10 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
         </div>
       </div>
       <div className="screen-body">
-        <BubbleRow mood={mood} speaking={speaking} bubble={plan.safety.length ? "Good news, you can fix this! Read the safety bits first." : "Good news, you can fix this! Here's your plan."} />
-
-        <motion.article className="card hero-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+        <motion.article className="card hero-card hero-card-peek" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+          <div className="peek-helpa" aria-hidden="true">
+            <Helpa mood={mood} speaking={speaking} size={76} />
+          </div>
           {identity.length > 0 && (
             <ul className="tag-row tag-row-left">
               {identity.map((tag) => (
@@ -807,84 +813,6 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
         <button className="btn btn-primary press" onClick={onStart}>
           Let&apos;s start
           <Icon name="next" size={20} />
-        </button>
-      </div>
-    </section>
-  );
-}
-
-const confettiColors = ["#e8775a", "#ffc94d", "#a3b47f", "#f79a86", "#7cb6f0", "#c9a7f5"];
-
-function Confetti() {
-  return (
-    <div className="confetti" aria-hidden="true">
-      {Array.from({ length: 48 }, (_, index) => {
-        const left = (index * 37) % 100;
-        const drift = ((index * 53) % 60) - 30;
-        return (
-          <motion.span
-            key={index}
-            style={{ left: `${left}%`, background: confettiColors[index % confettiColors.length], borderRadius: index % 3 === 0 ? "50%" : 2 }}
-            initial={{ y: -40, x: 0, rotate: 0, opacity: 1 }}
-            animate={{ y: 900, x: drift, rotate: ((index * 97) % 720) - 360, opacity: [1, 1, 0] }}
-            transition={{ duration: 2.6 + (index % 7) * 0.25, delay: (index % 12) * 0.08, ease: "easeIn" }}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
-function Done({ plan, mood, speaking, onRestart }: { plan: Plan | null; mood: HelpaMood; speaking: boolean; onRestart: () => void }) {
-  // Only claim savings when a technician would really have been called for this fix.
-  const saved = plan?.pro_visit_cost ?? 0;
-  const aftercare = plan?.aftercare ? tidy(plan.aftercare) : "";
-  return (
-    <section className="screen done" aria-label="All done">
-      <Confetti />
-      <div className="screen-body done-body">
-        <div className="hero-stage">
-          <div className="hero-blob" aria-hidden="true" />
-          <Helpa mood={mood} speaking={speaking} size={180} />
-        </div>
-        <div className="done-headline">
-          <h1 className="display">You fixed it!</h1>
-          <p className="lede">That was all you. Helpa is very proud.</p>
-        </div>
-        {saved > 0 && (
-          <motion.div className="card saved-card" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, type: "spring", stiffness: 220, damping: 18 }}>
-            <span className="saved-label">You skipped a repair visit worth about</span>
-            <strong className="saved-amount">${saved}</strong>
-            <span className="saved-note">Typical technician cost for this fix. Real prices vary by area.</span>
-          </motion.div>
-        )}
-        {plan && (
-          <motion.div className="stat-row" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-            <div className="card stat">
-              <strong>{plan.steps.length}</strong>
-              <span>steps done</span>
-            </div>
-            <div className="card stat">
-              <strong>0</strong>
-              <span>repair visits</span>
-            </div>
-          </motion.div>
-        )}
-        {aftercare && (
-          <motion.div className="card tip-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-            <span className="tip-icon" aria-hidden="true">
-              <Icon name="sparkle" size={20} />
-            </span>
-            <div>
-              <strong>Keep it this way</strong>
-              <p>{aftercare}</p>
-            </div>
-          </motion.div>
-        )}
-      </div>
-      <div className="bottom-bar">
-        <button className="btn btn-primary press" onClick={onRestart}>
-          Fix something else
         </button>
       </div>
     </section>

@@ -1292,7 +1292,7 @@ a:focus-visible {
   background: var(--accent);
 }
 
-.checklist {
+.lanes {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1300,49 +1300,67 @@ a:focus-visible {
   list-style: none;
 }
 
-.checklist li {
+.lane {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   font-size: 16px;
   font-weight: 650;
+  transition: color 0.3s;
 }
 
-.row-mark {
+.lane-icon {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   flex: none;
   border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
 }
 
-.row-done .row-mark {
+.lane-icon > span {
+  display: grid;
+}
+
+.lane-waiting {
+  color: var(--tertiary);
+}
+
+.lane-waiting .lane-icon {
+  box-shadow: inset 0 0 0 2px var(--border);
+}
+
+.lane-active .lane-icon {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.lane-done .lane-icon {
   background: var(--ok);
   color: #ffffff;
 }
 
-.row-active .row-mark {
-  background: var(--accent-soft);
+.lane-ring {
+  position: absolute;
+  inset: -3px;
+  border: 2.5px solid var(--accent);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
 }
 
-.row-pending .row-mark {
-  box-shadow: inset 0 0 0 2px var(--border);
-}
-
-.row-pending {
-  color: var(--tertiary);
-}
-
-.row-text {
+.lane-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
   min-width: 0;
-  padding-top: 2px;
+  padding-top: 3px;
 }
 
-.row-text small {
+.lane-text small {
   overflow: hidden;
   color: var(--secondary);
   font-size: 14px;
@@ -1408,14 +1426,6 @@ a:focus-visible {
 .camera .skeleton {
   background: linear-gradient(100deg, #151515 30%, #222 50%, #151515 70%);
   background-size: 300% 100%;
-}
-
-.skeleton-line {
-  display: block;
-  width: 120px;
-  height: 10px;
-  margin-top: 6px;
-  border-radius: 999px;
 }
 
 @keyframes shimmer {
@@ -2504,4 +2514,174 @@ a:focus-visible {
   object-fit: cover;
   filter: blur(28px) saturate(1.2) brightness(0.7);
   transform: scale(1.1);
+}
+
+/* Try a sample */
+.sample-cards {
+  display: flex;
+  gap: 10px;
+  margin: 0 -16px;
+  padding: 2px 16px 6px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.sample-cards li {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+.sample-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 112px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--border);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+}
+
+.sample-card img {
+  display: block;
+  width: 100%;
+  height: 78px;
+  object-fit: cover;
+}
+
+.sample-card span {
+  padding: 8px 10px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.sample-card .sample-card-busy {
+  position: absolute;
+  top: 28px;
+  left: 45px;
+  padding: 0;
+}
+
+.sample-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sample-pill {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.sheet-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: rgb(0 0 0 / 0.4);
+}
+
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 16px calc(env(safe-area-inset-bottom) + 24px);
+  border-radius: 28px 28px 0 0;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: var(--shadow-lg);
+}
+
+.sheet-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sheet-head .card-title {
+  margin-bottom: 2px;
+}
+
+.sheet-sub {
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+.sheet .sample-card {
+  width: 128px;
+}
+
+.sheet .sample-card img {
+  height: 92px;
+}
+
+/* Helpa peeks over the top edge of the plan card instead of narrating it. */
+.hero-card-peek {
+  position: relative;
+  margin-top: 40px;
+}
+
+.peek-helpa {
+  position: absolute;
+  top: -58px;
+  right: 14px;
+  pointer-events: none;
+}
+
+.burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+}
+
+.burst span {
+  position: absolute;
+  display: grid;
+  margin: -11px 0 0 -11px;
+  color: var(--accent);
+}
+
+.burst span:nth-child(3n) {
+  color: #ffc94d;
+}
+
+.stat {
+  position: relative;
+  text-align: left;
+}
+
+.stat-icon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ok-soft);
+  color: var(--ok);
 }

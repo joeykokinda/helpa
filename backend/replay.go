@@ -2,8 +2,10 @@ package main
 
 import (
 	"bufio"
+	"embed"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -37,6 +39,23 @@ func replayFixture(complaint string) (string, error) {
 	return paths[0], nil
 }
 
+// The "Try a sample" runs, recorded from the real pipeline by tools/record_samples.py and replayed for free.
+//
+//go:embed samples
+var sampleFiles embed.FS
+
+// openSample returns the recorded run for a sample id, or nil when there is none.
+func openSample(id string) io.ReadCloser {
+	if id == "" || strings.ContainsAny(id, "/.\\") {
+		return nil
+	}
+	file, err := sampleFiles.Open("samples/" + id + ".sse")
+	if err != nil {
+		return nil
+	}
+	return file
+}
+
 func replayFix(request *http.Request, complaint string, session *fixSession, emit func(event)) {
 	path, err := replayFixture(complaint)
 	if err != nil {
@@ -49,7 +68,12 @@ func replayFix(request *http.Request, complaint string, session *fixSession, emi
 		return
 	}
 	defer file.Close()
-	scanner := bufio.NewScanner(file)
+	replayStream(request, file, session, emit)
+}
+
+// replayStream plays recorded events back at a lifelike pace; recorded questions wait for a real answer.
+func replayStream(request *http.Request, recording io.Reader, session *fixSession, emit func(event)) {
+	scanner := bufio.NewScanner(recording)
 	scanner.Buffer(make([]byte, 0, 1<<20), 32<<20)
 	for scanner.Scan() {
 		line, found := strings.CutPrefix(scanner.Text(), "data: ")

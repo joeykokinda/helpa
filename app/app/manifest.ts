@@ -4,11 +4,11 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Helpa",
     short_name: "Helpa",
-    description: "Your friendly little house helper for fixing things at home.",
+    description: "Snap what's broken and Helpa shows you the fix, step by step, on a 3D model.",
     start_url: "/",
     display: "standalone",
-    background_color: "#fafafa",
-    theme_color: "#fafafa",
+    background_color: "#faf8f5",
+    theme_color: "#faf8f5",
     icons: [
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
       { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
