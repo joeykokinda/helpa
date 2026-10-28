@@ -36,10 +36,15 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [x] New hand-built models: garbage disposal (hex-key jam, reset button) and car oil change (drain plug, filter, dipstick, fill cap).
 
 ## In progress (round 2)
-- [ ] 🤖 `my-home`: My Home first screen (machine cards, status pills), machine page (3D twin, identity, history, care reminders), Ask Helpa follow-up chat (`/api/ask`), IndexedDB, done screen saves the machine.
-- [ ] 🤖 `live-hardening`: lint-screen lock (prompt phrasings + rig region prior), tap-to-anchor fallback so the demo never stalls, door ghost + corner caption fixes, washer sample library match + honest savings, fps on headless and the Seeker.
-- [ ] 🤖 `proof`: per-IP rate limits, body cap, daily Meta budget with sample fallback; 50-case eval set + runner; 10-case chatbot comparison; docs/EVAL.md.
-- [ ] 🛠 Then: host on brach (frontend service + Funnel), README, shot list + script.
+- [x] `my-home`: My Home first screen (machine cards, status pills), machine page (3D twin, identity, history, care reminders), Ask Helpa follow-up chat (`/api/ask`), IndexedDB, done screen saves the machine.
+- [x] `live-hardening`: lint-screen lock (prompt phrasings + rig region prior), tap-to-anchor fallback so the demo never stalls, door ghost + corner caption fixes, washer sample library match + honest savings, fps on headless and the Seeker.
+- [x] `proof`: per-IP rate limits, body cap, daily Meta budget with sample fallback; 50-case eval set + runner; 10-case chatbot comparison; docs/EVAL.md.
+- [x] Hosted on brach: `scripts/deploy-brach.sh` (Go backend :8095 + standalone Next :3095, user services, linger on).
+- [ ] 🙋 Make it public: `ssh brach 'tailscale funnel --bg --https=443 http://127.0.0.1:3095'` → https://brach.taild3399f.ts.net (blocked for Claude by the permission classifier).
+
+## In progress (round 3)
+- [ ] 🤖 `diagnosis`: library fast path yields when the complaint contradicts it (coil vs glass top); ordered hypotheses with an outcome test and Fixed / Still broken branching; next-hypothesis rig beats (dryer vent); car 3D relevance and a safety stop screen for gas; re-run affected eval cases.
+- [ ] 🤖 `docs`: README for judges, docs/VIDEO.md (shot list, voiceover, 30s X cut), docs/X_POST.md.
 - [ ] 🙋 Plug the Seeker in (USB) for real-device AR tests; test on an iPhone in Safari.
 
 ## Your exact model, not a generic one (the core pitch)
