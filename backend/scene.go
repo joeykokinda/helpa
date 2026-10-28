@@ -161,16 +161,33 @@ func showPlan(ctx context.Context, photos []string, plan json.RawMessage, models
 var checkSchema = map[string]any{
 	"type":                 "object",
 	"additionalProperties": false,
-	"required":             []string{"done", "feedback"},
+	"required":             []string{"status", "done", "evidence", "feedback", "mistake"},
 	"properties": map[string]any{
-		"done":     map[string]any{"type": "boolean"},
-		"feedback": map[string]any{"type": "string", "description": "One short, kind spoken sentence. If not done, say exactly what to change."},
+		"status": map[string]any{"type": "string", "enum": []string{"COMPLETED", "INCOMPLETE", "UNCERTAIN"},
+			"description": "COMPLETED only when the photo clearly shows the step done; UNCERTAIN when the angle, light or blur hides what matters."},
+		"done":     map[string]any{"type": "boolean", "description": "True exactly when status is COMPLETED."},
+		"evidence": map[string]any{"type": "string", "description": "What in the photo shows it, in a few words, e.g. 'the lint screen is out of its slot'."},
+		"feedback": map[string]any{"type": "string", "description": "One short, kind spoken sentence. If not done, say exactly what to change; if uncertain, ask for the angle you need."},
+		"mistake": map[string]any{"type": "string", "description": "Empty unless the person is clearly about to do something wrong: touching or holding the wrong part, " +
+			"turning or pulling the wrong way, or doing steps out of order. Then one short spoken correction naming what they have and where the right part is, " +
+			"e.g. 'That's the spray arm. The filter is the round cap just below it.'"},
 	},
 }
 
-// checkStep looks at a photo taken after a step and says whether the step looks done.
-func checkStep(ctx context.Context, photo, instruction, expected string) (json.RawMessage, error) {
-	prompt := fmt.Sprintf("The user was told: %q\nWhen done, it should look like: %q\nDoes this photo show the step done? Be encouraging, but don't pass it if it clearly isn't done.", instruction, expected)
+// checkStep looks at a photo taken after a step and says whether the step looks done. Live frames come from
+// the camera while the person works, so they are often mid-step and only a clear mistake should be called out.
+func checkStep(ctx context.Context, photo, instruction, expected, part string, live bool) (json.RawMessage, error) {
+	prompt := fmt.Sprintf("The user was told: %q\nWhen done, it should look like: %q\n", instruction, expected)
+	if part != "" {
+		prompt += fmt.Sprintf("The part this step is about: %q\n", part)
+	}
+	if live {
+		prompt += "This is a frame from their live camera after they tried the step. Judge the real machine, not any overlay. " +
+			"COMPLETED only if it clearly is done, UNCERTAIN if you can't see the part well enough, otherwise INCOMPLETE. " +
+			"If their hands are on the wrong part or doing the wrong move, say so in mistake."
+	} else {
+		prompt += "Does this photo show the step done? Be encouraging, but don't pass it if it clearly isn't done."
+	}
 	reply, err := createResponse(ctx, map[string]any{
 		"model":     "muse-spark-1.3",
 		"reasoning": map[string]any{"effort": "low"},

@@ -21,7 +21,7 @@ const slowFactor = 1.8;
 const flightSeconds = 1.2;
 
 /** Where the timeline is: which beat, how far into it, and how far through its move. */
-function timelineAt(seconds: number, beatCount: number, slow: boolean): PlayHead {
+export function timelineAt(seconds: number, beatCount: number, slow: boolean): PlayHead {
   const scaled = seconds / (slow ? slowFactor : 1);
   const total = beatCount * beatSeconds + endHoldSeconds;
   const local = scaled % total;
@@ -184,16 +184,19 @@ type RigSceneProps = {
   /** Beats for every step of the plan, so later steps start where earlier ones left off. */
   stepBeats: Beat[][];
   stepIndex: number;
+  /** Shares the play head with the live camera, so its ghost motion moves in step with this model. */
+  playHeadRef?: RefObject<PlayHead>;
 };
 
 /** The appliance model playing one step: each beat moves a real part, with a guide, an arrow, a caption and a following camera. */
-export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSceneProps) {
+export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHeadRef }: RigSceneProps) {
   const defs = useMemo(() => Object.fromEntries(catalog.parts.map((part) => [part.id, part])), [catalog]);
   const beats = useMemo(() => stepBeats[stepIndex] ?? [], [stepBeats, stepIndex]);
   const start = useMemo(() => applyBeats(restState(catalog), stepBeats.slice(0, stepIndex).flat()), [catalog, stepBeats, stepIndex]);
   const amountsRef = useRef<RigState>({ ...start });
   const focusRef = useRef<string | null>(null);
-  const playRef = useRef<PlayHead>({ index: 0, within: 0, progress: 0 });
+  const ownPlayRef = useRef<PlayHead>({ index: 0, within: 0, progress: 0 });
+  const playRef = playHeadRef ?? ownPlayRef;
   const nodesRef = useRef<Record<string, THREE.Group>>({});
   const clockStartRef = useRef(0);
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
