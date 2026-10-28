@@ -23,7 +23,9 @@ type outputItem struct {
 	CallID    string          `json:"call_id"`
 	Arguments string          `json:"arguments"`
 	Action    json.RawMessage `json:"action"`
-	Content   []struct {
+	// Result is a Muse Image render, base64 WebP, on an image_generation_call item.
+	Result  string `json:"result"`
+	Content []struct {
 		Type string `json:"type"`
 		Text string `json:"text"`
 	} `json:"content"`

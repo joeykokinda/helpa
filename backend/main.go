@@ -51,6 +51,7 @@ func main() {
 	http.HandleFunc("POST /api/locate", handleLocate)
 	http.HandleFunc("POST /api/read-label", handleReadLabel)
 	http.HandleFunc("POST /api/ask", handleAsk)
+	http.HandleFunc("POST /api/illustrate", handleIllustrate)
 	http.HandleFunc("GET /api/library/{id}", func(writer http.ResponseWriter, request *http.Request) {
 		entry := findLibraryEntry(request.PathValue("id"))
 		if entry == nil {

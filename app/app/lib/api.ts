@@ -135,6 +135,26 @@ export async function streamFix(
   }
 }
 
+/**
+ * Muse Image redraws the person's own photo as a repair diagram: the part circled, the move drawn on.
+ * Null when there's nothing to draw (replay mode, out of budget, or the model couldn't), so callers just skip it.
+ */
+export async function illustrateStep(photo: Blob, appliance: string, part: string, move: string): Promise<Blob | null> {
+  const form = new FormData();
+  form.append("photo", photo, "photo.jpg");
+  form.append("appliance", appliance);
+  form.append("part", part);
+  form.append("move", move);
+  try {
+    const response = await fetch(`${API_URL}/api/illustrate`, { method: "POST", body: form });
+    if (!response.ok || response.status === 204) return null;
+    const blob = await response.blob();
+    return blob.size > 0 ? blob : null;
+  } catch {
+    return null;
+  }
+}
+
 /** One tile in the "what needs fixing?" picker, with its common problems. */
 export type PickerEntry = { id: string; category: string; icon: string; problems: { id: string; title: string; says: string }[] };
 

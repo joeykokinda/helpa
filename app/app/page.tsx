@@ -19,7 +19,7 @@ import Onboarding, { hasOnboarded } from "./components/Onboarding";
 import PartPhoto from "./components/PartPhoto";
 import { rigLoaders } from "./components/rig/registry";
 import { listMachines, saveFix, type Machine } from "./lib/home";
-import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "./lib/api";
+import { answerQuestion, checkStep, describeSearch, illustrateStep, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "./lib/api";
 import { requestMotionPermission } from "./lib/live";
 import { usePrefs } from "./lib/prefs";
 import { useVoiceCommands, type VoiceCommand } from "./lib/voice";
@@ -129,6 +129,9 @@ export default function Home() {
   const [heard, setHeard] = useState("");
   const heardTimer = useRef(0);
   const [liveCommand, setLiveCommand] = useState<{ command: VoiceCommand; at: number } | null>(null);
+  // Muse Image's drawing of the fix on the person's own photo: requested once the plan is known.
+  const [drawing, setDrawing] = useState<{ state: "drawing" | "ready"; url?: string } | null>(null);
+  const drawingRun = useRef(0);
   // Fixes already tried this time that didn't work ("Still broken"), shown as what we've ruled out.
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
@@ -215,6 +218,7 @@ export default function Home() {
           say(tried.length ? `Okay, so it wasn't ${tried[tried.length - 1]}. ${agentEvent.plan.diagnosis}` : agentEvent.plan.diagnosis);
         }
         if (agentEvent.plan.safety.length) setTimeout(() => setMood("worried"), 400);
+        drawFix(agentEvent.plan);
         break;
       case "rig":
         setRig({ id: agentEvent.rig, stepBeats: agentEvent.step_beats, recipe: agentEvent.recipe, catalog: agentEvent.catalog });
@@ -237,12 +241,28 @@ export default function Home() {
   };
 
   /** Runs a fix: from photos and words, a recorded sample, a "Still broken" follow-up, or a fix picked from the list. */
+  /** Asks Muse Image to draw the main move on the person's own photo; recorded samples and safety stops get none. */
+  const drawFix = (fixPlan: Plan) => {
+    const { photos, sample } = runRef.current;
+    if (!photos.length || sample || fixPlan.stop_for_pro) return;
+    const main = fixPlan.steps.find((candidate) => candidate.target_part && candidate.motion !== "none") ?? fixPlan.steps.find((candidate) => candidate.target_part);
+    if (!main) return;
+    const run = ++drawingRun.current;
+    setDrawing({ state: "drawing" });
+    illustrateStep(photos[main.photo >= 0 && main.photo < photos.length ? main.photo : 0], fixPlan.appliance, main.target_part, main.instruction).then((blob) => {
+      if (run !== drawingRun.current) return;
+      setDrawing(blob ? { state: "ready", url: URL.createObjectURL(blob) } : null);
+    });
+  };
+
   const start = async (photos: Blob[], description: string, sample?: string, tried: Attempt[] = [], fix?: string) => {
     stopSpeaking();
     setStage("working");
     // A follow-up keeps counting from the first try.
     if (!tried.length) startedAt.current = Date.now();
     runRef.current = { photos, sample, description, attempts: tried, fix };
+    drawingRun.current++;
+    setDrawing(null);
     setAttempts(tried);
     const followUp = tried.length && plan ? { attempts: tried, brand: plan.brand, model_number: plan.model_number } : undefined;
     setSavedName("");
@@ -512,6 +532,7 @@ export default function Home() {
     screen = (
       <PlanScreen
         plan={plan}
+        drawing={drawing}
         ruledOut={attempts.map((attempt) => attempt.cause)}
         mood={mood}
         speaking={speaking}
@@ -726,7 +747,7 @@ export default function Home() {
       />
     );
   else if (stage === "done")
-    screen = <Done plan={plan} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} savedName={savedName} ruledOut={attempts.map((attempt) => attempt.cause)} />;
+    screen = <Done plan={plan} drawing={drawing?.url} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} savedName={savedName} ruledOut={attempts.map((attempt) => attempt.cause)} />;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -889,9 +910,18 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
   );
 }
 
-type PlanProps = { plan: Plan; ruledOut: string[]; mood: HelpaMood; speaking: boolean; onStart: () => void; onRestart: () => void; onHelp: () => void };
+type PlanProps = {
+  plan: Plan;
+  drawing: { state: "drawing" | "ready"; url?: string } | null;
+  ruledOut: string[];
+  mood: HelpaMood;
+  speaking: boolean;
+  onStart: () => void;
+  onRestart: () => void;
+  onHelp: () => void;
+};
 
-function PlanScreen({ plan, ruledOut, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
+function PlanScreen({ plan, drawing, ruledOut, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
   const diagnosis = tidy(plan.diagnosis);
   const headline = diagnosis.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? diagnosis;
   const rest = diagnosis.slice(headline.length).trim();
@@ -956,6 +986,23 @@ function PlanScreen({ plan, ruledOut, mood, speaking, onStart, onRestart, onHelp
             </div>
           )}
         </motion.article>
+
+        {drawing && (
+          <motion.figure className="drawing-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
+            {drawing.url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={drawing.url} alt={`Your ${tidy(plan.appliance)} with the part to fix circled`} />
+            ) : (
+              <div className="drawing-pending skeleton" role="status">
+                <Icon name="pen" size={26} />
+                <span>Drawing the fix on your photo…</span>
+              </div>
+            )}
+            <figcaption>
+              <Icon name="pen" size={14} /> Drawn on your photo by Muse Image
+            </figcaption>
+          </motion.figure>
+        )}
 
         {plan.safety.length > 0 && (
           <motion.article className="card safety-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>

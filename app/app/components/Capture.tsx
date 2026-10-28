@@ -10,6 +10,7 @@ import { transcribe } from "../lib/api";
 import { useCameraControls } from "../lib/camera";
 import { captureFrame, shrinkPhoto, toWav } from "../lib/media";
 import FindModel from "./FindModel";
+import PhotoMarkup from "./PhotoMarkup";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import { SampleCards, SampleSheetButton, samplePhoto, type Sample } from "./Samples";
@@ -46,6 +47,9 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   const [identity, setIdentity] = useState(prefill?.identity ?? "");
   const [photos, setPhotos] = useState<{ blob: Blob; url: string }[]>([]);
   const [description, setDescription] = useState(prefill?.description ?? "");
+  // Circle the problem: which photo is being drawn on, and whether any photo carries a circle.
+  const [marking, setMarking] = useState<number | null>(null);
+  const [circled, setCircled] = useState(false);
   const [recording, setRecording] = useState(false);
   const [transcribing, setTranscribing] = useState(false);
   const [scanning, setScanning] = useState(false);
@@ -219,7 +223,8 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   };
 
   const canSubmit = photos.length > 0 || description.trim().length > 0 || identity.length > 0;
-  const complaint = () => [description.trim(), identity && `(From the model sticker: ${identity}.)`].filter(Boolean).join(" ");
+  const complaint = () =>
+    [description.trim(), circled && "(I circled the problem in orange on my photo.)", identity && `(From the model sticker: ${identity}.)`].filter(Boolean).join(" ");
   const uploadInput = (
     <input type="file" accept="image/*" multiple hidden onChange={(changeEvent) => upload(changeEvent.target.files)} />
   );
@@ -410,6 +415,17 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               )}
             </div>
 
+            {photos.length > 0 && !circled && (
+              <button className="circle-prompt press" onClick={() => setMarking(0)}>
+                <span className="circle-prompt-icon" aria-hidden="true">
+                  <Icon name="pen" size={20} />
+                </span>
+                <span>
+                  <strong>Circle the problem</strong>
+                  Draw on your photo so I look in the right spot
+                </span>
+              </button>
+            )}
             {photos.length === 0 && !description.trim() && (
               <div className="sample-block">
                 <p className="label">Nothing broken right now? Try a sample</p>
@@ -436,6 +452,9 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
                   <img src={photo.url} alt={`Photo ${index + 1}`} />
                   <button aria-label={`Remove photo ${index + 1}`} className="photo-remove press" onClick={() => setPhotos((current) => current.filter((candidate) => candidate !== photo))}>
                     <Icon name="close" size={14} strokeWidth={3} />
+                  </button>
+                  <button aria-label={`Circle the problem on photo ${index + 1}`} className="photo-mark press" onClick={() => setMarking(index)}>
+                    <Icon name="pen" size={14} strokeWidth={2.4} />
                   </button>
                 </li>
               ))}
@@ -488,6 +507,23 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
           </div>
         </motion.section>
       )}
+
+      <AnimatePresence>
+        {marking !== null && photos[marking] && (
+          <PhotoMarkup
+            key={photos[marking].url}
+            photo={photos[marking].blob}
+            onCancel={() => setMarking(null)}
+            onDone={(marked) => {
+              const index = marking;
+              setPhotos((current) => current.map((photo, at) => (at === index ? { blob: marked, url: URL.createObjectURL(marked) } : photo)));
+              setCircled(true);
+              setMarking(null);
+              say("Got it, I'll look right there.", "found", false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }

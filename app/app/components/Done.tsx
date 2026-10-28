@@ -8,7 +8,7 @@ import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import { tidy } from "../lib/text";
 
-type DoneProps = { plan: Plan | null; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void; savedName?: string; ruledOut?: string[] };
+type DoneProps = { plan: Plan | null; /** Muse Image's drawing of the fix on their photo, for the share card. */ drawing?: string; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void; savedName?: string; ruledOut?: string[] };
 
 /** Little stars that pop out from behind Helpa once, like a party popper. */
 function Burst() {
@@ -36,7 +36,7 @@ const proStep = /\b(call|contact|hire|book|schedule)\b.*\b(pro|technician|profes
 /** The plan hands the repair to a professional, so there's nothing for the person to test or celebrate fixing. */
 export const needsPro = (plan: Plan | null) => Boolean(plan?.stop_for_pro || plan?.steps.some((step) => proStep.test(step.instruction)));
 
-export default function Done({ plan, minutes, mood, speaking, onRestart, savedName, ruledOut = [] }: DoneProps) {
+export default function Done({ plan, drawing, minutes, mood, speaking, onRestart, savedName, ruledOut = [] }: DoneProps) {
   const [shared, setShared] = useState(false);
   // Only claim savings when a technician or shop would really have been paid for this fix.
   // A plan that ends in "call a pro" may still need that visit, so it saved nothing we can claim.
@@ -50,7 +50,10 @@ export default function Done({ plan, minutes, mood, speaking, onRestart, savedNa
   const share = async () => {
     const text = `I just fixed my ${thing} myself in ${time} with Helpa. It showed me every step on a 3D model.`;
     try {
-      if (navigator.share) await navigator.share({ title: "Helpa", text, url: location.origin });
+      // Muse Image's drawing of their own machine makes the share card when there is one.
+      const file = drawing ? new File([await (await fetch(drawing)).blob()], "helpa-fix.webp", { type: "image/webp" }) : null;
+      if (file && navigator.canShare?.({ files: [file] })) await navigator.share({ title: "Helpa", text: `${text} ${location.origin}`, files: [file] });
+      else if (navigator.share) await navigator.share({ title: "Helpa", text, url: location.origin });
       else await navigator.clipboard.writeText(`${text} ${location.origin}`);
       setShared(true);
     } catch {
@@ -85,6 +88,16 @@ export default function Done({ plan, minutes, mood, speaking, onRestart, savedNa
             </>
           )}
         </motion.div>
+
+        {drawing && !handedOff && (
+          <motion.figure className="drawing-card drawing-postcard" initial={{ opacity: 0, y: 12, rotate: -2 }} animate={{ opacity: 1, y: 0, rotate: -1.5 }} transition={{ delay: 0.35 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={drawing} alt={`Your ${thing}, drawn with the fix`} />
+            <figcaption>
+              <Icon name="pen" size={14} /> Your fix, drawn by Muse Image. Tap Share to send it.
+            </figcaption>
+          </motion.figure>
+        )}
 
         {plan && (
           <motion.div className="stat-row" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
