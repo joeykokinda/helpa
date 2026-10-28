@@ -11,6 +11,9 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [ ] 🙋 Submit under **Push the Frontier** (physical-world understanding through human hands); the consumer app is the demonstration.
 - Know the competition: iFixit FixBot (camera ID, voice, repair library). Our edge is the 3D motion on your exact machine, live part highlighting, and verification.
 
+## The winning flow (the video and the product)
+"My dryer isn't working" → "Let's figure it out together" → identifies it, two questions → airflow looks restricted → 3D dryer shows air flowing and choking at the lint screen → point the camera → hologram lint screen slides out on the real dryer → you do it, Helpa watches: "Perfect. Now let's clean it." → reassemble → safe operational check ("feel the air at the vent") → passes → celebrate, save the repair, remember the dryer in My Home.
+
 ## Trust and reasoning (the 10/10 layer)
 - [ ] 🛠 **Verified vs illustrative**: motions backed by the manual or a hand-built rig are stated with confidence; generated-model motions without documentation are labeled ("check your manual for the release direction") and never stated as fact. Badge in the UI.
 - [ ] 🛠 **Diagnosis that branches**: hypotheses, then a test, then what you observe, then the next branch ("hums or silent?"). Animate each hypothesis in a **3D cutaway that explains why** the fix works.
@@ -20,7 +23,7 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [ ] 🛠 **Get help when it's beyond DIY**: when the plan says "replace" or "call a pro":
   - **Parts**: the exact OEM part number for your model, with buy links (Amazon, the manufacturer, appliance parts sites) found by research, the price shown, and the 3D twin showing exactly which piece it is. Then a follow-up guide to install it.
   - **Pros**: nearby repair techs or mechanics (with your location permission) and a ready-to-send summary (model, symptom, what you already tried, photos) so you aren't charged for diagnosis twice.
-- [ ] 🛠 **My Home** (next, after the merges): the main screen is your machines as cards with their mini 3D twins + "Fix something new". Machine page: 3D twin, identity (model, age, manual, part numbers), fix history, care reminders (lint screen, Camry oil interval), and **Ask Helpa**: follow-up chat with that machine's full context (`/api/ask`). Every finished fix saves to history. No login, stored on the phone (IndexedDB).
+- [ ] 🛠 **My Home** (next, after the merges): the main screen is your machines as cards with their mini 3D twins + "Fix something new". Machine page: 3D twin, identity (model, age, manual, part numbers), fix history, care reminders (lint screen, Camry oil interval), and **Ask Helpa**: follow-up chat with that machine's full context (`/api/ask`). Every finished fix saves to history. No login, stored on the phone (IndexedDB). Each card shows a status: Healthy, Repaired, Maintenance due; a reason to open the app when nothing is broken.
 - [ ] 🛠 Adapt to the person: first-timer vs experienced, Spanish, hands busy → voice.
 
 ## In progress (branches, merging into main)
