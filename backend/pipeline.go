@@ -269,8 +269,9 @@ func libraryPlan(ident identification, emit func(event)) json.RawMessage {
 	if !found || ident.Question != "" {
 		return nil
 	}
-	entry := lookupLibrary(libraryQuery{ident.Appliance, ident.Brand, ident.ModelNumber})
-	if entry == nil || entry.ID != entryID {
+	// The first look named the fix; trust it when it is the same kind of machine and no other brand.
+	entry := findLibraryEntry(entryID)
+	if entry == nil || normalizeAppliance(entry.Appliance) != normalizeAppliance(ident.Appliance) || (ident.Brand != "" && !strings.EqualFold(entry.Brand, ident.Brand)) {
 		return nil
 	}
 	for _, problem := range entry.Problems {
@@ -283,12 +284,21 @@ func libraryPlan(ident identification, emit func(event)) json.RawMessage {
 		if ident.ModelNumber != "" {
 			plan["model_number"] = ident.ModelNumber
 		}
+		family, brand := entry.ModelFamily, entry.Brand
+		// Without a brand we don't know it's this exact machine, so say so instead of naming one.
+		if ident.Brand == "" {
+			family, brand = fmt.Sprintf("Works on most %ss", entry.Appliance), ""
+			plan["brand"] = ""
+			if ident.ModelNumber == "" {
+				plan["model_number"] = ""
+			}
+		}
 		data, err := json.Marshal(plan)
 		if err != nil {
 			return nil
 		}
-		emit(event{"type": "library", "brand": entry.Brand, "appliance": entry.Appliance, "model_family": entry.ModelFamily})
-		emitTrack(emit, "research", "done", "Found a ready fix", entry.ModelFamily)
+		emit(event{"type": "library", "brand": brand, "appliance": entry.Appliance, "model_family": family})
+		emitTrack(emit, "research", "done", "Found a ready fix", family)
 		return data
 	}
 	return nil

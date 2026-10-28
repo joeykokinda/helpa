@@ -119,7 +119,7 @@ export class ArLayer {
     if (width === this.width && height === this.height) return;
     this.width = width;
     this.height = height;
-    this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    this.renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio || 1));
     this.renderer.setSize(width, height, false);
     this.camera.aspect = width / height;
     this.camera.fov = (2 * Math.atan(height / 2 / perspectiveDistance) * 180) / Math.PI;
@@ -147,6 +147,8 @@ export class ArLayer {
         vertexShader,
         fragmentShader,
         transparent: true,
+        // A door swung toward the camera shows its back; without this it would disappear.
+        side: THREE.DoubleSide,
         depthTest: false,
         depthWrite: false,
         uniforms: {

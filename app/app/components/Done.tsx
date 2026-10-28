@@ -31,10 +31,14 @@ function Burst() {
   );
 }
 
+const proStep = /\b(call|contact|hire|book|schedule)\b.*\b(pro|technician|professional|plumber|electrician|mechanic|repair (service|person|shop)|service)\b/i;
+
 export default function Done({ plan, minutes, mood, speaking, onRestart, savedName }: DoneProps) {
   const [shared, setShared] = useState(false);
   // Only claim savings when a technician or shop would really have been paid for this fix.
-  const saved = plan?.pro_visit_cost ?? 0;
+  // A plan that ends in "call a pro" may still need that visit, so it saved nothing we can claim.
+  const needsPro = plan?.steps.some((step) => proStep.test(step.instruction)) ?? false;
+  const saved = needsPro ? 0 : (plan?.pro_visit_cost ?? 0);
   const aftercare = plan?.aftercare ? tidy(plan.aftercare) : "";
   const thing = plan?.appliance ? tidy(plan.appliance).toLowerCase() : "appliance";
   const identity = [plan?.brand, plan?.model_number].filter((value) => value && !/unknown|not visible|n\/a/i.test(value)).join(" ");

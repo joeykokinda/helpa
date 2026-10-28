@@ -153,11 +153,13 @@ export async function checkStep(photo: Blob, step: PlanStep, options: { part?: s
 }
 
 /** Finds a part on a camera frame with SAM 3.1, trying each name in turn; sam is empty when nothing matched. */
-export async function locatePart(frame: Blob, phrases: string[], kind: "part" | "label" = "part"): Promise<{ sam: string; phrase: string }> {
+export async function locatePart(frame: Blob, phrases: string[], kind: "part" | "label" = "part", point?: { x: number; y: number; width: number; height: number }): Promise<{ sam: string; phrase: string }> {
   const form = new FormData();
   form.append("photo", frame, "frame.jpg");
   phrases.forEach((phrase) => form.append("phrase", phrase));
   form.append("kind", kind);
+  // A tap: SAM segments whatever is under that pixel instead of looking for a name.
+  if (point) form.append("point", [point.x, point.y, point.width, point.height].map(Math.round).join(","));
   const response = await fetch(`${API_URL}/api/locate`, { method: "POST", body: form });
   if (!response.ok) throw new Error("locate failed");
   return response.json();

@@ -21,7 +21,28 @@ export function frameCanvas(video: HTMLVideoElement, maxSide: number) {
   return canvas;
 }
 
-export const canvasBlob = (canvas: HTMLCanvasElement, quality = 0.82) =>
+/** Draws one area of the video (0..1 box) at full sharpness into a canvas whose long side is at most maxSide. */
+export function cropCanvas(video: HTMLVideoElement, area: Box, maxSide: number) {
+  const width = area.width * video.videoWidth;
+  const height = area.height * video.videoHeight;
+  const scale = maxSide / Math.max(width, height);
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(width * scale);
+  canvas.height = Math.round(height * scale);
+  canvas.getContext("2d")!.drawImage(video, area.x * video.videoWidth, area.y * video.videoHeight, width, height, 0, 0, canvas.width, canvas.height);
+  return canvas;
+}
+
+/** A frame box in the coordinates of a crop of that frame, and back. */
+export const intoArea = (box: Box, area: Box): Box => ({ x: (box.x - area.x) / area.width, y: (box.y - area.y) / area.height, width: box.width / area.width, height: box.height / area.height });
+export const outOfArea = (box: Box, area: Box): Box => ({ x: area.x + box.x * area.width, y: area.y + box.y * area.height, width: box.width * area.width, height: box.height * area.height });
+
+/** A rectangle mask for when the person tapped a part SAM couldn't outline: the whole box is the part. */
+export function boxMask(frame: { width: number; height: number }, box: Box): PartMask {
+  return { left: box.x * frame.width, top: box.y * frame.height, width: box.width * frame.width, height: box.height * frame.height, raster: new Uint8Array(64).fill(1), rasterWidth: 8, rasterHeight: 8 };
+}
+
+export const canvasBlob =(canvas: HTMLCanvasElement, quality = 0.82) =>
   new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("capture failed"))), "image/jpeg", quality));
 
 /** Where the video's picture sits inside its element with object-fit: contain, in CSS pixels. */
@@ -132,8 +153,11 @@ export const grayWidth = 160;
 /** A small grey copy of the frame for patch tracking and for telling whether the picture moved. */
 export function grayFrame(video: HTMLVideoElement, scratch: CanvasRenderingContext2D) {
   const height = Math.round((grayWidth * video.videoHeight) / video.videoWidth);
-  scratch.canvas.width = grayWidth;
-  scratch.canvas.height = height;
+  // Setting a canvas's size reallocates it even when unchanged, so only on a real change.
+  if (scratch.canvas.width !== grayWidth || scratch.canvas.height !== height) {
+    scratch.canvas.width = grayWidth;
+    scratch.canvas.height = height;
+  }
   scratch.drawImage(video, 0, 0, grayWidth, height);
   const pixels = scratch.getImageData(0, 0, grayWidth, height).data;
   const gray = new Float32Array(grayWidth * height);
@@ -142,7 +166,6 @@ export function grayFrame(video: HTMLVideoElement, scratch: CanvasRenderingConte
 }
 
 export type Gray = ReturnType<typeof grayFrame>;
-
 const patchRadius = 6;
 
 /** Normalized cross-correlation of a patch around (x, y) in one frame with one around (u, v) in another. */
@@ -276,7 +299,11 @@ export function jointPose(joint: Joint, from: number, amount: number, size: { wi
       // The pivot is the box edge on the hinge side: a negative angle about +y swings the right edge toward you.
       const vertical = Math.abs(joint.axis[1]) >= Math.abs(joint.axis[0]);
       const pivot: [number, number] = vertical ? [joint.angle < 0 ? 0 : 1, 0.5] : [0.5, joint.angle > 0 ? 1 : 0];
-      return { ...still, pivot, axis: toView(joint.axis, pitch), angle: joint.angle * (amount - from), depth: Math.abs(amount - from) };
+      // A flat hologram swung past about 70 degrees turns edge-on and vanishes, so swings out of the screen's
+      // plane stop there; it still reads as wide open. Swings in the screen's plane (a tap handle) keep their angle.
+      const axis = toView(joint.axis, pitch);
+      const angle = Math.abs(axis[2]) < 0.7 ? Math.sign(joint.angle) * Math.min(Math.abs(joint.angle), 1.22) : joint.angle;
+      return { ...still, pivot, axis, angle: angle * (amount - from), depth: Math.abs(amount - from) };
     }
     case "twist": {
       const lift = (twistLift(amount) - twistLift(from)) * size.height * 1.1;

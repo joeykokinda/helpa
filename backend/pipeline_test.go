@@ -81,6 +81,15 @@ func TestLibraryPlanFastPath(t *testing.T) {
 	if normalizeAppliance("carpet cleaner") == "car" || normalizeAppliance("2015 Toyota Camry") != "car" {
 		t.Fatal("car names must match on whole words")
 	}
+	// A top-loader with no brand on the photo gets the top-load fix, without claiming it's a Whirlpool.
+	washer := identification{Appliance: "top-load washer", LibraryFix: "whirlpool-top-load-washer/not_draining_wet_clothes"}
+	plan = libraryPlan(washer, emit)
+	if plan == nil || !strings.Contains(string(plan), `"brand":""`) || strings.Contains(string(plan), `"model_number":"WTW`) {
+		t.Fatalf("unbranded washer fix: %s", plan)
+	}
+	if entry := lookupLibrary(libraryQuery{"top-load washer", "", ""}); entry == nil || entry.ID != "whirlpool-top-load-washer" {
+		t.Fatalf("top-load washer found %v", entry)
+	}
 }
 
 func TestMatchRigWholeWords(test *testing.T) {

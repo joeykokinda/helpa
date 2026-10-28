@@ -42,3 +42,14 @@ func TestLocateReplay(t *testing.T) {
 		t.Fatalf("replay locate returned %q with %d bytes of SAM text", reply.Phrase, len(reply.Sam))
 	}
 }
+
+func TestPointPrompt(t *testing.T) {
+	if prompt, ok := pointPrompt("480,300,960,720"); !ok || prompt != "<0f>0<|point;x=480;y=300;w=960;h=720|>" {
+		t.Fatalf("got %q %v", prompt, ok)
+	}
+	for _, bad := range []string{"", "1,2,3", "960,10,960,720", "-1,0,10,10", "1,1,0,0", "a,b,c,d"} {
+		if _, ok := pointPrompt(bad); ok {
+			t.Fatalf("%q should be rejected", bad)
+		}
+	}
+}
