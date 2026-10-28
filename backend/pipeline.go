@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -294,10 +295,52 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		tracks.Wait()
 		return err
 	}
+	plan = markSafetyStop(plan)
 	emit(event{"type": "plan", "plan": plan})
 	showPlan(ctx, photos, plan, complaint, models, emit)
 	tracks.Wait()
 	return nil
+}
+
+var urgentWords = []string{"burning", "burnt smell", "smoke", "smoking", "fire", "flames", "melted", "melting", "smell gas", "gas smell", "smells like gas"}
+
+// hazardPattern marks a danger to the person themselves, not just a job beyond them.
+var hazardPattern = regexp.MustCompile(`(?i)\b(gas (leak|smell)|smell(s|ed)? (of |like )?gas|carbon monoxide|refrigerant|capacitor|magnetron|high[- ]voltage|dangerous charge|` +
+	`spark(s|ing)?|smoke|burning smell|airbags?|live (wire|wiring)|electric shock|electrocut\w*)\b`)
+
+var proStep = regexp.MustCompile(`(?i)\b(call|contact|hire|book|schedule)\b.*\b(pro|technician|professional|plumber|electrician|mechanic|repair (service|person|shop)|service|gas company|fire department|911)\b`)
+
+// markSafetyStop sets stop_for_pro when a plan's answer is "get a professional" for a safety reason: the safety
+// notes or diagnosis name a hazard to the person and the plan ends with calling a pro. The model's own flag
+// stands; this only makes the stop not depend on the model remembering to set it.
+func markSafetyStop(plan json.RawMessage) json.RawMessage {
+	var parsed map[string]any
+	if json.Unmarshal(plan, &parsed) != nil || parsed["stop_for_pro"] == true {
+		return plan
+	}
+	var text []string
+	if diagnosis, ok := parsed["diagnosis"].(string); ok {
+		text = append(text, diagnosis)
+	}
+	safety, _ := parsed["safety"].([]any)
+	for _, note := range safety {
+		text = append(text, fmt.Sprint(note))
+	}
+	steps, _ := parsed["steps"].([]any)
+	if len(steps) == 0 || !hazardPattern.MatchString(strings.Join(text, " ")) {
+		return plan
+	}
+	last, _ := steps[len(steps)-1].(map[string]any)
+	lastStep := fmt.Sprint(last["instruction"], " ", last["details"])
+	if !proStep.MatchString(lastStep) {
+		return plan
+	}
+	parsed["stop_for_pro"] = true
+	marked, err := json.Marshal(parsed)
+	if err != nil {
+		return plan
+	}
+	return marked
 }
 
 // libraryPlan is the fastest path: when the first look matched a ready library fix outright and asked
@@ -316,6 +359,13 @@ func libraryPlan(ident identification, complaint string, ruledOut []string, emit
 	if word := entry.contradiction(complaint + " " + ident.Appliance + " " + ident.Symptom); word != "" {
 		log.Printf("library: %s doesn't fit, the person mentions %q", entry.ID, word)
 		return nil
+	}
+	// A burning smell or smoke can be a fire starting, so it gets a full look rather than the common fix.
+	for _, word := range urgentWords {
+		if containsWords(strings.ToLower(complaint+" "+ident.Symptom), word) {
+			log.Printf("library: skipping the ready fix, the person mentions %q", word)
+			return nil
+		}
 	}
 	for _, problem := range entry.Problems {
 		var plan map[string]any

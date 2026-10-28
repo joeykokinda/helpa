@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"io"
 	"net/http/httptest"
 	"net/url"
@@ -151,6 +152,43 @@ func TestHypothesisChain(t *testing.T) {
 				t.Errorf("%s/%s points at missing %s", entry.ID, problem.ID, problem.Next)
 			}
 		}
+	}
+}
+
+func TestSafetyStop(t *testing.T) {
+	// The microwave miss from the eval: the model called a pro over a high-voltage part but didn't set the flag.
+	microwave := `{"diagnosis":"The heating part inside has failed.","safety":["Do not open the back.","Microwaves can hold a dangerous charge even when unplugged."],` +
+		`"steps":[{"instruction":"Heat one cup of water","details":[]},{"instruction":"If it stays cold, call a pro","details":[]}],"stop_for_pro":false}`
+	if !strings.Contains(string(markSafetyStop(json.RawMessage(microwave))), `"stop_for_pro":true`) {
+		t.Fatal("a high-voltage hand-off to a pro must be a safety stop")
+	}
+	// Handing a job to a pro isn't a safety stop unless the person themselves is in danger.
+	fuse := `{"diagnosis":"The thermal fuse blew.","safety":["The fix means opening the back panel near 240-volt wiring, so leave it to a pro."],` +
+		`"steps":[{"instruction":"Call a pro, or order the part","details":[]}],"stop_for_pro":false}`
+	if strings.Contains(string(markSafetyStop(json.RawMessage(fuse))), `"stop_for_pro":true`) {
+		t.Fatal("a part swap for a pro still shows its animation")
+	}
+	// A hazard the person can deal with themselves (the last step isn't a pro) stays a normal fix.
+	foil := `{"diagnosis":"Foil is sparking.","safety":["Sparks can damage the oven."],"steps":[{"instruction":"Take the foil out","details":[]}]}`
+	if strings.Contains(string(markSafetyStop(json.RawMessage(foil))), `"stop_for_pro":true`) {
+		t.Fatal("removing foil is a fix, not a safety stop")
+	}
+	// Only the fixes that really are stops in the library get marked.
+	for _, entry := range library {
+		for _, problem := range entry.Problems {
+			var before, after struct {
+				Stop bool `json:"stop_for_pro"`
+			}
+			json.Unmarshal(problem.Plan, &before)
+			json.Unmarshal(markSafetyStop(problem.Plan), &after)
+			if after.Stop && !before.Stop {
+				t.Errorf("%s/%s became a safety stop", entry.ID, problem.ID)
+			}
+		}
+	}
+	burning := identification{Appliance: "electric dryer", LibraryFix: "whirlpool-electric-dryer/vent_blocked"}
+	if libraryPlan(burning, "dryer top gets really hot and there's a burning smell", nil, func(event) {}) != nil {
+		t.Fatal("a burning smell must get a full look, not the ready vent fix")
 	}
 }
 
