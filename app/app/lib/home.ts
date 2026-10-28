@@ -3,7 +3,8 @@ import { shrinkPhoto } from "./media";
 
 /** My Home: every machine Helpa has helped with, kept on the phone (IndexedDB), no account. */
 
-export type Fix = { date: number; problem: string; steps: string[]; photos: Blob[]; sample: boolean };
+/** ruledOut: causes tried first that didn't fix it, e.g. "a clogged lint screen". */
+export type Fix = { date: number; problem: string; steps: string[]; photos: Blob[]; sample: boolean; ruledOut?: string[] };
 export type ChatLine = { role: "you" | "helpa"; text: string; complaint?: string };
 export type Machine = {
   id: string;
@@ -102,7 +103,7 @@ export const putMachine = (machine: Machine) => run("readwrite", (store) => stor
 /** Saves a finished fix, adding the machine the first time; care the fix covered counts as done today. */
 export async function saveFix(
   plan: Plan,
-  options: { rig?: { id: string; recipe?: unknown }; photos: Blob[]; sample: boolean },
+  options: { rig?: { id: string; recipe?: unknown }; photos: Blob[]; sample: boolean; ruledOut?: string[] },
 ): Promise<Machine> {
   const id = machineKey(plan);
   const now = Date.now();
@@ -127,7 +128,7 @@ export async function saveFix(
   machine.manualUrl ||= plan.manual_url;
   machine.parts = [...new Set([...machine.parts, ...plan.replacement_parts])];
   const thumbnails = await Promise.all(options.photos.slice(0, 3).map((photo) => shrinkPhoto(photo, 320).catch(() => photo)));
-  machine.fixes = [{ date: now, problem: plan.library_problem || plan.diagnosis, steps: plan.steps.map((step) => step.instruction), photos: thumbnails, sample: options.sample }, ...machine.fixes];
+  machine.fixes = [{ date: now, problem: plan.library_problem.replace(/_/g, " ") || plan.diagnosis, steps: plan.steps.map((step) => step.instruction), photos: thumbnails, sample: options.sample, ruledOut: options.ruledOut }, ...machine.fixes];
   const done = [plan.diagnosis, plan.library_problem, ...plan.steps.map((step) => step.instruction)].join(" ");
   for (const care of careFor(machine)) if (care.matches.test(done)) machine.care[care.id] = now;
   await putMachine(machine);

@@ -3386,3 +3386,24 @@ a:focus-visible {
 .machine-twin .rig-caption {
   display: none;
 }
+
+/* Causes a "Still broken" already ruled out, above the next most likely one. */
+.ruled-out {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.ruled-out li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--ok-soft);
+  color: var(--ok);
+  font-size: 13px;
+  font-weight: 650;
+}
