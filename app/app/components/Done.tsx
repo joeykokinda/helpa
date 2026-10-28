@@ -23,7 +23,7 @@ function Burst() {
             animate={{ x: Math.cos(angle) * 120, y: Math.sin(angle) * 100, scale: [0, 1.2, 0.8], opacity: [0, 1, 0] }}
             transition={{ duration: 1.1, delay: 0.15 + (index % 3) * 0.05, ease: "easeOut" }}
           >
-            <Icon name="sparkle" size={index % 2 ? 16 : 22} />
+            <Icon name="plus" size={index % 2 ? 16 : 22} />
           </motion.span>
         );
       })}
@@ -128,7 +128,7 @@ export default function Done({ plan, minutes, mood, speaking, onRestart, savedNa
         {aftercare && (
           <motion.div className="card tip-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
             <span className="tip-icon" aria-hidden="true">
-              <Icon name="sparkle" size={20} />
+              <Icon name="heart" size={20} />
             </span>
             <div>
               <strong>Keep it this way</strong>

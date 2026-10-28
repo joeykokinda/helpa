@@ -91,7 +91,7 @@ export default function MachinePage({ machine, onChange, onBack, onFix }: Machin
         {cares.length > 0 && (
           <div className="card">
             <p className="card-title">
-              <Icon name="sparkle" size={20} />
+              <Icon name="heart" size={20} />
               Keep it healthy
             </p>
             <ul className="care-list">

@@ -38,7 +38,7 @@ export function SampleSheetButton({ onPick }: { onPick: (sample: Sample) => void
   return (
     <>
       <button className="sample-pill glass press" onClick={() => setOpen(true)}>
-        <Icon name="sparkle" size={16} />
+        <Icon name="play" size={16} />
         Nothing broken? Try a sample
       </button>
       <AnimatePresence>

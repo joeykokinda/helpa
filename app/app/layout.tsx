@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree } from "next/font/google";
+import { Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const figtree = Figtree({
-  variable: "--font-figtree",
-  subsets: ["latin"],
+const sans = Schibsted_Grotesk({
+  variable: "--font-sans",
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
@@ -25,12 +25,12 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#faf8f5",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={figtree.variable} data-theme="light" suppressHydrationWarning>
+    <html lang="en" className={sans.variable} data-theme="light" suppressHydrationWarning>
       <head>
         {/* Apply a saved dark-mode choice before first paint so the page never flashes. */}
         <script

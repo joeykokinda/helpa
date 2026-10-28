@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 
-const confettiColors = ["#e8775a", "#ffc94d", "#a3b47f", "#f79a86", "#7cb6f0", "#c9a7f5"];
+const confettiColors = ["#ff5b2e", "#ffd23f", "#0e0e0f", "#12a150", "#ff5b2e", "#ffd23f"];
 
 /** A party-popper burst: pieces shoot up and out from behind Helpa, then flutter down. Deterministic, no randomness. */
 export default function Confetti({ originY = "30%" }: { originY?: string }) {

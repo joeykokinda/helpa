@@ -46,18 +46,18 @@ type HelpaProps = {
 };
 
 const palette = {
-  outline: "#5a3b2e",
+  outline: "#2a1d17",
   wall: "#fff3e0",
-  roof: "#e8775a",
-  chimney: "#d4654a",
+  roof: "#ff6a3d",
+  chimney: "#e2522a",
   glow: "#ffd98a",
-  door: "#c8704f",
+  door: "#d9572f",
   doorInside: "#ffc46b",
   cheek: "#f79a86",
   doormat: "#a3b47f",
   smoke: "#ece5dc",
   smokeEdge: "#a8998b",
-  sparkle: "#ffc94d",
+  sparkle: "#ffd23f",
   tongue: "#f28b7d",
 };
 
