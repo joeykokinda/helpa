@@ -32,9 +32,15 @@ export function displayRect(video: HTMLVideoElement) {
   return { left: (video.clientWidth - width) / 2, top: (video.clientHeight - height) / 2, width, height };
 }
 
-/** The biggest mask, which is almost always the part rather than a stray reflection. */
-export function biggestMask(masks: PartMask[]) {
-  return masks.reduce<PartMask | null>((best, mask) => (!best || mask.width * mask.height > best.width * best.height ? mask : best), null);
+/**
+ * Which of SAM's masks is the part: the one nearest where we were already tracking it (a bolt among bolts stays
+ * the same bolt), or on a first look the biggest, which is almost always the part rather than a reflection.
+ */
+export function pickMask(masks: PartMask[], frame: { width: number; height: number }, near: Box | null) {
+  if (!near) return masks.reduce<PartMask | null>((best, mask) => (!best || mask.width * mask.height > best.width * best.height ? mask : best), null);
+  const distance = (mask: PartMask) =>
+    Math.hypot((mask.left + mask.width / 2) / frame.width - (near.x + near.width / 2), (mask.top + mask.height / 2) / frame.height - (near.y + near.height / 2));
+  return masks.reduce<PartMask | null>((best, mask) => (!best || distance(mask) < distance(best) ? mask : best), null);
 }
 
 const cutoutMargin = 6;

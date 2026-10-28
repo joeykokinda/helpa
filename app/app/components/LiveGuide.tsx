@@ -10,7 +10,7 @@ import { useCameraControls } from "../lib/camera";
 import {
   actionWords,
   beatMotion,
-  biggestMask,
+  pickMask,
   canvasBlob,
   cutOut,
   displayRect,
@@ -434,15 +434,20 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       // Only spend a SAM call when there's no fix yet, the picture changed, or the fix is getting old.
       if (track && !moved && now - track.lookedAt < 4000) return;
       lastGray = gray;
-      const canvas = frameCanvas(video, 640);
+      // 960 px keeps small parts (a drain plug, a filter cap) big enough for SAM to see.
+      const canvas = frameCanvas(video, 960);
       const offsetAtSend = { ...offsetRef.current };
       if (track) track.lookedAt = now;
       busy = true;
       try {
         const { sam, phrase } = await locatePart(await canvasBlob(canvas, 0.8), phrasesFor(part));
         if (!alive) return;
-        const mask = biggestMask(sam ? parseMasks(sam) : []);
         const seen = performance.now();
+        const drift = { x: offsetRef.current.x - offsetAtSend.x, y: offsetRef.current.y - offsetAtSend.y };
+        const recent = track && seen - track.seenAt < 3000 ? { ...track.target, x: track.target.x - drift.x, y: track.target.y - drift.y } : null;
+        let mask = pickMask(sam ? parseMasks(sam) : [], canvas, recent);
+        // A fresh lock never jumps to a different thing across the picture; that's a miss, not a move.
+        if (mask && recent && Math.hypot((mask.left + mask.width / 2) / canvas.width - (recent.x + recent.width / 2), (mask.top + mask.height / 2) / canvas.height - (recent.y + recent.height / 2)) > 0.28) mask = null;
         if (!mask) {
           if (track) track.misses++;
           else backoff[part] = seen + 1200;
@@ -453,7 +458,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         phraseRef.current[part] = phrase;
         const cutout = cutOut(canvas, mask);
         // The phone kept moving while SAM looked; carry the box along by what the tracker saw since.
-        const target = { ...cutout.box, x: cutout.box.x + offsetRef.current.x - offsetAtSend.x, y: cutout.box.y + offsetRef.current.y - offsetAtSend.y };
+        const target = { ...cutout.box, x: cutout.box.x + drift.x, y: cutout.box.y + drift.y };
         const previous = tracksRef.current[part];
         const slot = watchRef.current.slot;
         if (phaseRef.current !== "demo" && part === watched && slot) {

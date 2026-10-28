@@ -64,8 +64,12 @@ func handleLocate(writer http.ResponseWriter, request *http.Request) {
 			return
 		}
 	}
+	for index, failure := range failures {
+		if failure != nil {
+			log.Printf("locate %q: %v", phrases[index], failure)
+		}
+	}
 	if failures[0] != nil {
-		log.Printf("locate %q: %v", phrases[0], failures[0])
 		http.Error(writer, "couldn't look right now", http.StatusBadGateway)
 		return
 	}
