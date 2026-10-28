@@ -37,6 +37,16 @@ function known(value: string | undefined) {
   return value && !/unknown|not visible|n\/a/i.test(value) ? tidy(value) : "";
 }
 
+/** "Whirlpool WED5050LW", "2015 Toyota Camry 2.5L": the exact machine, so it's clearly theirs. */
+function identityOf(plan: { brand: string; model_number: string }) {
+  const brand = known(plan.brand);
+  const model = known(plan.model_number);
+  if (!model) return brand;
+  if (brand && model.toLowerCase().includes(brand.toLowerCase())) return model;
+  const year = model.match(/^((?:19|20)\d\d)\s+(.+)$/);
+  return (year ? `${year[1]} ${brand} ${year[2]}` : `${brand} ${model}`).replace(/\s+/g, " ").trim();
+}
+
 function capitalize(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
@@ -445,6 +455,7 @@ export default function Home() {
                   <div>
                     <p className="eyebrow">
                       Step {stepIndex + 1} of {plan.steps.length}
+                      {identityOf(plan) && <span className="eyebrow-identity"> · {identityOf(plan)}</span>}
                     </p>
                     <p className="step-hint" aria-hidden="true">
                       {speaking ? "Reading it out loud" : "Tap me to hear it again"}
@@ -688,7 +699,7 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
   const diagnosis = tidy(plan.diagnosis);
   const headline = diagnosis.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? diagnosis;
   const rest = diagnosis.slice(headline.length).trim();
-  const identity = [known(plan.brand), known(plan.model_number)].filter(Boolean);
+  const identity = identityOf(plan);
   const manualHost = (() => {
     try {
       return plan.manual_url ? new URL(plan.manual_url).hostname.replace(/^www\./, "") : "";
@@ -715,11 +726,9 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
         <BubbleRow mood={mood} speaking={speaking} bubble={plan.safety.length ? "Good news, you can fix this! Read the safety bits first." : "Good news, you can fix this! Here's your plan."} />
 
         <motion.article className="card hero-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-          {identity.length > 0 && (
+          {identity && (
             <ul className="tag-row tag-row-left">
-              {identity.map((tag) => (
-                <li key={tag}>{tag}</li>
-              ))}
+              <li>{identity}</li>
             </ul>
           )}
           <h1 className="title">{capitalize(known(plan.appliance) || "Your appliance")}</h1>

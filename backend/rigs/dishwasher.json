@@ -635,12 +635,7 @@
         "dirty water"
       ],
       "joint": {
-        "kind": "debris",
-        "away": [
-          0,
-          0.12,
-          0.35
-        ]
+        "kind": "none"
       },
       "actions": [
         "clean",
@@ -1157,6 +1152,74 @@
         0.4,
         1
       ]
+    },
+    {
+      "id": "rinse_water",
+      "label": "Rinse water",
+      "aliases": [
+        "drain test",
+        "water draining",
+        "rinse cycle water"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.2,
+        1.1,
+        0.9
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "kind": "pool",
+      "from": "standing_water",
+      "size": [
+        0.47,
+        0.515
+      ],
+      "range": [
+        -0.016,
+        0.0
+      ],
+      "color": "#7fb3d6",
+      "opacity": 0.62,
+      "when": [
+        {
+          "part": "standing_water",
+          "min": 0.001,
+          "orFocus": true
+        }
+      ],
+      "level": {
+        "part": "standing_water",
+        "invert": true
+      }
+    },
+    {
+      "kind": "pool",
+      "from": "rinse_water",
+      "size": [
+        0.47,
+        0.515
+      ],
+      "range": [
+        -0.016,
+        0.0
+      ],
+      "color": "#8cc4e6",
+      "opacity": 0.6,
+      "when": [],
+      "level": {
+        "part": "rinse_water"
+      },
+      "xray": true
     }
   ]
 }

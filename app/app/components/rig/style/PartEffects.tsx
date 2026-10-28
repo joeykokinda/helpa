@@ -177,9 +177,17 @@ function Pool({ effect }: { effect: RigEffect }) {
     mesh.scale.set(shrink, shrink, 1);
   });
   return (
-    <mesh ref={meshRef} rotation={[-Math.PI / 2, 0, 0]} visible={false}>
+    <mesh
+      ref={(mesh) => {
+        meshRef.current = mesh;
+        if (effect.xray) onOverlay(mesh);
+      }}
+      rotation={[-Math.PI / 2, 0, 0]}
+      visible={false}
+      renderOrder={effect.xray ? 37 : 0}
+    >
       {effect.size ? <planeGeometry args={effect.size} /> : <circleGeometry args={[effect.width ?? 0.1, 40]} />}
-      <Liquid color={effect.color} opacity={effect.opacity} />
+      {effect.xray ? <meshBasicMaterial color={effect.color} transparent opacity={effect.opacity ?? 0.8} depthTest={false} depthWrite={false} /> : <Liquid color={effect.color} opacity={effect.opacity} />}
     </mesh>
   );
 }

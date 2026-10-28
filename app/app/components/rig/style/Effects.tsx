@@ -14,10 +14,13 @@ const drops = 16;
 
 const waterParts = /water|drain|tap|hose|valve|pump|inlet|sump|spray|jet|filter/i;
 const lightParts = /bulb|lamp|light/i;
+const liquidParts = /\boil|drain plug|drain pan|standing water|rinse water/i;
 
 /** Which effect a beat earns, and when (in seconds into the beat) it fires. */
 function effectFor(beat: Beat, def: RigPartDef) {
   const name = `${def.id} ${def.label}`;
+  // Oil and other liquids have their own catalog effects (streams, drips, pools); water splashes would be wrong.
+  if (liquidParts.test(name) && def.joint.kind !== "debris") return null;
   if (beat.action === "clean" && def.joint.kind === "debris") return { puff: 1, sparkle: 1, drop: 0, ring: 0, halo: 0, at: timing.lead + timing.move * 0.32 };
   if (beat.action === "clean") return { puff: 0, sparkle: 1, drop: waterParts.test(name) ? 1 : 0, ring: 0, halo: 0, at: timing.lead + timing.move * 0.5 };
   if (beat.action === "press") return { puff: 0, sparkle: 0, drop: 0, ring: 1, halo: 0, at: timing.lead + timing.move * 0.12 };

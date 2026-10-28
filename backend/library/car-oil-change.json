@@ -1,16 +1,18 @@
 {
   "id": "car-oil-change",
-  "appliance": "compact sedan",
+  "appliance": "mid-size sedan",
   "brand": "Toyota",
-  "model_family": "2024 Toyota Corolla E210 gas sedan",
+  "model_family": "2015 Toyota Camry (XV50) 2.5L 4-cylinder (2AR-FE)",
   "model_numbers": [
-    "1852",
-    "1864",
-    "1866"
+    "2015 Camry 2.5L",
+    "Camry 2AR-FE",
+    "XV50"
   ],
-  "sticker_location": "On the white certification sticker on the driver's door frame. The same VIN is also on a small plate at the lower left corner of the windshield, seen from outside.",
+  "sticker_location": "The VIN is on a small plate at the lower driver-side corner of the windshield (read it from outside) and on the white certification label on the driver's door pillar. The 10th character is F for a 2015.",
   "manual_urls": [
-    "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+    "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
+    "https://www.youcanic.com/replace-engine-oil-toyota-camry-2012-2017/",
+    "https://www.toyotapartsnow.com/parts-select/toyota-camry-oil-filter",
     "https://support.toyota.com/s/article/What-are-the-oil-chan-7604",
     "https://support.toyota.com/s/article/How-often-do-I-need-t-7745",
     "https://support.toyota.com/s/article/What-type-of-motor-oi-10041"
@@ -19,7 +21,7 @@
     {
       "id": "hood_release_lever",
       "label": "Hood release lever",
-      "where": "Inside the car, low under the left side of the dashboard by the driver's left foot."
+      "where": "Inside the car, low on the left kick panel by the driver's left knee. Pull it toward you."
     },
     {
       "id": "hood_support_rod",
@@ -29,22 +31,22 @@
     {
       "id": "engine_oil_dipstick",
       "label": "Engine oil dipstick",
-      "where": "On top of the engine under the hood, with a pull handle. It slides into a thin tube and has low and full marks near its tip."
+      "where": "At the front of the engine, a yellow loop handle. The tip has L and F dots."
     },
     {
       "id": "engine_oil_filler_cap",
       "label": "Engine oil filler cap",
-      "where": "The round screw cap on top of the engine under the hood, where new engine oil is poured in."
+      "where": "On top of the engine's valve cover, marked with an oil-can symbol."
     },
     {
       "id": "oil_drain_plug",
-      "label": "Oil drain plug",
-      "where": "Underneath the car, in the bottom of the flat metal oil pan under the engine. You can only reach it with the front safely raised."
+      "label": "Oil drain plug (14 mm)",
+      "where": "Under the car on the oil pan, the flat metal pan below the engine. 14 mm head with a crush gasket."
     },
     {
       "id": "engine_oil_filter",
-      "label": "Engine oil filter",
-      "where": "Underneath the engine near the oil pan. It is a short round can or cartridge housing that unscrews for replacement."
+      "label": "Oil filter (cartridge)",
+      "where": "Under the car at the front of the engine, beside the oil pan: a black housing cap pointing straight down. The paper element is inside the cap."
     },
     {
       "id": "engine_coolant_reservoir",
@@ -112,393 +114,320 @@
       ],
       "plan": {
         "brand": "Toyota",
-        "model_number": "1852",
-        "appliance": "compact sedan",
-        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
-        "diagnosis": "Old oil and a worn filter no longer protect the engine well. Changing both, then checking the new level on the dipstick, is the full fix.",
+        "model_number": "2015 Camry 2.5L",
+        "appliance": "mid-size sedan",
+        "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
+        "diagnosis": "Your 2015 Camry 2.5L is due for fresh oil and a new filter element. It takes 4.6 quarts of 0W-20 with the filter, and the whole job is done from under the front with a drain pan.",
         "tools": [
-          "Jack and jack stands",
+          "Car ramps and wheel chocks",
+          "14 mm wrench or socket",
+          "64 mm cap-type filter wrench",
           "Drain pan",
-          "Socket wrench",
-          "Filter wrench",
           "Funnel",
-          "Rag",
-          "Gloves"
+          "Gloves and rags",
+          "Torque wrench (optional)"
         ],
         "replacement_parts": [
-          "Engine oil filter",
-          "Engine oil, SAE 0W-8 for this 2024 gas model",
-          "Drain plug washer if the old one is worn"
+          "5 quarts of SAE 0W-20 engine oil (it takes 4.6 with the filter)",
+          "Toyota oil filter element 04152-YZZA1 with its O-rings",
+          "Drain plug gasket, Toyota 90430-12031"
         ],
         "safety": [
-          "Never work under a car held only by a jack.",
-          "Keep hands and clothing away from the hot engine and fan.",
-          "Wash used oil off skin with soap and water."
+          "Never get under a car held up only by a jack. Use ramps or jack stands, and chock the rear wheels.",
+          "Let a hot engine cool about 10 minutes; fresh-off-the-road oil can burn.",
+          "Take the old oil and filter to an auto parts store for recycling."
         ],
         "steps": [
           {
-            "instruction": "Lift front safely and secure on stands.",
+            "instruction": "Drive onto ramps, chock the wheels",
             "details": [
-              "Warm the engine two minutes, then turn it off.",
-              "Use the front jack point from the manual.",
-              "Never rely on the jack alone."
+              "Engine off, parking brake on.",
+              "Let a hot engine cool about 10 minutes."
             ],
-            "target_part": "Oil drain plug",
+            "target_part": "Ramps",
             "photo": -1,
             "motion": "none",
             "show_3d": true,
-            "check": "The car sits steady on two jack stands."
+            "check": "Both front wheels sit in the ramp cradles and the rear wheels are chocked."
           },
           {
-            "instruction": "Place drain pan under oil drain plug.",
+            "instruction": "Open the hood, loosen the fill cap",
             "details": [
-              "The plug is in the flat pan under the engine.",
-              "Wear gloves; the oil may be warm."
+              "The release is by your left knee.",
+              "Loosening the cap lets the oil drain faster."
             ],
-            "target_part": "Oil drain plug",
+            "target_part": "Oil fill cap",
             "photo": -1,
-            "motion": "push_in",
+            "motion": "twist_ccw",
             "show_3d": true,
-            "check": "The pan sits centered under the plug."
+            "check": "The hood is propped and the fill cap is loose."
           },
           {
-            "instruction": "Unscrew drain plug and drain oil fully.",
+            "instruction": "Drain the oil from the 14 mm plug",
             "details": [
-              "Turn left to loosen, then finish by hand.",
-              "Let it drain until only drips remain."
+              "Turn the plug left, pull it away fast.",
+              "Let it drain until it only drips.",
+              "Use a new gasket, tighten to 27 ft-lb."
             ],
             "target_part": "Oil drain plug",
             "photo": -1,
             "motion": "unscrew",
             "show_3d": true,
-            "check": "Dark oil has mostly stopped flowing out."
+            "check": "The plug is back in with a new gasket and nothing drips."
           },
           {
-            "instruction": "Unscrew old filter and remove it carefully.",
+            "instruction": "Swap the cartridge filter",
             "details": [
-              "Turn the round filter left to loosen it.",
-              "Keep it upright so oil spills less."
+              "Use the drain tool from the filter box first.",
+              "64 mm cap wrench, turn left.",
+              "New element and O-ring, oiled. Tighten to 18 ft-lb."
             ],
-            "target_part": "Engine oil filter",
+            "target_part": "Oil filter (cartridge)",
             "photo": -1,
             "motion": "twist_ccw",
             "show_3d": true,
-            "check": "The old filter is off and in the pan."
+            "check": "The cap is back on snug with the new element inside."
           },
           {
-            "instruction": "Screw in drain plug and new filter.",
+            "instruction": "Pour in 4.4 quarts of 0W-20",
             "details": [
-              "Start both by hand so they go straight.",
-              "Tighten the filter as its own label says."
+              "Use the funnel, go slowly.",
+              "Hold the last bit back to check the level first."
             ],
-            "target_part": "Engine oil filter",
+            "target_part": "Oil fill cap",
             "photo": -1,
-            "motion": "screw_in",
+            "motion": "none",
             "show_3d": true,
-            "check": "Plug and filter feel snug, not forced."
+            "check": "About 4.4 quarts are in and the cap is back on tight."
           },
           {
-            "instruction": "Add new oil through filler cap slowly.",
+            "instruction": "Run it one minute, check for drips",
             "details": [
-              "About 4.4 quarts with a new filter.",
-              "Add a little less first, then top up."
+              "Watch the plug and the filter cap.",
+              "Engine off, then wait 5 minutes."
             ],
-            "target_part": "Engine oil filler cap",
+            "target_part": "Oil drain plug",
             "photo": -1,
-            "motion": "twist_ccw",
+            "motion": "none",
             "show_3d": true,
-            "check": "The cap is back on and turned clockwise tight."
+            "check": "No drips at the plug or the filter."
           },
           {
-            "instruction": "Start engine briefly and check for leaks.",
+            "instruction": "Check the dipstick, top up to F",
             "details": [
-              "Turn off, wait about five minutes, check dipstick.",
-              "Reset Scheduled Maintenance in Vehicle Settings.",
-              "Take old oil and filter for recycling."
+              "Wipe it, push it fully in, pull again.",
+              "Add a little at a time if it's below F."
             ],
             "target_part": "Engine oil dipstick",
             "photo": -1,
             "motion": "pull_out",
             "show_3d": true,
-            "check": "Oil sits between low and full marks, with no drips below."
+            "check": "The oil sits between the L and F dots."
           }
         ],
         "library_id": "",
         "library_problem": "",
-        "pro_visit_cost": 100,
-        "aftercare": "Check the oil level every time you fill up with fuel, as Toyota recommends."
+        "pro_visit_cost": 80,
+        "aftercare": "Reset the oil maintenance reminder (your owner's manual, Maintenance section), then check the dipstick every few fill-ups. Next change in about 10,000 miles or 12 months."
       },
-      "step_animations": [
-        {
-          "axis": "y",
-          "caption": "Lift car secure stands",
-          "distance": 0,
-          "motion": "none",
-          "part_ids": [
-            "oil_drain_plug"
-          ],
-          "step": 0
-        },
-        {
-          "axis": "z",
-          "caption": "Position pan under plug",
-          "distance": 10,
-          "motion": "push_in",
-          "part_ids": [
-            "oil_drain_plug"
-          ],
-          "step": 1
-        },
-        {
-          "axis": "y",
-          "caption": "Unscrew plug drain oil",
-          "distance": 5,
-          "motion": "unscrew",
-          "part_ids": [
-            "oil_drain_plug"
-          ],
-          "step": 2
-        },
-        {
-          "axis": "y",
-          "caption": "Remove old oil filter",
-          "distance": 8,
-          "motion": "twist_ccw",
-          "part_ids": [
-            "engine_oil_filter"
-          ],
-          "step": 3
-        },
-        {
-          "axis": "y",
-          "caption": "Install plug new filter",
-          "distance": 5,
-          "motion": "screw_in",
-          "part_ids": [
-            "engine_oil_filter",
-            "oil_drain_plug"
-          ],
-          "step": 4
-        },
-        {
-          "axis": "y",
-          "caption": "Open filler add oil",
-          "distance": 6,
-          "motion": "twist_ccw",
-          "part_ids": [
-            "engine_oil_filler_cap"
-          ],
-          "step": 5
-        },
-        {
-          "axis": "y",
-          "caption": "Check dipstick oil level",
-          "distance": 12,
-          "motion": "pull_out",
-          "part_ids": [
-            "engine_oil_dipstick"
-          ],
-          "step": 6
-        }
-      ],
       "rig_beats": [
         [
           {
-            "part": "jack_point",
+            "part": "ramps",
             "action": "look",
-            "caption": "Show front jack point"
-          },
-          {
-            "part": "front_wheel",
-            "action": "look",
-            "caption": "Check front wheel steady"
+            "caption": "Drive up, engine off"
           },
           {
             "part": "wheel_chocks",
             "action": "look",
-            "caption": "Check wheel chocks placed"
+            "caption": "Chock both rear wheels"
           }
         ],
         [
           {
-            "part": "oil_pan",
-            "action": "look",
-            "caption": "Find oil pan below"
+            "part": "driver_door",
+            "action": "open",
+            "caption": "Open the driver's door"
           },
           {
-            "part": "drain_plug",
-            "action": "look",
-            "caption": "Spot drain plug"
+            "part": "hood_release_lever",
+            "action": "press",
+            "caption": "Pull the hood release"
           },
           {
-            "part": "drain_pan",
-            "action": "insert",
-            "caption": "Slide pan under plug"
-          }
-        ],
-        [
-          {
-            "part": "drain_plug",
-            "action": "unlock",
-            "caption": "Twist drain plug left"
+            "part": "driver_door",
+            "action": "close",
+            "caption": "Close the door"
           },
-          {
-            "part": "drain_plug",
-            "action": "remove",
-            "caption": "Lift drain plug out"
-          },
-          {
-            "part": "old_oil",
-            "action": "look",
-            "caption": "Watch old oil drain"
-          }
-        ],
-        [
-          {
-            "part": "oil_filter",
-            "action": "unlock",
-            "caption": "Twist oil filter left"
-          },
-          {
-            "part": "oil_filter",
-            "action": "remove",
-            "caption": "Lift filter out carefully"
-          }
-        ],
-        [
-          {
-            "part": "drain_plug",
-            "action": "insert",
-            "caption": "Place drain plug back"
-          },
-          {
-            "part": "drain_plug",
-            "action": "lock",
-            "caption": "Twist plug tight"
-          },
-          {
-            "part": "oil_filter",
-            "action": "insert",
-            "caption": "Place new filter up"
-          },
-          {
-            "part": "oil_filter",
-            "action": "lock",
-            "caption": "Twist filter tight"
-          }
-        ],
-        [
           {
             "part": "hood",
             "action": "open",
-            "caption": "Open hood"
+            "caption": "Lift latch, raise the hood"
           },
           {
             "part": "prop_rod",
             "action": "open",
-            "caption": "Prop hood open"
+            "caption": "Prop it in the slot"
           },
           {
             "part": "oil_fill_cap",
             "action": "unlock",
-            "caption": "Twist filler cap left"
+            "caption": "Loosen the cap, air in"
+          }
+        ],
+        [
+          {
+            "part": "drain_pan",
+            "action": "insert",
+            "caption": "Pan under the plug"
           },
+          {
+            "part": "drain_plug",
+            "action": "unlock",
+            "caption": "14 mm wrench, turn left"
+          },
+          {
+            "part": "drain_plug",
+            "action": "remove",
+            "caption": "Pull it away fast"
+          },
+          {
+            "part": "old_oil",
+            "action": "clean",
+            "caption": "Let it drain out"
+          },
+          {
+            "part": "drain_plug",
+            "action": "insert",
+            "caption": "New gasket, plug in"
+          },
+          {
+            "part": "drain_plug",
+            "action": "lock",
+            "caption": "Snug to 27 ft-lb"
+          }
+        ],
+        [
+          {
+            "part": "oil_filter",
+            "action": "unlock",
+            "caption": "64 mm cap wrench, left"
+          },
+          {
+            "part": "oil_filter",
+            "action": "remove",
+            "caption": "Lower the cap, it drips"
+          },
+          {
+            "part": "oil_filter",
+            "action": "insert",
+            "caption": "New element and O-ring"
+          },
+          {
+            "part": "oil_filter",
+            "action": "lock",
+            "caption": "Snug to 18 ft-lb"
+          },
+          {
+            "part": "drain_pan",
+            "action": "remove",
+            "caption": "Slide the pan out"
+          }
+        ],
+        [
           {
             "part": "oil_fill_cap",
             "action": "remove",
-            "caption": "Lift filler cap off"
+            "caption": "Lift off the fill cap"
           },
           {
             "part": "new_oil",
             "action": "turn",
-            "caption": "Pour new oil slowly"
+            "caption": "Pour 0W-20 slowly"
           },
           {
             "part": "oil_fill_cap",
             "action": "insert",
-            "caption": "Place filler cap back"
+            "caption": "Cap back on"
           },
           {
             "part": "oil_fill_cap",
             "action": "lock",
-            "caption": "Twist filler cap tight"
+            "caption": "Twist it tight"
           }
         ],
         [
           {
             "part": "driver_door",
             "action": "open",
-            "caption": "Open driver door"
+            "caption": "Open the driver's door"
           },
           {
             "part": "start_button",
             "action": "press",
-            "caption": "Start engine briefly"
+            "caption": "Start, idle one minute"
           },
           {
             "part": "start_button",
             "action": "press",
-            "caption": "Turn engine off"
-          },
-          {
-            "part": "oil_pan",
-            "action": "look",
-            "caption": "Check below for leaks"
-          },
-          {
-            "part": "old_oil",
-            "action": "look",
-            "caption": "Look for oil drips"
-          },
-          {
-            "part": "dipstick",
-            "action": "remove",
-            "caption": "Pull dipstick out"
-          },
-          {
-            "part": "dipstick_oil",
-            "action": "clean",
-            "caption": "Wipe dipstick clean"
-          },
-          {
-            "part": "dipstick",
-            "action": "insert",
-            "caption": "Reinsert dipstick fully"
-          },
-          {
-            "part": "dipstick",
-            "action": "remove",
-            "caption": "Pull dipstick again"
-          },
-          {
-            "part": "dipstick_oil",
-            "action": "look",
-            "caption": "Check oil level"
-          },
-          {
-            "part": "dipstick",
-            "action": "insert",
-            "caption": "Reinsert dipstick fully"
-          },
-          {
-            "part": "drain_pan",
-            "action": "remove",
-            "caption": "Remove drain pan"
-          },
-          {
-            "part": "prop_rod",
-            "action": "close",
-            "caption": "Lower prop rod"
-          },
-          {
-            "part": "hood",
-            "action": "close",
-            "caption": "Close hood"
+            "caption": "Engine off"
           },
           {
             "part": "driver_door",
             "action": "close",
-            "caption": "Close driver door"
+            "caption": "Close the door"
+          },
+          {
+            "part": "drain_plug",
+            "action": "look",
+            "caption": "No drips at the plug"
+          },
+          {
+            "part": "oil_filter",
+            "action": "look",
+            "caption": "None at the filter"
+          }
+        ],
+        [
+          {
+            "part": "dipstick",
+            "action": "remove",
+            "caption": "Pull the yellow loop"
+          },
+          {
+            "part": "dipstick_oil",
+            "action": "clean",
+            "caption": "Wipe it clean"
+          },
+          {
+            "part": "dipstick",
+            "action": "insert",
+            "caption": "Push it all the way in"
+          },
+          {
+            "part": "dipstick",
+            "action": "remove",
+            "caption": "Pull it out again"
+          },
+          {
+            "part": "dipstick_oil",
+            "action": "look",
+            "caption": "Oil between L and F"
+          },
+          {
+            "part": "dipstick",
+            "action": "insert",
+            "caption": "Put it back"
+          },
+          {
+            "part": "prop_rod",
+            "action": "close",
+            "caption": "Clip the prop rod down"
+          },
+          {
+            "part": "hood",
+            "action": "close",
+            "caption": "Drop it, press it shut"
           }
         ]
       ]
@@ -512,9 +441,9 @@
       ],
       "plan": {
         "brand": "Toyota",
-        "model_number": "1852",
-        "appliance": "compact sedan",
-        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "model_number": "2015 Camry 2.5L",
+        "appliance": "mid-size sedan",
+        "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "Engines use a little oil over time, so the level can drop to the low mark. Topping up slowly to between the marks fixes it unless it keeps dropping fast.",
         "tools": [
           "Rag or paper towel",
@@ -806,9 +735,9 @@
       ],
       "plan": {
         "brand": "Toyota",
-        "model_number": "1852",
-        "appliance": "compact sedan",
-        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "model_number": "2015 Camry 2.5L",
+        "appliance": "mid-size sedan",
+        "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "The clear tank should sit between MIN and MAX when the engine is cold. Topping it up fixes a small drop, but a fast drop means a leak.",
         "tools": [
           "Clean funnel",
@@ -1050,9 +979,9 @@
       ],
       "plan": {
         "brand": "Toyota",
-        "model_number": "1852",
-        "appliance": "compact sedan",
-        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "model_number": "2015 Camry 2.5L",
+        "appliance": "mid-size sedan",
+        "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "Most no-spray cases are simply an empty washer tank. Filling it with washer fluid, not soapy water, should bring the spray back.",
         "tools": [
           "Clean funnel"
@@ -1271,9 +1200,9 @@
       ],
       "plan": {
         "brand": "Toyota",
-        "model_number": "1852",
-        "appliance": "compact sedan",
-        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "model_number": "2015 Camry 2.5L",
+        "appliance": "mid-size sedan",
+        "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "Toyota says airflow dropping a lot usually means the cabin filter behind the glove box is clogged. A fresh filter restores normal airflow.",
         "tools": [],
         "replacement_parts": [
@@ -1522,9 +1451,9 @@
       ],
       "plan": {
         "brand": "Toyota",
-        "model_number": "1852",
-        "appliance": "compact sedan",
-        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "model_number": "2015 Camry 2.5L",
+        "appliance": "mid-size sedan",
+        "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "White crust or a loose clamp stops power reaching the starter, causing clicks. Cleaning and firmly seating the clamps often restores starting; a dead battery will still need charging or replacement.",
         "tools": [
           "Safety glasses",
@@ -1854,9 +1783,9 @@
       ],
       "plan": {
         "brand": "Toyota",
-        "model_number": "1852",
-        "appliance": "compact sedan",
-        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "model_number": "2015 Camry 2.5L",
+        "appliance": "mid-size sedan",
+        "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "When one electrical item stops suddenly, a small fuse has often blown to protect the wiring. Replacing it with the exact same rating usually restores power.",
         "tools": [
           "Fuse puller tool from the fuse box lid"

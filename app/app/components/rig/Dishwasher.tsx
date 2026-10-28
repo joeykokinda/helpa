@@ -1113,14 +1113,15 @@ function SealAndDebris() {
           </mesh>
         ))}
       </RigPart>
-      <RigPart id="standing_water" position={[0, tubFloor + 0.02, (tubFront + tubBack) / 2]}>
-        <ShowFromOwnBeat id="standing_water">
-          <mesh rotation={[-Math.PI / 2, 0, 0]}>
+      {/* The water itself is a catalog pool effect that goes down as it's scooped or drains; these only give the camera its size. */}
+      {["standing_water", "rinse_water"].map((id) => (
+        <RigPart key={id} id={id} position={[0, tubFloor + 0.02, (tubFront + tubBack) / 2]}>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} visible={false}>
             <planeGeometry args={[tubHalfWidth * 2 - 0.05, tubFront - tubBack - 0.01]} />
-            <meshStandardMaterial color="#7fb3d6" transparent opacity={0.55} roughness={0.05} metalness={0.2} />
+            <meshBasicMaterial />
           </mesh>
-        </ShowFromOwnBeat>
-      </RigPart>
+        </RigPart>
+      ))}
     </group>
   );
 }
@@ -1491,6 +1492,8 @@ const sampleSteps: { instruction: string; beats: Beat[] }[] = [
       { part: "air_gap_food", action: "clean", caption: "Pull out the stuck food" },
       { part: "sink_drain_cap", action: "insert", caption: "Push the cap back on" },
       { part: "start_button", action: "press", caption: "Press Start to drain" },
+      { part: "rinse_water", action: "open", caption: "Fresh water fills the bottom" },
+      { part: "rinse_water", action: "close", caption: "It drains away: fixed" },
     ],
   },
   {

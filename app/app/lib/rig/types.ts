@@ -64,6 +64,8 @@ export type RigEffect = {
   chokeAt?: number;
   color: string;
   opacity?: number;
+  /** Draw over the model, for liquid behind a closed door or panel. */
+  xray?: boolean;
   /** Every condition must hold for the effect to show. */
   when: EffectWhen[];
   /** 0..1 from a part's amount: a pool's fill, a stream's strength. */

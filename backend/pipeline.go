@@ -279,6 +279,10 @@ func libraryPlan(ident identification, emit func(event)) json.RawMessage {
 			continue
 		}
 		plan["library_id"], plan["library_problem"] = entry.ID, problem.ID
+		// The sticker the person showed beats the library's example model number.
+		if ident.ModelNumber != "" {
+			plan["model_number"] = ident.ModelNumber
+		}
 		data, err := json.Marshal(plan)
 		if err != nil {
 			return nil
