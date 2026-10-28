@@ -6,6 +6,7 @@ import { statusOf, type Machine } from "../lib/home";
 import { tidy } from "../lib/text";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
+import FixPicker from "./FixPicker";
 import { SampleCards, samplePhoto, type Sample } from "./Samples";
 import ThemeToggle from "./ThemeToggle";
 
@@ -14,7 +15,12 @@ type MyHomeProps = {
   mood: HelpaMood;
   speaking: boolean;
   onOpen: (machine: Machine) => void;
+  /** Show me: the camera. */
   onFix: () => void;
+  /** Tell me: talk or type it. */
+  onTell: () => void;
+  /** A problem picked from the list, straight to its ready fix. */
+  onPickFix: (fix: string, says: string) => void;
   onSample: (photo: Blob, sample: Sample) => void;
   onHelp: () => void;
 };
@@ -44,8 +50,8 @@ export function MachineThumb({ machine }: { machine: Machine }) {
   );
 }
 
-/** The home screen: every machine Helpa remembers, with how it's doing, and a way to fix something new. */
-export default function MyHome({ machines, mood, speaking, onOpen, onFix, onSample, onHelp }: MyHomeProps) {
+/** The first screen: show it, tell it, or pick it from the list; then the machines Helpa remembers. */
+export default function MyHome({ machines, mood, speaking, onOpen, onFix, onTell, onPickFix, onSample, onHelp }: MyHomeProps) {
   const [loadingSample, setLoadingSample] = useState<string>();
   const trySample = async (sample: Sample) => {
     setLoadingSample(sample.id);
@@ -70,42 +76,67 @@ export default function MyHome({ machines, mood, speaking, onOpen, onFix, onSamp
       </div>
       <div className="screen-body">
         <div className="home-head">
-          <div>
-            <h1 className="title">My Home</h1>
-            <p className="home-sub">
-              {machines.length} {machines.length === 1 ? "machine" : "machines"}
-              {due > 0 && ` · ${due} need${due === 1 ? "s" : ""} care`}
-            </p>
-          </div>
+          <h1 className="title home-title">What needs fixing?</h1>
           <Helpa mood={mood} speaking={speaking} size={64} />
         </div>
 
-        <ul className="machine-grid">
-          {machines.map((machine, index) => {
-            const status = statusOf(machine);
-            return (
-              <motion.li key={machine.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.04 * index }}>
-                <button className="card machine-card press" onClick={() => onOpen(machine)}>
-                  <MachineThumb machine={machine} />
-                  <strong>{capitalize(tidy(machine.name))}</strong>
-                  {identityLine(machine) && <span className="machine-identity">{identityLine(machine)}</span>}
-                  <span className={`status-pill status-${status.tone}`}>{status.label}</span>
-                </button>
-              </motion.li>
-            );
-          })}
-        </ul>
-
-        <div className="sample-block">
-          <p className="label">Nothing broken right now? Try a sample</p>
-          <SampleCards onPick={trySample} busy={loadingSample} />
+        <div className="start-actions">
+          <button className="start-action start-action-primary press" onClick={onFix}>
+            <span className="start-action-icon" aria-hidden="true">
+              <Icon name="camera" size={26} />
+            </span>
+            <strong>Show me</strong>
+            <span>Point your camera at it</span>
+          </button>
+          <button className="start-action press" onClick={onTell}>
+            <span className="start-action-icon" aria-hidden="true">
+              <Icon name="mic" size={26} />
+            </span>
+            <strong>Tell me</strong>
+            <span>Say or type what&apos;s wrong</span>
+          </button>
         </div>
-      </div>
-      <div className="bottom-bar">
-        <button className="btn btn-primary press" onClick={onFix}>
-          <Icon name="plus" size={20} />
-          Fix something new
-        </button>
+
+        <section className="home-section" aria-labelledby="pick-heading">
+          <h2 id="pick-heading" className="section-title">
+            Or pick it
+          </h2>
+          <FixPicker onPick={(fix, says) => onPickFix(fix, says)} />
+        </section>
+
+        {machines.length > 0 && (
+          <section className="home-section" aria-labelledby="home-heading">
+            <h2 id="home-heading" className="section-title">
+              My Home
+              <span className="section-count">
+                {machines.length} {machines.length === 1 ? "machine" : "machines"}
+                {due > 0 && ` · ${due} need${due === 1 ? "s" : ""} care`}
+              </span>
+            </h2>
+            <ul className="machine-grid">
+              {machines.map((machine, index) => {
+                const status = statusOf(machine);
+                return (
+                  <motion.li key={machine.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.04 * index }}>
+                    <button className="card machine-card press" onClick={() => onOpen(machine)}>
+                      <MachineThumb machine={machine} />
+                      <strong>{capitalize(tidy(machine.name))}</strong>
+                      {identityLine(machine) && <span className="machine-identity">{identityLine(machine)}</span>}
+                      <span className={`status-pill status-${status.tone}`}>{status.label}</span>
+                    </button>
+                  </motion.li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
+
+        <section className="home-section sample-block" aria-labelledby="sample-heading">
+          <h2 id="sample-heading" className="section-title">
+            Nothing broken? Watch a fix
+          </h2>
+          <SampleCards onPick={trySample} busy={loadingSample} />
+        </section>
       </div>
     </section>
   );

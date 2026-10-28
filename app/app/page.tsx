@@ -84,7 +84,8 @@ const noSubscription = () => () => {};
 export default function Home() {
   const firstRun = useSyncExternalStore(noSubscription, () => !hasOnboarded(), () => null);
   const [tutorial, setTutorial] = useState<"auto" | "open" | "closed">("auto");
-  const [stage, setStage] = useState<Stage>("start");
+  // Everyone starts at home: show it, tell it, or pick it.
+  const [stage, setStage] = useState<Stage>("home");
   const [mood, setMood] = useState<HelpaMood>("idle");
   const [speaking, setSpeaking] = useState(false);
   const [bubble, setBubble] = useState(cameraPrompt);
@@ -119,7 +120,7 @@ export default function Home() {
   const [machineId, setMachineId] = useState<string>();
   const [prefill, setPrefill] = useState<{ identity: string; description: string }>();
   const [savedName, setSavedName] = useState("");
-  const runRef = useRef<{ photos: Blob[]; sample?: string; description: string; attempts: Attempt[] }>({ photos: [], description: "", attempts: [] });
+  const runRef = useRef<{ photos: Blob[]; sample?: string; description: string; attempts: Attempt[]; fix?: string }>({ photos: [], description: "", attempts: [] });
   // Fixes already tried this time that didn't work ("Still broken"), shown as what we've ruled out.
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
@@ -127,7 +128,6 @@ export default function Home() {
     listMachines().then((list) => {
       setMachines(list);
       setHomeLoaded(true);
-      if (list.length) setStage((current) => (current === "start" ? "home" : current));
     });
   }, []);
 
@@ -228,12 +228,13 @@ export default function Home() {
     }
   };
 
-  const start = async (photos: Blob[], description: string, sample?: string, tried: Attempt[] = []) => {
+  /** Runs a fix: from photos and words, a recorded sample, a "Still broken" follow-up, or a fix picked from the list. */
+  const start = async (photos: Blob[], description: string, sample?: string, tried: Attempt[] = [], fix?: string) => {
     stopSpeaking();
     setStage("working");
     // A follow-up keeps counting from the first try.
     if (!tried.length) startedAt.current = Date.now();
-    runRef.current = { photos, sample, description, attempts: tried };
+    runRef.current = { photos, sample, description, attempts: tried, fix };
     setAttempts(tried);
     const followUp = tried.length && plan ? { attempts: tried, brand: plan.brand, model_number: plan.model_number } : undefined;
     setSavedName("");
@@ -261,7 +262,7 @@ export default function Home() {
     for (let attempt = 0; ; attempt++) {
       try {
         // A follow-up isn't the sample's recorded run any more, so it goes to the real pipeline.
-        await streamFix(photos, description, onEvent, followUp ? undefined : sample, followUp);
+        await streamFix(photos, description, onEvent, followUp ? undefined : sample, followUp, followUp ? undefined : fix);
         break;
       } catch {
         // Retrying is only safe before anything arrived; mid-run it would repeat the work and the questions.
@@ -390,13 +391,8 @@ export default function Home() {
   const restart = () => {
     stopSpeaking();
     setPrefill(undefined);
-    if (machines.length) {
-      setStage("home");
-      setMood("idle");
-      return;
-    }
-    setStage("start");
-    say("What else can I help with? Point me at it, or tell me.", "idle", false);
+    setStage("home");
+    setMood("idle");
   };
 
   const openTutorial = () => {
@@ -423,6 +419,13 @@ export default function Home() {
           setBubble(cameraPrompt);
           setStage("start");
         }}
+        onTell={() => {
+          stopSpeaking();
+          setPrefill({ identity: "", description: "" });
+          setBubble("Tell me what's going on. Type it, or hold the mic and talk.");
+          setStage("start");
+        }}
+        onPickFix={(fix, says) => start([], says, undefined, [], fix)}
         onSample={(photo, sample) => start([photo], sample.complaint, sample.id)}
         onHelp={openTutorial}
       />
@@ -448,7 +451,10 @@ export default function Home() {
     screen = (
       <Capture
         prefill={prefill}
-        onHome={machines.length ? () => setStage("home") : undefined}
+        onHome={() => {
+          stopSpeaking();
+          setStage("home");
+        }}
         onSubmit={start}
         say={say}
         onListening={(listening) => setMood(listening ? "listening" : "idle")}

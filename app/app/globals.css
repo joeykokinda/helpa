@@ -3426,3 +3426,162 @@ a:focus-visible {
 .card .icon-chips li span {
   background: var(--surface);
 }
+
+/* Home: show it, tell it, or pick it. */
+.home-title {
+  font-size: 34px;
+  max-width: 240px;
+}
+.home-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+.section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+.section-count {
+  color: var(--secondary);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.start-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.start-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 148px;
+  padding: 18px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+}
+.start-action strong {
+  margin-top: auto;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.start-action span:last-child {
+  color: var(--secondary);
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.3;
+}
+.start-action-primary {
+  background: var(--primary);
+  color: var(--primary-text);
+  --icon-tint: color-mix(in srgb, var(--accent) 85%, transparent);
+}
+.start-action-primary span:last-child {
+  color: color-mix(in srgb, var(--primary-text) 68%, transparent);
+}
+.start-action-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--foreground);
+}
+.start-action-primary .start-action-icon {
+  background: color-mix(in srgb, var(--primary-text) 12%, transparent);
+  color: var(--primary-text);
+}
+
+.picker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  list-style: none;
+}
+.picker-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 104px;
+  padding: 14px 12px 12px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--surface-2);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+  --icon-tint: color-mix(in srgb, var(--accent) 38%, transparent);
+}
+.picker-tile-loading {
+  display: block;
+}
+.picker-icon {
+  display: grid;
+  place-items: center;
+}
+.picker-icon-large {
+  width: 54px;
+  height: 54px;
+  flex: none;
+  border-radius: 18px;
+  background: var(--surface-2);
+  --icon-tint: color-mix(in srgb, var(--accent) 38%, transparent);
+}
+.picker-name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.picker-sheet {
+  max-height: 82%;
+}
+.picker-sheet .sheet-head > div {
+  flex: 1;
+  align-self: center;
+}
+.picker-problems {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  list-style: none;
+}
+.picker-problem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--surface-2);
+  color: var(--foreground);
+  font-size: 17px;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+.picker-problem svg {
+  flex: none;
+  color: var(--tertiary);
+}

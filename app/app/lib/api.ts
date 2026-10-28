@@ -100,12 +100,15 @@ export async function streamFix(
   onEvent: (event: AgentEvent) => void,
   sample?: string,
   followUp?: { attempts: Attempt[]; brand: string; model_number: string },
+  fix?: string,
 ) {
   const form = new FormData();
   photos.forEach((photo, index) => form.append("photos", photo, `photo-${index}.jpg`));
   form.append("complaint", complaint);
   // A sample id makes the backend replay that sample's recorded run instead of calling the models.
   if (sample) form.append("sample", sample);
+  // A fix picked from the list ("toilet/keeps_running"): the backend goes straight to it.
+  if (fix) form.append("fix", fix);
   // "Still broken": what was tried, so the backend goes after the next most likely cause.
   if (followUp?.attempts.length) {
     form.append("ruled_out", followUp.attempts.map((attempt) => attempt.id).filter(Boolean).join(","));
@@ -130,6 +133,22 @@ export async function streamFix(
       if (line) onEvent(JSON.parse(line.slice(6)) as AgentEvent);
     }
   }
+}
+
+/** One tile in the "what needs fixing?" picker, with its common problems. */
+export type PickerEntry = { id: string; category: string; icon: string; problems: { id: string; title: string; says: string }[] };
+
+let pickerCache: Promise<PickerEntry[]> | null = null;
+
+/** Every thing Helpa has ready fixes for. Cached for the visit; an error clears it so the next look retries. */
+export function fetchFixes(): Promise<PickerEntry[]> {
+  pickerCache ??= fetch(`${API_URL}/api/fixes`)
+    .then((response) => (response.ok ? (response.json() as Promise<PickerEntry[]>) : Promise.reject(new Error("no fixes"))))
+    .catch((error) => {
+      pickerCache = null;
+      throw error;
+    });
+  return pickerCache;
 }
 
 /** Answers a question the agent asked; the original fix stream carries on. */
