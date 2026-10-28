@@ -40,6 +40,9 @@ func handleLocate(writer http.ResponseWriter, request *http.Request) {
 		json.NewEncoder(writer).Encode(map[string]string{"sam": strings.TrimSpace(string(recorded)), "phrase": phrases[0]})
 		return
 	}
+	if overBudget(writer, 0.8) {
+		return
+	}
 	photos, err := readPhotos(request, "photo")
 	if err != nil || len(photos) != 1 {
 		http.Error(writer, "send exactly one photo", http.StatusBadRequest)
@@ -118,6 +121,9 @@ func handleReadLabel(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 	if replayDir != "" {
 		json.NewEncoder(writer).Encode(map[string]any{"found": true, "brand": "Whirlpool", "model_number": "WDF520PADM7", "serial": "F91234567", "vin": "", "description": "Whirlpool dishwasher"})
+		return
+	}
+	if overBudget(writer, 1) {
 		return
 	}
 	photos, err := readPhotos(request, "photo")

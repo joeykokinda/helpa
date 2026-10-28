@@ -16,7 +16,8 @@ import (
 	"sync"
 )
 
-const maxUploadBytes = 40 << 20
+// Phones shrink photos before upload; this caps a public request at a few full-size ones.
+const maxUploadBytes = 16 << 20
 
 func main() {
 	if metaAPIKey == "" && replayDir == "" {
@@ -59,7 +60,7 @@ func main() {
 		writer.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(writer).Encode(entry)
 	})
-	http.HandleFunc("GET /api/health", func(writer http.ResponseWriter, _ *http.Request) { writer.Write([]byte("ok")) })
+	http.HandleFunc("GET /api/health", handleHealth)
 	address := os.Getenv("ADDR")
 	if replayDir != "" && address == "" {
 		address = "127.0.0.1:8096"
@@ -68,7 +69,7 @@ func main() {
 		address = "127.0.0.1:8095"
 	}
 	log.Printf("helpa listening on %s", address)
-	log.Fatal(http.ListenAndServe(address, withCORS(http.DefaultServeMux)))
+	log.Fatal(http.ListenAndServe(address, withCORS(withLimits(http.DefaultServeMux))))
 }
 
 // withCORS lets the app call the API from its own origin (Vercel or the dev server).
@@ -160,6 +161,14 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 		emit(event{"type": "done"})
 		return
 	}
+	if spend.over() {
+		emit(event{"type": "say", "text": "Helpa is resting for today, so here's a sample fix to show you how it works."})
+		sample := openSample(restingSample(complaint))
+		defer sample.Close()
+		replayStream(request, sample, session, emit)
+		emit(event{"type": "done"})
+		return
+	}
 	if replayDir != "" {
 		replayFix(request, complaint, session, emit)
 		emit(event{"type": "done"})
@@ -199,6 +208,9 @@ func handleCheck(writer http.ResponseWriter, request *http.Request) {
 	if !parseUpload(writer, request) {
 		return
 	}
+	if replayDir == "" && overBudget(writer, 1) {
+		return
+	}
 	if replayDir != "" {
 		replayCheck(writer, request.FormValue("live") == "1")
 		return
@@ -221,6 +233,9 @@ func handleCheck(writer http.ResponseWriter, request *http.Request) {
 // handleTranscribe forwards a 16 kHz mono WAV to Muse Voice Transcribe and returns {"text": ...}.
 func handleTranscribe(writer http.ResponseWriter, request *http.Request) {
 	if !parseUpload(writer, request) {
+		return
+	}
+	if replayDir == "" && overBudget(writer, 1) {
 		return
 	}
 	if replayDir != "" {
