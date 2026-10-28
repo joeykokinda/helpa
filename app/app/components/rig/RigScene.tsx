@@ -186,10 +186,12 @@ type RigSceneProps = {
   stepIndex: number;
   /** Shares the play head with the live camera, so its ghost motion moves in step with this model. */
   playHeadRef?: RefObject<PlayHead>;
+  /** The camera-mode look: no paper or floor, so the model floats as a hologram over the live picture. */
+  holo?: boolean;
 };
 
 /** The appliance model playing one step: each beat moves a real part, with a guide, an arrow, a caption and a following camera. */
-export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHeadRef }: RigSceneProps) {
+export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHeadRef, holo }: RigSceneProps) {
   const defs = useMemo(() => Object.fromEntries(catalog.parts.map((part) => [part.id, part])), [catalog]);
   const beats = useMemo(() => stepBeats[stepIndex] ?? [], [stepBeats, stepIndex]);
   const start = useMemo(() => applyBeats(restState(catalog), stepBeats.slice(0, stepIndex).flat()), [catalog, stepBeats, stepIndex]);
@@ -214,7 +216,7 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
   const runtime = useMemo(() => ({ defs, amounts: amountsRef, focus: focusRef, nodes: nodesRef }), [defs]);
 
   return (
-    <div className="scene-3d rig-scene" data-beat-seconds={beatSeconds * (slow ? slowFactor : 1)}>
+    <div className={holo ? "scene-3d rig-scene rig-scene-holo" : "scene-3d rig-scene"} data-beat-seconds={beatSeconds * (slow ? slowFactor : 1)}>
       <Canvas orthographic camera={{ position: [1.6, 1.4, 2.2], zoom: 220, near: 0.01, far: 12 }} dpr={[1, 2]} shadows="variance" flat>
         <RigProvider value={runtime}>
           <StartClock clockStartRef={clockStartRef} restartKey={`${stepIndex}-${replays}-${slow}`} />
@@ -236,9 +238,9 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
             shadow-camera-near={0.5}
             shadow-camera-far={8}
           />
-          <color attach="background" args={[palette.paper]} />
+          {!holo && <color attach="background" args={[palette.paper]} />}
           <Model />
-          <Ground />
+          {!holo && <Ground />}
           <BeatArrow beat={beat} def={def} nodes={nodesRef} />
           <MotionGuide beat={beat} def={def} from={beatFrom} to={beatTo} nodes={nodesRef} playRef={playRef} />
           <Effects beat={beat} def={def} nodes={nodesRef} playRef={playRef} />

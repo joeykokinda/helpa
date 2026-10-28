@@ -16,7 +16,7 @@ const waterParts = /water|drain|tap|hose|valve|pump|inlet|sump|spray|jet|filter/
 const lightParts = /bulb|lamp|light/i;
 
 /** Which effect a beat earns, and when (in seconds into the beat) it fires. */
-function effectFor(beat: Beat, def: RigPartDef) {
+export function effectFor(beat: Beat, def: RigPartDef) {
   const name = `${def.id} ${def.label}`;
   if (beat.action === "clean" && def.joint.kind === "debris") return { puff: 1, sparkle: 1, drop: 0, ring: 0, halo: 0, at: timing.lead + timing.move * 0.32 };
   if (beat.action === "clean") return { puff: 0, sparkle: 1, drop: waterParts.test(name) ? 1 : 0, ring: 0, halo: 0, at: timing.lead + timing.move * 0.5 };

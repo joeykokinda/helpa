@@ -168,9 +168,9 @@ function correlation(first: Gray, x: number, y: number, second: Gray, u: number,
 
 /**
  * How far the picture shifted between two grey frames, from a few textured patches (preferably inside the part's
- * box). The search starts at the gyro's guess, so quick pans still match. Score is the median correlation, 0..1.
+ * box). The search also starts at the gyro's guesses, so quick pans still match. Score is the median correlation, 0..1.
  */
-export function frameShift(previous: Gray, current: Gray, region: Box | null, guess: { x: number; y: number }) {
+export function frameShift(previous: Gray, current: Gray, region: Box | null, guesses: { x: number; y: number }[]) {
   const margin = patchRadius + 12;
   const area = region
     ? { left: region.x * previous.width, top: region.y * previous.height, right: (region.x + region.width) * previous.width, bottom: (region.y + region.height) * previous.height }
@@ -180,7 +180,7 @@ export function frameShift(previous: Gray, current: Gray, region: Box | null, gu
     const x = Math.round(Math.min(previous.width - margin, Math.max(margin, area.left + (area.right - area.left) * fx)));
     const y = Math.round(Math.min(previous.height - margin, Math.max(margin, area.top + (area.bottom - area.top) * fy)));
     let best = { x: 0, y: 0, score: -1 };
-    for (const center of [guess, { x: 0, y: 0 }]) {
+    for (const center of [{ x: 0, y: 0 }, ...guesses]) {
       const centerX = Math.round(center.x);
       const centerY = Math.round(center.y);
       for (let dy = -6; dy <= 6; dy++) {

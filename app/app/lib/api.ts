@@ -128,7 +128,14 @@ export async function transcribe(wav: Blob): Promise<string> {
   return ((await response.json()) as { text: string }).text;
 }
 
-export type CheckResult = { done: boolean; feedback: string; mistake?: string };
+export type CheckResult = {
+  /** Older replies only carry done. */
+  status?: "COMPLETED" | "INCOMPLETE" | "UNCERTAIN";
+  done: boolean;
+  evidence?: string;
+  feedback: string;
+  mistake?: string;
+};
 
 /** Judges a photo of a step. Live frames come from the camera mid-step, so only clear results and mistakes count. */
 export async function checkStep(photo: Blob, step: PlanStep, options: { part?: string; live?: boolean } = {}): Promise<CheckResult> {
