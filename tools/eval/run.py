@@ -126,10 +126,10 @@ def run_fix(base, case):
 def helpa(base, wanted):
     out_path = here / "helpa.json"
     done = json.loads(out_path.read_text()) if out_path.exists() else {}
-    judge_cost = sum(entry.get("judge_cost", 0) for entry in done.values())
+    # Counted from saved runs rather than the backend's tally, which resets when the backend restarts.
+    spent = sum(entry.get("judge_cost", 0) + entry.get("pipeline_cost", 0) for entry in done.values())
     todo = [case for case in cases if (not wanted or case["id"] in wanted) and case["id"] not in done]
     for case in todo:
-        spent = health(base)["spent_usd"] + judge_cost
         if spent > cap - 0.3:
             print(f"stopping: ${spent:.2f} spent, cap ${cap}")
             break
@@ -138,7 +138,7 @@ def helpa(base, wanted):
         result["pipeline_cost"] = round(health(base)["spent_usd"] - before, 4)
         if result["plan"]:
             result["grade"], result["judge_cost"] = judge(case, plan_text(result["plan"]))
-            judge_cost += result["judge_cost"]
+        spent += result["pipeline_cost"] + result.get("judge_cost", 0)
         result["answer"] = plan_text(result["plan"]) if result["plan"] else ""
         del result["plan"]
         done[case["id"]] = result
