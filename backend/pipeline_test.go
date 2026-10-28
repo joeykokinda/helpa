@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"io"
+	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 	"time"
@@ -61,7 +63,7 @@ func TestLibraryPlanFastPath(t *testing.T) {
 	var sent []event
 	emit := func(payload event) { sent = append(sent, payload) }
 	ident := identification{Appliance: "dryer", LibraryFix: "whirlpool-electric-dryer/clothes_still_damp_long_dry_time"}
-	plan := libraryPlan(ident, emit)
+	plan := libraryPlan(ident, "", nil, emit)
 	if plan == nil || !strings.Contains(string(plan), `"library_problem":"clothes_still_damp_long_dry_time"`) {
 		t.Fatalf("no fast-path plan: %s", plan)
 	}
@@ -69,12 +71,12 @@ func TestLibraryPlanFastPath(t *testing.T) {
 		t.Fatalf("events: %v", sent)
 	}
 	ident.Brand = "Samsung"
-	if libraryPlan(ident, emit) != nil {
+	if libraryPlan(ident, "", nil, emit) != nil {
 		t.Fatal("used a Whirlpool fix for a Samsung")
 	}
 	// The car fix is found from however the first look names it, and keeps the model the person showed.
 	camry := identification{Appliance: "car", Brand: "Toyota", ModelNumber: "2015 Camry LE 2.5L", LibraryFix: "car-oil-change/engine_oil_due_for_change"}
-	plan = libraryPlan(camry, emit)
+	plan = libraryPlan(camry, "", nil, emit)
 	if plan == nil || !strings.Contains(string(plan), `"model_number":"2015 Camry LE 2.5L"`) {
 		t.Fatalf("car fix: %s", plan)
 	}
@@ -83,12 +85,85 @@ func TestLibraryPlanFastPath(t *testing.T) {
 	}
 	// A top-loader with no brand on the photo gets the top-load fix, without claiming it's a Whirlpool.
 	washer := identification{Appliance: "top-load washer", LibraryFix: "whirlpool-top-load-washer/not_draining_wet_clothes"}
-	plan = libraryPlan(washer, emit)
+	plan = libraryPlan(washer, "", nil, emit)
 	if plan == nil || !strings.Contains(string(plan), `"brand":""`) || strings.Contains(string(plan), `"model_number":"WTW`) {
 		t.Fatalf("unbranded washer fix: %s", plan)
 	}
 	if entry := lookupLibrary(libraryQuery{"top-load washer", "", ""}); entry == nil || entry.ID != "whirlpool-top-load-washer" {
 		t.Fatalf("top-load washer found %v", entry)
+	}
+}
+
+func TestLibraryContradiction(t *testing.T) {
+	emit := func(event) {}
+	burner := identification{Appliance: "electric range", LibraryFix: "whirlpool-electric-range/one_burner_will_not_heat"}
+	if libraryPlan(burner, "one of the burners on my stove doesn't heat", nil, emit) == nil {
+		t.Fatal("a plain burner complaint should get the library fix")
+	}
+	if libraryPlan(burner, "one of the coil burners on my electric stove doesn't heat", nil, emit) != nil {
+		t.Fatal("coil burners must not get the glass-top fix")
+	}
+	if !rigContradicted("range_electric", "my gas stove won't light") || rigContradicted("range_electric", "my oven light is out") {
+		t.Fatal("the glass-top range model is for electric ranges only")
+	}
+	if rigContradicted("dryer_top_vent", "my gas dryer takes forever") {
+		t.Fatal("a gas dryer still has the same lint screen and vent")
+	}
+}
+
+func TestHypothesisChain(t *testing.T) {
+	lint := "whirlpool-electric-dryer/clothes_still_damp_long_dry_time"
+	vent := "whirlpool-electric-dryer/vent_blocked"
+	fuse := "whirlpool-electric-dryer/thermal_fuse_or_heater"
+	if next := nextFix([]string{lint}); next != vent {
+		t.Fatalf("after the lint screen: %q", next)
+	}
+	if next := nextFix([]string{lint, vent}); next != fuse {
+		t.Fatalf("after the vent: %q", next)
+	}
+	if next := nextFix([]string{lint, vent, fuse}); next != "" {
+		t.Fatalf("the chain should end after the fuse, got %q", next)
+	}
+	// Starting from the sensor strips still skips the vent once it's been tried.
+	if next := nextFix([]string{vent, "whirlpool-electric-dryer/dryer_stops_before_clothes_are_dry"}); next != fuse {
+		t.Fatalf("an already-ruled-out vent was offered again: %q", next)
+	}
+	if nextFix(nil) != "" || nextFix([]string{"no-such/fix"}) != "" {
+		t.Fatal("nothing tried means no next cause")
+	}
+	// A ruled-out fix is never the plan again, even when the first look names it.
+	ident := identification{Appliance: "electric dryer", LibraryFix: lint}
+	if libraryPlan(ident, "still damp", []string{lint}, func(event) {}) != nil {
+		t.Fatal("offered the lint screen again after it didn't work")
+	}
+	ident.LibraryFix = vent
+	plan := libraryPlan(ident, "", []string{lint}, func(event) {})
+	if !strings.Contains(string(plan), `"cause":"a blocked dryer vent"`) {
+		t.Fatalf("the next plan should say what it rules out: %s", plan)
+	}
+	// Every link in the library points at a fix that exists.
+	for _, entry := range library {
+		for _, problem := range entry.Problems {
+			if problem.Next == "" {
+				continue
+			}
+			if _, next := findLibraryFix(entry.ID + "/" + problem.Next); next == nil {
+				t.Errorf("%s/%s points at missing %s", entry.ID, problem.ID, problem.Next)
+			}
+		}
+	}
+}
+
+func TestReadFollowUp(t *testing.T) {
+	form := url.Values{"ruled_out": {"whirlpool-electric-dryer/clothes_still_damp_long_dry_time, ../etc/passwd,made/up"}, "tried": {strings.Repeat("x", 1000)}}
+	request := httptest.NewRequest("POST", "/api/fix", strings.NewReader(form.Encode()))
+	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	follow := readFollowUp(request)
+	if len(follow.RuledOut) != 1 || follow.RuledOut[0] != "whirlpool-electric-dryer/clothes_still_damp_long_dry_time" {
+		t.Fatalf("only real library fixes are kept: %v", follow.RuledOut)
+	}
+	if len(follow.Tried) != 400 {
+		t.Fatalf("tried text is capped, got %d", len(follow.Tried))
 	}
 }
 

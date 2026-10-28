@@ -655,7 +655,9 @@
             "caption": "It drains away: fixed"
           }
         ]
-      ]
+      ],
+      "cause": "a clogged filter",
+      "next": "drain_hose_or_air_gap"
     },
     {
       "id": "dishes_still_wet",
@@ -1804,6 +1806,176 @@
           }
         ]
       ]
+    },
+    {
+      "id": "drain_hose_or_air_gap",
+      "symptoms": [
+        "Water still sits in the bottom after cleaning the filter",
+        "It drains slowly even with a clean filter"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "With the filter clean, the next most likely cause is a blockage on the way out: food in the air gap cap by the faucet, or a kinked drain hose under the sink. A new garbage disposal with its knockout plug still in does this too.",
+        "tools": [
+          "Flashlight",
+          "Paper towels"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the power off before you reach under the sink."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn off the dishwasher's breaker or switch",
+            "details": [
+              "Most dishwashers have a breaker in the panel or a switch under the sink."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The dishwasher has no power."
+          },
+          {
+            "instruction": "Lift the chrome cap off the air gap",
+            "details": [
+              "It's the small chrome cap next to the faucet.",
+              "Some sinks don't have one; skip to the hose if yours doesn't."
+            ],
+            "target_part": "sink drain cap",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The cap is off."
+          },
+          {
+            "instruction": "Pull out food stuck in the air gap",
+            "details": [
+              "Use a paper towel or an old toothbrush."
+            ],
+            "target_part": "food in the air gap",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The air gap is clear."
+          },
+          {
+            "instruction": "Push the air gap cap back on",
+            "details": [],
+            "target_part": "sink drain cap",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The cap is back on."
+          },
+          {
+            "instruction": "Check the hose under the sink for kinks",
+            "details": [
+              "Follow the ribbed hose from the dishwasher to the sink drain.",
+              "Straighten any sharp bends or flattened spots."
+            ],
+            "target_part": "gray drain hose under the sink",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The hose runs smoothly with no kinks."
+          },
+          {
+            "instruction": "Turn power on, run a short rinse, look inside",
+            "details": [
+              "After the rinse ends, open the door.",
+              "A little water around the filter is normal; a pool is not."
+            ],
+            "target_part": "bottom of the tub",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Only a little water is left around the filter."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 150,
+        "aftercare": "Run the disposal before starting the dishwasher, and rinse the filter monthly.",
+        "stop_for_pro": false
+      },
+      "cause": "a blocked air gap or kinked drain hose",
+      "next": "drain_pump_failed"
+    },
+    {
+      "id": "drain_pump_failed",
+      "symptoms": [
+        "It still won't drain after cleaning the filter and air gap",
+        "It hums at the end of a cycle but the water stays"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WDT730HAMZ",
+        "appliance": "built-in dishwasher",
+        "manual_url": "https://images.homedepot.ca/pdf/WDT540HAMZ_use_and_care-pdf.pdf",
+        "diagnosis": "With the filter, air gap and hose clear, the drain pump itself is probably jammed with glass or a seed, or has failed. It sits under the tub behind the bottom panel, so it's a job for a pro.",
+        "tools": [],
+        "replacement_parts": [
+          "Drain pump for your model (match it by the model number)"
+        ],
+        "safety": [
+          "Don't run it again with water sitting in it; that can overheat the pump."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn off the dishwasher's breaker or switch",
+            "details": [],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The dishwasher has no power."
+          },
+          {
+            "instruction": "Scoop out the standing water",
+            "details": [
+              "Use a cup and a towel."
+            ],
+            "target_part": "standing water",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The tub floor is mostly dry."
+          },
+          {
+            "instruction": "Find the model number on the door edge",
+            "details": [
+              "Open the door; the sticker is on the side or top edge of the tub."
+            ],
+            "target_part": "model sticker on the door edge",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "You have a photo of the sticker."
+          },
+          {
+            "instruction": "Call a pro, or order the part for your model",
+            "details": [
+              "Tell them what you already tried, so you don't pay for the same checks.",
+              "A parts store can match the part to your model number."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": ""
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 200,
+        "aftercare": "Scrape plates and keep the filter clean so bits don't reach the pump.",
+        "stop_for_pro": false
+      },
+      "cause": "a jammed or failed drain pump"
     }
   ],
   "scene": {

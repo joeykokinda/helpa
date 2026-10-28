@@ -330,15 +330,51 @@
         "outside vent hood"
       ],
       "joint": {
-        "kind": "none"
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 0.1
       },
       "actions": [
+        "remove",
+        "insert",
         "look"
       ],
       "view": [
         1,
         0.6,
         -0.6
+      ]
+    },
+    {
+      "id": "vent_lint",
+      "label": "Lint in the vent",
+      "aliases": [
+        "vent lint",
+        "duct lint",
+        "lint in the hose",
+        "lint in the duct",
+        "vent buildup"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.06,
+          -0.25
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.9,
+        0.5,
+        -1
       ]
     },
     {

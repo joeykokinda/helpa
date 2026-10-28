@@ -2464,5 +2464,12 @@
       }
     ]
   },
-  "rig_id": "car_oil_change"
+  "rig_id": "car_oil_change",
+  "contradicts": [
+    "diesel",
+    "v6",
+    "tesla",
+    "electric car",
+    "ev"
+  ]
 }

@@ -161,6 +161,15 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 		emit(event{"type": "done"})
 		return
 	}
+	follow := readFollowUp(request)
+	// The next cause from the library needs no model calls, so it runs even in replay mode or past the budget.
+	if nextFix(follow.RuledOut) != "" {
+		if err := runPipeline(request.Context(), photos, complaint, follow, session, emit); err != nil {
+			emit(event{"type": "error", "message": err.Error()})
+		}
+		emit(event{"type": "done"})
+		return
+	}
 	if spend.over() {
 		emit(event{"type": "say", "text": "Helpa is resting for today, so here's a sample fix to show you how it works."})
 		sample := openSample(restingSample(complaint))
@@ -174,7 +183,7 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 		emit(event{"type": "done"})
 		return
 	}
-	if err := runPipeline(request.Context(), photos, complaint, session, emit); err != nil {
+	if err := runPipeline(request.Context(), photos, complaint, follow, session, emit); err != nil {
 		log.Printf("agent: %v", err)
 		emit(event{"type": "error", "message": err.Error()})
 	}
