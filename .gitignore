@@ -6,3 +6,5 @@ spike/sample.jpg
 backend/helpa
 spike/muse.*
 .claude/
+.deploy/
+.next-deploy/

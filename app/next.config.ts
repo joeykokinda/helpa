@@ -5,6 +5,8 @@ const backendUrl = process.env.BACKEND_URL ?? "http://127.0.0.1:8095";
 const nextConfig: NextConfig = {
   // A second checkout of tooling (agents, CI) can build or run dev without touching the main .next.
   distDir: process.env.NEXT_DIST_DIR || ".next",
+  // scripts/deploy-brach.sh builds a self-contained server to run on brach.
+  output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   cacheComponents: true,
   // gzip buffers the agent's live event stream; responses are small anyway.
   compress: false,
