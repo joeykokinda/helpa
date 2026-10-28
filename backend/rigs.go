@@ -72,7 +72,7 @@ func matchRig(appliance string) *rigCatalog {
 	bestLength := 0
 	for index := range rigCatalogs {
 		for _, phrase := range rigCatalogs[index].Matches {
-			if strings.Contains(name, strings.ToLower(phrase)) && len(phrase) > bestLength {
+			if containsWords(name, strings.ToLower(phrase)) && len(phrase) > bestLength {
 				best, bestLength = &rigCatalogs[index], len(phrase)
 			}
 		}
@@ -184,4 +184,26 @@ func choreograph(ctx context.Context, catalog *rigCatalog, plan json.RawMessage)
 		}
 	}
 	return stepBeats, nil
+}
+
+// containsWords reports whether phrase appears in text as whole words, so "car" doesn't match "carpet".
+func containsWords(text, phrase string) bool {
+	for start := 0; ; {
+		index := strings.Index(text[start:], phrase)
+		if index < 0 {
+			return false
+		}
+		begin, end := start+index, start+index+len(phrase)
+		boundary := func(position int) bool {
+			if position < 0 || position >= len(text) {
+				return true
+			}
+			character := text[position]
+			return !(character >= 'a' && character <= 'z' || character >= '0' && character <= '9')
+		}
+		if boundary(begin-1) && boundary(end) {
+			return true
+		}
+		start = begin + 1
+	}
 }

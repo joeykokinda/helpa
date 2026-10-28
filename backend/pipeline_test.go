@@ -55,3 +55,12 @@ func TestLibraryPlanFastPath(t *testing.T) {
 		t.Fatal("used a Whirlpool fix for a Samsung")
 	}
 }
+
+func TestMatchRigWholeWords(test *testing.T) {
+	if containsWords("carpet cleaner", "car") {
+		test.Fatal(`"car" must not match "carpet cleaner"`)
+	}
+	if !containsWords("my car won't start", "car") || !containsWords("front-load washer", "front-load washer") {
+		test.Fatal("whole-word phrases should match")
+	}
+}
