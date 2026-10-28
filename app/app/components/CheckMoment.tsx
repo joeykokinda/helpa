@@ -7,7 +7,7 @@ import Icon from "./Icons";
 import SpeechBubble from "./SpeechBubble";
 
 export type CheckPhase = "checking" | "done" | "retry" | "error";
-export type CheckState = { phase: CheckPhase; photoUrl: string; feedback: string };
+export type CheckState = { phase: CheckPhase; photoUrl: string; feedback: string; model?: string };
 
 const moodFor: Record<CheckPhase, HelpaMood> = { checking: "searching", done: "celebrate", retry: "worried", error: "worried" };
 const titleFor: Record<CheckPhase, string> = { checking: "Checking your work", done: "Looks done!", retry: "Almost there", error: "I couldn't check that" };
@@ -33,7 +33,7 @@ function AnimatedCheck() {
 
 /** "Check my work" as a moment with Helpa: looking at the photo, then cheering or gently saying what to change. */
 export default function CheckMoment({ check, speaking, doneLooksLike, guide, onBack }: CheckMomentProps) {
-  const { phase, photoUrl, feedback } = check;
+  const { phase, photoUrl, feedback, model } = check;
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -48,6 +48,7 @@ export default function CheckMoment({ check, speaking, doneLooksLike, guide, onB
 
   return (
     <div className={`check-moment check-${phase}`}>
+      {model === "muse-spark-open" && phase !== "checking" && <p className="checked-by">Checked by Muse Spark Open, Meta&apos;s open-weight model</p>}
       <h2 ref={titleRef} tabIndex={-1} className={`check-title check-title-${phase}`}>
         {titleFor[phase]}
       </h2>

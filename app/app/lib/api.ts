@@ -196,6 +196,8 @@ export type CheckResult = {
   evidence?: string;
   feedback: string;
   mistake?: string;
+  /** "muse-spark-open" when Meta's open-weight model made the call. */
+  model?: string;
 };
 
 /** Judges a photo of a step. Live frames come from the camera mid-step, so only clear results and mistakes count. */

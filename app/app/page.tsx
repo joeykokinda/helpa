@@ -399,7 +399,7 @@ export default function Home() {
     let next: CheckState;
     try {
       const result = await checkStep(await shrinkPhoto(file), step);
-      next = { phase: result.done ? "done" : "retry", photoUrl, feedback: tidy(result.feedback) };
+      next = { phase: result.done ? "done" : "retry", photoUrl, feedback: tidy(result.feedback), model: result.model };
     } catch (error) {
       next = { phase: "error", photoUrl, feedback: error instanceof Error ? error.message : "I couldn't check that. Can you try again?" };
     }

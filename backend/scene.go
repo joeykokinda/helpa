@@ -203,6 +203,14 @@ func checkStep(ctx context.Context, photo, instruction, expected, part string, l
 	} else {
 		prompt += "Does this photo show the step done? Be encouraging, but don't pass it if it clearly isn't done."
 	}
+	// Meta's open-weight Muse Spark Open checks first when it's configured; Muse Spark backs it up.
+	if openWeightsKey != "" {
+		result, err := checkStepOpen(ctx, photo, prompt)
+		if err == nil {
+			return result, nil
+		}
+		log.Printf("check on muse spark open, falling back: %v", err)
+	}
 	reply, err := createResponse(ctx, map[string]any{
 		"model":     "muse-spark-1.3",
 		"reasoning": map[string]any{"effort": "low"},
