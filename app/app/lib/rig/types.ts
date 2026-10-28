@@ -25,6 +25,10 @@ export type RigPartDef = {
   view?: Vec3;
   /** Joint amount the part starts at, e.g. 1 for water taps that are normally open. Defaults to 0. */
   rest?: number;
+  /** Plain nouns SAM 3.1 finds this part by on a camera frame, best first ("mesh screen" finds a lint screen). */
+  sam?: string[];
+  /** Where the part sits on the machine as the camera sees it: x, y, width, height as fractions of the machine's box. */
+  region?: [number, number, number, number];
 };
 
 /** One movement in a step: "open the door", "peel off the lint". */

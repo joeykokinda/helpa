@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -25,6 +26,15 @@ func handleLocate(writer http.ResponseWriter, request *http.Request) {
 		if phrase != "" && len(phrase) <= 60 && len(phrases) < maxLocatePhrases {
 			phrases = append(phrases, phrase)
 		}
+	}
+	// A tap on the part: SAM's point prompt, "x,y,width,height" in the frame's pixels.
+	if point := request.FormValue("point"); point != "" {
+		prompt, ok := pointPrompt(point)
+		if !ok {
+			http.Error(writer, "point is x,y,width,height in pixels", http.StatusBadRequest)
+			return
+		}
+		phrases = []string{prompt}
 	}
 	if len(phrases) == 0 {
 		http.Error(writer, "send at least one phrase", http.StatusBadRequest)
@@ -75,6 +85,18 @@ func handleLocate(writer http.ResponseWriter, request *http.Request) {
 	}
 	log.Printf("locate %q: nothing", phrases)
 	json.NewEncoder(writer).Encode(map[string]string{"sam": "", "phrase": ""})
+}
+
+// pointPrompt turns "x,y,width,height" into SAM 3.1's geometric prompt for one object on one frame.
+func pointPrompt(point string) (string, bool) {
+	var x, y, width, height int
+	if count, err := fmt.Sscanf(point, "%d,%d,%d,%d", &x, &y, &width, &height); err != nil || count != 4 {
+		return "", false
+	}
+	if width <= 0 || height <= 0 || width > 8192 || height > 8192 || x < 0 || y < 0 || x >= width || y >= height {
+		return "", false
+	}
+	return fmt.Sprintf("<0f>0<|point;x=%d;y=%d;w=%d;h=%d|>", x, y, width, height), true
 }
 
 var labelSchema = map[string]any{

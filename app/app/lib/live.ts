@@ -21,7 +21,28 @@ export function frameCanvas(video: HTMLVideoElement, maxSide: number) {
   return canvas;
 }
 
-export const canvasBlob = (canvas: HTMLCanvasElement, quality = 0.82) =>
+/** Draws one area of the video (0..1 box) at full sharpness into a canvas whose long side is at most maxSide. */
+export function cropCanvas(video: HTMLVideoElement, area: Box, maxSide: number) {
+  const width = area.width * video.videoWidth;
+  const height = area.height * video.videoHeight;
+  const scale = maxSide / Math.max(width, height);
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(width * scale);
+  canvas.height = Math.round(height * scale);
+  canvas.getContext("2d")!.drawImage(video, area.x * video.videoWidth, area.y * video.videoHeight, width, height, 0, 0, canvas.width, canvas.height);
+  return canvas;
+}
+
+/** A frame box in the coordinates of a crop of that frame, and back. */
+export const intoArea = (box: Box, area: Box): Box => ({ x: (box.x - area.x) / area.width, y: (box.y - area.y) / area.height, width: box.width / area.width, height: box.height / area.height });
+export const outOfArea = (box: Box, area: Box): Box => ({ x: area.x + box.x * area.width, y: area.y + box.y * area.height, width: box.width * area.width, height: box.height * area.height });
+
+/** A rectangle mask for when the person tapped a part SAM couldn't outline: the whole box is the part. */
+export function boxMask(frame: { width: number; height: number }, box: Box): PartMask {
+  return { left: box.x * frame.width, top: box.y * frame.height, width: box.width * frame.width, height: box.height * frame.height, raster: new Uint8Array(64).fill(1), rasterWidth: 8, rasterHeight: 8 };
+}
+
+export const canvasBlob =(canvas: HTMLCanvasElement, quality = 0.82) =>
   new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("capture failed"))), "image/jpeg", quality));
 
 /** Where the video's picture sits inside its element with object-fit: contain, in CSS pixels. */

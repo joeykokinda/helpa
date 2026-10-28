@@ -11,8 +11,12 @@ import {
   actionWords,
   beatMotion,
   pickMask,
+  boxMask,
   canvasBlob,
+  cropCanvas,
   cutOut,
+  intoArea,
+  outOfArea,
   displayRect,
   easeBox,
   frameCanvas,
@@ -59,6 +63,10 @@ type Callout = { tone: "good" | "fix" | "unsure"; text: string } | null;
 type Track = { cutout: Cutout; box: Box; target: Box; seenAt: number; lockedAt: number; misses: number; lookedAt: number };
 
 const targetPart = "__target";
+/** The whole machine's box, tracked like a part so a part's region on it can be cropped. Never drawn. */
+const machinePart = "__machine";
+/** No lock this long and Helpa asks the person to tap the part instead of stalling. */
+const tapAfterMs = 4000;
 const demoLoops = 2;
 const locateEveryMs = 900;
 const checkCooldownMs = 4000;
@@ -79,6 +87,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
   const playHeadRef = useRef<PlayHead>({ index: 0, within: 0, progress: 0 });
   const tracksRef = useRef<Record<string, Track>>({});
   const phraseRef = useRef<Record<string, string>>({});
+  const tappedRef = useRef(new Set<string>());
+  const tapRef = useRef<((clientX: number, clientY: number) => void) | null>(null);
   const phaseRef = useRef<Phase>("demo");
   const confidenceRef = useRef(0);
   const offsetRef = useRef({ x: 0, y: 0 });
@@ -93,6 +103,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
   const [callout, setCallout] = useState<Callout>(null);
   const [steady, setSteady] = useState(true);
   const [locked, setLocked] = useState(false);
+  /** The part Helpa couldn't find on its own and asks the person to tap. */
+  const [tapFor, setTapFor] = useState<string | null>(null);
   const [helpaSide, setHelpaSide] = useState<"left" | "right">("right");
 
   useEffect(() => {
@@ -169,12 +181,14 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
   // A new step starts with the demo again.
   useEffect(() => {
     tracksRef.current = {};
+    tappedRef.current = new Set();
     phaseRef.current = "demo";
     watchRef.current = { slot: null, changed: false, startedAt: 0, lastCheck: 0, stillSince: 0 };
     const reset = setTimeout(() => {
       setPhase("demo");
       setCallout(null);
       setLocked(false);
+      setTapFor(null);
     });
     return () => clearTimeout(reset);
   }, [stepIndex]);
@@ -417,18 +431,36 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     const scratch = document.createElement("canvas").getContext("2d", { willReadFrequently: true })!;
     const backoff: Record<string, number> = {};
 
-    // SAM knows plain nouns better than repair words ("filter" finds a lint screen that "lint screen" misses),
-    // so after the full names it tries their last words, three at a time, and keeps whichever one worked.
+    // SAM knows plain nouns better than repair words ("mesh screen" finds a lint screen that "lint screen" misses),
+    // so the catalog's SAM names go first, then the label, the last words of every name, and the aliases.
     const attempts: Record<string, number> = {};
     const phrasesFor = (part: string) => {
       const def = defs[part];
-      const full = [def?.label, ...(def?.aliases ?? []).filter((alias) => !alias.includes("_")), part === watched ? step.target_part : ""];
-      const names = [full[0], ...full.map((name) => name?.trim().split(/\s+/).pop()), ...full.slice(1)];
+      const named = [def?.label, ...(def?.aliases ?? []).filter((alias) => !alias.includes("_")), part === watched ? step.target_part : ""];
+      const names = [...(def?.sam ?? []), named[0], ...named.map((name) => name?.trim().split(/\s+/).pop()), ...named.slice(1)];
       const candidates = [...new Set(names.filter((name): name is string => Boolean(name && name.trim())).map((name) => name.toLowerCase()))];
       const known = phraseRef.current[part];
       if (known) return [known, ...candidates.filter((name) => name !== known)].slice(0, 2);
       const offset = ((attempts[part] = (attempts[part] ?? -1) + 1) * 4) % Math.max(1, candidates.length);
       return [...candidates, ...candidates].slice(offset, offset + 4);
+    };
+
+    // The machine itself ("dryer") is easy for SAM; a part with a region on the catalog is then looked for in a
+    // close, sharper crop of where it sits on the machine, which finds a thin lint screen the whole frame misses.
+    const machinePhrases = catalog ? [...new Set([catalog.matches[0], catalog.name.split(/\s+/).pop() ?? ""])].filter(Boolean).slice(0, 2) : [];
+    let machineMisses = 0;
+    const regionMisses: Record<string, number> = {};
+    const searchFor = (part: string): Box | null => {
+      const region = defs[part]?.region;
+      const machine = tracksRef.current[machinePart];
+      if (!region || !machine || performance.now() - machine.seenAt > 10000 || (regionMisses[part] ?? 0) >= 3) return null;
+      const [x, y, width, height] = region;
+      const pad = 0.12;
+      const left = Math.max(0, machine.box.x + (x - pad) * machine.box.width);
+      const top = Math.max(0, machine.box.y + (y - pad) * machine.box.height);
+      const right = Math.min(1, machine.box.x + (x + width + pad) * machine.box.width);
+      const bottom = Math.min(1, machine.box.y + (y + height + pad) * machine.box.height);
+      return right - left > 0.05 && bottom - top > 0.05 ? { x: left, y: top, width: right - left, height: bottom - top } : null;
     };
 
     const locate = async (part: string, now: number) => {
@@ -438,30 +470,51 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       const moved = grayChange(lastGray, gray) > 5;
       // Only spend a SAM call when there's no fix yet, the picture changed, or the fix is getting old.
       if (track && !moved && now - track.lookedAt < 4000) return;
+      // A part with a region needs the machine first; that's one quick look, then every part lookup is a crop.
+      const machine = tracksRef.current[machinePart];
+      const wantsMachine = !track && defs[part]?.region && machinePhrases.length && machineMisses < 2 && (!machine || now - machine.seenAt > 10000);
+      const lookFor = wantsMachine ? machinePart : part;
       lastGray = gray;
-      // 960 px keeps small parts (a drain plug, a filter cap) big enough for SAM to see.
-      const canvas = frameCanvas(video, 960);
+      const area = wantsMachine ? null : searchFor(part);
+      // 960 px keeps small parts (a drain plug, a filter cap) big enough for SAM to see; a crop is sharper still.
+      const canvas = area ? cropCanvas(video, area, 960) : frameCanvas(video, 960);
       const offsetAtSend = { ...offsetRef.current };
       if (track) track.lookedAt = now;
+      // A part the person tapped is re-anchored by pointing SAM at where it is now, not by name.
+      const tapped = tappedRef.current.has(part) && track && !area;
+      const point = tapped ? { x: (track.target.x + track.target.width / 2) * canvas.width, y: (track.target.y + track.target.height / 2) * canvas.height, width: canvas.width, height: canvas.height } : undefined;
       busy = true;
       try {
-        const { sam, phrase } = await locatePart(await canvasBlob(canvas, 0.8), phrasesFor(part));
+        const { sam, phrase } = await locatePart(await canvasBlob(canvas, 0.8), wantsMachine ? machinePhrases : phrasesFor(part), "part", point);
         if (!alive) return;
         const seen = performance.now();
         const drift = { x: offsetRef.current.x - offsetAtSend.x, y: offsetRef.current.y - offsetAtSend.y };
-        const recent = track && seen - track.seenAt < 3000 ? { ...track.target, x: track.target.x - drift.x, y: track.target.y - drift.y } : null;
+        const recentFrame = tracksRef.current[lookFor] && seen - tracksRef.current[lookFor].seenAt < 3000 ? { ...tracksRef.current[lookFor].target, x: tracksRef.current[lookFor].target.x - drift.x, y: tracksRef.current[lookFor].target.y - drift.y } : null;
+        const recent = recentFrame && area ? intoArea(recentFrame, area) : recentFrame;
         let mask = pickMask(sam ? parseMasks(sam) : [], canvas, recent);
         // A fresh lock never jumps to a different thing across the picture; that's a miss, not a move.
-        if (mask && recent && Math.hypot((mask.left + mask.width / 2) / canvas.width - (recent.x + recent.width / 2), (mask.top + mask.height / 2) / canvas.height - (recent.y + recent.height / 2)) > 0.28) mask = null;
+        if (mask && recent && Math.hypot((mask.left + mask.width / 2) / canvas.width - (recent.x + recent.width / 2), (mask.top + mask.height / 2) / canvas.height - (recent.y + recent.height / 2)) > 0.28 * (area ? 1 / area.width : 1)) mask = null;
+        if (wantsMachine) {
+          if (!mask) machineMisses++;
+          else {
+            const cutout = cutOut(canvas, mask);
+            const target = { ...cutout.box, x: cutout.box.x + drift.x, y: cutout.box.y + drift.y };
+            tracksRef.current[machinePart] = { cutout, target, box: target, seenAt: seen, lockedAt: seen, misses: 0, lookedAt: seen };
+          }
+          return;
+        }
         if (!mask) {
+          if (area) regionMisses[part] = (regionMisses[part] ?? 0) + 1;
           if (track) track.misses++;
-          else backoff[part] = seen + 1200;
+          else if (!area) backoff[part] = seen + 600;
           if (track && track.misses >= 2) backoff[part] = seen + 2500;
           if (phaseRef.current !== "demo" && part === watched && track) watchRef.current.changed = true;
           return;
         }
-        phraseRef.current[part] = phrase;
+        if (area) regionMisses[part] = 0;
+        if (!tapped) phraseRef.current[part] = phrase;
         const cutout = cutOut(canvas, mask);
+        if (area) cutout.box = outOfArea(cutout.box, area);
         // The phone kept moving while SAM looked; carry the box along by what the tracker saw since.
         const target = { ...cutout.box, x: cutout.box.x + drift.x, y: cutout.box.y + drift.y };
         const previous = tracksRef.current[part];
@@ -511,11 +564,62 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       watchRef.current.lastCheck = performance.now();
     };
 
+    // Never stall on a part SAM can't name: after a few seconds without a lock, the person taps it.
+    const searchingSince: Record<string, number> = {};
+    let asking: string | null = null;
+    const noteSearch = (part: string, now: number) => {
+      const track = tracksRef.current[part];
+      const found = track && now - track.seenAt < 8000 && track.misses < 4;
+      if (found) delete searchingSince[part];
+      else searchingSince[part] ??= now;
+      const next = !found && now - searchingSince[part] > tapAfterMs ? part : null;
+      if (next !== asking) {
+        asking = next;
+        setTapFor(next);
+      }
+    };
+
+    tapRef.current = async (clientX: number, clientY: number) => {
+      const part = phaseRef.current === "demo" ? (beats[playHeadRef.current.index]?.part ?? beats[0].part) : watched;
+      const bounds = video.getBoundingClientRect();
+      const shown = displayRect(video);
+      const tapX = (clientX - bounds.left - shown.left) / shown.width;
+      const tapY = (clientY - bounds.top - shown.top) / shown.height;
+      if (tapX < 0 || tapX > 1 || tapY < 0 || tapY > 1) return;
+      const canvas = frameCanvas(video, 960);
+      const offsetAtSend = { ...offsetRef.current };
+      busy = true;
+      try {
+        const { sam } = await locatePart(await canvasBlob(canvas, 0.8), [], "part", { x: tapX * canvas.width, y: tapY * canvas.height, width: canvas.width, height: canvas.height });
+        if (!alive) return;
+        const masks = sam ? parseMasks(sam) : [];
+        // SAM outlines whatever is under the finger; if it can't, a box about the part's size goes around the tap.
+        const under = masks.find((mask) => mask.left <= tapX * canvas.width && tapX * canvas.width <= mask.left + mask.width && mask.top <= tapY * canvas.height && tapY * canvas.height <= mask.top + mask.height);
+        const machine = tracksRef.current[machinePart];
+        const region = defs[part]?.region;
+        const size = machine && region ? { width: Math.min(0.5, machine.box.width * region[2] * 0.6), height: Math.min(0.5, machine.box.height * region[3] * 0.4) } : { width: 0.22, height: 0.15 };
+        const box = { x: Math.max(0, tapX - size.width / 2), y: Math.max(0, tapY - size.height / 2), width: size.width, height: size.height };
+        const cutout = cutOut(canvas, under && under.width * under.height < canvas.width * canvas.height * 0.6 ? under : boxMask(canvas, box));
+        const seen = performance.now();
+        const target = { ...cutout.box, x: cutout.box.x + offsetRef.current.x - offsetAtSend.x, y: cutout.box.y + offsetRef.current.y - offsetAtSend.y };
+        tracksRef.current[part] = { cutout, target, box: target, seenAt: seen, lockedAt: seen, misses: 0, lookedAt: seen };
+        tappedRef.current.add(part);
+        delete searchingSince[part];
+        asking = null;
+        setTapFor(null);
+      } catch {
+        // the tap can be tried again
+      } finally {
+        busy = false;
+      }
+    };
+
     const timer = window.setInterval(() => {
-      if (!alive || busy || document.hidden) return;
+      if (!alive || document.hidden) return;
       const now = performance.now();
       const phaseNow = phaseRef.current;
-      if (phaseNow === "checking") return;
+      if (phaseNow !== "checking") noteSearch(phaseNow === "demo" ? (beats[playHeadRef.current.index]?.part ?? beats[0].part) : watched, now);
+      if (busy || phaseNow === "checking") return;
       if (phaseNow === "turn") {
         const watch = watchRef.current;
         const settled = now - watch.stillSince > 1000;
@@ -534,9 +638,10 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     }, locateEveryMs / 2);
     return () => {
       alive = false;
+      tapRef.current = null;
       clearInterval(timer);
     };
-  }, [camera, beats, defs, watched, step]);
+  }, [camera, beats, defs, watched, step, catalog]);
 
   const checkNow = () => {
     watchRef.current.changed = true;
@@ -556,7 +661,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
 
   return (
     <section className="screen live" aria-label={`Step ${stepIndex + 1}, on your camera`}>
-      <div className="live-view" {...pinchHandlers}>
+      {/* A tap on the picture points Helpa at the part, whenever it lost it or picked the wrong one. */}
+      <div className={`live-view ${tapFor ? "live-view-tap" : ""}`} {...pinchHandlers} onClick={(clickEvent) => tapRef.current?.(clickEvent.clientX, clickEvent.clientY)}>
         <video ref={backdropRef} className="camera-backdrop" autoPlay playsInline muted aria-hidden="true" />
         <video ref={videoRef} className="camera-video live-video" autoPlay playsInline muted aria-label="Camera with Helpa's guide drawn on it" />
         <canvas ref={glCanvasRef} className="live-layer" aria-hidden="true" />
@@ -591,6 +697,10 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
           <p className="live-pill">I need the camera for this. You can go back to the 3D guide.</p>
         ) : !steady && locked ? (
           <p className="live-pill">Hold steady on the {partName.toLowerCase()}. The model in the corner shows the move.</p>
+        ) : !locked && tapFor ? (
+          <p className="live-pill live-pill-holo">
+            <Icon name="hand" size={16} /> Tap the {(defs[tapFor]?.label ?? partName).toLowerCase()} on your screen
+          </p>
         ) : !locked ? (
           <p className="live-pill">
             <span className="spinner" aria-hidden="true" /> Point me at the {partName.toLowerCase()}
