@@ -648,8 +648,9 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
               <div>
                 <strong>I know this one!</strong>
                 <p>
-                  {[libraryHit.brand, libraryHit.appliance].filter(Boolean).join(" ")}
-                  {libraryHit.model_family ? `, ${libraryHit.model_family}` : ""}
+                  {libraryHit.model_family.toLowerCase().includes(libraryHit.brand.toLowerCase())
+                    ? libraryHit.model_family
+                    : `${[libraryHit.brand, libraryHit.appliance].filter(Boolean).join(" ")}${libraryHit.model_family ? `, ${libraryHit.model_family}` : ""}`}
                 </p>
               </div>
             </motion.div>

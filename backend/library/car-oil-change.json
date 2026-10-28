@@ -1,6 +1,6 @@
 {
   "id": "car-oil-change",
-  "appliance": "mid-size sedan",
+  "appliance": "car",
   "brand": "Toyota",
   "model_family": "2015 Toyota Camry (XV50) 2.5L 4-cylinder (2AR-FE)",
   "model_numbers": [
@@ -115,7 +115,7 @@
       "plan": {
         "brand": "Toyota",
         "model_number": "2015 Camry 2.5L",
-        "appliance": "mid-size sedan",
+        "appliance": "car",
         "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "Your 2015 Camry 2.5L is due for fresh oil and a new filter element. It takes 4.6 quarts of 0W-20 with the filter, and the whole job is done from under the front with a drain pan.",
         "tools": [
@@ -442,7 +442,7 @@
       "plan": {
         "brand": "Toyota",
         "model_number": "2015 Camry 2.5L",
-        "appliance": "mid-size sedan",
+        "appliance": "car",
         "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "Engines use a little oil over time, so the level can drop to the low mark. Topping up slowly to between the marks fixes it unless it keeps dropping fast.",
         "tools": [
@@ -736,7 +736,7 @@
       "plan": {
         "brand": "Toyota",
         "model_number": "2015 Camry 2.5L",
-        "appliance": "mid-size sedan",
+        "appliance": "car",
         "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "The clear tank should sit between MIN and MAX when the engine is cold. Topping it up fixes a small drop, but a fast drop means a leak.",
         "tools": [
@@ -980,7 +980,7 @@
       "plan": {
         "brand": "Toyota",
         "model_number": "2015 Camry 2.5L",
-        "appliance": "mid-size sedan",
+        "appliance": "car",
         "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "Most no-spray cases are simply an empty washer tank. Filling it with washer fluid, not soapy water, should bring the spray back.",
         "tools": [
@@ -1201,7 +1201,7 @@
       "plan": {
         "brand": "Toyota",
         "model_number": "2015 Camry 2.5L",
-        "appliance": "mid-size sedan",
+        "appliance": "car",
         "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "Toyota says airflow dropping a lot usually means the cabin filter behind the glove box is clogged. A fresh filter restores normal airflow.",
         "tools": [],
@@ -1452,7 +1452,7 @@
       "plan": {
         "brand": "Toyota",
         "model_number": "2015 Camry 2.5L",
-        "appliance": "mid-size sedan",
+        "appliance": "car",
         "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "White crust or a loose clamp stops power reaching the starter, causing clicks. Cleaning and firmly seating the clamps often restores starting; a dead battery will still need charging or replacement.",
         "tools": [
@@ -1784,7 +1784,7 @@
       "plan": {
         "brand": "Toyota",
         "model_number": "2015 Camry 2.5L",
-        "appliance": "mid-size sedan",
+        "appliance": "car",
         "manual_url": "https://www.toyota.com/owners/resources/warranty-owners-manuals/camry/2015",
         "diagnosis": "When one electrical item stops suddenly, a small fuse has often blown to protect the wiring. Replacing it with the exact same rating usually restores power.",
         "tools": [
