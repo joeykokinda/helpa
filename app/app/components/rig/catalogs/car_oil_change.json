@@ -1,0 +1,1333 @@
+{
+  "id": "car_oil_change",
+  "name": "Compact sedan: engine bay and underside",
+  "matches": [
+    "car",
+    "oil change",
+    "engine oil",
+    "engine",
+    "sedan",
+    "compact sedan",
+    "automobile",
+    "vehicle",
+    "corolla",
+    "toyota",
+    "civic",
+    "under the hood",
+    "car battery",
+    "motor oil"
+  ],
+  "parts": [
+    {
+      "id": "hood",
+      "label": "Hood",
+      "aliases": [
+        "bonnet",
+        "engine hood",
+        "engine cover lid",
+        "hood panel",
+        "open the hood"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": -1.0
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.9,
+        1
+      ]
+    },
+    {
+      "id": "hood_latch",
+      "label": "Hood safety latch",
+      "aliases": [
+        "secondary latch",
+        "safety catch",
+        "hood catch",
+        "latch lever",
+        "hood latch"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "depth": 0.014
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "hood_release_lever",
+      "label": "Hood release lever",
+      "aliases": [
+        "hood_release_lever",
+        "hood release",
+        "hood pull",
+        "release handle"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 0.6
+      },
+      "actions": [
+        "press",
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        1,
+        0.25,
+        -0.35
+      ]
+    },
+    {
+      "id": "prop_rod",
+      "label": "Hood prop rod",
+      "aliases": [
+        "hood_support_rod",
+        "hood support rod",
+        "hood prop",
+        "prop rod",
+        "support rod",
+        "hood stay"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0.496,
+          0.8683
+        ],
+        "angle": 1.5708
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.8,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "oil_fill_cap",
+      "label": "Oil fill cap",
+      "aliases": [
+        "engine_oil_filler_cap",
+        "engine oil filler cap",
+        "oil filler cap",
+        "oil cap",
+        "filler cap",
+        "fill cap",
+        "oil filler",
+        "valve cover cap"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 2.6,
+        "lift": 0.07
+      },
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.35,
+        1,
+        0.75
+      ]
+    },
+    {
+      "id": "new_oil",
+      "label": "New oil bottle",
+      "aliases": [
+        "new oil",
+        "engine oil",
+        "fresh oil",
+        "oil bottle",
+        "motor oil",
+        "quart of oil",
+        "funnel",
+        "add oil",
+        "pour oil",
+        "0W-16",
+        "0W-20"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 2.2
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "dipstick",
+      "label": "Oil dipstick",
+      "aliases": [
+        "engine_oil_dipstick",
+        "engine oil dipstick",
+        "dipstick",
+        "oil level gauge",
+        "yellow handle",
+        "yellow loop",
+        "oil stick"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0.979,
+          0.2016
+        ],
+        "distance": 0.5
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "dipstick_oil",
+      "label": "Oil on the dipstick",
+      "aliases": [
+        "oil film",
+        "old oil on the stick",
+        "wipe the dipstick",
+        "oil mark",
+        "oil level"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0.12,
+          0.0,
+          0.1
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.4,
+        1
+      ]
+    },
+    {
+      "id": "oil_filter",
+      "label": "Oil filter",
+      "aliases": [
+        "engine_oil_filter",
+        "engine oil filter",
+        "filter",
+        "spin-on filter",
+        "oil filter canister",
+        "filter housing",
+        "filter cartridge"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          -0.8,
+          0.6
+        ],
+        "angle": 3.0,
+        "lift": 0.09
+      },
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.3,
+        -0.12,
+        1
+      ]
+    },
+    {
+      "id": "drain_plug",
+      "label": "Oil drain plug",
+      "aliases": [
+        "oil_drain_plug",
+        "oil drain plug",
+        "drain plug",
+        "sump plug",
+        "drain bolt",
+        "crush washer",
+        "drain plug gasket"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "angle": 3.0,
+        "lift": 0.05
+      },
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.25,
+        1
+      ]
+    },
+    {
+      "id": "old_oil",
+      "label": "Old oil",
+      "aliases": [
+        "used oil",
+        "old engine oil",
+        "oil draining",
+        "drain the oil",
+        "dirty oil",
+        "oil stream"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "distance": 0.0
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.05,
+        1
+      ]
+    },
+    {
+      "id": "drain_pan",
+      "label": "Drain pan",
+      "aliases": [
+        "oil drain pan",
+        "catch pan",
+        "oil pan container",
+        "drip tray",
+        "container",
+        "bucket"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.9
+      },
+      "actions": [
+        "insert",
+        "remove",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.45,
+        1
+      ],
+      "rest": 1
+    },
+    {
+      "id": "oil_pan",
+      "label": "Oil pan",
+      "aliases": [
+        "sump",
+        "engine oil pan",
+        "pan under the engine"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.45,
+        -0.25,
+        1
+      ]
+    },
+    {
+      "id": "engine",
+      "label": "Engine",
+      "aliases": [
+        "motor",
+        "engine bay",
+        "engine block",
+        "under the hood",
+        "engine compartment",
+        "engine cover"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.55,
+        0.9,
+        0.8
+      ]
+    },
+    {
+      "id": "battery",
+      "label": "12-volt battery",
+      "aliases": [
+        "battery_12v",
+        "12-volt battery",
+        "battery",
+        "car battery",
+        "12V battery"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.9,
+        0.75
+      ]
+    },
+    {
+      "id": "positive_terminal_cover",
+      "label": "Positive terminal",
+      "aliases": [
+        "positive terminal",
+        "plus terminal",
+        "red cover",
+        "+ terminal",
+        "positive clamp",
+        "red terminal cover"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": -1.6
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.9,
+        0.8
+      ]
+    },
+    {
+      "id": "negative_terminal",
+      "label": "Negative terminal clamp",
+      "aliases": [
+        "negative terminal",
+        "minus terminal",
+        "negative clamp",
+        "- terminal",
+        "black cable",
+        "battery clamp",
+        "terminal clamp",
+        "battery terminals"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.05
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.9,
+        0.8
+      ]
+    },
+    {
+      "id": "terminal_nut",
+      "label": "Terminal clamp bolt",
+      "aliases": [
+        "clamp bolt",
+        "terminal nut",
+        "clamp nut",
+        "10mm nut",
+        "terminal bolt"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": -2.5
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.8,
+        0.7,
+        0.6
+      ]
+    },
+    {
+      "id": "terminal_corrosion",
+      "label": "Terminal corrosion",
+      "aliases": [
+        "corrosion",
+        "white crust",
+        "crust",
+        "green crust",
+        "battery corrosion",
+        "baking soda",
+        "terminal grease"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.05,
+          0.16
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.9,
+        0.8
+      ]
+    },
+    {
+      "id": "washer_reservoir",
+      "label": "Washer fluid tank",
+      "aliases": [
+        "washer_fluid_tank",
+        "washer fluid tank",
+        "washer reservoir",
+        "windshield washer reservoir",
+        "washer bottle",
+        "washer fluid"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        -0.15,
+        1,
+        0.6
+      ]
+    },
+    {
+      "id": "washer_fluid_cap",
+      "label": "Washer fluid cap",
+      "aliases": [
+        "washer cap",
+        "windshield symbol cap",
+        "blue cap",
+        "washer fluid reservoir cap",
+        "washer tank cap"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.06
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        -0.5,
+        0.9,
+        0.9
+      ]
+    },
+    {
+      "id": "washer_fluid_jug",
+      "label": "Washer fluid jug",
+      "aliases": [
+        "washer fluid jug",
+        "windshield washer fluid",
+        "jug of washer fluid",
+        "pour washer fluid",
+        "wiper fluid"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 2.1
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        -0.6,
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "coolant_reservoir",
+      "label": "Coolant reservoir",
+      "aliases": [
+        "engine_coolant_reservoir",
+        "engine coolant reservoir",
+        "coolant tank",
+        "overflow tank",
+        "antifreeze",
+        "coolant",
+        "pink fluid tank",
+        "MIN and MAX lines"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        -0.65,
+        0.7,
+        1
+      ]
+    },
+    {
+      "id": "coolant_cap",
+      "label": "Coolant cap",
+      "aliases": [
+        "coolant reservoir cap",
+        "reservoir cap",
+        "overflow cap",
+        "antifreeze cap"
+      ],
+      "joint": {
+        "kind": "twist",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 2.2,
+        "lift": 0.05
+      },
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        -0.5,
+        0.9,
+        0.9
+      ]
+    },
+    {
+      "id": "brake_fluid_reservoir",
+      "label": "Brake fluid reservoir",
+      "aliases": [
+        "brake_fluid_reservoir",
+        "brake fluid",
+        "brake reservoir",
+        "master cylinder reservoir"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.9,
+        0.5
+      ]
+    },
+    {
+      "id": "radiator",
+      "label": "Radiator",
+      "aliases": [
+        "radiator",
+        "grille",
+        "condenser",
+        "front grille",
+        "radiator fins"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.7,
+        1
+      ]
+    },
+    {
+      "id": "air_filter_box",
+      "label": "Air filter box",
+      "aliases": [
+        "air box",
+        "airbox",
+        "air cleaner",
+        "air cleaner box",
+        "intake box",
+        "air filter housing"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.75,
+        0.85,
+        1
+      ]
+    },
+    {
+      "id": "air_filter_clips",
+      "label": "Air box clips",
+      "aliases": [
+        "clips",
+        "spring clips",
+        "air filter clips",
+        "latches",
+        "air box latches"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -1.2
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.9,
+        0.6,
+        0.8
+      ]
+    },
+    {
+      "id": "air_filter_cover",
+      "label": "Air box lid",
+      "aliases": [
+        "air box cover",
+        "air filter cover",
+        "air cleaner lid",
+        "air box lid"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 1.0
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.8,
+        0.8,
+        1
+      ]
+    },
+    {
+      "id": "air_filter",
+      "label": "Engine air filter",
+      "aliases": [
+        "air filter",
+        "engine air filter",
+        "air filter element",
+        "air cleaner element"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.15
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.9,
+        0.9
+      ]
+    },
+    {
+      "id": "fuse_box_lid",
+      "label": "Fuse box lid",
+      "aliases": [
+        "engine_fuse_box",
+        "engine fuse box",
+        "fuse box",
+        "fuse box cover",
+        "relay box",
+        "fuse box lid"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.1
+      },
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.5,
+        1,
+        0.6
+      ]
+    },
+    {
+      "id": "fuse",
+      "label": "Fuse",
+      "aliases": [
+        "blown fuse",
+        "fuse puller",
+        "spare fuse",
+        "mini fuse",
+        "10A fuse",
+        "replace fuse"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.035
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.4,
+        1,
+        0.6
+      ]
+    },
+    {
+      "id": "front_wheel",
+      "label": "Front wheel",
+      "aliases": [
+        "wheel",
+        "tire",
+        "tyre",
+        "front tire",
+        "front wheels",
+        "rim"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        1,
+        0.3,
+        0.6
+      ]
+    },
+    {
+      "id": "ramps",
+      "label": "Ramps",
+      "aliases": [
+        "car ramps",
+        "drive-on ramps",
+        "jack stands",
+        "stands",
+        "lift the car",
+        "raise the car",
+        "lift front safely"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        1,
+        0.45,
+        0.9
+      ]
+    },
+    {
+      "id": "wheel_chocks",
+      "label": "Wheel chocks",
+      "aliases": [
+        "chocks",
+        "rear wheel chocks",
+        "blocks behind the wheels",
+        "parking brake"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        1,
+        0.45,
+        -0.7
+      ]
+    },
+    {
+      "id": "jack_point",
+      "label": "Jack point",
+      "aliases": [
+        "jack point",
+        "jacking point",
+        "lift point",
+        "pinch weld",
+        "jack",
+        "floor jack"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        1,
+        0.05,
+        0.3
+      ]
+    },
+    {
+      "id": "wiper_blades",
+      "label": "Wiper blades",
+      "aliases": [
+        "windshield_wiper_blades",
+        "windshield wiper blades",
+        "wipers",
+        "wiper arm",
+        "wiper blade",
+        "windshield"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0.521,
+          -0.853
+        ],
+        "angle": -1.0
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.85,
+        1
+      ]
+    },
+    {
+      "id": "headlight",
+      "label": "Headlight",
+      "aliases": [
+        "replaceable_light_bulbs",
+        "replaceable light bulbs",
+        "headlight bulb",
+        "front light",
+        "turn signal",
+        "bulb",
+        "lights"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "driver_door",
+      "label": "Driver door",
+      "aliases": [
+        "driver's door",
+        "front door",
+        "left door",
+        "door"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": -1.1
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        1,
+        0.45,
+        0.35
+      ]
+    },
+    {
+      "id": "passenger_door",
+      "label": "Passenger door",
+      "aliases": [
+        "passenger's door",
+        "front passenger door",
+        "right door"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 1.1
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        -1,
+        0.45,
+        0.35
+      ]
+    },
+    {
+      "id": "glove_box",
+      "label": "Glove box",
+      "aliases": [
+        "glovebox",
+        "glove compartment",
+        "glove box sides"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": -1.6
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        -1,
+        0.3,
+        -0.4
+      ]
+    },
+    {
+      "id": "cabin_air_filter",
+      "label": "Cabin air filter",
+      "aliases": [
+        "cabin_air_filter",
+        "cabin air filter",
+        "cabin filter",
+        "pollen filter",
+        "filter case",
+        "A/C filter",
+        "hvac filter"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 0.24
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        -1,
+        0.3,
+        -0.45
+      ]
+    },
+    {
+      "id": "steering_wheel",
+      "label": "Steering wheel",
+      "aliases": [
+        "maintenance_reset_controls",
+        "maintenance reset controls",
+        "dashboard",
+        "gauge screen",
+        "arrow buttons",
+        "instrument cluster",
+        "dash",
+        "maintenance light",
+        "oil life reset"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        1,
+        0.4,
+        -0.55
+      ]
+    },
+    {
+      "id": "start_button",
+      "label": "Engine start button",
+      "aliases": [
+        "start button",
+        "ignition",
+        "start engine",
+        "push start",
+        "power button",
+        "engine start",
+        "start the engine",
+        "key"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "depth": 0.004
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        1,
+        0.35,
+        -0.45
+      ]
+    }
+  ]
+}

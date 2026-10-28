@@ -265,6 +265,8 @@ var libraryTargets = []libraryTarget{
 	{"whirlpool-dishwasher", "dishwasher", "Whirlpool's best-selling current built-in dishwasher in the US"},
 	{"whirlpool-electric-range", "range", "Whirlpool's best-selling current freestanding electric range (oven plus cooktop) in the US"},
 	{"whirlpool-otr-microwave", "microwave", "Whirlpool's best-selling current over-the-range microwave in the US"},
+	{"garbage-disposal", "garbage disposal", "InSinkErator Badger 5 garbage disposal"},
+	{"car-oil-change", "car", "a common compact sedan (e.g. Toyota Corolla), engine oil change and basic under-hood maintenance"},
 }
 
 const researchInstructions = `You are building Helpa's appliance library: the reference a beginner repair guide relies on.

@@ -1,0 +1,1890 @@
+{
+  "id": "garbage-disposal",
+  "appliance": "garbage disposal",
+  "brand": "InSinkErator",
+  "model_family": "Badger Series, Badger 5 group",
+  "model_numbers": [
+    "Badger 5",
+    "Badger 5XL",
+    "Badger 500",
+    "Badger 5XP",
+    "Badger 1",
+    "Badger 1XL",
+    "Badger 100",
+    "Badger 700"
+  ],
+  "sticker_location": "Under the sink on the grey disposal body. The grey tag near the bottom of the unit shows the model and serial number.",
+  "manual_urls": [
+    "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf"
+  ],
+  "parts": [
+    {
+      "id": "wall_switch",
+      "label": "wall switch",
+      "where": "On the wall near the sink, or sometimes inside the cupboard under the sink. It turns the disposal on and off."
+    },
+    {
+      "id": "sink_stopper",
+      "label": "sink stopper",
+      "where": "The plug that sits in the sink drain opening on top of the sink."
+    },
+    {
+      "id": "rubber_sink_flap",
+      "label": "rubber flap in the sink drain",
+      "where": "Just inside the sink drain opening. You can lift its edges with a finger when the power is off."
+    },
+    {
+      "id": "sink_drain_ring",
+      "label": "sink drain ring",
+      "where": "The metal ring you see flat in the bottom of the sink, around the drain opening."
+    },
+    {
+      "id": "spinning_plate",
+      "label": "spinning plate inside the drain",
+      "where": "At the bottom inside the sink drain, below the rubber flap. You can see it with a torch, but never touch it with fingers."
+    },
+    {
+      "id": "red_reset_button",
+      "label": "red reset button",
+      "where": "A small red button on the flat bottom of the grey unit under the sink."
+    },
+    {
+      "id": "small_jam_wrench",
+      "label": "small jam wrench",
+      "where": "The small silver crank-shaped tool that came with the disposal. It is often kept under the sink."
+    },
+    {
+      "id": "bottom_center_hole",
+      "label": "center hole on the bottom",
+      "where": "In the middle of the flat bottom of the grey unit under the sink, next to the red reset button."
+    },
+    {
+      "id": "power_plug",
+      "label": "power plug",
+      "where": "At the end of the cord from the bottom of the unit, plugged into the outlet under the sink on models with a cord."
+    },
+    {
+      "id": "side_drain_pipe",
+      "label": "side drain pipe",
+      "where": "The pipe coming out of the side of the grey unit under the sink, carrying water away to the wall."
+    },
+    {
+      "id": "dishwasher_hose_connection",
+      "label": "dishwasher hose connection",
+      "where": "A small short pipe near the top side of the grey unit under the sink, where the dishwasher hose joins if you have one."
+    },
+    {
+      "id": "twist_lock_ring",
+      "label": "twist lock ring under the sink",
+      "where": "The ring at the very top of the grey unit, holding it up against the bottom of the sink."
+    },
+    {
+      "id": "model_label",
+      "label": "model label",
+      "where": "The grey tag near the bottom of the grey unit under the sink."
+    }
+  ],
+  "problems": [
+    {
+      "id": "jammed_and_humming",
+      "symptoms": [
+        "It just hums and won't grind",
+        "It stopped while I was using it",
+        "It buzzes then goes quiet"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "Something hard, like a bone, pit or spoon, is likely stuck inside and stopping the plate from turning. The unit shuts itself off to protect the motor, so clear the jam before turning it on again.",
+        "tools": [
+          "small jam wrench",
+          "long tongs",
+          "torch"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the wall switch off before you start.",
+          "Never put fingers or hands into the disposal.",
+          "Take the jam wrench out before turning the power back on.",
+          "Use tongs, never fingers, to pull anything out."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn the wall switch off",
+            "details": [
+              "Leave it off until the last step.",
+              "Also turn the water off."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The switch is off and the unit is silent."
+          },
+          {
+            "instruction": "Put jam wrench into bottom center hole",
+            "details": [
+              "Find the hole in the middle of the flat bottom.",
+              "Push one end of the wrench firmly in."
+            ],
+            "target_part": "center hole on the bottom",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The wrench sits in the bottom hole and does not fall out."
+          },
+          {
+            "instruction": "Rock jam wrench back and forth gently",
+            "details": [
+              "Keep rocking until it turns one full turn.",
+              "It may feel stiff at first, then loosen."
+            ],
+            "target_part": "small jam wrench",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The wrench now turns all the way around."
+          },
+          {
+            "instruction": "Pull jam wrench out again",
+            "details": [
+              "Never leave it in when you turn power on."
+            ],
+            "target_part": "small jam wrench",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The wrench is out and in your hand."
+          },
+          {
+            "instruction": "Pull stuck food out with tongs",
+            "details": [
+              "Shine a torch down the drain to see it.",
+              "Grip the stuck piece and lift it out."
+            ],
+            "target_part": "spinning plate inside the drain",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "You can see the stuck piece in the tongs."
+          },
+          {
+            "instruction": "Press red reset button underneath",
+            "details": [
+              "Wait 3 to 5 minutes first so it cools.",
+              "Press lightly until it clicks and stays in."
+            ],
+            "target_part": "red reset button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The red button stays in, not popped out."
+          },
+          {
+            "instruction": "Run cold water and test switch",
+            "details": [
+              "Turn cold water on first, then the switch.",
+              "Let it run a few seconds after grinding stops."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The unit spins freely and water drains away."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 150,
+        "aftercare": "Feed food in slowly with cold water running, and keep spoons and bones out of the sink."
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn wall switch off",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Insert wrench into bottom hole",
+          "distance": 5,
+          "motion": "push_in",
+          "part_ids": [
+            "bottom_center_hole",
+            "small_jam_wrench"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Rock wrench to free jam",
+          "distance": 2,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "small_jam_wrench",
+            "bottom_center_hole",
+            "spinning_plate"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Remove wrench from bottom",
+          "distance": 8,
+          "motion": "pull_out",
+          "part_ids": [
+            "small_jam_wrench",
+            "bottom_center_hole"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Lift jam out with tongs",
+          "distance": 6,
+          "motion": "pull_out",
+          "part_ids": [
+            "spinning_plate",
+            "rubber_sink_flap",
+            "sink_drain_ring"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Press red reset button",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "red_reset_button",
+            "drum"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "z",
+          "caption": "Test disposal with water",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch",
+            "spinning_plate"
+          ],
+          "step": 6
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch off"
+          },
+          {
+            "part": "faucet_handle",
+            "action": "close",
+            "caption": "Turn cold water off"
+          }
+        ],
+        [
+          {
+            "part": "hex_socket",
+            "action": "look",
+            "caption": "Look at bottom hole"
+          },
+          {
+            "part": "hex_wrench",
+            "action": "insert",
+            "caption": "Push wrench into hole"
+          }
+        ],
+        [
+          {
+            "part": "hex_wrench_turn",
+            "action": "turn",
+            "caption": "Rock wrench back forth"
+          },
+          {
+            "part": "turntable",
+            "action": "turn",
+            "caption": "Loosen spinning plate free"
+          }
+        ],
+        [
+          {
+            "part": "hex_wrench",
+            "action": "remove",
+            "caption": "Pull wrench out"
+          }
+        ],
+        [
+          {
+            "part": "grinding_chamber",
+            "action": "look",
+            "caption": "Look inside grinding chamber"
+          },
+          {
+            "part": "jammed_object",
+            "action": "look",
+            "caption": "Find stuck object"
+          },
+          {
+            "part": "jammed_object",
+            "action": "remove",
+            "caption": "Lift stuck object out"
+          }
+        ],
+        [
+          {
+            "part": "reset_button",
+            "action": "look",
+            "caption": "Find red reset button"
+          },
+          {
+            "part": "reset_button",
+            "action": "press",
+            "caption": "Press red reset button"
+          }
+        ],
+        [
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Turn cold water on"
+          },
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch on"
+          },
+          {
+            "part": "turntable",
+            "action": "turn",
+            "caption": "Spin plate freely"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "will_not_turn_on",
+      "symptoms": [
+        "Nothing happens when I flip the switch",
+        "It is completely dead and silent",
+        "It worked yesterday and now it won't start"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "The built-in safety switch on the bottom has probably popped out, which cuts power when the unit jams or gets too hot. Pressing it back in after the unit cools often brings it back to life.",
+        "tools": [
+          "torch"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the wall switch off before pressing the reset button.",
+          "Never put fingers or hands into the disposal.",
+          "If the plug or cord looks damaged, do not touch it and call a pro."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn the wall switch off",
+            "details": [
+              "Leave it off while you check underneath."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The switch is off."
+          },
+          {
+            "instruction": "Push power plug firmly into outlet",
+            "details": [
+              "Only on models with a plug under the sink.",
+              "If yours has no plug, skip this step."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The plug is pushed all the way in."
+          },
+          {
+            "instruction": "Wait five minutes for motor to cool",
+            "details": [
+              "The safety switch will not stay in while hot."
+            ],
+            "target_part": "red reset button",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "Five minutes have passed with the switch off."
+          },
+          {
+            "instruction": "Press red reset button underneath",
+            "details": [
+              "Find the small red button on the flat bottom.",
+              "Press lightly until it clicks and stays in.",
+              "If it pops out again, wait and try once more."
+            ],
+            "target_part": "red reset button",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The red button stays in, not popped out."
+          },
+          {
+            "instruction": "Run cold water and test switch",
+            "details": [
+              "Turn cold water on first, then the switch.",
+              "If still silent, check your home breaker box for a tripped switch."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The unit hums or spins when the switch is on."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 0,
+        "aftercare": "If it trips again, clear any jam first instead of pressing reset over and over."
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn wall switch off",
+          "distance": 1.0,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Push plug firmly in",
+          "distance": 2.0,
+          "motion": "push_in",
+          "part_ids": [
+            "power_plug"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Wait five minutes to cool",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "red_reset_button"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Press red reset button",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "red_reset_button",
+            "bottom_center_hole",
+            "drum"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Test with cold water",
+          "distance": 1.0,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch",
+            "tub"
+          ],
+          "step": 4
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "close",
+            "caption": "Switch the disposal off"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "insert",
+            "caption": "Push plug firmly in"
+          }
+        ],
+        [
+          {
+            "part": "disposal_body",
+            "action": "look",
+            "caption": "Let the motor cool down"
+          }
+        ],
+        [
+          {
+            "part": "reset_button",
+            "action": "press",
+            "caption": "Press red reset button"
+          }
+        ],
+        [
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Run cold water"
+          },
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Switch on and test"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "bad_smell_from_sink",
+      "symptoms": [
+        "There is a bad smell from the sink",
+        "The disposal stinks even when it's empty",
+        "It smells like old food around the drain"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "Old food is likely stuck inside the unit and on the underside of the rubber flap. A warm water and baking soda wash, as the manual describes, usually clears the smell.",
+        "tools": [
+          "old toothbrush",
+          "measuring cup"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the wall switch off before wiping the flap.",
+          "Never put fingers deep into the disposal.",
+          "Do not use strong drain cleaners in the disposal."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn the wall switch off",
+            "details": [
+              "Keep it off while you wipe the flap."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The switch is off."
+          },
+          {
+            "instruction": "Wipe underside of rubber flap clean",
+            "details": [
+              "Lift the flap edges gently with an old toothbrush.",
+              "Wipe away any dark, slimy food bits."
+            ],
+            "target_part": "rubber flap in the sink drain",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The underside of the flap looks clean, not slimy."
+          },
+          {
+            "instruction": "Put sink stopper into drain",
+            "details": [
+              "Push it down so it seals the opening."
+            ],
+            "target_part": "sink stopper",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The stopper seals the drain opening."
+          },
+          {
+            "instruction": "Fill sink halfway with warm water",
+            "details": [
+              "Stir in 1/4 cup of baking soda.",
+              "Use warm water, not boiling water."
+            ],
+            "target_part": "sink stopper",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The sink is half full of warm, cloudy water."
+          },
+          {
+            "instruction": "Pull sink stopper out quickly",
+            "details": [
+              "Stand back a little as water rushes down."
+            ],
+            "target_part": "sink stopper",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": false,
+            "check": "Water is rushing down the drain."
+          },
+          {
+            "instruction": "Turn wall switch on briefly",
+            "details": [
+              "Turn it on as the water drains away.",
+              "This washes loose bits off the inside walls.",
+              "Turn it off again once water has gone."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The unit runs and the water drains away cleanly."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 0,
+        "aftercare": "Run cold water for a few seconds after every use, and grind citrus peel now and then to freshen it."
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn wall switch off",
+          "distance": 1.0,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Wipe flap underside clean",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "rubber_sink_flap",
+            "sink_drain_ring"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Push stopper to seal drain",
+          "distance": 3.0,
+          "motion": "push_in",
+          "part_ids": [
+            "sink_stopper",
+            "sink_drain_ring"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Fill sink half full",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "tub",
+            "sink_stopper"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Lift stopper quickly",
+          "distance": 10.0,
+          "motion": "lift",
+          "part_ids": [
+            "sink_stopper",
+            "rubber_sink_flap"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Run disposal briefly",
+          "distance": 1.0,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch",
+            "spinning_plate"
+          ],
+          "step": 5
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press the wall switch off"
+          }
+        ],
+        [
+          {
+            "part": "splash_guard",
+            "action": "look",
+            "caption": "Look at splash guard"
+          },
+          {
+            "part": "splash_guard_gunk",
+            "action": "clean",
+            "caption": "Wipe gunk from flap"
+          }
+        ],
+        [
+          {
+            "part": "sink_stopper",
+            "action": "insert",
+            "caption": "Insert stopper in drain"
+          }
+        ],
+        [
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Open the faucet handle"
+          },
+          {
+            "part": "sink_water",
+            "action": "insert",
+            "caption": "Fill sink with water"
+          },
+          {
+            "part": "faucet_handle",
+            "action": "close",
+            "caption": "Close the faucet handle"
+          }
+        ],
+        [
+          {
+            "part": "sink_stopper",
+            "action": "remove",
+            "caption": "Remove stopper quickly"
+          },
+          {
+            "part": "sink_water",
+            "action": "remove",
+            "caption": "Drain the sink water"
+          }
+        ],
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press switch on briefly"
+          },
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press switch off again"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "sink_drains_slowly_or_not_at_all",
+      "symptoms": [
+        "Water sits in the sink and won't go down",
+        "The sink drains really slowly",
+        "Water comes back up when it runs"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "Ground-up food or grease may be built up inside the unit or just past it, slowing the water. Freeing the inside plate and flushing with cold water helps if it is a small blockage; if no water moves at all, the blockage is likely further down the pipe.",
+        "tools": [
+          "small jam wrench",
+          "long tongs",
+          "torch"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the wall switch off before you start.",
+          "Never put fingers or hands into the disposal.",
+          "Do not use caustic drain cleaner in the disposal.",
+          "Do not keep running the unit if water will not drain at all."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn the wall switch off",
+            "details": [
+              "Also turn the water off."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The switch is off and the unit is silent."
+          },
+          {
+            "instruction": "Put jam wrench into bottom center hole",
+            "details": [
+              "Push one end firmly into the middle hole underneath."
+            ],
+            "target_part": "center hole on the bottom",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The wrench sits in the bottom hole."
+          },
+          {
+            "instruction": "Rock jam wrench one full turn",
+            "details": [
+              "Rock back and forth until it turns fully.",
+              "This frees food stuck on the inside plate."
+            ],
+            "target_part": "small jam wrench",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The wrench turns all the way around easily."
+          },
+          {
+            "instruction": "Pull stuck food out with tongs",
+            "details": [
+              "Take the wrench out first.",
+              "Shine a torch down the drain and lift bits out."
+            ],
+            "target_part": "spinning plate inside the drain",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "No chunks of food are visible inside the drain."
+          },
+          {
+            "instruction": "Run cold water and test switch",
+            "details": [
+              "Turn cold water on first, then the switch.",
+              "Let water run a few seconds after grinding.",
+              "If water still will not move, turn it off and call a pro."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "Water flows down the drain without pooling."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 200,
+        "aftercare": "Never pour grease down the drain, and always flush with cold water for a few seconds after grinding."
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Switch off, unit silent",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Insert wrench into bottom hole",
+          "distance": 5.0,
+          "motion": "push_in",
+          "part_ids": [
+            "bottom_center_hole",
+            "small_jam_wrench"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Free plate, turn wrench fully",
+          "distance": 3.0,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "small_jam_wrench",
+            "bottom_center_hole",
+            "spinning_plate"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Lift food chunks out",
+          "distance": 8.0,
+          "motion": "pull_out",
+          "part_ids": [
+            "spinning_plate",
+            "rubber_sink_flap",
+            "sink_drain_ring"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Test switch with cold water",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch",
+            "spinning_plate",
+            "rubber_sink_flap"
+          ],
+          "step": 4
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch off"
+          },
+          {
+            "part": "faucet_handle",
+            "action": "close",
+            "caption": "Close faucet"
+          }
+        ],
+        [
+          {
+            "part": "hex_socket",
+            "action": "look",
+            "caption": "Look at center hole"
+          },
+          {
+            "part": "hex_wrench",
+            "action": "insert",
+            "caption": "Push wrench in hole"
+          }
+        ],
+        [
+          {
+            "part": "hex_wrench_turn",
+            "action": "turn",
+            "caption": "Rock wrench back forth"
+          },
+          {
+            "part": "turntable",
+            "action": "turn",
+            "caption": "Free spinning plate"
+          }
+        ],
+        [
+          {
+            "part": "hex_wrench",
+            "action": "remove",
+            "caption": "Pull wrench out"
+          },
+          {
+            "part": "turntable",
+            "action": "look",
+            "caption": "Look at spinning plate"
+          },
+          {
+            "part": "jammed_object",
+            "action": "look",
+            "caption": "Look for stuck food"
+          },
+          {
+            "part": "jammed_object",
+            "action": "remove",
+            "caption": "Lift stuck food out"
+          }
+        ],
+        [
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Turn cold water on"
+          },
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch on"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "leaking_under_the_sink",
+      "symptoms": [
+        "There is water dripping under the sink",
+        "The cupboard under the sink is wet",
+        "I see drips on the disposal"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "Water can drip from where the unit meets the sink, from the side pipe joint, or from the bottom of the unit itself. Filling the sink and watching where the first drip appears, as in the manual leak test, shows which one it is without taking anything apart.",
+        "tools": [
+          "torch",
+          "old towel",
+          "bucket or bowl"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the wall switch off before reaching underneath.",
+          "Keep water away from the plug and cord.",
+          "If water drips from the bottom center of the unit, stop and call a pro.",
+          "Do not take pipes apart for this check."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn the wall switch off",
+            "details": [
+              "Put a bucket or bowl under the unit."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The switch is off and a bucket is in place."
+          },
+          {
+            "instruction": "Dry side drain pipe with towel",
+            "details": [
+              "Also dry the outside of the grey unit.",
+              "Starting dry makes the first drip easy to spot."
+            ],
+            "target_part": "side drain pipe",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The pipe and unit feel dry to the touch."
+          },
+          {
+            "instruction": "Put sink stopper into drain",
+            "details": [
+              "Push it down so it seals the opening."
+            ],
+            "target_part": "sink stopper",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": false,
+            "check": "The stopper seals the drain opening."
+          },
+          {
+            "instruction": "Fill sink halfway with water",
+            "details": [
+              "Use plain tap water, nothing added."
+            ],
+            "target_part": "sink stopper",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The sink holds water without draining."
+          },
+          {
+            "instruction": "Pull sink stopper out",
+            "details": [
+              "Water will rush through the unit at once."
+            ],
+            "target_part": "sink stopper",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": false,
+            "check": "Water is draining through the unit."
+          },
+          {
+            "instruction": "Shine light and find drip start",
+            "details": [
+              "Drip at the top ring or side pipe means a loose joint.",
+              "Drip from the bottom center means call a pro.",
+              "Note where the very first wet spot appears."
+            ],
+            "target_part": "side drain pipe",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can point to where the first drip starts."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 250,
+        "aftercare": "Check under the sink for drips once a month so a small leak is caught early."
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn wall switch off",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Dry pipe and unit",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "side_drain_pipe",
+            "drum"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Place stopper in drain",
+          "distance": 3.0,
+          "motion": "push_in",
+          "part_ids": [
+            "sink_stopper",
+            "sink_drain_ring"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Fill sink halfway",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "tub",
+            "sink_stopper"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Pull stopper to drain",
+          "distance": 6.0,
+          "motion": "lift",
+          "part_ids": [
+            "sink_stopper"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Watch where drip starts",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "side_drain_pipe",
+            "twist_lock_ring",
+            "bottom_center_hole"
+          ],
+          "step": 5
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch off"
+          }
+        ],
+        [
+          {
+            "part": "discharge_tube",
+            "action": "look",
+            "caption": "Look at side drain pipe"
+          },
+          {
+            "part": "leak_drips",
+            "action": "clean",
+            "caption": "Wipe pipe and unit dry"
+          }
+        ],
+        [
+          {
+            "part": "sink_stopper",
+            "action": "insert",
+            "caption": "Push stopper into drain"
+          }
+        ],
+        [
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Open faucet to fill"
+          },
+          {
+            "part": "sink_water",
+            "action": "insert",
+            "caption": "Fill sink halfway"
+          },
+          {
+            "part": "faucet_handle",
+            "action": "close",
+            "caption": "Close faucet"
+          }
+        ],
+        [
+          {
+            "part": "sink_stopper",
+            "action": "remove",
+            "caption": "Pull stopper out"
+          },
+          {
+            "part": "sink_water",
+            "action": "remove",
+            "caption": "Let water drain through"
+          }
+        ],
+        [
+          {
+            "part": "mounting_ring",
+            "action": "look",
+            "caption": "Check top ring for drips"
+          },
+          {
+            "part": "discharge_tube",
+            "action": "look",
+            "caption": "Check side pipe for drips"
+          },
+          {
+            "part": "disposal_body",
+            "action": "look",
+            "caption": "Check bottom for drips"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "loud_rattling_or_grinding_noise",
+      "symptoms": [
+        "It makes a loud rattling noise",
+        "It sounds like something is bouncing inside",
+        "It got noisy after something fell in the sink"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "A spoon, bottle cap or other hard object has likely fallen in and is being thrown around inside. Turning it off and lifting the object out with tongs usually stops the noise.",
+        "tools": [
+          "long tongs",
+          "torch",
+          "small jam wrench"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Turn the wall switch off straight away and leave it off.",
+          "Never put fingers or hands into the disposal.",
+          "Only use long tongs or pliers to reach inside."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn the wall switch off",
+            "details": [
+              "Do not run it again until you check inside."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The switch is off and the noise has stopped."
+          },
+          {
+            "instruction": "Shine light down sink drain ring",
+            "details": [
+              "Look past the rubber flap for anything shiny.",
+              "A spoon or cap is often easy to spot."
+            ],
+            "target_part": "sink drain ring",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see inside the drain clearly."
+          },
+          {
+            "instruction": "Pull loose object out with tongs",
+            "details": [
+              "Grip it firmly and lift it straight up.",
+              "Check nothing else is left inside."
+            ],
+            "target_part": "spinning plate inside the drain",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The loose object is out and in your hand."
+          },
+          {
+            "instruction": "Rock jam wrench back and forth",
+            "details": [
+              "Put it in the bottom center hole first.",
+              "It should turn freely one full turn.",
+              "Take the wrench out again afterwards."
+            ],
+            "target_part": "small jam wrench",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The wrench turns freely all the way around."
+          },
+          {
+            "instruction": "Run cold water and test switch",
+            "details": [
+              "Turn cold water on first, then the switch.",
+              "Listen for a smooth hum with no rattling."
+            ],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The unit runs smoothly with no rattling sound."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 150,
+        "aftercare": "Keep the stopper in the drain when you are not using the disposal so things cannot fall in."
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Turn wall switch off",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Shine light inside drain",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "sink_drain_ring",
+            "rubber_sink_flap"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Lift object out with tongs",
+          "distance": 8,
+          "motion": "pull_out",
+          "part_ids": [
+            "spinning_plate",
+            "sink_drain_ring"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Rock wrench to free plate",
+          "distance": 2,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "small_jam_wrench",
+            "bottom_center_hole"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Test disposal with water",
+          "distance": 0.5,
+          "motion": "press",
+          "part_ids": [
+            "wall_switch"
+          ],
+          "step": 4
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch off"
+          }
+        ],
+        [
+          {
+            "part": "splash_guard",
+            "action": "look",
+            "caption": "Look at splash guard"
+          },
+          {
+            "part": "sink_flange",
+            "action": "look",
+            "caption": "Look at sink flange"
+          },
+          {
+            "part": "grinding_chamber",
+            "action": "look",
+            "caption": "Look inside grinding chamber"
+          }
+        ],
+        [
+          {
+            "part": "turntable",
+            "action": "look",
+            "caption": "Look at spinning plate"
+          },
+          {
+            "part": "jammed_object",
+            "action": "look",
+            "caption": "Look at stuck object"
+          },
+          {
+            "part": "jammed_object",
+            "action": "remove",
+            "caption": "Lift stuck object out"
+          }
+        ],
+        [
+          {
+            "part": "hex_socket",
+            "action": "look",
+            "caption": "Look at center hole"
+          },
+          {
+            "part": "hex_wrench",
+            "action": "insert",
+            "caption": "Insert wrench in hole"
+          },
+          {
+            "part": "hex_wrench_turn",
+            "action": "turn",
+            "caption": "Rock wrench back forth"
+          },
+          {
+            "part": "hex_wrench",
+            "action": "remove",
+            "caption": "Remove wrench from hole"
+          }
+        ],
+        [
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Turn cold water on"
+          },
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch on"
+          }
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#D9CDBB",
+        "id": "cabinet",
+        "label": "under-sink cabinet",
+        "opacity": 0.18,
+        "position": [
+          0,
+          43,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          90,
+          86,
+          58
+        ]
+      },
+      {
+        "color": "#E7DFD2",
+        "id": "door",
+        "label": "cabinet door, shown open",
+        "opacity": 1.0,
+        "position": [
+          -55,
+          42,
+          38
+        ],
+        "rotation": [
+          0,
+          -112,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          44,
+          78,
+          2
+        ]
+      },
+      {
+        "color": "#E9E9E7",
+        "id": "top",
+        "label": "countertop",
+        "opacity": 1.0,
+        "position": [
+          0,
+          89,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          96,
+          4,
+          66
+        ]
+      },
+      {
+        "color": "#C3C9CF",
+        "id": "tub",
+        "label": "stainless sink basin",
+        "opacity": 0.5,
+        "position": [
+          0,
+          79,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          72,
+          20,
+          46
+        ]
+      },
+      {
+        "color": "#7B8087",
+        "id": "drum",
+        "label": "grey disposal body under the sink",
+        "opacity": 0.42,
+        "position": [
+          0,
+          52,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          22,
+          28,
+          22
+        ]
+      },
+      {
+        "color": "#FFFFFF",
+        "id": "wall_switch",
+        "label": "wall switch",
+        "opacity": 1.0,
+        "position": [
+          36,
+          112,
+          -31
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          9,
+          13,
+          1.5
+        ]
+      },
+      {
+        "color": "#33373D",
+        "id": "sink_stopper",
+        "label": "sink stopper, set beside the drain",
+        "opacity": 1.0,
+        "position": [
+          24,
+          70.8,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          11,
+          2.5,
+          11
+        ]
+      },
+      {
+        "color": "#1E1E22",
+        "id": "rubber_sink_flap",
+        "label": "rubber flap in the sink drain",
+        "opacity": 1.0,
+        "position": [
+          0,
+          68.1,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          10,
+          0.7,
+          10
+        ]
+      },
+      {
+        "color": "#DCE1E7",
+        "id": "sink_drain_ring",
+        "label": "sink drain ring",
+        "opacity": 1.0,
+        "position": [
+          0,
+          69.5,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          11.5,
+          0.8,
+          11.5
+        ]
+      },
+      {
+        "color": "#B9BFC7",
+        "id": "spinning_plate",
+        "label": "spinning plate inside the drain",
+        "opacity": 1.0,
+        "position": [
+          0,
+          62,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          17,
+          1.5,
+          17
+        ]
+      },
+      {
+        "color": "#D92323",
+        "id": "red_reset_button",
+        "label": "red reset button",
+        "opacity": 1.0,
+        "position": [
+          4.5,
+          37.6,
+          6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          2.2,
+          1,
+          2.2
+        ]
+      },
+      {
+        "color": "#C9CED6",
+        "id": "small_jam_wrench",
+        "label": "small jam wrench, shown inserted for use",
+        "opacity": 1.0,
+        "position": [
+          0,
+          33,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          1.4,
+          11,
+          1.4
+        ]
+      },
+      {
+        "color": "#101114",
+        "id": "bottom_center_hole",
+        "label": "center hole on the bottom",
+        "opacity": 1.0,
+        "position": [
+          0,
+          37.7,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          2.4,
+          0.9,
+          2.4
+        ]
+      },
+      {
+        "color": "#22252A",
+        "id": "power_plug",
+        "label": "power plug at the under-sink outlet",
+        "opacity": 1.0,
+        "position": [
+          24,
+          22,
+          -26
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          5,
+          7,
+          4
+        ]
+      },
+      {
+        "color": "#F2F2F0",
+        "id": "side_drain_pipe",
+        "label": "side drain pipe",
+        "opacity": 1.0,
+        "position": [
+          24,
+          54,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ],
+        "shape": "cylinder",
+        "size": [
+          5.5,
+          28,
+          5.5
+        ]
+      },
+      {
+        "color": "#55595F",
+        "id": "dishwasher_hose_connection",
+        "label": "dishwasher hose connection",
+        "opacity": 1.0,
+        "position": [
+          -14,
+          61,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ],
+        "shape": "cylinder",
+        "size": [
+          3,
+          8,
+          3
+        ]
+      },
+      {
+        "color": "#45484D",
+        "id": "twist_lock_ring",
+        "label": "twist lock ring under the sink",
+        "opacity": 1.0,
+        "position": [
+          0,
+          66.5,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          15,
+          3,
+          15
+        ]
+      },
+      {
+        "color": "#A7ADB4",
+        "id": "model_label",
+        "label": "model label",
+        "opacity": 1.0,
+        "position": [
+          0,
+          44,
+          13.2
+        ],
+        "rotation": [
+          4,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          11,
+          6,
+          0.6
+        ]
+      }
+    ]
+  },
+  "rig_id": "garbage_disposal"
+}

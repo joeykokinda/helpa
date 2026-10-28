@@ -1,0 +1,941 @@
+{
+  "id": "garbage_disposal",
+  "name": "Garbage disposal under a kitchen sink",
+  "matches": [
+    "garbage disposal",
+    "disposal",
+    "disposer",
+    "garbage disposer",
+    "food waste disposer",
+    "waste disposer",
+    "insinkerator",
+    "badger",
+    "in-sink-erator"
+  ],
+  "parts": [
+    {
+      "id": "wall_switch",
+      "label": "Wall switch",
+      "aliases": [
+        "disposal switch",
+        "switch",
+        "wall_switch",
+        "power switch",
+        "on/off switch",
+        "light switch by the sink"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": -0.9
+      },
+      "actions": [
+        "open",
+        "close",
+        "press",
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.1,
+        1
+      ]
+    },
+    {
+      "id": "circuit_breaker",
+      "label": "Circuit breaker",
+      "aliases": [
+        "breaker",
+        "breaker panel",
+        "fuse",
+        "fuse box",
+        "electrical panel",
+        "tripped breaker"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": 0.7
+      },
+      "actions": [
+        "press",
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.1,
+        1
+      ]
+    },
+    {
+      "id": "power_plug",
+      "label": "Power plug",
+      "aliases": [
+        "plug",
+        "power cord",
+        "cord",
+        "outlet",
+        "power_plug",
+        "electrical outlet",
+        "receptacle",
+        "GFCI outlet"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "distance": 0.045
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.25,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "faucet_handle",
+      "label": "Faucet",
+      "aliases": [
+        "faucet",
+        "tap",
+        "cold water",
+        "faucet handle",
+        "water",
+        "run cold water",
+        "kitchen faucet"
+      ],
+      "joint": {
+        "kind": "hinge",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": 0.55
+      },
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.55,
+        1
+      ]
+    },
+    {
+      "id": "sink_stopper",
+      "label": "Sink stopper",
+      "aliases": [
+        "stopper",
+        "sink_stopper",
+        "drain plug",
+        "sink plug",
+        "drain stopper",
+        "plug the sink"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.11
+      },
+      "actions": [
+        "insert",
+        "remove",
+        "look"
+      ],
+      "view": [
+        0.15,
+        1,
+        0.6
+      ],
+      "rest": 1
+    },
+    {
+      "id": "sink_water",
+      "label": "Sink water",
+      "aliases": [
+        "water in the sink",
+        "standing water",
+        "fill the sink",
+        "half-full sink",
+        "warm water"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "distance": 0.095
+      },
+      "actions": [
+        "insert",
+        "remove",
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.9,
+        1
+      ],
+      "rest": 1
+    },
+    {
+      "id": "splash_guard",
+      "label": "Splash guard",
+      "aliases": [
+        "rubber flap",
+        "rubber baffle",
+        "baffle",
+        "rubber_sink_flap",
+        "rubber flap in the sink drain",
+        "splash baffle",
+        "drain flap",
+        "sink baffle"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "distance": 0.15
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.15,
+        1,
+        0.55
+      ]
+    },
+    {
+      "id": "splash_guard_gunk",
+      "label": "Gunk on splash guard",
+      "aliases": [
+        "slime",
+        "grime",
+        "buildup",
+        "food residue",
+        "smelly gunk",
+        "underside of the flap"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.05,
+          0.18
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.15,
+        1,
+        0.7
+      ]
+    },
+    {
+      "id": "sink_flange",
+      "label": "Sink flange",
+      "aliases": [
+        "drain ring",
+        "sink drain ring",
+        "sink_drain_ring",
+        "drain opening",
+        "sink drain",
+        "flange",
+        "drain",
+        "plumber's putty",
+        "sink drain opening"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.1,
+        1,
+        0.6
+      ]
+    },
+    {
+      "id": "sink_basin",
+      "label": "Sink",
+      "aliases": [
+        "sink basin",
+        "basin",
+        "kitchen sink",
+        "bowl"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.8,
+        1
+      ]
+    },
+    {
+      "id": "mounting_screws",
+      "label": "Mounting screws",
+      "aliases": [
+        "mounting screw",
+        "mount screws",
+        "support ring screws",
+        "mounting assembly",
+        "mount bolts"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 3.0
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.3,
+        -0.25,
+        1
+      ]
+    },
+    {
+      "id": "mounting_ring",
+      "label": "Twist lock ring",
+      "aliases": [
+        "twist_lock_ring",
+        "twist lock ring under the sink",
+        "mounting ring",
+        "lower mounting ring",
+        "mounting lugs",
+        "mount ring",
+        "quick lock ring"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 0.35
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.15,
+        1
+      ]
+    },
+    {
+      "id": "disposal_body",
+      "label": "Disposal unit",
+      "aliases": [
+        "garbage disposal",
+        "disposal",
+        "disposer",
+        "unit",
+        "grey unit",
+        "motor housing",
+        "motor",
+        "insinkerator",
+        "badger"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.45,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "model_label",
+      "label": "Model label",
+      "aliases": [
+        "model_label",
+        "label",
+        "rating label",
+        "model number",
+        "serial label",
+        "sticker"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.05,
+        1
+      ]
+    },
+    {
+      "id": "grinding_chamber",
+      "label": "Grinding chamber",
+      "aliases": [
+        "chamber",
+        "inside the disposal",
+        "hopper",
+        "grind chamber",
+        "grind ring",
+        "inside the drain"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "turntable",
+      "label": "Spinning plate",
+      "aliases": [
+        "spinning_plate",
+        "spinning plate inside the drain",
+        "turntable",
+        "impellers",
+        "impeller",
+        "lugs",
+        "flywheel",
+        "grind plate",
+        "impeller plate",
+        "rotating plate"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 1.4
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.35,
+        1
+      ]
+    },
+    {
+      "id": "jammed_object",
+      "label": "Stuck object",
+      "aliases": [
+        "jam",
+        "jammed object",
+        "stuck food",
+        "fruit pit",
+        "pit",
+        "bone",
+        "debris",
+        "foreign object",
+        "loose object",
+        "fork",
+        "spoon",
+        "utensil",
+        "bottle cap",
+        "tongs",
+        "pliers"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.42,
+          -0.04
+        ]
+      },
+      "actions": [
+        "clean",
+        "remove",
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.3,
+        1
+      ]
+    },
+    {
+      "id": "hex_wrench",
+      "label": "Jam wrench",
+      "aliases": [
+        "small_jam_wrench",
+        "small jam wrench",
+        "hex wrench",
+        "allen wrench",
+        "allen key",
+        "1/4 inch hex wrench",
+        "wrenchette",
+        "jam buster wrench",
+        "service wrench",
+        "hex key"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "distance": 0.08
+      },
+      "actions": [
+        "insert",
+        "remove",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.4,
+        1
+      ],
+      "rest": 1
+    },
+    {
+      "id": "hex_wrench_turn",
+      "label": "Work the wrench",
+      "aliases": [
+        "rock the wrench",
+        "turn the wrench",
+        "wrench back and forth",
+        "crank"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 1.4
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "hex_socket",
+      "label": "Center hole on the bottom",
+      "aliases": [
+        "bottom_center_hole",
+        "center hole on the bottom",
+        "hex socket",
+        "hex hole",
+        "wrench socket",
+        "bottom hole",
+        "flywheel turning hole"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.3,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "reset_button",
+      "label": "Red reset button",
+      "aliases": [
+        "red_reset_button",
+        "red reset button",
+        "reset",
+        "overload button",
+        "reset switch",
+        "overload protector"
+      ],
+      "joint": {
+        "kind": "press",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "depth": 0.004
+      },
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.3,
+        -0.45,
+        1
+      ]
+    },
+    {
+      "id": "dishwasher_inlet",
+      "label": "Dishwasher hose connection",
+      "aliases": [
+        "dishwasher_hose_connection",
+        "dishwasher hose",
+        "dishwasher inlet",
+        "dishwasher connection",
+        "dishwasher drain hose",
+        "knockout plug",
+        "inlet"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        -0.3,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "hose_clamp",
+      "label": "Hose clamp",
+      "aliases": [
+        "dishwasher hose clamp",
+        "clamp",
+        "clamp screw"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "angle": -2.6
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        -0.3,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "discharge_tube",
+      "label": "Side drain pipe",
+      "aliases": [
+        "side_drain_pipe",
+        "side drain pipe",
+        "discharge tube",
+        "discharge elbow",
+        "drain pipe",
+        "discharge pipe",
+        "outlet pipe",
+        "tailpiece"
+      ],
+      "joint": {
+        "kind": "none"
+      },
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "discharge_bolt",
+      "label": "Discharge bolt",
+      "aliases": [
+        "discharge flange",
+        "discharge flange bolt",
+        "discharge gasket",
+        "flange bolt",
+        "tube bolt"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "angle": -3.0
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "p_trap",
+      "label": "P-trap",
+      "aliases": [
+        "trap",
+        "p trap",
+        "j-bend",
+        "u-bend",
+        "trap bend",
+        "drain trap",
+        "sink trap",
+        "clogged trap"
+      ],
+      "joint": {
+        "kind": "slide",
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "distance": 0.075
+      },
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.55,
+        0.2,
+        1
+      ]
+    },
+    {
+      "id": "trap_slip_nuts",
+      "label": "Slip nuts",
+      "aliases": [
+        "slip nut",
+        "trap nuts",
+        "compression nut",
+        "trap nut"
+      ],
+      "joint": {
+        "kind": "turn",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "angle": 2.4
+      },
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.55,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "trap_clog",
+      "label": "Clog in the trap",
+      "aliases": [
+        "clog",
+        "blockage",
+        "sludge",
+        "grease clog",
+        "food sludge",
+        "trap debris"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0.02,
+          0.2
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.25,
+        1
+      ]
+    },
+    {
+      "id": "ice_cubes",
+      "label": "Ice cubes",
+      "aliases": [
+        "ice",
+        "handful of ice",
+        "cup of ice"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          -0.2,
+          0
+        ]
+      },
+      "actions": [
+        "clean",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.15,
+        1,
+        0.75
+      ]
+    },
+    {
+      "id": "citrus_peels",
+      "label": "Citrus peels",
+      "aliases": [
+        "lemon",
+        "lemon peel",
+        "lime",
+        "orange peel",
+        "citrus",
+        "lemon wedges"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          -0.2,
+          0
+        ]
+      },
+      "actions": [
+        "clean",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.15,
+        1,
+        0.75
+      ]
+    },
+    {
+      "id": "leak_drips",
+      "label": "Water drips",
+      "aliases": [
+        "leak",
+        "drip",
+        "drips",
+        "water",
+        "wet spot",
+        "puddle",
+        "towel",
+        "dry with towel",
+        "moisture"
+      ],
+      "joint": {
+        "kind": "debris",
+        "away": [
+          0,
+          0,
+          0.16
+        ]
+      },
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.35,
+        0.05,
+        1
+      ]
+    }
+  ]
+}

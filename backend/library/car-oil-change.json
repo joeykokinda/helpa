@@ -1,0 +1,2539 @@
+{
+  "id": "car-oil-change",
+  "appliance": "compact sedan",
+  "brand": "Toyota",
+  "model_family": "2024 Toyota Corolla E210 gas sedan",
+  "model_numbers": [
+    "1852",
+    "1864",
+    "1866"
+  ],
+  "sticker_location": "On the white certification sticker on the driver's door frame. The same VIN is also on a small plate at the lower left corner of the windshield, seen from outside.",
+  "manual_urls": [
+    "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+    "https://support.toyota.com/s/article/What-are-the-oil-chan-7604",
+    "https://support.toyota.com/s/article/How-often-do-I-need-t-7745",
+    "https://support.toyota.com/s/article/What-type-of-motor-oi-10041"
+  ],
+  "parts": [
+    {
+      "id": "hood_release_lever",
+      "label": "Hood release lever",
+      "where": "Inside the car, low under the left side of the dashboard by the driver's left foot."
+    },
+    {
+      "id": "hood_support_rod",
+      "label": "Hood support rod",
+      "where": "Clipped under the front edge of the raised hood. Its free end fits into a slot in the hood to hold it up."
+    },
+    {
+      "id": "engine_oil_dipstick",
+      "label": "Engine oil dipstick",
+      "where": "On top of the engine under the hood, with a pull handle. It slides into a thin tube and has low and full marks near its tip."
+    },
+    {
+      "id": "engine_oil_filler_cap",
+      "label": "Engine oil filler cap",
+      "where": "The round screw cap on top of the engine under the hood, where new engine oil is poured in."
+    },
+    {
+      "id": "oil_drain_plug",
+      "label": "Oil drain plug",
+      "where": "Underneath the car, in the bottom of the flat metal oil pan under the engine. You can only reach it with the front safely raised."
+    },
+    {
+      "id": "engine_oil_filter",
+      "label": "Engine oil filter",
+      "where": "Underneath the engine near the oil pan. It is a short round can or cartridge housing that unscrews for replacement."
+    },
+    {
+      "id": "engine_coolant_reservoir",
+      "label": "Engine coolant reservoir",
+      "where": "A clear plastic tank under the hood with pink fluid and MAX and MIN lines on its side."
+    },
+    {
+      "id": "radiator",
+      "label": "Radiator",
+      "where": "The thin, wide part right behind the front grille, in front of the engine. Look at it only to check it is clean; do not touch it when hot."
+    },
+    {
+      "id": "brake_fluid_reservoir",
+      "label": "Brake fluid reservoir",
+      "where": "At the back of the engine bay on the driver's side, under a small service cover near the windshield. The clear tank has MAX and MIN lines."
+    },
+    {
+      "id": "battery_12v",
+      "label": "12-volt battery",
+      "where": "A large black box under the hood with two thick cables on top, marked plus and minus."
+    },
+    {
+      "id": "washer_fluid_tank",
+      "label": "Washer fluid tank",
+      "where": "A white plastic tank under the hood with a cap showing a windshield and spray symbol."
+    },
+    {
+      "id": "engine_fuse_box",
+      "label": "Engine fuse box",
+      "where": "A black plastic box under the hood with a lift-off lid. Small colored fuses sit inside, and the lid shows what each fuse is for."
+    },
+    {
+      "id": "cabin_air_filter",
+      "label": "Cabin air filter",
+      "where": "Inside the car, hidden behind the glove box on the passenger side, in a flat filter case with a removable cover."
+    },
+    {
+      "id": "maintenance_reset_controls",
+      "label": "Maintenance reset controls",
+      "where": "The arrow buttons on the steering wheel. They move through menus on the small screen between the dashboard gauges."
+    },
+    {
+      "id": "windshield_wiper_blades",
+      "label": "Windshield wiper blades",
+      "where": "The two rubber blades resting at the bottom of the windshield, outside the car."
+    },
+    {
+      "id": "replaceable_light_bulbs",
+      "label": "Replaceable light bulbs",
+      "where": "Small bulbs inside the front corner lights and inside the rear light units reached from the trunk. Most other lights are sealed LED units for a dealer."
+    },
+    {
+      "id": "key_fob_battery",
+      "label": "Key fob battery",
+      "where": "A small flat coin battery hidden inside the car key, reached by removing the key cover."
+    }
+  ],
+  "problems": [
+    {
+      "id": "engine_oil_due_for_change",
+      "symptoms": [
+        "The dash says maintenance is required",
+        "It has been about 10,000 miles since my last oil change",
+        "My oil looks dark and dirty on the stick"
+      ],
+      "plan": {
+        "brand": "Toyota",
+        "model_number": "1852",
+        "appliance": "compact sedan",
+        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "diagnosis": "Old oil and a worn filter no longer protect the engine well. Changing both, then checking the new level on the dipstick, is the full fix.",
+        "tools": [
+          "Jack and jack stands",
+          "Drain pan",
+          "Socket wrench",
+          "Filter wrench",
+          "Funnel",
+          "Rag",
+          "Gloves"
+        ],
+        "replacement_parts": [
+          "Engine oil filter",
+          "Engine oil, SAE 0W-8 for this 2024 gas model",
+          "Drain plug washer if the old one is worn"
+        ],
+        "safety": [
+          "Never work under a car held only by a jack.",
+          "Keep hands and clothing away from the hot engine and fan.",
+          "Wash used oil off skin with soap and water."
+        ],
+        "steps": [
+          {
+            "instruction": "Lift front safely and secure on stands.",
+            "details": [
+              "Warm the engine two minutes, then turn it off.",
+              "Use the front jack point from the manual.",
+              "Never rely on the jack alone."
+            ],
+            "target_part": "Oil drain plug",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The car sits steady on two jack stands."
+          },
+          {
+            "instruction": "Place drain pan under oil drain plug.",
+            "details": [
+              "The plug is in the flat pan under the engine.",
+              "Wear gloves; the oil may be warm."
+            ],
+            "target_part": "Oil drain plug",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The pan sits centered under the plug."
+          },
+          {
+            "instruction": "Unscrew drain plug and drain oil fully.",
+            "details": [
+              "Turn left to loosen, then finish by hand.",
+              "Let it drain until only drips remain."
+            ],
+            "target_part": "Oil drain plug",
+            "photo": -1,
+            "motion": "unscrew",
+            "show_3d": true,
+            "check": "Dark oil has mostly stopped flowing out."
+          },
+          {
+            "instruction": "Unscrew old filter and remove it carefully.",
+            "details": [
+              "Turn the round filter left to loosen it.",
+              "Keep it upright so oil spills less."
+            ],
+            "target_part": "Engine oil filter",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The old filter is off and in the pan."
+          },
+          {
+            "instruction": "Screw in drain plug and new filter.",
+            "details": [
+              "Start both by hand so they go straight.",
+              "Tighten the filter as its own label says."
+            ],
+            "target_part": "Engine oil filter",
+            "photo": -1,
+            "motion": "screw_in",
+            "show_3d": true,
+            "check": "Plug and filter feel snug, not forced."
+          },
+          {
+            "instruction": "Add new oil through filler cap slowly.",
+            "details": [
+              "About 4.4 quarts with a new filter.",
+              "Add a little less first, then top up."
+            ],
+            "target_part": "Engine oil filler cap",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The cap is back on and turned clockwise tight."
+          },
+          {
+            "instruction": "Start engine briefly and check for leaks.",
+            "details": [
+              "Turn off, wait about five minutes, check dipstick.",
+              "Reset Scheduled Maintenance in Vehicle Settings.",
+              "Take old oil and filter for recycling."
+            ],
+            "target_part": "Engine oil dipstick",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "Oil sits between low and full marks, with no drips below."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 100,
+        "aftercare": "Check the oil level every time you fill up with fuel, as Toyota recommends."
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Lift car secure stands",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "oil_drain_plug"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "z",
+          "caption": "Position pan under plug",
+          "distance": 10,
+          "motion": "push_in",
+          "part_ids": [
+            "oil_drain_plug"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Unscrew plug drain oil",
+          "distance": 5,
+          "motion": "unscrew",
+          "part_ids": [
+            "oil_drain_plug"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Remove old oil filter",
+          "distance": 8,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "engine_oil_filter"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Install plug new filter",
+          "distance": 5,
+          "motion": "screw_in",
+          "part_ids": [
+            "engine_oil_filter",
+            "oil_drain_plug"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Open filler add oil",
+          "distance": 6,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "engine_oil_filler_cap"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Check dipstick oil level",
+          "distance": 12,
+          "motion": "pull_out",
+          "part_ids": [
+            "engine_oil_dipstick"
+          ],
+          "step": 6
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "jack_point",
+            "action": "look",
+            "caption": "Show front jack point"
+          },
+          {
+            "part": "front_wheel",
+            "action": "look",
+            "caption": "Check front wheel steady"
+          },
+          {
+            "part": "wheel_chocks",
+            "action": "look",
+            "caption": "Check wheel chocks placed"
+          }
+        ],
+        [
+          {
+            "part": "oil_pan",
+            "action": "look",
+            "caption": "Find oil pan below"
+          },
+          {
+            "part": "drain_plug",
+            "action": "look",
+            "caption": "Spot drain plug"
+          },
+          {
+            "part": "drain_pan",
+            "action": "insert",
+            "caption": "Slide pan under plug"
+          }
+        ],
+        [
+          {
+            "part": "drain_plug",
+            "action": "unlock",
+            "caption": "Twist drain plug left"
+          },
+          {
+            "part": "drain_plug",
+            "action": "remove",
+            "caption": "Lift drain plug out"
+          },
+          {
+            "part": "old_oil",
+            "action": "look",
+            "caption": "Watch old oil drain"
+          }
+        ],
+        [
+          {
+            "part": "oil_filter",
+            "action": "unlock",
+            "caption": "Twist oil filter left"
+          },
+          {
+            "part": "oil_filter",
+            "action": "remove",
+            "caption": "Lift filter out carefully"
+          }
+        ],
+        [
+          {
+            "part": "drain_plug",
+            "action": "insert",
+            "caption": "Place drain plug back"
+          },
+          {
+            "part": "drain_plug",
+            "action": "lock",
+            "caption": "Twist plug tight"
+          },
+          {
+            "part": "oil_filter",
+            "action": "insert",
+            "caption": "Place new filter up"
+          },
+          {
+            "part": "oil_filter",
+            "action": "lock",
+            "caption": "Twist filter tight"
+          }
+        ],
+        [
+          {
+            "part": "hood",
+            "action": "open",
+            "caption": "Open hood"
+          },
+          {
+            "part": "prop_rod",
+            "action": "open",
+            "caption": "Prop hood open"
+          },
+          {
+            "part": "oil_fill_cap",
+            "action": "unlock",
+            "caption": "Twist filler cap left"
+          },
+          {
+            "part": "oil_fill_cap",
+            "action": "remove",
+            "caption": "Lift filler cap off"
+          },
+          {
+            "part": "new_oil",
+            "action": "turn",
+            "caption": "Pour new oil slowly"
+          },
+          {
+            "part": "oil_fill_cap",
+            "action": "insert",
+            "caption": "Place filler cap back"
+          },
+          {
+            "part": "oil_fill_cap",
+            "action": "lock",
+            "caption": "Twist filler cap tight"
+          }
+        ],
+        [
+          {
+            "part": "driver_door",
+            "action": "open",
+            "caption": "Open driver door"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Start engine briefly"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Turn engine off"
+          },
+          {
+            "part": "oil_pan",
+            "action": "look",
+            "caption": "Check below for leaks"
+          },
+          {
+            "part": "old_oil",
+            "action": "look",
+            "caption": "Look for oil drips"
+          },
+          {
+            "part": "dipstick",
+            "action": "remove",
+            "caption": "Pull dipstick out"
+          },
+          {
+            "part": "dipstick_oil",
+            "action": "clean",
+            "caption": "Wipe dipstick clean"
+          },
+          {
+            "part": "dipstick",
+            "action": "insert",
+            "caption": "Reinsert dipstick fully"
+          },
+          {
+            "part": "dipstick",
+            "action": "remove",
+            "caption": "Pull dipstick again"
+          },
+          {
+            "part": "dipstick_oil",
+            "action": "look",
+            "caption": "Check oil level"
+          },
+          {
+            "part": "dipstick",
+            "action": "insert",
+            "caption": "Reinsert dipstick fully"
+          },
+          {
+            "part": "drain_pan",
+            "action": "remove",
+            "caption": "Remove drain pan"
+          },
+          {
+            "part": "prop_rod",
+            "action": "close",
+            "caption": "Lower prop rod"
+          },
+          {
+            "part": "hood",
+            "action": "close",
+            "caption": "Close hood"
+          },
+          {
+            "part": "driver_door",
+            "action": "close",
+            "caption": "Close driver door"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "engine_oil_level_low",
+      "symptoms": [
+        "The oil on my stick is at the low mark",
+        "I had to add oil between changes",
+        "There is a low oil warning on the dash"
+      ],
+      "plan": {
+        "brand": "Toyota",
+        "model_number": "1852",
+        "appliance": "compact sedan",
+        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "diagnosis": "Engines use a little oil over time, so the level can drop to the low mark. Topping up slowly to between the marks fixes it unless it keeps dropping fast.",
+        "tools": [
+          "Rag or paper towel",
+          "Clean funnel"
+        ],
+        "replacement_parts": [
+          "Engine oil of the same type already in the engine"
+        ],
+        "safety": [
+          "Park on flat ground and turn the engine off.",
+          "Do not touch hot engine parts right after driving.",
+          "Do not overfill above the top mark."
+        ],
+        "steps": [
+          {
+            "instruction": "Park level and wait five minutes.",
+            "details": [
+              "Warm engine first, then turn it off.",
+              "Five minutes lets oil settle for a true reading."
+            ],
+            "target_part": "Engine oil dipstick",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The car is parked flat with engine off."
+          },
+          {
+            "instruction": "Open hood and prop it securely.",
+            "details": [
+              "Pull the release lever by your left foot.",
+              "Put the support rod fully into its slot."
+            ],
+            "target_part": "Hood support rod",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The hood stays up on its own."
+          },
+          {
+            "instruction": "Pull dipstick out and wipe it clean.",
+            "details": [
+              "Hold a rag under the tip to catch drips."
+            ],
+            "target_part": "Engine oil dipstick",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The dipstick tip is wiped clean."
+          },
+          {
+            "instruction": "Push dipstick fully in, then pull out.",
+            "details": [
+              "Look where the oil film ends on the marks."
+            ],
+            "target_part": "Engine oil dipstick",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "Oil shows at or below the low mark."
+          },
+          {
+            "instruction": "Twist filler cap left and lift off.",
+            "details": [
+              "The cap is on top of the engine."
+            ],
+            "target_part": "Engine oil filler cap",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The round filler opening is open."
+          },
+          {
+            "instruction": "Add a little oil and recheck dipstick.",
+            "details": [
+              "Repeat until between low and full marks.",
+              "About 1.6 quarts fills low to full."
+            ],
+            "target_part": "Engine oil filler cap",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Oil sits between the two marks, not above."
+          },
+          {
+            "instruction": "Turn filler cap clockwise until tight.",
+            "details": [
+              "Push the dipstick fully back in too."
+            ],
+            "target_part": "Engine oil filler cap",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "Cap is tight and dipstick is fully in."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 50,
+        "aftercare": "If you add oil often, tell a shop; that can mean a leak or wear."
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Park level wait five minutes",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "engine_oil_dipstick"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Open hood prop securely",
+          "distance": 30,
+          "motion": "lift",
+          "part_ids": [
+            "hood_support_rod",
+            "top",
+            "hood_release_lever"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Pull dipstick wipe clean",
+          "distance": 12,
+          "motion": "pull_out",
+          "part_ids": [
+            "engine_oil_dipstick"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Reinsert then check level",
+          "distance": 12,
+          "motion": "push_in",
+          "part_ids": [
+            "engine_oil_dipstick"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Twist cap left remove",
+          "distance": 5,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "engine_oil_filler_cap"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Add oil recheck level",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "engine_oil_filler_cap",
+            "engine_oil_dipstick"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Tighten cap replace dipstick",
+          "distance": 3,
+          "motion": "twist_cw",
+          "part_ids": [
+            "engine_oil_filler_cap",
+            "engine_oil_dipstick"
+          ],
+          "step": 6
+        }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "hood_release_lever",
+            "action": "press",
+            "caption": "Pull hood release lever"
+          },
+          {
+            "part": "hood",
+            "action": "open",
+            "caption": "Lift hood up"
+          },
+          {
+            "part": "hood_latch",
+            "action": "press",
+            "caption": "Press safety latch"
+          },
+          {
+            "part": "prop_rod",
+            "action": "open",
+            "caption": "Set prop rod"
+          }
+        ],
+        [
+          {
+            "part": "dipstick",
+            "action": "remove",
+            "caption": "Pull dipstick out"
+          },
+          {
+            "part": "dipstick_oil",
+            "action": "clean",
+            "caption": "Wipe oil off"
+          }
+        ],
+        [
+          {
+            "part": "dipstick",
+            "action": "insert",
+            "caption": "Push dipstick fully in"
+          },
+          {
+            "part": "dipstick",
+            "action": "remove",
+            "caption": "Pull dipstick out"
+          },
+          {
+            "part": "dipstick_oil",
+            "action": "look",
+            "caption": "Check oil level"
+          }
+        ],
+        [
+          {
+            "part": "oil_fill_cap",
+            "action": "unlock",
+            "caption": "Twist filler cap left"
+          },
+          {
+            "part": "oil_fill_cap",
+            "action": "remove",
+            "caption": "Lift filler cap off"
+          }
+        ],
+        [
+          {
+            "part": "new_oil",
+            "action": "turn",
+            "caption": "Pour a little oil"
+          },
+          {
+            "part": "dipstick",
+            "action": "insert",
+            "caption": "Push dipstick fully in"
+          },
+          {
+            "part": "dipstick",
+            "action": "remove",
+            "caption": "Pull dipstick out"
+          },
+          {
+            "part": "dipstick_oil",
+            "action": "look",
+            "caption": "Check oil level"
+          }
+        ],
+        [
+          {
+            "part": "oil_fill_cap",
+            "action": "insert",
+            "caption": "Place filler cap on"
+          },
+          {
+            "part": "oil_fill_cap",
+            "action": "lock",
+            "caption": "Twist filler cap tight"
+          },
+          {
+            "part": "dipstick",
+            "action": "insert",
+            "caption": "Push dipstick fully in"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "engine_coolant_level_low",
+      "symptoms": [
+        "The pink fluid tank is at MIN",
+        "My car runs hotter than usual",
+        "I see pink puddles under the front"
+      ],
+      "plan": {
+        "brand": "Toyota",
+        "model_number": "1852",
+        "appliance": "compact sedan",
+        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "diagnosis": "The clear tank should sit between MIN and MAX when the engine is cold. Topping it up fixes a small drop, but a fast drop means a leak.",
+        "tools": [
+          "Clean funnel",
+          "Rag"
+        ],
+        "replacement_parts": [
+          "Toyota Super Long Life Coolant or matching pink coolant"
+        ],
+        "safety": [
+          "Only check and open the tank when the engine is fully cold.",
+          "Never remove the reservoir cap on a hot engine.",
+          "Stop and get help if the temperature warning comes on."
+        ],
+        "steps": [
+          {
+            "instruction": "Park level and let engine cool fully.",
+            "details": [
+              "Cold means the tank feels cool to touch.",
+              "Hot coolant can spray and burn."
+            ],
+            "target_part": "Engine coolant reservoir",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The engine and tank are cool."
+          },
+          {
+            "instruction": "Open hood and prop it securely.",
+            "details": [
+              "Put the support rod fully into its slot."
+            ],
+            "target_part": "Hood support rod",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The hood stays up on its own."
+          },
+          {
+            "instruction": "Check pink fluid against MAX and MIN.",
+            "details": [
+              "Read the lines on the side of the clear tank.",
+              "Between the lines when cold is correct."
+            ],
+            "target_part": "Engine coolant reservoir",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see fluid at or below MIN."
+          },
+          {
+            "instruction": "Open reservoir cap slowly when cold.",
+            "details": [
+              "Turn it slowly and keep your face away."
+            ],
+            "target_part": "Engine coolant reservoir",
+            "photo": -1,
+            "motion": "twist_ccw",
+            "show_3d": true,
+            "check": "The cap is off with no steam or spray."
+          },
+          {
+            "instruction": "Pour coolant in slowly to MAX line.",
+            "details": [
+              "Use a clean funnel to avoid spills.",
+              "Do not pour past the MAX line."
+            ],
+            "target_part": "Engine coolant reservoir",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Pink fluid reaches the MAX line."
+          },
+          {
+            "instruction": "Close cap and look for wet leaks.",
+            "details": [
+              "Check hoses and the ground under the front.",
+              "Wash any spilled coolant off with water."
+            ],
+            "target_part": "Engine coolant reservoir",
+            "photo": -1,
+            "motion": "twist_cw",
+            "show_3d": true,
+            "check": "Cap is tight and no fresh drips show."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 60,
+        "aftercare": "Recheck the cold level in a few days; a quick drop means a leak."
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Park level let engine cool",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "engine_coolant_reservoir"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Open hood prop securely",
+          "distance": 15,
+          "motion": "lift",
+          "part_ids": [
+            "hood_support_rod",
+            "top"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Check coolant between MIN MAX",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "engine_coolant_reservoir"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Twist cap open slowly",
+          "distance": 3,
+          "motion": "twist_ccw",
+          "part_ids": [
+            "engine_coolant_reservoir"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Fill pink coolant to MAX",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "engine_coolant_reservoir"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Close cap check for leaks",
+          "distance": 3,
+          "motion": "twist_cw",
+          "part_ids": [
+            "engine_coolant_reservoir"
+          ],
+          "step": 5
+        }
+      ],
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "hood_release_lever",
+            "action": "press",
+            "caption": "Pull hood release lever"
+          },
+          {
+            "part": "hood_latch",
+            "action": "press",
+            "caption": "Press hood safety latch"
+          },
+          {
+            "part": "hood",
+            "action": "open",
+            "caption": "Lift hood open"
+          },
+          {
+            "part": "prop_rod",
+            "action": "open",
+            "caption": "Secure hood prop rod"
+          }
+        ],
+        [
+          {
+            "part": "coolant_reservoir",
+            "action": "look",
+            "caption": "Check coolant level lines"
+          }
+        ],
+        [
+          {
+            "part": "coolant_cap",
+            "action": "unlock",
+            "caption": "Twist coolant cap left"
+          },
+          {
+            "part": "coolant_cap",
+            "action": "remove",
+            "caption": "Lift coolant cap off"
+          }
+        ],
+        [
+          {
+            "part": "coolant_reservoir",
+            "action": "look",
+            "caption": "Fill coolant to MAX"
+          }
+        ],
+        [
+          {
+            "part": "coolant_cap",
+            "action": "insert",
+            "caption": "Place coolant cap on"
+          },
+          {
+            "part": "coolant_cap",
+            "action": "lock",
+            "caption": "Twist coolant cap tight"
+          },
+          {
+            "part": "coolant_reservoir",
+            "action": "look",
+            "caption": "Check for wet leaks"
+          },
+          {
+            "part": "prop_rod",
+            "action": "close",
+            "caption": "Release hood prop rod"
+          },
+          {
+            "part": "hood",
+            "action": "close",
+            "caption": "Close hood firmly"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "washer_fluid_not_spraying",
+      "symptoms": [
+        "Nothing sprays on my windshield",
+        "The washer warning shows on my dash",
+        "The wipers just smear the glass"
+      ],
+      "plan": {
+        "brand": "Toyota",
+        "model_number": "1852",
+        "appliance": "compact sedan",
+        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "diagnosis": "Most no-spray cases are simply an empty washer tank. Filling it with washer fluid, not soapy water, should bring the spray back.",
+        "tools": [
+          "Clean funnel"
+        ],
+        "replacement_parts": [
+          "Windshield washer fluid"
+        ],
+        "safety": [
+          "Do not add fluid while the engine is hot or running.",
+          "Use only washer fluid, never soapy water or antifreeze.",
+          "Keep washer fluid away from children."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn engine off and open hood.",
+            "details": [
+              "Put the support rod fully into its slot."
+            ],
+            "target_part": "Hood support rod",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The hood stays up on its own."
+          },
+          {
+            "instruction": "Find white tank with windshield symbol cap.",
+            "details": [
+              "It is a white plastic tank under the hood."
+            ],
+            "target_part": "Washer fluid tank",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You found the tank with the spray symbol."
+          },
+          {
+            "instruction": "Lift cap and pour washer fluid in.",
+            "details": [
+              "Pour slowly with a funnel until nearly full.",
+              "In cold areas use fluid rated for winter."
+            ],
+            "target_part": "Washer fluid tank",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "Fluid is visible near the top of the tank."
+          },
+          {
+            "instruction": "Press cap down until it seats.",
+            "details": [
+              "Wipe any spill off paint with water."
+            ],
+            "target_part": "Washer fluid tank",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The cap sits flat and snug."
+          },
+          {
+            "instruction": "Close hood and test the spray.",
+            "details": [
+              "Return the rod to its clip before closing.",
+              "Pull the washer stalk and watch both jets."
+            ],
+            "target_part": "Windshield wiper blades",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "Fluid sprays and wipers clear the glass."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 0,
+        "aftercare": "Top up the washer tank each time you check your oil."
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Open hood secure support rod",
+          "distance": 15.0,
+          "motion": "lift",
+          "part_ids": [
+            "hood_support_rod",
+            "top"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Locate white washer fluid tank",
+          "distance": 0.0,
+          "motion": "none",
+          "part_ids": [
+            "washer_fluid_tank"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Open cap fill washer fluid",
+          "distance": 5.0,
+          "motion": "lift",
+          "part_ids": [
+            "washer_fluid_tank"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Press cap closed snugly",
+          "distance": 2.0,
+          "motion": "push_in",
+          "part_ids": [
+            "washer_fluid_tank"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Close hood test spray",
+          "distance": 2.0,
+          "motion": "press",
+          "part_ids": [
+            "windshield_wiper_blades",
+            "washer_fluid_tank",
+            "top"
+          ],
+          "step": 4
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "hood_release_lever",
+            "action": "press",
+            "caption": "Pull hood release lever"
+          },
+          {
+            "part": "hood",
+            "action": "open",
+            "caption": "Lift hood up"
+          },
+          {
+            "part": "hood_latch",
+            "action": "press",
+            "caption": "Press safety latch"
+          },
+          {
+            "part": "prop_rod",
+            "action": "open",
+            "caption": "Set support rod"
+          }
+        ],
+        [
+          {
+            "part": "washer_reservoir",
+            "action": "look",
+            "caption": "Find washer tank"
+          },
+          {
+            "part": "washer_fluid_cap",
+            "action": "look",
+            "caption": "Spot windshield symbol"
+          }
+        ],
+        [
+          {
+            "part": "washer_fluid_cap",
+            "action": "open",
+            "caption": "Lift washer cap"
+          },
+          {
+            "part": "washer_fluid_jug",
+            "action": "turn",
+            "caption": "Pour washer fluid in"
+          },
+          {
+            "part": "washer_reservoir",
+            "action": "look",
+            "caption": "Check fluid level"
+          }
+        ],
+        [
+          {
+            "part": "washer_fluid_cap",
+            "action": "close",
+            "caption": "Press cap down"
+          }
+        ],
+        [
+          {
+            "part": "prop_rod",
+            "action": "close",
+            "caption": "Return support rod"
+          },
+          {
+            "part": "hood",
+            "action": "close",
+            "caption": "Close hood"
+          },
+          {
+            "part": "wiper_blades",
+            "action": "look",
+            "caption": "Test washer spray"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "weak_airflow_clogged_cabin_filter",
+      "symptoms": [
+        "Air barely comes out of my vents",
+        "The fan sounds loud but blows weak",
+        "My windows fog up and stay foggy"
+      ],
+      "plan": {
+        "brand": "Toyota",
+        "model_number": "1852",
+        "appliance": "compact sedan",
+        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "diagnosis": "Toyota says airflow dropping a lot usually means the cabin filter behind the glove box is clogged. A fresh filter restores normal airflow.",
+        "tools": [],
+        "replacement_parts": [
+          "Cabin air filter"
+        ],
+        "safety": [
+          "Turn the engine switch fully off first.",
+          "Push gently on the glove box; do not force the small clips.",
+          "Always run the fan with a filter installed."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn engine off and open glove box.",
+            "details": [
+              "Empty it first so nothing falls out."
+            ],
+            "target_part": "Cabin air filter",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The glove box is open and empty."
+          },
+          {
+            "instruction": "Squeeze glove box sides and lower it.",
+            "details": [
+              "Push in on the outer side to free the claws.",
+              "Slide off the small arm if yours has one."
+            ],
+            "target_part": "Cabin air filter",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The glove box hangs down out of the way."
+          },
+          {
+            "instruction": "Unlock filter cover and pull it out.",
+            "details": [
+              "The flat cover is right behind the glove box."
+            ],
+            "target_part": "Cabin air filter",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The filter cover is in your hand."
+          },
+          {
+            "instruction": "Slide filter case out toward you.",
+            "details": [
+              "Note which way the UP marks point."
+            ],
+            "target_part": "Cabin air filter",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The flat filter case is fully out."
+          },
+          {
+            "instruction": "Swap old filter for new filter.",
+            "details": [
+              "Put UP marks on filter and case pointing up."
+            ],
+            "target_part": "Cabin air filter",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The clean white filter sits flat in its case."
+          },
+          {
+            "instruction": "Slide case back and refit cover.",
+            "details": [
+              "Push the glove box back until claws click."
+            ],
+            "target_part": "Cabin air filter",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "Cover clicks shut and glove box closes normally."
+          },
+          {
+            "instruction": "Start car and test vent airflow.",
+            "details": [
+              "Turn the fan up and feel each vent."
+            ],
+            "target_part": "Cabin air filter",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "Strong, steady air comes from the vents."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 80,
+        "aftercare": "Change this filter on schedule, sooner if you drive dusty roads."
+      },
+      "step_animations": [
+        {
+          "axis": "z",
+          "caption": "Open empty glove box",
+          "distance": 15,
+          "motion": "pull_out",
+          "part_ids": [
+            "cabin_air_filter"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "x",
+          "caption": "Squeeze sides lower box",
+          "distance": 5,
+          "motion": "push_in",
+          "part_ids": [
+            "cabin_air_filter"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "z",
+          "caption": "Remove filter cover",
+          "distance": 12,
+          "motion": "pull_out",
+          "part_ids": [
+            "cabin_air_filter"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "z",
+          "caption": "Slide filter case out",
+          "distance": 20,
+          "motion": "pull_out",
+          "part_ids": [
+            "cabin_air_filter"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "z",
+          "caption": "Install new clean filter",
+          "distance": 8,
+          "motion": "push_in",
+          "part_ids": [
+            "cabin_air_filter"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "z",
+          "caption": "Slide case refit cover",
+          "distance": 20,
+          "motion": "push_in",
+          "part_ids": [
+            "cabin_air_filter"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "y",
+          "caption": "Test vent airflow",
+          "distance": 1,
+          "motion": "press",
+          "part_ids": [
+            "cabin_air_filter"
+          ],
+          "step": 6
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press start button off"
+          },
+          {
+            "part": "passenger_door",
+            "action": "open",
+            "caption": "Open passenger door"
+          },
+          {
+            "part": "glove_box",
+            "action": "open",
+            "caption": "Open glove box"
+          }
+        ],
+        [
+          {
+            "part": "glove_box",
+            "action": "look",
+            "caption": "Lower glove box down"
+          }
+        ],
+        [
+          {
+            "part": "cabin_air_filter",
+            "action": "look",
+            "caption": "Look behind glove box"
+          }
+        ],
+        [
+          {
+            "part": "cabin_air_filter",
+            "action": "remove",
+            "caption": "Remove cabin air filter"
+          }
+        ],
+        [
+          {
+            "part": "cabin_air_filter",
+            "action": "look",
+            "caption": "Check UP marks up"
+          }
+        ],
+        [
+          {
+            "part": "cabin_air_filter",
+            "action": "insert",
+            "caption": "Slide filter case back"
+          },
+          {
+            "part": "glove_box",
+            "action": "close",
+            "caption": "Close glove box"
+          },
+          {
+            "part": "passenger_door",
+            "action": "close",
+            "caption": "Close passenger door"
+          }
+        ],
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press start button on"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "battery_terminals_corroded_no_start",
+      "symptoms": [
+        "My car just clicks and won't start",
+        "There is white crust on the battery",
+        "The battery cable feels loose by hand"
+      ],
+      "plan": {
+        "brand": "Toyota",
+        "model_number": "1852",
+        "appliance": "compact sedan",
+        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "diagnosis": "White crust or a loose clamp stops power reaching the starter, causing clicks. Cleaning and firmly seating the clamps often restores starting; a dead battery will still need charging or replacement.",
+        "tools": [
+          "Safety glasses",
+          "Wrench for terminal clamps",
+          "Warm water",
+          "Baking soda",
+          "Rag",
+          "Grease"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Wear safety glasses; battery acid is poisonous and corrosive.",
+          "No smoking, sparks, or flames near the battery.",
+          "If acid gets in eyes, flush 15 minutes and get medical help."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn everything off and open hood.",
+            "details": [
+              "Put the support rod fully into its slot.",
+              "Keep metal tools off both terminals at once."
+            ],
+            "target_part": "12-volt battery",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The battery top and both cables are visible."
+          },
+          {
+            "instruction": "Check both clamps for crust and looseness.",
+            "details": [
+              "Try moving each clamp gently by hand.",
+              "Look for cracks and loose hold-down parts."
+            ],
+            "target_part": "12-volt battery",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see crust or feel a clamp move."
+          },
+          {
+            "instruction": "Wipe crust off with baking soda water.",
+            "details": [
+              "Dip a rag, wring it, then wipe the tops.",
+              "Keep the mix out of the battery openings."
+            ],
+            "target_part": "12-volt battery",
+            "photo": -1,
+            "motion": "rinse",
+            "show_3d": true,
+            "check": "Terminal posts look clean and bright."
+          },
+          {
+            "instruction": "Push each clamp fully down on post.",
+            "details": [
+              "A clamp should sit low, not perched high."
+            ],
+            "target_part": "12-volt battery",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "Both clamps sit fully down on their posts."
+          },
+          {
+            "instruction": "Tighten each clamp bolt with wrench.",
+            "details": [
+              "Tighten until the clamp cannot twist by hand.",
+              "Do not overtighten and crack the clamp."
+            ],
+            "target_part": "12-volt battery",
+            "photo": -1,
+            "motion": "screw_in",
+            "show_3d": true,
+            "check": "Neither clamp moves when you try to twist it."
+          },
+          {
+            "instruction": "Smear thin grease over both terminals.",
+            "details": [
+              "A thin coat slows new crust forming."
+            ],
+            "target_part": "12-volt battery",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "Both terminals have a light greasy shine."
+          },
+          {
+            "instruction": "Try starting the engine once.",
+            "details": [
+              "If it only clicks again, the battery is likely dead.",
+              "Get it tested or replaced rather than forcing it."
+            ],
+            "target_part": "12-volt battery",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": false,
+            "check": "The engine starts, or you know the battery needs testing."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 75,
+        "aftercare": "Glance at the terminals monthly and clean crust early."
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Open hood access battery",
+          "distance": 20,
+          "motion": "lift",
+          "part_ids": [
+            "battery_12v",
+            "top",
+            "hood_support_rod"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Inspect clamps for corrosion",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "battery_12v"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Clean terminals bright",
+          "distance": 5,
+          "motion": "rinse",
+          "part_ids": [
+            "battery_12v"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Seat clamps fully down",
+          "distance": -4,
+          "motion": "push_in",
+          "part_ids": [
+            "battery_12v"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Tighten clamp bolts secure",
+          "distance": -2,
+          "motion": "screw_in",
+          "part_ids": [
+            "battery_12v"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Grease terminals lightly",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "battery_12v"
+          ],
+          "step": 5
+        },
+        {
+          "axis": "z",
+          "caption": "Try starting engine",
+          "distance": 2,
+          "motion": "press",
+          "part_ids": [
+            "battery_12v"
+          ],
+          "step": 6
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "hood_release_lever",
+            "action": "press",
+            "caption": "Pull hood release lever"
+          },
+          {
+            "part": "hood_latch",
+            "action": "press",
+            "caption": "Press hood safety latch"
+          },
+          {
+            "part": "hood",
+            "action": "open",
+            "caption": "Lift hood open"
+          },
+          {
+            "part": "prop_rod",
+            "action": "open",
+            "caption": "Set hood prop rod"
+          },
+          {
+            "part": "battery",
+            "action": "look",
+            "caption": "Look at battery top"
+          }
+        ],
+        [
+          {
+            "part": "battery",
+            "action": "look",
+            "caption": "Look at battery top"
+          },
+          {
+            "part": "terminal_corrosion",
+            "action": "look",
+            "caption": "Look for white crust"
+          },
+          {
+            "part": "negative_terminal",
+            "action": "look",
+            "caption": "Check negative clamp"
+          },
+          {
+            "part": "positive_terminal_cover",
+            "action": "look",
+            "caption": "Check positive terminal"
+          }
+        ],
+        [
+          {
+            "part": "positive_terminal_cover",
+            "action": "open",
+            "caption": "Open positive terminal cover"
+          },
+          {
+            "part": "terminal_corrosion",
+            "action": "clean",
+            "caption": "Wipe crust off terminals"
+          },
+          {
+            "part": "battery",
+            "action": "look",
+            "caption": "Look at clean posts"
+          }
+        ],
+        [
+          {
+            "part": "negative_terminal",
+            "action": "insert",
+            "caption": "Push negative clamp down"
+          },
+          {
+            "part": "positive_terminal_cover",
+            "action": "look",
+            "caption": "Check positive clamp seated"
+          },
+          {
+            "part": "battery",
+            "action": "look",
+            "caption": "Look at both clamps"
+          }
+        ],
+        [
+          {
+            "part": "terminal_nut",
+            "action": "turn",
+            "caption": "Tighten clamp bolt"
+          },
+          {
+            "part": "negative_terminal",
+            "action": "look",
+            "caption": "Check negative clamp tight"
+          },
+          {
+            "part": "positive_terminal_cover",
+            "action": "look",
+            "caption": "Check positive clamp tight"
+          }
+        ],
+        [
+          {
+            "part": "negative_terminal",
+            "action": "look",
+            "caption": "Look at negative terminal"
+          },
+          {
+            "part": "positive_terminal_cover",
+            "action": "look",
+            "caption": "Look at positive terminal"
+          },
+          {
+            "part": "positive_terminal_cover",
+            "action": "close",
+            "caption": "Close positive terminal cover"
+          }
+        ],
+        [
+          {
+            "part": "driver_door",
+            "action": "open",
+            "caption": "Open driver door"
+          },
+          {
+            "part": "driver_door",
+            "action": "close",
+            "caption": "Close driver door"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press engine start button"
+          },
+          {
+            "part": "engine",
+            "action": "look",
+            "caption": "Look at engine"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "blown_fuse_dead_electrical_part",
+      "symptoms": [
+        "My power outlet suddenly stopped working",
+        "One electrical thing died but others work",
+        "The radio went dead all at once"
+      ],
+      "plan": {
+        "brand": "Toyota",
+        "model_number": "1852",
+        "appliance": "compact sedan",
+        "manual_url": "https://assets.sipb.toyota.com/publications/en/om-s/OM02684U/pdf/OM02684U.pdf",
+        "diagnosis": "When one electrical item stops suddenly, a small fuse has often blown to protect the wiring. Replacing it with the exact same rating usually restores power.",
+        "tools": [
+          "Fuse puller tool from the fuse box lid"
+        ],
+        "replacement_parts": [
+          "Fuse with the same amperage rating as the old one"
+        ],
+        "safety": [
+          "Turn the engine switch off before touching fuses.",
+          "Never use a higher-rated fuse or a wire instead.",
+          "If the new fuse blows again, get the car inspected."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn engine off and open hood.",
+            "details": [
+              "Put the support rod fully into its slot."
+            ],
+            "target_part": "Engine fuse box",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "The hood stays up on its own."
+          },
+          {
+            "instruction": "Push tabs and lift fuse box lid.",
+            "details": [
+              "The lid map shows what each fuse feeds.",
+              "Some dead items use the cabin fuse box instead."
+            ],
+            "target_part": "Engine fuse box",
+            "photo": -1,
+            "motion": "lift",
+            "show_3d": true,
+            "check": "Rows of small colored fuses are visible."
+          },
+          {
+            "instruction": "Pull suspect fuse out with puller tool.",
+            "details": [
+              "Use the small white puller clipped in the lid.",
+              "Only pull the fuse for the dead item."
+            ],
+            "target_part": "Engine fuse box",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The fuse is out in your hand."
+          },
+          {
+            "instruction": "Look through fuse for broken strip.",
+            "details": [
+              "A blown fuse shows a gap or dark burn.",
+              "A good fuse shows one unbroken strip."
+            ],
+            "target_part": "Engine fuse box",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You can see the strip is broken."
+          },
+          {
+            "instruction": "Push in new fuse of same rating.",
+            "details": [
+              "Match the number printed on top exactly.",
+              "Push until it sits level with its neighbors."
+            ],
+            "target_part": "Engine fuse box",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The new fuse sits flat and firm."
+          },
+          {
+            "instruction": "Refit lid and test dead item.",
+            "details": [
+              "Make sure both lid tabs click securely."
+            ],
+            "target_part": "Engine fuse box",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The lid is shut and the item works again."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 100,
+        "aftercare": "Keep spare fuses of the listed ratings in the glove box."
+      },
+      "step_animations": [
+        {
+          "axis": "y",
+          "caption": "Open hood and secure rod",
+          "distance": 30,
+          "motion": "lift",
+          "part_ids": [
+            "top",
+            "hood_support_rod",
+            "engine_fuse_box"
+          ],
+          "step": 0
+        },
+        {
+          "axis": "y",
+          "caption": "Lift fuse box lid off",
+          "distance": 8,
+          "motion": "lift",
+          "part_ids": [
+            "engine_fuse_box"
+          ],
+          "step": 1
+        },
+        {
+          "axis": "y",
+          "caption": "Pull suspect fuse straight out",
+          "distance": 5,
+          "motion": "pull_out",
+          "part_ids": [
+            "engine_fuse_box"
+          ],
+          "step": 2
+        },
+        {
+          "axis": "y",
+          "caption": "Inspect fuse strip for break",
+          "distance": 0,
+          "motion": "none",
+          "part_ids": [
+            "engine_fuse_box"
+          ],
+          "step": 3
+        },
+        {
+          "axis": "y",
+          "caption": "Push new same-rated fuse",
+          "distance": 3,
+          "motion": "push_in",
+          "part_ids": [
+            "engine_fuse_box"
+          ],
+          "step": 4
+        },
+        {
+          "axis": "y",
+          "caption": "Refit lid test item works",
+          "distance": 5,
+          "motion": "push_in",
+          "part_ids": [
+            "engine_fuse_box"
+          ],
+          "step": 5
+        }
+      ],
+      "rig_beats": [
+        [
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press start button off"
+          },
+          {
+            "part": "hood_release_lever",
+            "action": "press",
+            "caption": "Pull hood release lever"
+          },
+          {
+            "part": "hood_latch",
+            "action": "press",
+            "caption": "Press hood safety latch"
+          },
+          {
+            "part": "hood",
+            "action": "open",
+            "caption": "Lift hood fully up"
+          },
+          {
+            "part": "prop_rod",
+            "action": "open",
+            "caption": "Fit support rod securely"
+          }
+        ],
+        [
+          {
+            "part": "fuse_box_lid",
+            "action": "open",
+            "caption": "Push tabs lift lid"
+          },
+          {
+            "part": "fuse",
+            "action": "look",
+            "caption": "Look at fuse rows"
+          }
+        ],
+        [
+          {
+            "part": "fuse",
+            "action": "remove",
+            "caption": "Pull suspect fuse out"
+          }
+        ],
+        [
+          {
+            "part": "fuse",
+            "action": "look",
+            "caption": "Look for broken strip"
+          }
+        ],
+        [
+          {
+            "part": "fuse",
+            "action": "insert",
+            "caption": "Push new fuse in"
+          }
+        ],
+        [
+          {
+            "part": "fuse_box_lid",
+            "action": "close",
+            "caption": "Close fuse box lid"
+          },
+          {
+            "part": "prop_rod",
+            "action": "close",
+            "caption": "Stow support rod away"
+          },
+          {
+            "part": "hood",
+            "action": "close",
+            "caption": "Lower hood shut"
+          }
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "parts": [
+      {
+        "color": "#b9cbd8",
+        "id": "cabinet",
+        "label": "Car body — see-through shell",
+        "opacity": 0.18,
+        "position": [
+          0,
+          74,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          176,
+          126,
+          460
+        ]
+      },
+      {
+        "color": "#aebfd0",
+        "id": "top",
+        "label": "Hood — shown open",
+        "opacity": 0.38,
+        "position": [
+          0,
+          122,
+          178
+        ],
+        "rotation": [
+          -58,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          148,
+          5,
+          108
+        ]
+      },
+      {
+        "color": "#aebfd0",
+        "id": "door",
+        "label": "Driver's door — shown open",
+        "opacity": 0.38,
+        "position": [
+          -112,
+          72,
+          62
+        ],
+        "rotation": [
+          0,
+          -52,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          5,
+          78,
+          112
+        ]
+      },
+      {
+        "color": "#222222",
+        "id": "hood_release_lever",
+        "label": "Hood release lever",
+        "opacity": 1.0,
+        "position": [
+          -56,
+          54,
+          102
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          13,
+          4,
+          7
+        ]
+      },
+      {
+        "color": "#9aa1a8",
+        "id": "hood_support_rod",
+        "label": "Hood support rod",
+        "opacity": 1.0,
+        "position": [
+          52,
+          108,
+          202
+        ],
+        "rotation": [
+          32,
+          0,
+          -18
+        ],
+        "shape": "cylinder",
+        "size": [
+          2,
+          58,
+          2
+        ]
+      },
+      {
+        "color": "#ffcc00",
+        "id": "engine_oil_dipstick",
+        "label": "Engine oil dipstick",
+        "opacity": 1.0,
+        "position": [
+          14,
+          94,
+          180
+        ],
+        "rotation": [
+          12,
+          0,
+          -8
+        ],
+        "shape": "box",
+        "size": [
+          5,
+          16,
+          2
+        ]
+      },
+      {
+        "color": "#181818",
+        "id": "engine_oil_filler_cap",
+        "label": "Engine oil filler cap",
+        "opacity": 1.0,
+        "position": [
+          -16,
+          94,
+          186
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          11,
+          5,
+          11
+        ]
+      },
+      {
+        "color": "#7d838a",
+        "id": "oil_drain_plug",
+        "label": "Oil drain plug",
+        "opacity": 1.0,
+        "position": [
+          4,
+          17,
+          176
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          5,
+          4,
+          5
+        ]
+      },
+      {
+        "color": "#1f4e8c",
+        "id": "engine_oil_filter",
+        "label": "Engine oil filter",
+        "opacity": 1.0,
+        "position": [
+          29,
+          22,
+          188
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          13,
+          15,
+          13
+        ]
+      },
+      {
+        "color": "#ff9db4",
+        "id": "engine_coolant_reservoir",
+        "label": "Engine coolant reservoir",
+        "opacity": 1.0,
+        "position": [
+          58,
+          79,
+          168
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          24,
+          19,
+          22
+        ]
+      },
+      {
+        "color": "#929aa3",
+        "id": "radiator",
+        "label": "Radiator",
+        "opacity": 1.0,
+        "position": [
+          0,
+          61,
+          218
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          142,
+          52,
+          6
+        ]
+      },
+      {
+        "color": "#f3ecd2",
+        "id": "brake_fluid_reservoir",
+        "label": "Brake fluid reservoir",
+        "opacity": 1.0,
+        "position": [
+          -48,
+          86,
+          144
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          17,
+          13,
+          17
+        ]
+      },
+      {
+        "color": "#151515",
+        "id": "battery_12v",
+        "label": "12-volt battery",
+        "opacity": 1.0,
+        "position": [
+          -57,
+          72,
+          172
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          29,
+          21,
+          19
+        ]
+      },
+      {
+        "color": "#f4f7f9",
+        "id": "washer_fluid_tank",
+        "label": "Washer fluid tank",
+        "opacity": 1.0,
+        "position": [
+          63,
+          66,
+          200
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          21,
+          23,
+          25
+        ]
+      },
+      {
+        "color": "#101010",
+        "id": "engine_fuse_box",
+        "label": "Engine fuse box",
+        "opacity": 1.0,
+        "position": [
+          -64,
+          81,
+          198
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          24,
+          12,
+          20
+        ]
+      },
+      {
+        "color": "#ffffff",
+        "id": "cabin_air_filter",
+        "label": "Cabin air filter",
+        "opacity": 1.0,
+        "position": [
+          55,
+          80,
+          104
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          25,
+          5,
+          20
+        ]
+      },
+      {
+        "color": "#242424",
+        "id": "maintenance_reset_controls",
+        "label": "Maintenance reset controls",
+        "opacity": 1.0,
+        "position": [
+          -42,
+          90,
+          96
+        ],
+        "rotation": [
+          -18,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          11,
+          7,
+          3
+        ]
+      },
+      {
+        "color": "#111111",
+        "id": "windshield_wiper_blades",
+        "label": "Windshield wiper blades",
+        "opacity": 1.0,
+        "position": [
+          0,
+          99,
+          139
+        ],
+        "rotation": [
+          18,
+          0,
+          0
+        ],
+        "shape": "box",
+        "size": [
+          122,
+          3,
+          6
+        ]
+      },
+      {
+        "color": "#ffb020",
+        "id": "replaceable_light_bulbs",
+        "label": "Replaceable light bulbs",
+        "opacity": 1.0,
+        "position": [
+          68,
+          70,
+          226
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "sphere",
+        "size": [
+          10,
+          8,
+          8
+        ]
+      },
+      {
+        "color": "#c9ced4",
+        "id": "key_fob_battery",
+        "label": "Key fob battery",
+        "opacity": 1.0,
+        "position": [
+          -18,
+          68,
+          28
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "shape": "cylinder",
+        "size": [
+          5,
+          1,
+          5
+        ]
+      }
+    ]
+  },
+  "rig_id": "car_oil_change"
+}
