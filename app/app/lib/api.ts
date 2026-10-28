@@ -130,13 +130,47 @@ export async function transcribe(wav: Blob): Promise<string> {
   return ((await response.json()) as { text: string }).text;
 }
 
-export async function checkStep(photo: Blob, step: PlanStep): Promise<{ done: boolean; feedback: string }> {
+export type CheckResult = {
+  /** Older replies only carry done. */
+  status?: "COMPLETED" | "INCOMPLETE" | "UNCERTAIN";
+  done: boolean;
+  evidence?: string;
+  feedback: string;
+  mistake?: string;
+};
+
+/** Judges a photo of a step. Live frames come from the camera mid-step, so only clear results and mistakes count. */
+export async function checkStep(photo: Blob, step: PlanStep, options: { part?: string; live?: boolean } = {}): Promise<CheckResult> {
   const form = new FormData();
   form.append("photo", photo, "check.jpg");
   form.append("instruction", step.instruction);
   form.append("check", step.check);
+  if (options.part) form.append("part", options.part);
+  if (options.live) form.append("live", "1");
   const response = await fetch(`${API_URL}/api/check`, { method: "POST", body: form });
   if (!response.ok) throw new Error("I couldn't check that photo, try again?");
+  return response.json();
+}
+
+/** Finds a part on a camera frame with SAM 3.1, trying each name in turn; sam is empty when nothing matched. */
+export async function locatePart(frame: Blob, phrases: string[], kind: "part" | "label" = "part"): Promise<{ sam: string; phrase: string }> {
+  const form = new FormData();
+  form.append("photo", frame, "frame.jpg");
+  phrases.forEach((phrase) => form.append("phrase", phrase));
+  form.append("kind", kind);
+  const response = await fetch(`${API_URL}/api/locate`, { method: "POST", body: form });
+  if (!response.ok) throw new Error("locate failed");
+  return response.json();
+}
+
+export type LabelReading = { found: boolean; brand: string; model_number: string; serial: string; vin: string; description: string };
+
+/** Reads the brand, model number and serial (or a VIN) off a close crop of a sticker. */
+export async function readLabel(crop: Blob): Promise<LabelReading> {
+  const form = new FormData();
+  form.append("photo", crop, "label.jpg");
+  const response = await fetch(`${API_URL}/api/read-label`, { method: "POST", body: form });
+  if (!response.ok) throw new Error("I couldn't read that label.");
   return response.json();
 }
 

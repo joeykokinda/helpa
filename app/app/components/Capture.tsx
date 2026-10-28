@@ -7,7 +7,9 @@ import ThemeToggle from "./ThemeToggle";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { transcribe } from "../lib/api";
+import { useCameraControls } from "../lib/camera";
 import { captureFrame, shrinkPhoto, toWav } from "../lib/media";
+import FindModel from "./FindModel";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import { SampleCards, SampleSheetButton, samplePhoto, type Sample } from "./Samples";
@@ -32,12 +34,12 @@ const suggestions = ["Dishwasher leaves grit", "Washer won't drain", "Dryer take
 export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mood, speaking }: CaptureProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const backdropRef = useRef<HTMLVideoElement>(null);
-  const zoomRangeRef = useRef<{ min: number; max: number; current: number } | null>(null);
-  const pinchRef = useRef<{ distance: number; zoom: number } | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const [camera, setCamera] = useState<"starting" | "ready" | "failed">("starting");
   const [screen, setScreen] = useState<"camera" | "describe">("camera");
-  const [captureMode, setCaptureMode] = useState<"photo" | "scan">("photo");
+  const [captureMode, setCaptureMode] = useState<"photo" | "scan" | "model">("photo");
+  // The model number Helpa read off the sticker (or a VIN), sent along with the problem.
+  const [identity, setIdentity] = useState("");
   const [photos, setPhotos] = useState<{ blob: Blob; url: string }[]>([]);
   const [description, setDescription] = useState("");
   const [recording, setRecording] = useState(false);
@@ -45,17 +47,8 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   const [scanning, setScanning] = useState(false);
   const [flash, setFlash] = useState(0);
   const trackRef = useRef<MediaStreamTrack | null>(null);
-  const [torch, setTorch] = useState<"unsupported" | "off" | "on">("unsupported");
+  const { adopt, torch, setTorchOn, pinchHandlers } = useCameraControls(trackRef);
   const darkWarnedRef = useRef(false);
-
-  const setTorchOn = async (on: boolean) => {
-    try {
-      await trackRef.current?.applyConstraints({ advanced: [{ torch: on } as MediaTrackConstraintSet] });
-      setTorch(on ? "on" : "off");
-    } catch {
-      setTorch("unsupported");
-    }
-  };
 
   // Watch how bright the picture is; in a dark cabinet, suggest the flashlight once.
   useEffect(() => {
@@ -96,16 +89,8 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       .getUserMedia({ video: { facingMode: "environment", width: { ideal: 1920 } }, audio: false })
       .then((granted) => {
         stream = granted;
-        const [track] = granted.getVideoTracks();
-        trackRef.current = track ?? null;
-        const capabilities = (track?.getCapabilities?.() ?? {}) as MediaTrackCapabilities & { torch?: boolean };
-        if (capabilities.torch) setTorch("off");
-        // Start at the widest view; zooming in is something the user (or Helpa) does on purpose.
-        const zoom = (capabilities as MediaTrackCapabilities & { zoom?: { min: number; max: number } }).zoom;
-        if (track && zoom) {
-          zoomRangeRef.current = { min: zoom.min, max: zoom.max, current: zoom.min };
-          track.applyConstraints({ advanced: [{ zoom: zoom.min } as MediaTrackConstraintSet] }).catch(() => {});
-        }
+        // Widest zoom to start; pinching is the person's, and Helpa zooms only on its own copy of a frame.
+        adopt(granted.getVideoTracks()[0]);
         if (backdropRef.current) backdropRef.current.srcObject = granted;
         if (videoRef.current) {
           videoRef.current.srcObject = granted;
@@ -126,19 +111,6 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       link.click();
       setTimeout(() => URL.revokeObjectURL(link.href), 4000);
     });
-
-  // Pinch to zoom with the camera's own zoom, so photos stay sharp and Helpa sees what you see.
-  const pinchDistance = (touches: React.TouchList) => Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
-  const onPinchStart = (touchEvent: React.TouchEvent) => {
-    if (touchEvent.touches.length === 2 && zoomRangeRef.current) pinchRef.current = { distance: pinchDistance(touchEvent.touches), zoom: zoomRangeRef.current.current };
-  };
-  const onPinchMove = (touchEvent: React.TouchEvent) => {
-    const range = zoomRangeRef.current;
-    if (!pinchRef.current || !range || touchEvent.touches.length !== 2) return;
-    const next = Math.min(range.max, Math.max(range.min, pinchRef.current.zoom * (pinchDistance(touchEvent.touches) / pinchRef.current.distance)));
-    range.current = next;
-    trackRef.current?.applyConstraints({ advanced: [{ zoom: next } as MediaTrackConstraintSet] }).catch(() => {});
-  };
 
   const addPhotos = (blobs: Blob[]) =>
     setPhotos((current) => [...current, ...blobs.map((blob) => ({ blob, url: URL.createObjectURL(blob) }))].slice(-maxPhotos));
@@ -242,7 +214,8 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
     }
   };
 
-  const canSubmit = photos.length > 0 || description.trim().length > 0;
+  const canSubmit = photos.length > 0 || description.trim().length > 0 || identity.length > 0;
+  const complaint = () => [description.trim(), identity && `(From the model sticker: ${identity}.)`].filter(Boolean).join(" ");
   const uploadInput = (
     <input type="file" accept="image/*" multiple hidden onChange={(changeEvent) => upload(changeEvent.target.files)} />
   );
@@ -259,9 +232,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
           playsInline
           muted
           aria-label="Camera preview"
-          onTouchStart={onPinchStart}
-          onTouchMove={onPinchMove}
-          onTouchEnd={() => (pinchRef.current = null)}
+          {...pinchHandlers}
         />
         <div className="camera-shade" aria-hidden="true" />
         {camera === "starting" && <div className="camera-starting skeleton" aria-hidden="true" />}
@@ -301,7 +272,20 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
           </motion.p>
         </div>
 
-        <div className={`brackets ${scanning ? "brackets-scanning" : ""}`} aria-hidden="true">
+        {captureMode === "model" && screen === "camera" && (
+          <FindModel
+            videoRef={videoRef}
+            trackRef={trackRef}
+            say={say}
+            onUse={(found) => {
+              setIdentity(found);
+              setCaptureMode("photo");
+              say("Now show me what's wrong, or tell me.", "found", false);
+              setScreen("describe");
+            }}
+          />
+        )}
+        <div className={`brackets ${scanning ? "brackets-scanning" : ""} ${captureMode === "model" ? "brackets-hidden" : ""}`} aria-hidden="true">
           <span />
           <span />
           <span />
@@ -328,9 +312,9 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
           )}
           {photos.length === 0 && !scanning && <SampleSheetButton onPick={trySample} />}
           <div className="mode-switch" role="radiogroup" aria-label="Capture mode">
-            {(["photo", "scan"] as const).map((option) => (
+            {(["photo", "scan", "model"] as const).map((option) => (
               <button key={option} role="radio" aria-checked={captureMode === option} className="press" onClick={() => setCaptureMode(option)} disabled={scanning}>
-                {option === "photo" ? "Photo" : "Scan around"}
+                {option === "photo" ? "Photo" : option === "scan" ? "Scan around" : "Model #"}
               </button>
             ))}
           </div>
@@ -340,7 +324,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               {uploadInput}
             </label>
             <button
-              className={`shutter press ${captureMode === "scan" ? "shutter-scan" : ""}`}
+              className={`shutter press ${captureMode === "scan" ? "shutter-scan" : ""} ${captureMode === "model" ? "shutter-hidden" : ""}`}
               onClick={shoot}
               disabled={camera !== "ready" || scanning}
               aria-label={captureMode === "photo" ? "Snap photo" : scanning ? "Scanning" : "Start scan"}
@@ -380,6 +364,17 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               </motion.p>
             </div>
             <h1 className="title">What&apos;s going on?</h1>
+            {identity && (
+              <ul className="tag-row tag-row-left">
+                <li>
+                  <Icon name="tag" size={15} />
+                  {identity}
+                  <button className="tag-remove press" onClick={() => setIdentity("")} aria-label="Forget this model number">
+                    <Icon name="close" size={12} strokeWidth={3} />
+                  </button>
+                </li>
+              </ul>
+            )}
 
             <div className={`field ${recording ? "field-live" : ""}`}>
               <textarea
@@ -473,7 +468,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
           </div>
 
           <div className="bottom-bar">
-            <button className="btn btn-primary press" disabled={!canSubmit} onClick={() => onSubmit(photos.map((photo) => photo.blob), description.trim())}>
+            <button className="btn btn-primary press" disabled={!canSubmit} onClick={() => onSubmit(photos.map((photo) => photo.blob), complaint())}>
               Help me fix it
             </button>
           </div>

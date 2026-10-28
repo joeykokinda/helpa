@@ -47,6 +47,8 @@ func main() {
 	http.HandleFunc("POST /api/answer", handleAnswer)
 	http.HandleFunc("POST /api/check", handleCheck)
 	http.HandleFunc("POST /api/transcribe", handleTranscribe)
+	http.HandleFunc("POST /api/locate", handleLocate)
+	http.HandleFunc("POST /api/read-label", handleReadLabel)
 	http.HandleFunc("GET /api/library/{id}", func(writer http.ResponseWriter, request *http.Request) {
 		entry := findLibraryEntry(request.PathValue("id"))
 		if entry == nil {
@@ -197,7 +199,7 @@ func handleCheck(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 	if replayDir != "" {
-		replayCheck(writer)
+		replayCheck(writer, request.FormValue("live") == "1")
 		return
 	}
 	photos, err := readPhotos(request, "photo")
@@ -205,7 +207,7 @@ func handleCheck(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, "send exactly one photo", http.StatusBadRequest)
 		return
 	}
-	result, err := checkStep(request.Context(), photos[0], request.FormValue("instruction"), request.FormValue("check"))
+	result, err := checkStep(request.Context(), photos[0], request.FormValue("instruction"), request.FormValue("check"), request.FormValue("part"), request.FormValue("live") == "1")
 	if err != nil {
 		log.Printf("check: %v", err)
 		http.Error(writer, err.Error(), http.StatusBadGateway)

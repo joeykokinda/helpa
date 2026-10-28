@@ -493,7 +493,8 @@
         "upper filter assembly",
         "cylinder filter",
         "filter",
-        "filters"
+        "filters",
+        "drain"
       ],
       "joint": {
         "kind": "twist",

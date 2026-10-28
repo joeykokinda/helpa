@@ -22,7 +22,7 @@ const slowFactor = 1.8;
 const flightSeconds = 1.2;
 
 /** Where the timeline is: which beat, how far into it, and how far through its move. */
-function timelineAt(seconds: number, beatCount: number, slow: boolean): PlayHead {
+export function timelineAt(seconds: number, beatCount: number, slow: boolean): PlayHead {
   const scaled = seconds / (slow ? slowFactor : 1);
   const total = beatCount * beatSeconds + endHoldSeconds;
   const local = scaled % total;
@@ -185,22 +185,40 @@ function StartClock({ clockStartRef, restartKey }: { clockStartRef: RefObject<nu
   return null;
 }
 
+/** The camera-mode hologram floats over the live picture, so the models' room walls and backdrops go. */
+function HideBackdrops() {
+  const { scene } = useThree();
+  useFrame(() => {
+    scene.traverse((object) => {
+      const mesh = object as THREE.Mesh;
+      const geometry = mesh.geometry as THREE.PlaneGeometry | undefined;
+      if (mesh.isMesh && geometry?.type === "PlaneGeometry" && geometry.parameters.width * geometry.parameters.height > 1.5) mesh.visible = false;
+    });
+  });
+  return null;
+}
+
 type RigSceneProps = {
   catalog: RigCatalog;
   Model: () => React.JSX.Element;
   /** Beats for every step of the plan, so later steps start where earlier ones left off. */
   stepBeats: Beat[][];
   stepIndex: number;
+  /** Shares the play head with the live camera, so its ghost motion moves in step with this model. */
+  playHeadRef?: RefObject<PlayHead>;
+  /** The camera-mode look: no paper or floor, so the model floats as a hologram over the live picture. */
+  holo?: boolean;
 };
 
 /** The appliance model playing one step: each beat moves a real part, with a guide, an arrow, a caption and a following camera. */
-export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSceneProps) {
+export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHeadRef, holo }: RigSceneProps) {
   const defs = useMemo(() => Object.fromEntries(catalog.parts.map((part) => [part.id, part])), [catalog]);
   const beats = useMemo(() => stepBeats[stepIndex] ?? [], [stepBeats, stepIndex]);
   const start = useMemo(() => applyBeats(restState(catalog), stepBeats.slice(0, stepIndex).flat()), [catalog, stepBeats, stepIndex]);
   const amountsRef = useRef<RigState>({ ...start });
   const focusRef = useRef<string | null>(null);
-  const playRef = useRef<PlayHead>({ index: 0, within: 0, progress: 0 });
+  const ownPlayRef = useRef<PlayHead>({ index: 0, within: 0, progress: 0 });
+  const playRef = playHeadRef ?? ownPlayRef;
   const nodesRef = useRef<Record<string, THREE.Group>>({});
   const clockStartRef = useRef(0);
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
@@ -218,7 +236,7 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSc
   const runtime = useMemo(() => ({ defs, amounts: amountsRef, focus: focusRef, nodes: nodesRef }), [defs]);
 
   return (
-    <div className="scene-3d rig-scene" data-beat-seconds={beatSeconds * (slow ? slowFactor : 1)}>
+    <div className={holo ? "scene-3d rig-scene rig-scene-holo" : "scene-3d rig-scene"} data-beat-seconds={beatSeconds * (slow ? slowFactor : 1)}>
       <Canvas orthographic camera={{ position: [1.6, 1.4, 2.2], zoom: 220, near: 0.01, far: 12 }} dpr={[1, 2]} shadows="variance" flat>
         <RigProvider value={runtime}>
           <StartClock clockStartRef={clockStartRef} restartKey={`${stepIndex}-${replays}-${slow}`} />
@@ -240,10 +258,10 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSc
             shadow-camera-near={0.5}
             shadow-camera-far={8}
           />
-          <color attach="background" args={[palette.paper]} />
+          {!holo && <color attach="background" args={[palette.paper]} />}
           <Model />
           <PartEffects effects={catalog.effects} />
-          <Ground />
+          {holo ? <HideBackdrops /> : <Ground />}
           <BeatArrow beat={beat} def={def} nodes={nodesRef} />
           <MotionGuide beat={beat} def={def} from={beatFrom} to={beatTo} nodes={nodesRef} playRef={playRef} />
           <Effects beat={beat} def={def} nodes={nodesRef} playRef={playRef} />

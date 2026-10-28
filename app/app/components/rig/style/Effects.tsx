@@ -17,7 +17,7 @@ const lightParts = /bulb|lamp|light/i;
 const liquidParts = /\boil|drain plug|drain pan|standing water|rinse water/i;
 
 /** Which effect a beat earns, and when (in seconds into the beat) it fires. */
-function effectFor(beat: Beat, def: RigPartDef) {
+export function effectFor(beat: Beat, def: RigPartDef) {
   const name = `${def.id} ${def.label}`;
   // Oil and other liquids have their own catalog effects (streams, drips, pools); water splashes would be wrong.
   if (liquidParts.test(name) && def.joint.kind !== "debris") return null;

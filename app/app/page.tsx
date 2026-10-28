@@ -16,11 +16,13 @@ import Onboarding, { hasOnboarded } from "./components/Onboarding";
 import PartPhoto from "./components/PartPhoto";
 import { rigLoaders } from "./components/rig/registry";
 import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
+import { requestMotionPermission } from "./lib/live";
 import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
 import { tidy } from "./lib/text";
 import type { Beat } from "./lib/rig/types";
 
 const RigStep = dynamic(() => import("./components/rig/RigStep"), { ssr: false });
+const LiveGuide = dynamic(() => import("./components/LiveGuide"), { ssr: false });
 const Scene3D = dynamic(() => import("./components/Scene3D"), {
   ssr: false,
   loading: () => <SceneSkeleton text="Building your 3D model" />,
@@ -99,6 +101,8 @@ export default function Home() {
   const [stepIndex, setStepIndex] = useState(0);
   // "auto" picks 3D when this step has it; the 3D model can arrive a moment after the plan.
   const [view, setView] = useState<"auto" | "3d" | "photo">("auto");
+  // Live Guide: the step played as holograms on the camera, then watched while you do it.
+  const [live, setLive] = useState(false);
   const [check, setCheck] = useState<CheckState | null>(null);
   const checkInputRef = useRef<HTMLInputElement>(null);
   const checkToken = useRef(0);
@@ -201,6 +205,7 @@ export default function Home() {
     stopSpeaking();
     setStage("working");
     startedAt.current = Date.now();
+    setLive(false);
     setRows([{ key: "look", title: photos.length ? "Looking at your photo" : "Understanding the problem", detail: description ? `"${firstSentence(description)}"` : "" }]);
     setLibraryHit(null);
     setActivePhoto(0);
@@ -364,6 +369,20 @@ export default function Home() {
     );
   else if (stage === "plan" && plan)
     screen = <PlanScreen plan={plan} mood={mood} speaking={speaking} onStart={() => enterStep(0)} onRestart={restart} onHelp={openTutorial} />;
+  else if (stage === "step" && plan && step && live)
+    screen = (
+      <LiveGuide
+        plan={plan}
+        stepIndex={stepIndex}
+        rig={playableRig}
+        mood={mood}
+        speaking={speaking}
+        say={say}
+        onDone={() => goToStep(stepIndex + 1)}
+        onNext={() => goToStep(stepIndex + 1)}
+        onClose={() => setLive(false)}
+      />
+    );
   else if (stage === "step" && plan && step) {
     const rigBeats = playableRig?.stepBeats[stepIndex] ?? [];
     const has3d = playableRig ? rigBeats.length > 0 : step.show_3d && !sceneMissing;
@@ -503,6 +522,17 @@ export default function Home() {
                   </div>
                 )}
                 {visual && <div className="visual-card">{visual}</div>}
+                <button
+                  className="btn btn-secondary press live-open"
+                  onClick={() => {
+                    requestMotionPermission();
+                    stopSpeaking();
+                    setLive(true);
+                  }}
+                >
+                  <Icon name="live" size={20} />
+                  Show me on my camera
+                </button>
 
                 {step.details?.length > 0 && (
                   <details className="more-help">

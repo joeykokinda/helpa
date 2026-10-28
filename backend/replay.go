@@ -105,11 +105,15 @@ func replayStream(request *http.Request, recording io.Reader, session *fixSessio
 
 var replayChecks = 0
 
-func replayCheck(writer http.ResponseWriter) {
+// replayCheck alternates "not yet" and "done"; live checks open with a caught mistake so that UI can be tested too.
+func replayCheck(writer http.ResponseWriter, live bool) {
 	replayChecks++
-	result := map[string]any{"done": false, "feedback": "Almost! The screen is still a little crooked, so slide it all the way down."}
+	result := map[string]any{"status": "INCOMPLETE", "done": false, "evidence": "the screen sits crooked in its slot", "feedback": "Almost! The screen is still a little crooked, so slide it all the way down.", "mistake": ""}
+	if live && replayChecks%2 == 1 {
+		result["mistake"] = "That's the spray arm. The filter is the round cap just below it."
+	}
 	if replayChecks%2 == 0 {
-		result = map[string]any{"done": true, "feedback": "That looks perfect. Nice work!"}
+		result = map[string]any{"status": "COMPLETED", "done": true, "evidence": "the screen is out and clean", "feedback": "That looks perfect. Nice work!", "mistake": ""}
 	}
 	time.Sleep(1500 * time.Millisecond)
 	writer.Header().Set("Content-Type", "application/json")
