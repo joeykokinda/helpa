@@ -6,7 +6,7 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import AgentTracks, { lanesFrom, type ProgressRow } from "./components/AgentTracks";
-import Capture from "./components/Capture";
+import Capture, { cameraPrompt } from "./components/Capture";
 import CheckMoment, { type CheckState } from "./components/CheckMoment";
 import Confetti from "./components/Confetti";
 import Done from "./components/Done";
@@ -71,7 +71,7 @@ export default function Home() {
   const [stage, setStage] = useState<Stage>("start");
   const [mood, setMood] = useState<HelpaMood>("idle");
   const [speaking, setSpeaking] = useState(false);
-  const [bubble, setBubble] = useState("Point me at the broken thing, or its model sticker.");
+  const [bubble, setBubble] = useState(cameraPrompt);
   const [rows, setRows] = useState<ProgressRow[]>([]);
   const [libraryHit, setLibraryHit] = useState<{ brand: string; appliance: string; model_family: string } | null>(null);
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);

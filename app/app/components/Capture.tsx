@@ -22,6 +22,8 @@ type CaptureProps = {
   speaking: boolean;
 };
 
+export const cameraPrompt = "Point me at the broken thing, or its model sticker.";
+
 const maxPhotos = 4;
 const scanFrames = 3;
 const suggestions = ["Dishwasher leaves grit", "Washer won't drain", "Dryer takes forever", "Garbage disposal hums", "Fridge is leaking", "Toilet keeps running"];
@@ -83,7 +85,8 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
     const noCamera = () => {
       setCamera("failed");
       setScreen("describe");
-      say("Tell me what's going on. You can add a photo too.", "idle", false);
+      // Keep a message Helpa just gave (like a connection problem) instead of the default prompt.
+      if (bubble === cameraPrompt) say("Tell me what's going on. You can add a photo too.", "idle", false);
     };
     if (!navigator.mediaDevices?.getUserMedia) {
       queueMicrotask(noCamera);
@@ -223,7 +226,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   };
 
   const openCamera = () => {
-    say("Point me at the broken thing, or its model sticker.", "idle", false);
+    say(cameraPrompt, "idle", false);
     setScreen("camera");
   };
 
