@@ -221,8 +221,8 @@ export default function Home() {
     }
   };
 
-  // Only models the app can draw count; a generated model falls back to photos until RigStep takes a recipe.
-  const playableRig = rig && rig.id in rigLoaders ? rig : null;
+  // Only models the app can draw count: a built-in rig, or a generated one that brought its recipe.
+  const playableRig = rig && (rig.id in rigLoaders || (rig.id === "generated" && rig.recipe)) ? rig : null;
   const sceneMissing = sceneFailed || (rig !== null && !playableRig);
 
   const step = plan?.steps[stepIndex];
@@ -334,7 +334,7 @@ export default function Home() {
     const rigBeats = playableRig?.stepBeats[stepIndex] ?? [];
     const has3d = playableRig ? rigBeats.length > 0 : step.show_3d && !sceneMissing;
     const guide3d = playableRig ? (
-      <RigStep rigId={playableRig.id} stepBeats={playableRig.stepBeats} stepIndex={stepIndex} />
+      <RigStep rigId={playableRig.id} stepBeats={playableRig.stepBeats} stepIndex={stepIndex} recipe={playableRig.recipe} />
     ) : scene ? (
       <Scene3D scene={scene} stepIndex={stepIndex} />
     ) : null;
