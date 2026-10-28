@@ -16,6 +16,10 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [ ] 🛠 **Diagnosis that branches**: hypotheses, then a test, then what you observe, then the next branch ("hums or silent?"). Animate each hypothesis in a **3D cutaway that explains why** the fix works.
 - [ ] 🛠 **Outcome check, not just step check**: every plan ends with a test run ("run Rinse Only, does the water go down?"); a failure branches to the next hypothesis.
 - [ ] 🛠 **Mistake catching as the hero moment**: wrong part, wrong orientation, wrong order → a specific correction while you work.
+- [ ] 🛠 **Learn what's wrong (breakout)**: an x-ray / exploded view of the 3D twin, overlaid on your camera, that pulls the machine apart to show the faulty part and *why* it causes your symptom (water path blocked at the filter, jam stopping the disposal plate). Tap a part to learn what it does.
+- [ ] 🛠 **Get help when it's beyond DIY**: when the plan says "replace" or "call a pro":
+  - **Parts**: the exact OEM part number for your model, with buy links (Amazon, the manufacturer, appliance parts sites) found by research, the price shown, and the 3D twin showing exactly which piece it is. Then a follow-up guide to install it.
+  - **Pros**: nearby repair techs or mechanics (with your location permission) and a ready-to-send summary (model, symptom, what you already tried, photos) so you aren't charged for diagnosis twice.
 - [ ] 🛠 **My Home**: save each machine (model, manual, parts, fix history, maintenance reminders); next time Helpa already knows it.
 - [ ] 🛠 Adapt to the person: first-timer vs experienced, Spanish, hands busy → voice.
 
