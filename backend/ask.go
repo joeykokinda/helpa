@@ -48,6 +48,9 @@ func handleAsk(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, "send a question", http.StatusBadRequest)
 		return
 	}
+	if replayDir == "" && overBudget(writer, 1) {
+		return
+	}
 	writer.Header().Set("Content-Type", "application/json")
 	if replayDir != "" {
 		json.NewEncoder(writer).Encode(map[string]any{"answer": "Clean the lint screen before every load, and check the outside vent flap opens when it runs. If clothes still come out damp, I can walk you through cleaning the vent.", "start_fix": false, "complaint": ""})

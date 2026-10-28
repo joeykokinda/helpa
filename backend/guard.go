@@ -28,6 +28,7 @@ var routeLimits = map[string]routeLimit{
 	"/api/read-label": {perMinute: 8, burst: 3},
 	"/api/transcribe": {perMinute: 15, burst: 5},
 	"/api/answer":     {perMinute: 60, burst: 20},
+	"/api/ask":        {perMinute: 10, burst: 4},
 }
 
 var defaultLimit = routeLimit{perMinute: 120, burst: 30}
