@@ -106,14 +106,19 @@ func replayStream(request *http.Request, recording io.Reader, session *fixSessio
 var replayChecks = 0
 
 // replayCheck alternates "not yet" and "done"; live checks open with a caught mistake so that UI can be tested too.
-func replayCheck(writer http.ResponseWriter, live bool) {
+func replayCheck(writer http.ResponseWriter, live bool, part string) {
 	replayChecks++
-	result := map[string]any{"status": "INCOMPLETE", "done": false, "evidence": "the screen sits crooked in its slot", "feedback": "Almost! The screen is still a little crooked, so slide it all the way down.", "mistake": ""}
+	part = strings.ToLower(strings.TrimSpace(part))
+	if part == "" {
+		part = "part"
+	}
+	// Recorded checks alternate a correction with a pass, worded for the part this step is about.
+	result := map[string]any{"status": "INCOMPLETE", "done": false, "evidence": fmt.Sprintf("the %s hasn't moved yet", part), "feedback": fmt.Sprintf("Almost! The %s is still in place. Try the move again.", part), "mistake": ""}
 	if live && replayChecks%2 == 1 {
-		result["mistake"] = "That's the spray arm. The filter is the round cap just below it."
+		result["mistake"] = fmt.Sprintf("Close! That's next to it. Grab the %s itself.", part)
 	}
 	if replayChecks%2 == 0 {
-		result = map[string]any{"status": "COMPLETED", "done": true, "evidence": "the screen is out and clean", "feedback": "That looks perfect. Nice work!", "mistake": ""}
+		result = map[string]any{"status": "COMPLETED", "done": true, "evidence": fmt.Sprintf("the %s is done", part), "feedback": "That looks perfect. Nice work!", "mistake": ""}
 	}
 	time.Sleep(1500 * time.Millisecond)
 	writer.Header().Set("Content-Type", "application/json")

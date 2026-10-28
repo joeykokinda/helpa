@@ -2,9 +2,24 @@ import type { ScreenRect } from "./arLayer";
 
 /** The flat 2D layer over the holograms: lock-on brackets, the label, motion trails and particles. */
 
-const cyan = "#7ef3ff";
-const orange = "#ff9a3c";
-const under = "rgba(0, 16, 26, 0.6)";
+// White for what Helpa sees, orange for what your hands do, over a soft ink under-stroke so both read anywhere.
+const white = "#ffffff";
+const orange = "#ff5b2e";
+const under = "rgba(14, 14, 15, 0.42)";
+const ink = "#0e0e0f";
+
+/** The app's own typeface for canvas text (next/font gives it a generated family name). */
+let fontFamily = "";
+function font(weight: number, size: number) {
+  if (!fontFamily && typeof document !== "undefined") fontFamily = getComputedStyle(document.body).fontFamily || "system-ui, sans-serif";
+  return `${weight} ${size}px ${fontFamily || "system-ui, sans-serif"}`;
+}
+
+/** "SLIDE UP" from the motion words, as a person would say it: "Slide up". */
+function sentence(text: string) {
+  const lower = text.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
 
 const easeOutBack = (progress: number) => 1 + 2.7 * (progress - 1) ** 3 + 1.7 * (progress - 1) ** 2;
 
@@ -28,15 +43,15 @@ export function drawOutline(context: CanvasRenderingContext2D, corners: { x: num
   context.save();
   context.globalAlpha = opacity;
   context.lineJoin = "round";
-  doubleStroke(context, 2, cyan, () => {
+  doubleStroke(context, 2, white, () => {
     corners.forEach((corner, index) => (index ? context.lineTo(corner.x, corner.y) : context.moveTo(corner.x, corner.y)));
     context.closePath();
   });
   context.restore();
 }
 
-/** Corner brackets that snap onto the part, then a floating label with a leader line. */
-export function drawLockOn(context: CanvasRenderingContext2D, rect: ScreenRect, lock: number, opacity: number, name: string, action: string) {
+/** Corner brackets that snap onto the part, then its label; `rising` puts the label below, out of the ghost's way. */
+export function drawLockOn(context: CanvasRenderingContext2D, rect: ScreenRect, lock: number, opacity: number, name: string, action: string, rising = false) {
   if (opacity <= 0.01) return;
   const snap = easeOutBack(Math.min(1, lock));
   const spread = (1 - snap) * 34;
@@ -48,8 +63,11 @@ export function drawLockOn(context: CanvasRenderingContext2D, rect: ScreenRect, 
   const arm = Math.max(10, Math.min(26, Math.min(rect.width, rect.height) * 0.28));
   context.save();
   context.globalAlpha = opacity * Math.min(1, lock * 1.6);
-  context.lineCap = "square";
-  doubleStroke(context, 2.5, cyan, () => {
+  context.lineCap = "round";
+  context.lineJoin = "round";
+  // Rounded corner brackets, like a camera's focus box.
+  const bend = Math.min(8, arm * 0.45);
+  doubleStroke(context, 3, white, () => {
     for (const [x, y, dx, dy] of [
       [left, top, 1, 1],
       [right, top, -1, 1],
@@ -57,7 +75,8 @@ export function drawLockOn(context: CanvasRenderingContext2D, rect: ScreenRect, 
       [right, bottom, -1, -1],
     ]) {
       context.moveTo(x + dx * arm, y);
-      context.lineTo(x, y);
+      context.lineTo(x + dx * bend, y);
+      context.quadraticCurveTo(x, y, x, y + dy * bend);
       context.lineTo(x, y + dy * arm);
     }
   });
@@ -65,29 +84,40 @@ export function drawLockOn(context: CanvasRenderingContext2D, rect: ScreenRect, 
   if (lock > 0.45) {
     const text = context.globalAlpha;
     context.globalAlpha = text * Math.min(1, (lock - 0.45) * 3);
-    context.font = "600 11px ui-monospace, SFMono-Regular, Menlo, monospace";
-    const nameText = `${name.toUpperCase()} · `;
-    const width = context.measureText(nameText).width + context.measureText(action).width + 16;
+    // A white pill: the part's name in ink, then the move in orange.
+    const nameText = name;
+    const actionText = sentence(action);
+    context.font = font(600, 13);
+    const nameWidth = context.measureText(nameText).width;
+    context.font = font(800, 13);
+    const actionWidth = context.measureText(actionText).width;
+    const width = 14 + nameWidth + 16 + actionWidth + 14;
+    const height = 28;
     const canvasWidth = context.canvas.clientWidth || context.canvas.width;
-    const above = top > 46;
-    const labelX = Math.min(canvasWidth - width - 8, Math.max(8, right - width + 10));
-    const labelY = above ? top - 30 : bottom + 12;
-    doubleStroke(context, 1.5, cyan, () => {
-      context.moveTo(above ? right : right, above ? top : bottom);
-      context.lineTo(Math.min(right + 10, labelX + width - 4), above ? labelY + 22 : labelY);
-    });
-    context.fillStyle = "rgba(3, 20, 30, 0.78)";
-    context.strokeStyle = "rgba(126, 243, 255, 0.85)";
-    context.lineWidth = 1;
+    const canvasHeight = context.canvas.clientHeight || context.canvas.height;
+    const above = rising ? bottom + height + 10 > canvasHeight - 120 : top > 52;
+    const labelX = Math.min(canvasWidth - width - 8, Math.max(8, (left + right) / 2 - width / 2));
+    const labelY = above ? top - height - 10 : bottom + 10;
+    context.shadowColor = "rgba(0, 0, 0, 0.28)";
+    context.shadowBlur = 12;
+    context.shadowOffsetY = 3;
+    context.fillStyle = white;
     context.beginPath();
-    context.roundRect(labelX, labelY, width, 22, 4);
+    context.roundRect(labelX, labelY, width, height, height / 2);
     context.fill();
-    context.stroke();
+    context.shadowColor = "transparent";
     context.textBaseline = "middle";
-    context.fillStyle = cyan;
-    context.fillText(nameText, labelX + 8, labelY + 11.5);
+    context.font = font(600, 13);
+    context.fillStyle = ink;
+    context.fillText(nameText, labelX + 14, labelY + height / 2 + 0.5);
+    const dotX = labelX + 14 + nameWidth + 8;
+    context.fillStyle = "rgba(14, 14, 15, 0.25)";
+    context.beginPath();
+    context.arc(dotX, labelY + height / 2, 2, 0, Math.PI * 2);
+    context.fill();
+    context.font = font(800, 13);
     context.fillStyle = orange;
-    context.fillText(action, labelX + 8 + context.measureText(nameText).width, labelY + 11.5);
+    context.fillText(actionText, dotX + 8, labelY + height / 2 + 0.5);
   }
   context.restore();
 }
@@ -104,14 +134,11 @@ export function drawTrail(context: CanvasRenderingContext2D, points: { x: number
   context.lineJoin = "round";
   context.setLineDash([8, 9]);
   context.lineDashOffset = -time * 40;
-  context.shadowColor = cyan;
-  context.shadowBlur = 10;
-  doubleStroke(context, 3, cyan, () => {
+  doubleStroke(context, 3.5, orange, () => {
     context.moveTo(points[0].x, points[0].y);
     for (const point of points.slice(1)) context.lineTo(point.x, point.y);
   });
   context.setLineDash([]);
-  context.shadowBlur = 0;
 
   // Chevrons travel along the trail.
   const pointAt = (distance: number) => {
@@ -138,12 +165,12 @@ export function drawTrail(context: CanvasRenderingContext2D, points: { x: number
   for (let index = 0; index < 3; index++) {
     const distance = (((time * 0.6 + index / 3) % 1) * 0.8 + 0.1) * length;
     const at = pointAt(distance);
-    doubleStroke(context, 2.5, cyan, () => chevron(at.x, at.y, at.angle, 8));
+    doubleStroke(context, 3, white, () => chevron(at.x, at.y, at.angle, 8));
   }
   const end = pointAt(length);
   context.fillStyle = orange;
-  context.strokeStyle = under;
-  context.lineWidth = 2;
+  context.strokeStyle = white;
+  context.lineWidth = 2.5;
   context.beginPath();
   context.moveTo(end.x + 13 * Math.cos(end.angle), end.y + 13 * Math.sin(end.angle));
   context.lineTo(end.x + 13 * Math.cos(end.angle + 2.5), end.y + 13 * Math.sin(end.angle + 2.5));
@@ -165,14 +192,14 @@ export function drawTurn(context: CanvasRenderingContext2D, centerX: number, cen
   context.lineCap = "round";
   context.setLineDash([8, 9]);
   context.lineDashOffset = -time * 40 * (clockwise ? 1 : -1);
-  doubleStroke(context, 3, cyan, () => context.arc(centerX, centerY, radius, start, end, !clockwise));
+  doubleStroke(context, 3.5, orange, () => context.arc(centerX, centerY, radius, start, end, !clockwise));
   context.setLineDash([]);
   const tipX = centerX + radius * Math.cos(end);
   const tipY = centerY + radius * Math.sin(end);
   const heading = end + (clockwise ? Math.PI / 2 : -Math.PI / 2);
   context.fillStyle = orange;
-  context.strokeStyle = under;
-  context.lineWidth = 2;
+  context.strokeStyle = white;
+  context.lineWidth = 2.5;
   context.beginPath();
   context.moveTo(tipX + 13 * Math.cos(heading), tipY + 13 * Math.sin(heading));
   context.lineTo(tipX + 13 * Math.cos(heading + 2.5), tipY + 13 * Math.sin(heading + 2.5));
@@ -189,14 +216,14 @@ export function drawPress(context: CanvasRenderingContext2D, centerX: number, ce
   for (const lag of [0, 0.3]) {
     const grow = Math.min(1, Math.max(0, amount - lag) / (1 - lag));
     context.globalAlpha = opacity * (1 - grow);
-    doubleStroke(context, 2.5, cyan, () => context.arc(centerX, centerY, radius * (1 + grow * 0.9), 0, Math.PI * 2));
+    doubleStroke(context, 3, lag ? white : orange, () => context.arc(centerX, centerY, radius * (1 + grow * 0.9), 0, Math.PI * 2));
   }
   context.restore();
 }
 
 type Particle = { x: number; y: number; vx: number; vy: number; life: number; age: number; size: number; gravity: number; warm: boolean };
 
-/** Glowing debris and fluid streams in the hologram palette; oil gets a warm core so it reads as oil. */
+/** Debris and fluid streams: lint and grime in white, oil warm amber so it reads as oil. */
 export class Particles {
   private items: Particle[] = [];
 
@@ -246,7 +273,7 @@ export class Particles {
       context.beginPath();
       context.arc(particle.x, particle.y, particle.size + 1.5, 0, Math.PI * 2);
       context.fill();
-      context.fillStyle = particle.warm ? "#ffc46b" : cyan;
+      context.fillStyle = particle.warm ? "#ffb347" : white;
       context.beginPath();
       context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
       context.fill();

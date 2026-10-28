@@ -45,35 +45,33 @@ void main() {
   float halo = (1.0 - alpha) * clamp(around * 2.2, 0.0, 1.0);
 
   if (mode > 0.5 && mode < 1.5) {
-    gl_FragColor = vec4(0.0, 0.03, 0.05, alpha * 0.3 * opacity);
+    gl_FragColor = vec4(0.0, 0.0, 0.0, alpha * 0.45 * opacity);
     return;
   }
   if (mode > 1.5 && mode < 2.5) {
-    gl_FragColor = vec4(0.0, 0.02, 0.04, (alpha * 0.5 + around * 0.5) * 0.3 * opacity);
+    gl_FragColor = vec4(0.0, 0.0, 0.0, (alpha * 0.5 + around * 0.5) * 0.28 * opacity);
     return;
   }
 
-  float scan = 0.72 + 0.28 * step(0.0, sin(gl_FragCoord.y * 1.1 - time * 9.0));
-  float flicker = reduced > 0.5 ? 1.0 : 0.93 + 0.07 * hash(vec2(floor(time * 20.0), 3.1));
-  vec3 edgeColor = vec3(0.7, 1.0, 1.0);
-  vec3 dark = vec3(0.0, 0.07, 0.11);
+  float flicker = reduced > 0.5 ? 1.0 : 0.96 + 0.04 * hash(vec2(floor(time * 20.0), 3.1));
+  // Frosted glass: the real part's detail, washed toward white, with a crisp white rim over a soft dark halo
+  // so it reads on a white dryer and a black engine alike. The brand orange marks where your hands go.
+  vec3 rim = vec3(1.0);
+  vec3 ink = vec3(0.02, 0.02, 0.03);
+  vec3 signal = vec3(1.0, 0.36, 0.18);
   vec4 color;
   if (mode > 2.5) {
-    // Slot outline: only the traced contour, breathing, over a dark under-stroke so it reads on white.
-    float pulse = 0.65 + 0.35 * sin(time * 3.0);
-    color = vec4(mix(dark, edgeColor, edge), max(edge * pulse, halo * 0.55));
+    // Slot outline: the traced contour in orange, breathing, on a dark under-stroke.
+    float pulse = 0.6 + 0.4 * sin(time * 3.2);
+    color = vec4(mix(ink, signal, edge), max(edge * pulse, halo * 0.5 * pulse));
   } else {
     float luminance = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
-    vec3 body = vec3(0.05, 0.78, 1.0) * (0.3 + 0.8 * luminance) * scan;
-    if (reduced < 0.5) {
-      // A thin red and blue split along the edges, like a slightly misaligned projector.
-      float right = texture2D(map, vUv + vec2(texel.x * 3.0, 0.0)).a;
-      float left = texture2D(map, vUv - vec2(texel.x * 3.0, 0.0)).a;
-      body += vec3(max(0.0, right - alpha) * 0.9, 0.0, max(0.0, left - alpha) * 0.9);
-    }
-    vec3 rgb = mix(body, edgeColor, edge);
-    float fill = alpha * 0.62 * scan;
-    color = vec4(mix(dark, rgb, step(0.01, alpha)), max(max(fill, edge), halo * 0.6));
+    // A soft sheen sweeps across the glass now and then.
+    float sheen = reduced > 0.5 ? 0.0 : smoothstep(0.08, 0.0, abs(vUv.x + vUv.y * 0.6 - mod(time * 0.45, 2.4) + 0.3)) * 0.35;
+    vec3 body = mix(vec3(0.94, 0.96, 1.0), tex.rgb, 0.28) + (luminance - 0.5) * 0.12 + sheen;
+    vec3 rgb = mix(body, rim, edge);
+    float fill = alpha * (0.72 + sheen * 0.4);
+    color = vec4(mix(ink, rgb, step(0.01, alpha)), max(max(fill, edge), halo * 0.42));
   }
 
   float fromTop = 1.0 - vUv.y;
@@ -82,7 +80,7 @@ void main() {
     float cell = hash(floor(vUv * vec2(46.0, 46.0)));
     float keep = step(cell, appear);
     float spark = step(cell, appear + 0.08) - keep;
-    color.rgb = mix(color.rgb, edgeColor, spark);
+    color.rgb = mix(color.rgb, rim, spark);
     color.a = max(color.a * keep, spark * alpha);
   } else {
     // Build in behind a bright scan line sweeping down the part.
@@ -90,7 +88,7 @@ void main() {
     float built = smoothstep(front + 0.01, front - 0.02, fromTop);
     float line = smoothstep(0.035, 0.0, abs(fromTop - front)) * (1.0 - step(1.0, appear));
     color.a *= built;
-    color.rgb = mix(color.rgb, vec3(0.85, 1.0, 1.0), line);
+    color.rgb = mix(color.rgb, signal, line);
     color.a = max(color.a, line * max(alpha, around) * 0.95);
   }
   gl_FragColor = vec4(color.rgb, color.a * opacity * flicker);

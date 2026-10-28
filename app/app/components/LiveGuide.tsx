@@ -19,6 +19,7 @@ import {
   outOfArea,
   displayRect,
   easeBox,
+  fitVideo,
   frameCanvas,
   frameShift,
   grayChange,
@@ -224,6 +225,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       const seconds = Math.min(0.1, (now - lastTime) / 1000);
       lastTime = now;
       if (!video.videoWidth) return;
+      fitVideo(video);
       const width = video.clientWidth;
       const height = video.clientHeight;
       layer.resize(width, height);
@@ -346,7 +348,14 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         const def = defs[focusPart];
         const rect = rectOf(focusTrack.box);
         const words = demo && beat ? actionWords(beat.action, def.joint) : "YOUR TURN";
-        drawLockOn(hud, rect, (now - focusTrack.lockedAt) / 420, confidence, def.label, words);
+        // Where this beat carries the part: a part lifting up would slide under a label above it.
+        let rising = false;
+        if (demo && motionNow && beat && def) {
+          const startAmount = stepStart[beat.part] ?? 0;
+          const at = (amount: number) => layer.project(rect, poseFor(def.joint, startAmount, amount, rect, focusTrack.cutout.centroid), focusTrack.cutout.centroid).y;
+          rising = Math.min(at(motionNow.from), at(motionNow.end)) < rect.top - rect.height * 0.3;
+        }
+        drawLockOn(hud, rect, (now - focusTrack.lockedAt) / 420, confidence, def.label, words, rising);
 
         if (demo && motionNow && beat) {
           const { joint, from, end } = motionNow;
@@ -633,7 +642,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     };
 
     const timer = window.setInterval(() => {
-      if (!alive || document.hidden) return;
+      // No picture yet (the stream is still starting): nothing to read or send.
+      if (!alive || document.hidden || !video.videoWidth) return;
       const now = performance.now();
       const phaseNow = phaseRef.current;
       if (phaseNow !== "checking") noteSearch(phaseNow === "demo" ? searchPart() : watched, now);

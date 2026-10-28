@@ -47,10 +47,23 @@ export const canvasBlob =(canvas: HTMLCanvasElement, quality = 0.82) =>
 
 /** Where the video's picture sits inside its element with object-fit: contain, in CSS pixels. */
 export function displayRect(video: HTMLVideoElement) {
-  const scale = Math.min(video.clientWidth / video.videoWidth, video.clientHeight / video.videoHeight);
+  const fill = video.style.objectFit === "cover" ? Math.max : Math.min;
+  const scale = fill(video.clientWidth / video.videoWidth, video.clientHeight / video.videoHeight);
   const width = video.videoWidth * scale;
   const height = video.videoHeight * scale;
   return { left: (video.clientWidth - width) / 2, top: (video.clientHeight - height) / 2, width, height };
+}
+
+/**
+ * Fills the screen with the camera when that only trims a little off the edges (a phone held upright), and shows
+ * the whole frame otherwise (a landscape webcam), so the holograms sit on a full-bleed picture where they can.
+ */
+export function fitVideo(video: HTMLVideoElement) {
+  if (!video.videoWidth || !video.clientWidth) return;
+  const contain = Math.min(video.clientWidth / video.videoWidth, video.clientHeight / video.videoHeight);
+  const cover = Math.max(video.clientWidth / video.videoWidth, video.clientHeight / video.videoHeight);
+  const fit = contain / cover > 0.72 ? "cover" : "contain";
+  if (video.style.objectFit !== fit) video.style.objectFit = fit;
 }
 
 /**
@@ -285,6 +298,14 @@ export type Pose = { pivot: [number, number]; axis: Vec3; angle: number; move: V
 const twistTurn = (amount: number) => Math.min(1, Math.max(0, amount * 2));
 const twistLift = (amount: number) => Math.max(0, amount * 2 - 1);
 
+/**
+ * A flat cutout spun about an axis lying in the screen turns edge-on and vanishes, so twists and turns always spin
+ * in the picture's plane, clockwise or not as the real axis faces the camera. A cap seen at an angle still reads.
+ */
+function spinAxis(view: Vec3): Vec3 {
+  return [0, 0, Math.abs(view[2]) > 0.25 ? Math.sign(view[2]) : Math.sign(view[1] || 1)];
+}
+
 export function jointPose(joint: Joint, from: number, amount: number, size: { width: number; height: number }, centroid: [number, number], pitch: number, reach = Infinity): Pose {
   // Things slide about their own size, but never off the screen.
   const travel = Math.min(reach, Math.max(size.width, size.height));
@@ -308,10 +329,10 @@ export function jointPose(joint: Joint, from: number, amount: number, size: { wi
     case "twist": {
       const lift = (twistLift(amount) - twistLift(from)) * size.height * 1.1;
       const [x, y, z] = toView(joint.axis, pitch);
-      return { pivot: centroid, axis: [x, y, z], angle: joint.angle * (twistTurn(amount) - twistTurn(from)), move: [x * lift, y * lift, z * lift], depth: Math.abs(amount - from) };
+      return { pivot: centroid, axis: spinAxis([x, y, z]), angle: joint.angle * (twistTurn(amount) - twistTurn(from)), move: [x * lift, y * lift, z * lift], depth: Math.abs(amount - from) };
     }
     case "turn":
-      return { ...still, pivot: centroid, axis: toView(joint.axis, pitch), angle: joint.angle * (amount - from) };
+      return { ...still, pivot: centroid, axis: spinAxis(toView(joint.axis, pitch)), angle: joint.angle * (amount - from) };
     case "press": {
       const [x, y, z] = toView(joint.direction, pitch);
       const pushed = amount * Math.min(size.width, size.height) * 0.12;

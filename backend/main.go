@@ -221,7 +221,7 @@ func handleCheck(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 	if replayDir != "" {
-		replayCheck(writer, request.FormValue("live") == "1")
+		replayCheck(writer, request.FormValue("live") == "1", request.FormValue("part"))
 		return
 	}
 	photos, err := readPhotos(request, "photo")
