@@ -1,0 +1,1181 @@
+{
+ "name": "Furnace and thermostat",
+ "nodes": [
+  {
+   "id": "wall",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.8,
+    1.9,
+    0.02
+   ],
+   "position": [
+    0,
+    0.95,
+    -0.45
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#e3ded5",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "floor_tiles",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.8,
+    0.006,
+    0.9
+   ],
+   "position": [
+    0,
+    0.003,
+    0.0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#c9c3b8",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "furnace",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.25,
+    0,
+    -0.1
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "cabinet_body",
+   "parent": "furnace",
+   "shape": "box",
+   "size": [
+    0.55,
+    1.2,
+    0.7
+   ],
+   "position": [
+    0,
+    0.65,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#c7c9c6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "base_return",
+   "parent": "furnace",
+   "shape": "box",
+   "size": [
+    0.55,
+    0.05,
+    0.7
+   ],
+   "position": [
+    0,
+    0.025,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#9fa3a2",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "duct_top",
+   "parent": "furnace",
+   "shape": "box",
+   "size": [
+    0.45,
+    0.45,
+    0.55
+   ],
+   "position": [
+    0,
+    1.47,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "foil",
+   "color": "#cfd3d6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "duct_up",
+   "parent": "furnace",
+   "shape": "box",
+   "size": [
+    0.3,
+    0.6,
+    0.3
+   ],
+   "position": [
+    0,
+    1.97,
+    -0.1
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "foil",
+   "color": "#cfd3d6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "upper_door",
+   "parent": "furnace",
+   "shape": "box",
+   "size": [
+    0.5,
+    0.5,
+    0.01
+   ],
+   "position": [
+    0,
+    0.93,
+    0.355
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#d7d9d6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "lower_door",
+   "parent": "furnace",
+   "shape": "box",
+   "size": [
+    0.5,
+    0.45,
+    0.01
+   ],
+   "position": [
+    0,
+    0.4,
+    0.355
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#d7d9d6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "sight_glass",
+   "parent": "furnace",
+   "shape": "rounded_box",
+   "size": [
+    0.06,
+    0.04,
+    0.012
+   ],
+   "position": [
+    0,
+    0.4,
+    0.362
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "glass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "warning_label",
+   "parent": "furnace",
+   "shape": "label",
+   "size": [
+    0.12,
+    0.05
+   ],
+   "position": [
+    0.12,
+    1.05,
+    0.362
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "",
+   "points": [],
+   "text": "WARNING",
+   "repeat": []
+  },
+  {
+   "id": "filter_slot",
+   "parent": "furnace",
+   "shape": "box",
+   "size": [
+    0.02,
+    0.06,
+    0.68
+   ],
+   "position": [
+    0.285,
+    0.18,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#8e9392",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "air_filter",
+   "parent": "furnace",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.29,
+    0.18,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "filter_frame",
+   "parent": "air_filter",
+   "shape": "box",
+   "size": [
+    0.025,
+    0.4,
+    0.62
+   ],
+   "position": [
+    0,
+    0.0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "cardboard",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "filter_media",
+   "parent": "air_filter",
+   "shape": "box",
+   "size": [
+    0.027,
+    0.36,
+    0.58
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "pleated_filter",
+   "color": "#efe9dc",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "filter_dust",
+   "parent": "air_filter",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.016,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "filter_grime",
+   "parent": "filter_dust",
+   "shape": "box",
+   "size": [
+    0.004,
+    0.34,
+    0.56
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "grime",
+   "color": "#7d7464",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "airflow_arrow",
+   "parent": "air_filter",
+   "shape": "label",
+   "size": [
+    0.12,
+    0.05
+   ],
+   "position": [
+    0.016,
+    0.1,
+    0.15
+   ],
+   "rotation": [
+    0,
+    90,
+    0
+   ],
+   "material": "clear",
+   "color": "",
+   "points": [],
+   "text": "AIRFLOW \u2192",
+   "repeat": []
+  },
+  {
+   "id": "furnace_switch",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.25,
+    1.3,
+    -0.44
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "switch_plate",
+   "parent": "furnace_switch",
+   "shape": "rounded_box",
+   "size": [
+    0.07,
+    0.11,
+    0.008
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "switch_toggle",
+   "parent": "furnace_switch",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0,
+    0.006
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "toggle",
+   "parent": "switch_toggle",
+   "shape": "rounded_box",
+   "size": [
+    0.014,
+    0.03,
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0.004
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#f7f5ef",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "switch_label",
+   "parent": "furnace_switch",
+   "shape": "label",
+   "size": [
+    0.07,
+    0.02
+   ],
+   "position": [
+    0,
+    0.075,
+    0.002
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "clear",
+   "color": "#c22",
+   "points": [],
+   "text": "FURNACE",
+   "repeat": []
+  },
+  {
+   "id": "thermostat",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.55,
+    1.45,
+    -0.44
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stat_base",
+   "parent": "thermostat",
+   "shape": "rounded_box",
+   "size": [
+    0.13,
+    0.1,
+    0.02
+   ],
+   "position": [
+    0,
+    0,
+    0.01
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stat_cover",
+   "parent": "thermostat",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0,
+    0.025
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stat_face",
+   "parent": "stat_cover",
+   "shape": "rounded_box",
+   "size": [
+    0.125,
+    0.095,
+    0.015
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#f9f9f7",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stat_screen",
+   "parent": "stat_cover",
+   "shape": "rounded_box",
+   "size": [
+    0.07,
+    0.04,
+    0.003
+   ],
+   "position": [
+    0,
+    0.012,
+    0.008
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "glass",
+   "color": "#9fb7a8",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stat_reading",
+   "parent": "stat_cover",
+   "shape": "label",
+   "size": [
+    0.05,
+    0.025
+   ],
+   "position": [
+    0,
+    0.012,
+    0.0102
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "clear",
+   "color": "",
+   "points": [],
+   "text": "68\u00b0",
+   "repeat": []
+  },
+  {
+   "id": "mode_switch",
+   "parent": "stat_cover",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.035,
+    -0.03,
+    0.008
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "mode_key",
+   "parent": "mode_switch",
+   "shape": "rounded_box",
+   "size": [
+    0.018,
+    0.01,
+    0.004
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "#9aa0a6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "temp_up",
+   "parent": "stat_cover",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.03,
+    -0.03,
+    0.008
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "up_key",
+   "parent": "temp_up",
+   "shape": "rounded_box",
+   "size": [
+    0.016,
+    0.01,
+    0.004
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "#9aa0a6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stat_batteries",
+   "parent": "thermostat",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    -0.01,
+    0.019
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "aa_pair",
+   "parent": "stat_batteries",
+   "shape": "capsule",
+   "size": [
+    0.014,
+    0.05
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    90
+   ],
+   "material": "painted_metal",
+   "color": "#2b2b2b",
+   "points": [],
+   "text": "",
+   "repeat": [
+    2,
+    0,
+    0.018,
+    0,
+    0
+   ]
+  }
+ ],
+ "parts": [
+  {
+   "node": "air_filter",
+   "label": "Air filter",
+   "aliases": [
+    "furnace filter",
+    "HVAC filter",
+    "return filter"
+   ],
+   "joint": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "amount": 0.55,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "remove",
+    "insert",
+    "look"
+   ],
+   "view": [
+    1,
+    0.4,
+    0.6
+   ],
+   "rest": 0
+  },
+  {
+   "node": "filter_dust",
+   "label": "Dirty filter",
+   "aliases": [
+    "dust"
+   ],
+   "joint": "debris",
+   "axis": [
+    1,
+    0.4,
+    0.4
+   ],
+   "amount": 0.2,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "clean",
+    "look"
+   ],
+   "view": [
+    1,
+    0.4,
+    0.6
+   ],
+   "rest": 0
+  },
+  {
+   "node": "airflow_arrow",
+   "label": "Airflow arrow",
+   "aliases": [
+    "arrow"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    1,
+    0.3,
+    0.3
+   ],
+   "rest": 0
+  },
+  {
+   "node": "furnace_switch",
+   "label": "Furnace switch",
+   "aliases": [
+    "power switch",
+    "service switch"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.1,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "switch_toggle",
+   "label": "Switch",
+   "aliases": [
+    "toggle"
+   ],
+   "joint": "hinge",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "amount": 40,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.2,
+    0.1,
+    1
+   ],
+   "rest": 1
+  },
+  {
+   "node": "thermostat",
+   "label": "Thermostat",
+   "aliases": [
+    "thermostat"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.1,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "stat_cover",
+   "label": "Thermostat cover",
+   "aliases": [
+    "faceplate",
+    "front"
+   ],
+   "joint": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 0.12,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "remove",
+    "insert",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "stat_batteries",
+   "label": "Batteries",
+   "aliases": [
+    "AA batteries",
+    "AAA batteries"
+   ],
+   "joint": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 0.08,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "remove",
+    "insert",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "mode_switch",
+   "label": "Mode switch",
+   "aliases": [
+    "heat/cool switch",
+    "mode button"
+   ],
+   "joint": "press",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "amount": 0.003,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "press",
+    "look"
+   ],
+   "view": [
+    0.1,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "temp_up",
+   "label": "Up button",
+   "aliases": [
+    "temperature up",
+    "arrow"
+   ],
+   "joint": "press",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "amount": 0.003,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "press",
+    "look"
+   ],
+   "view": [
+    0.1,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "lower_door",
+   "label": "Furnace door",
+   "aliases": [
+    "blower door",
+    "front panel"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.4,
+    1
+   ],
+   "rest": 0
+  }
+ ]
+}

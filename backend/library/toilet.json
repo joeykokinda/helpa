@@ -1,0 +1,719 @@
+{
+ "id": "toilet",
+ "appliance": "toilet",
+ "brand": "",
+ "model_family": "Works on most toilets",
+ "model_numbers": [],
+ "sticker_location": "Inside the tank, stamped on the back wall above the water line.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "keeps_running",
+   "title": "Keeps running",
+   "symptoms": [
+    "The toilet keeps running",
+    "It runs on and off by itself",
+    "I hear water trickling in the toilet",
+    "The toilet won't stop filling"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "toilet",
+    "manual_url": "",
+    "diagnosis": "Water is leaking past the flapper, the rubber seal at the bottom of the tank, so the tank keeps refilling. Usually the chain catches or grime stops the flapper sealing, and a wipe and a chain fix stops it.",
+    "tools": [
+     "Old towel",
+     "Rough sponge"
+    ],
+    "replacement_parts": [
+     "Universal 2-inch toilet flapper (only if yours is warped)"
+    ],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Lift the tank lid off",
+      "details": [
+       "It's heavy porcelain; set it on a towel on the floor."
+      ],
+      "target_part": "tank lid",
+      "photo": -1,
+      "motion": "lift",
+      "show_3d": true,
+      "check": "The lid is off and resting on a towel."
+     },
+     {
+      "instruction": "Check the chain has a little slack",
+      "details": [
+       "Too tight holds the flapper open; too long gets caught under it."
+      ],
+      "target_part": "flapper chain",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The chain hangs with about half an inch of slack."
+     },
+     {
+      "instruction": "Turn the water off and flush",
+      "details": [
+       "The valve is on the wall behind the toilet; turn it right."
+      ],
+      "target_part": "water shutoff valve",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "The tank is empty."
+     },
+     {
+      "instruction": "Wipe the flapper and its seat",
+      "details": [
+       "Use a rough sponge on the ring.",
+       "A warped or stiff flapper should be replaced; they're universal."
+      ],
+      "target_part": "flapper",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The flapper and the ring under it feel smooth."
+     },
+     {
+      "instruction": "Turn the water back on",
+      "details": [
+       "Turn it left all the way."
+      ],
+      "target_part": "water shutoff valve",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "The tank fills and then goes quiet."
+     },
+     {
+      "instruction": "Flush once and listen",
+      "details": [
+       "Silence after a minute means it's fixed."
+      ],
+      "target_part": "flush handle",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "It fills and then stops completely."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "tank_lid",
+      "action": "remove",
+      "caption": "Lift the tank lid off"
+     }
+    ],
+    [
+     {
+      "part": "chain",
+      "action": "look",
+      "caption": "Chain needs a little slack"
+     },
+     {
+      "part": "flapper",
+      "action": "look",
+      "caption": "This is the flapper"
+     }
+    ],
+    [
+     {
+      "part": "shutoff_valve",
+      "action": "close",
+      "caption": "Turn the water off"
+     },
+     {
+      "part": "flush_handle",
+      "action": "turn",
+      "caption": "Flush to empty it"
+     }
+    ],
+    [
+     {
+      "part": "flapper",
+      "action": "open",
+      "caption": "Lift the flapper"
+     },
+     {
+      "part": "seat_scale",
+      "action": "clean",
+      "caption": "Wipe the ring clean"
+     },
+     {
+      "part": "flapper",
+      "action": "close",
+      "caption": "Let it drop"
+     }
+    ],
+    [
+     {
+      "part": "shutoff_valve",
+      "action": "open",
+      "caption": "Water back on"
+     },
+     {
+      "part": "fill_valve",
+      "action": "look",
+      "caption": "The tank refills"
+     }
+    ],
+    [
+     {
+      "part": "flush_handle",
+      "action": "turn",
+      "caption": "Flush"
+     },
+     {
+      "part": "flapper",
+      "action": "look",
+      "caption": "It drops and seals"
+     },
+     {
+      "part": "tank_lid",
+      "action": "insert",
+      "caption": "Put the lid back"
+     }
+    ]
+   ],
+   "cause": "a leaky flapper",
+   "next": "water_too_high"
+  },
+  {
+   "id": "water_too_high",
+   "title": "Still running with a good flapper",
+   "symptoms": [
+    "Still running with a good flapper"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "toilet",
+    "manual_url": "",
+    "diagnosis": "With a good flapper, the water level is probably set too high, so it trickles into the overflow tube and never stops. Lowering the float a little stops it.",
+    "tools": [],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Lift the tank lid off",
+      "details": [],
+      "target_part": "tank lid",
+      "photo": -1,
+      "motion": "lift",
+      "show_3d": true,
+      "check": "The lid is off."
+     },
+     {
+      "instruction": "Look where the water ends",
+      "details": [
+       "The water should stop about an inch below the top of the tube."
+      ],
+      "target_part": "overflow tube",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see water spilling into the open tube."
+     },
+     {
+      "instruction": "Lower the float a little",
+      "details": [
+       "Turn the long screw on top of the fill valve, or squeeze the clip and slide the float down an inch."
+      ],
+      "target_part": "float",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The float sits lower on the valve."
+     },
+     {
+      "instruction": "Flush and check the level",
+      "details": [],
+      "target_part": "overflow tube",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The water stops an inch below the top of the tube."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "tank_lid",
+      "action": "remove",
+      "caption": "Lift the tank lid off"
+     }
+    ],
+    [
+     {
+      "part": "overflow_tube",
+      "action": "look",
+      "caption": "Water spills in here"
+     },
+     {
+      "part": "float_cup",
+      "action": "look",
+      "caption": "The float sets the level"
+     }
+    ],
+    [
+     {
+      "part": "fill_valve",
+      "action": "look",
+      "caption": "Turn the screw here"
+     },
+     {
+      "part": "float_cup",
+      "action": "look",
+      "caption": "Lower the float"
+     }
+    ],
+    [
+     {
+      "part": "flush_handle",
+      "action": "turn",
+      "caption": "Flush"
+     },
+     {
+      "part": "overflow_tube",
+      "action": "look",
+      "caption": "Water stops below the top"
+     },
+     {
+      "part": "tank_lid",
+      "action": "insert",
+      "caption": "Put the lid back"
+     }
+    ]
+   ],
+   "cause": "water set too high"
+  },
+  {
+   "id": "weak_flush",
+   "title": "Weak flush",
+   "symptoms": [
+    "The toilet doesn't flush all the way",
+    "Weak flush",
+    "I have to flush twice",
+    "The handle feels loose"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "toilet",
+    "manual_url": "",
+    "diagnosis": "A weak flush usually means the flapper isn't lifting all the way, because the chain is too long, or the tank isn't filling all the way because the water valve is partly closed.",
+    "tools": [
+     "Old towel"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Lift the tank lid off",
+      "details": [],
+      "target_part": "tank lid",
+      "photo": -1,
+      "motion": "lift",
+      "show_3d": true,
+      "check": "The lid is off."
+     },
+     {
+      "instruction": "Hold the handle down and watch the flapper",
+      "details": [
+       "It should lift straight up and stay up for a few seconds."
+      ],
+      "target_part": "flapper",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see how far the flapper lifts."
+     },
+     {
+      "instruction": "Shorten the chain to half an inch of slack",
+      "details": [
+       "Move the clip one or two links."
+      ],
+      "target_part": "flapper chain",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The chain has just a little slack."
+     },
+     {
+      "instruction": "Open the wall valve all the way",
+      "details": [
+       "Turn it left until it stops."
+      ],
+      "target_part": "water shutoff valve",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "The valve is fully open."
+     },
+     {
+      "instruction": "Flush and watch",
+      "details": [],
+      "target_part": "flush handle",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Everything goes down in one flush."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "tank_lid",
+      "action": "remove",
+      "caption": "Lift the tank lid off"
+     }
+    ],
+    [
+     {
+      "part": "flush_handle",
+      "action": "turn",
+      "caption": "Push the handle"
+     },
+     {
+      "part": "flapper",
+      "action": "open",
+      "caption": "The flapper should lift high"
+     }
+    ],
+    [
+     {
+      "part": "chain",
+      "action": "look",
+      "caption": "Take up the slack here"
+     }
+    ],
+    [
+     {
+      "part": "shutoff_valve",
+      "action": "look",
+      "caption": "Open all the way"
+     }
+    ],
+    [
+     {
+      "part": "flush_handle",
+      "action": "turn",
+      "caption": "Flush"
+     },
+     {
+      "part": "flapper",
+      "action": "close",
+      "caption": "It drops back"
+     },
+     {
+      "part": "tank_lid",
+      "action": "insert",
+      "caption": "Put the lid back"
+     }
+    ]
+   ],
+   "cause": "a long flapper chain"
+  },
+  {
+   "id": "clogged",
+   "title": "Clogged or overflowing",
+   "symptoms": [
+    "The toilet is clogged",
+    "The water is rising in the bowl",
+    "The toilet won't go down",
+    "It's about to overflow"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "toilet",
+    "manual_url": "",
+    "diagnosis": "Something is stuck in the bowl's trap. Stopping the water first keeps it from overflowing, then a few firm plunges usually clears it.",
+    "tools": [
+     "Flange plunger",
+     "Old towels",
+     "Rubber gloves"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "Never mix drain cleaners in a toilet; the fumes are dangerous.",
+     "If sewage comes up in a tub or floor drain too, call a plumber."
+    ],
+    "steps": [
+     {
+      "instruction": "Don't flush again: lift the tank lid",
+      "details": [
+       "If the bowl is rising, act fast."
+      ],
+      "target_part": "tank lid",
+      "photo": -1,
+      "motion": "lift",
+      "show_3d": true,
+      "check": "The lid is off."
+     },
+     {
+      "instruction": "Push the flapper shut to stop the water",
+      "details": [
+       "Press it down with your hand; it's clean tank water."
+      ],
+      "target_part": "flapper",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "No more water goes into the bowl."
+     },
+     {
+      "instruction": "Turn off the water at the wall",
+      "details": [
+       "Turn it right until it stops."
+      ],
+      "target_part": "water shutoff valve",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "The tank stops filling."
+     },
+     {
+      "instruction": "Plunge with slow, firm pushes",
+      "details": [
+       "Use a plunger with a flap (flange) that fits the hole.",
+       "Seal it, push gently first, then pump firmly 10 times."
+      ],
+      "target_part": "bowl",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The water drains away with a gulp."
+     },
+     {
+      "instruction": "Turn the water back on and flush",
+      "details": [],
+      "target_part": "flush handle",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "It flushes and refills normally."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "tank_lid",
+      "action": "remove",
+      "caption": "Lift the tank lid off"
+     }
+    ],
+    [
+     {
+      "part": "flapper",
+      "action": "close",
+      "caption": "Push the flapper down"
+     }
+    ],
+    [
+     {
+      "part": "shutoff_valve",
+      "action": "close",
+      "caption": "Water off"
+     }
+    ],
+    [
+     {
+      "part": "toilet_lid",
+      "action": "open",
+      "caption": "Open the lid"
+     },
+     {
+      "part": "bowl",
+      "action": "look",
+      "caption": "Plunge here"
+     }
+    ],
+    [
+     {
+      "part": "shutoff_valve",
+      "action": "open",
+      "caption": "Water back on"
+     },
+     {
+      "part": "flush_handle",
+      "action": "turn",
+      "caption": "Flush"
+     },
+     {
+      "part": "tank_lid",
+      "action": "insert",
+      "caption": "Put the lid back"
+     }
+    ]
+   ],
+   "cause": "a clog in the bowl"
+  },
+  {
+   "id": "slow_refill",
+   "title": "Fills slowly or not at all",
+   "symptoms": [
+    "The tank fills really slowly",
+    "The toilet tank won't refill",
+    "It takes forever to fill",
+    "No water goes into the tank"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "toilet",
+    "manual_url": "",
+    "diagnosis": "Grit from the water line clogs the top of the fill valve. Turning the water off, popping the cap and flushing the grit out usually fixes it.",
+    "tools": [
+     "Plastic cup",
+     "Old towel"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Lift the tank lid off",
+      "details": [],
+      "target_part": "tank lid",
+      "photo": -1,
+      "motion": "lift",
+      "show_3d": true,
+      "check": "The lid is off."
+     },
+     {
+      "instruction": "Turn the water off at the wall",
+      "details": [
+       "Turn it right."
+      ],
+      "target_part": "water shutoff valve",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "The valve is closed."
+     },
+     {
+      "instruction": "Twist off the fill valve cap",
+      "details": [
+       "Push down and turn it left an eighth of a turn."
+      ],
+      "target_part": "fill valve cap",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "The cap is off."
+     },
+     {
+      "instruction": "Hold a cup over the valve, water on for 5 seconds",
+      "details": [
+       "This flushes grit out of the line."
+      ],
+      "target_part": "fill valve",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Clear water sprays into the cup, washing the grit out."
+     },
+     {
+      "instruction": "Put the cap back and turn the water on",
+      "details": [],
+      "target_part": "fill valve cap",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "The tank fills in about a minute."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "tank_lid",
+      "action": "remove",
+      "caption": "Lift the tank lid off"
+     }
+    ],
+    [
+     {
+      "part": "shutoff_valve",
+      "action": "close",
+      "caption": "Water off"
+     }
+    ],
+    [
+     {
+      "part": "fill_valve_cap",
+      "action": "unlock",
+      "caption": "Twist the cap left"
+     },
+     {
+      "part": "fill_valve_cap",
+      "action": "remove",
+      "caption": "Lift it off"
+     }
+    ],
+    [
+     {
+      "part": "fill_valve",
+      "action": "look",
+      "caption": "Cup over the top"
+     },
+     {
+      "part": "shutoff_valve",
+      "action": "open",
+      "caption": "Water on, briefly"
+     },
+     {
+      "part": "shutoff_valve",
+      "action": "close",
+      "caption": "Then off"
+     }
+    ],
+    [
+     {
+      "part": "fill_valve_cap",
+      "action": "insert",
+      "caption": "Cap back on"
+     },
+     {
+      "part": "fill_valve_cap",
+      "action": "lock",
+      "caption": "Twist to lock"
+     },
+     {
+      "part": "shutoff_valve",
+      "action": "open",
+      "caption": "Water on"
+     },
+     {
+      "part": "tank_lid",
+      "action": "insert",
+      "caption": "Put the lid back"
+     }
+    ]
+   ],
+   "cause": "grit in the fill valve"
+  }
+ ],
+ "recipe": "toilet",
+ "category": "Toilet",
+ "icon": "toilet",
+ "contradicts": []
+}

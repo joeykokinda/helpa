@@ -316,7 +316,8 @@
             "caption": "Hold Start to begin"
           }
         ]
-      ]
+      ],
+      "title": "Won't start"
     },
     {
       "id": "not_draining_wet_clothes",
@@ -544,7 +545,8 @@
         ]
       ],
       "cause": "a kinked drain hose or lopsided load",
-      "next": "drain_pump_failed"
+      "next": "drain_pump_failed",
+      "title": "Won't drain, clothes soaking"
     },
     {
       "id": "shaking_banging_walking",
@@ -793,7 +795,8 @@
             "caption": "Press Start to begin"
           }
         ]
-      ]
+      ],
+      "title": "Shakes and bangs"
     },
     {
       "id": "not_filling_or_slow_fill",
@@ -1068,7 +1071,8 @@
             "caption": "Check fittings for drips"
           }
         ]
-      ]
+      ],
+      "title": "Won't fill with water"
     },
     {
       "id": "lid_will_not_lock",
@@ -1324,7 +1328,8 @@
             "caption": "Listen for lock click"
           }
         ]
-      ]
+      ],
+      "title": "Lid light flashing"
     },
     {
       "id": "smelly_washer_clothes_not_fresh",
@@ -1588,7 +1593,8 @@
             "caption": "Let tub air dry"
           }
         ]
-      ]
+      ],
+      "title": "Smells musty"
     },
     {
       "id": "drain_pump_failed",
@@ -2160,5 +2166,7 @@
     "front loader",
     "front-loader",
     "front loading"
-  ]
+  ],
+  "category": "Washer · top-load",
+  "icon": "washer_top"
 }

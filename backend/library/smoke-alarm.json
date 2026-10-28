@@ -1,0 +1,402 @@
+{
+ "id": "smoke-alarm",
+ "appliance": "smoke alarm",
+ "brand": "",
+ "model_family": "Works on most smoke alarms",
+ "model_numbers": [],
+ "sticker_location": "On the back of the alarm, with the date it was made.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "chirping",
+   "title": "Chirping every minute",
+   "symptoms": [
+    "The smoke alarm keeps chirping",
+    "A beep every minute",
+    "My smoke detector chirps",
+    "It beeps once in a while"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "smoke alarm",
+    "manual_url": "",
+    "diagnosis": "One short chirp every 30 to 60 seconds means the battery is low. A fresh battery and a test stops it. Alarms older than 10 years chirp at the end of their life and need replacing.",
+    "tools": [
+     "Step stool"
+    ],
+    "replacement_parts": [
+     "9-volt battery (or the type on the label)"
+    ],
+    "safety": [
+     "Never leave the alarm without a battery; replace it today."
+    ],
+    "steps": [
+     {
+      "instruction": "Stand on something steady under it",
+      "details": [
+       "Use a step stool, not a wobbly chair.",
+       "Ask someone to hold it if you can."
+      ],
+      "target_part": "step stool",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can reach the alarm comfortably."
+     },
+     {
+      "instruction": "Twist the alarm left and pull it down",
+      "details": [
+       "Turn it about an eighth of a turn.",
+       "Some are wired: unclip the plug on the back."
+      ],
+      "target_part": "smoke alarm",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "The alarm is off the ceiling in your hand."
+     },
+     {
+      "instruction": "Swap in a new battery",
+      "details": [
+       "Most take a 9-volt; check the label on the back.",
+       "Check the date on the back: older than 10 years? Replace the whole alarm."
+      ],
+      "target_part": "battery",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The new battery sits in with + and \u2212 matching the marks."
+     },
+     {
+      "instruction": "Twist it back onto the ceiling",
+      "details": [],
+      "target_part": "smoke alarm",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "It's locked flat against the ceiling."
+     },
+     {
+      "instruction": "Press and hold the test button",
+      "details": [
+       "It's loud; cover your ear."
+      ],
+      "target_part": "test button",
+      "photo": -1,
+      "motion": "press",
+      "show_3d": true,
+      "check": "It sounds a loud alarm, then stops."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "smoke_alarm",
+      "action": "look",
+      "caption": "Stand steady underneath"
+     }
+    ],
+    [
+     {
+      "part": "smoke_alarm",
+      "action": "unlock",
+      "caption": "Twist it left"
+     },
+     {
+      "part": "smoke_alarm",
+      "action": "remove",
+      "caption": "Pull it down"
+     }
+    ],
+    [
+     {
+      "part": "battery_door",
+      "action": "open",
+      "caption": "Open the battery door"
+     },
+     {
+      "part": "battery",
+      "action": "remove",
+      "caption": "Old battery out"
+     },
+     {
+      "part": "battery",
+      "action": "insert",
+      "caption": "New battery in"
+     },
+     {
+      "part": "battery_door",
+      "action": "close",
+      "caption": "Close the door"
+     }
+    ],
+    [
+     {
+      "part": "smoke_alarm",
+      "action": "insert",
+      "caption": "Line it up on the plate"
+     },
+     {
+      "part": "smoke_alarm",
+      "action": "lock",
+      "caption": "Twist it right to lock"
+     }
+    ],
+    [
+     {
+      "part": "test_button",
+      "action": "press",
+      "caption": "Hold the test button"
+     }
+    ]
+   ],
+   "cause": "a low battery"
+  },
+  {
+   "id": "false_alarm",
+   "title": "Goes off when I cook",
+   "symptoms": [
+    "The smoke alarm goes off when I cook",
+    "It goes off for no reason",
+    "False alarms",
+    "It beeps when I shower"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "smoke alarm",
+    "manual_url": "",
+    "diagnosis": "Dust in the vents or an alarm too close to the stove or bathroom sets it off. Silence it, blow the dust out, and keep it at least 10 feet from the stove.",
+    "tools": [
+     "Step stool",
+     "Vacuum brush or can of air"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "Never take the battery out to stop false alarms."
+    ],
+    "steps": [
+     {
+      "instruction": "If there's any real smoke or fire, get everyone out",
+      "details": [
+       "Call 911 from outside if you see flames or smell burning you can't explain."
+      ],
+      "target_part": "smoke alarm",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You've checked: it's only cooking smoke or steam."
+     },
+     {
+      "instruction": "Press the button to hush it",
+      "details": [
+       "Open a window and fan the smoke away."
+      ],
+      "target_part": "test button",
+      "photo": -1,
+      "motion": "press",
+      "show_3d": true,
+      "check": "It goes quiet for a few minutes."
+     },
+     {
+      "instruction": "Take it down and blow the dust out",
+      "details": [
+       "Use a vacuum brush or a can of air around the slots."
+      ],
+      "target_part": "dust in the vents",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The vents look clean."
+     },
+     {
+      "instruction": "Put it back and test it",
+      "details": [
+       "If it's within 10 feet of the stove, a photoelectric alarm or moving it helps."
+      ],
+      "target_part": "test button",
+      "photo": -1,
+      "motion": "press",
+      "show_3d": true,
+      "check": "It locks on and sounds when tested."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "led",
+      "action": "look",
+      "caption": "Check before you silence it"
+     }
+    ],
+    [
+     {
+      "part": "test_button",
+      "action": "press",
+      "caption": "Press to hush"
+     }
+    ],
+    [
+     {
+      "part": "smoke_alarm",
+      "action": "unlock",
+      "caption": "Twist it left"
+     },
+     {
+      "part": "smoke_alarm",
+      "action": "remove",
+      "caption": "Pull it down"
+     },
+     {
+      "part": "vent_dust",
+      "action": "clean",
+      "caption": "Blow the dust out"
+     }
+    ],
+    [
+     {
+      "part": "smoke_alarm",
+      "action": "insert",
+      "caption": "Line it up on the plate"
+     },
+     {
+      "part": "smoke_alarm",
+      "action": "lock",
+      "caption": "Twist it right to lock"
+     },
+     {
+      "part": "test_button",
+      "action": "press",
+      "caption": "Test it"
+     }
+    ]
+   ],
+   "cause": "dust in the sensor"
+  },
+  {
+   "id": "test_fails",
+   "title": "Doesn't beep when tested",
+   "symptoms": [
+    "The smoke alarm doesn't work",
+    "Nothing happens when I press test",
+    "It's silent when I test it"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "smoke alarm",
+    "manual_url": "",
+    "diagnosis": "A silent test usually means a dead or missing battery, or the alarm is past its 10-year life. A fresh battery tells you which.",
+    "tools": [
+     "Step stool"
+    ],
+    "replacement_parts": [
+     "9-volt battery",
+     "A new smoke alarm if it's over 10 years old"
+    ],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Take the alarm down",
+      "details": [],
+      "target_part": "smoke alarm",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "It's in your hand."
+     },
+     {
+      "instruction": "Put in a brand new battery",
+      "details": [
+       "Check the date on the back while it's down."
+      ],
+      "target_part": "battery",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "A new battery is in, facing the right way."
+     },
+     {
+      "instruction": "Put it back and test",
+      "details": [
+       "Still silent, or older than 10 years: replace the alarm today."
+      ],
+      "target_part": "test button",
+      "photo": -1,
+      "motion": "press",
+      "show_3d": true,
+      "check": "It sounds loudly."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "smoke_alarm",
+      "action": "unlock",
+      "caption": "Twist it left"
+     },
+     {
+      "part": "smoke_alarm",
+      "action": "remove",
+      "caption": "Pull it down"
+     }
+    ],
+    [
+     {
+      "part": "battery_door",
+      "action": "open",
+      "caption": "Open the door"
+     },
+     {
+      "part": "battery",
+      "action": "remove",
+      "caption": "Old one out"
+     },
+     {
+      "part": "battery",
+      "action": "insert",
+      "caption": "New one in"
+     },
+     {
+      "part": "battery_door",
+      "action": "close",
+      "caption": "Close it"
+     }
+    ],
+    [
+     {
+      "part": "smoke_alarm",
+      "action": "insert",
+      "caption": "Line it up on the plate"
+     },
+     {
+      "part": "smoke_alarm",
+      "action": "lock",
+      "caption": "Twist it right to lock"
+     },
+     {
+      "part": "test_button",
+      "action": "press",
+      "caption": "Test it"
+     }
+    ]
+   ],
+   "cause": "a dead battery"
+  }
+ ],
+ "recipe": "smoke_alarm",
+ "category": "Smoke alarm",
+ "icon": "smoke_alarm",
+ "contradicts": []
+}

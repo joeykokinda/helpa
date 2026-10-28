@@ -372,7 +372,8 @@
             "caption": "Close dishwasher door"
           }
         ]
-      ]
+      ],
+      "title": "Dishes still dirty or gritty"
     },
     {
       "id": "water_left_in_bottom",
@@ -657,7 +658,8 @@
         ]
       ],
       "cause": "a clogged filter",
-      "next": "drain_hose_or_air_gap"
+      "next": "drain_hose_or_air_gap",
+      "title": "Water left in the bottom"
     },
     {
       "id": "dishes_still_wet",
@@ -869,7 +871,8 @@
           }
         ],
         []
-      ]
+      ],
+      "title": "Dishes come out wet"
     },
     {
       "id": "bad_smell",
@@ -1111,7 +1114,8 @@
           }
         ],
         []
-      ]
+      ],
+      "title": "Smells bad"
     },
     {
       "id": "leaking_from_door",
@@ -1368,7 +1372,8 @@
             "caption": "Press start to run"
           }
         ]
-      ]
+      ],
+      "title": "Leaks from the door"
     },
     {
       "id": "will_not_start",
@@ -1564,7 +1569,8 @@
           }
         ],
         []
-      ]
+      ],
+      "title": "Won't start"
     },
     {
       "id": "white_film_and_spots",
@@ -1805,7 +1811,8 @@
             "caption": "Close dishwasher door"
           }
         ]
-      ]
+      ],
+      "title": "White film on glasses"
     },
     {
       "id": "drain_hose_or_air_gap",
@@ -2564,5 +2571,7 @@
       }
     ]
   },
-  "rig_id": "dishwasher"
+  "rig_id": "dishwasher",
+  "category": "Dishwasher",
+  "icon": "dishwasher"
 }

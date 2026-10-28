@@ -1,0 +1,646 @@
+{
+ "name": "Ceiling smoke alarm",
+ "nodes": [
+  {
+   "id": "ceiling",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.2,
+    0.02,
+    1.0
+   ],
+   "position": [
+    0,
+    2.4,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#f1efea",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "wall",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.2,
+    1.2,
+    0.02
+   ],
+   "position": [
+    0,
+    1.8,
+    -0.5
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#e9e5de",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "crown",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.2,
+    0.04,
+    0.04
+   ],
+   "position": [
+    0,
+    2.37,
+    -0.48
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#f5f3ee",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "mount_plate",
+   "parent": "",
+   "shape": "cylinder",
+   "size": [
+    0.12,
+    0.008
+   ],
+   "position": [
+    0,
+    2.385,
+    0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#f7f7f5",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "smoke_alarm",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    2.355,
+    0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "alarm_body",
+   "parent": "smoke_alarm",
+   "shape": "lathe",
+   "size": [
+    0,
+    1,
+    1
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#fbfbfa",
+   "points": [
+    [
+     0.0,
+     -0.022
+    ],
+    [
+     0.05,
+     -0.022
+    ],
+    [
+     0.066,
+     -0.016
+    ],
+    [
+     0.072,
+     -0.004
+    ],
+    [
+     0.072,
+     0.022
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "vent_ring",
+   "parent": "smoke_alarm",
+   "shape": "torus",
+   "size": [
+    0.11,
+    0.006
+   ],
+   "position": [
+    0,
+    -0.006,
+    0
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "#cfd2d4",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "led",
+   "parent": "smoke_alarm",
+   "shape": "sphere",
+   "size": [
+    0.008
+   ],
+   "position": [
+    0.03,
+    -0.022,
+    0.02
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "glow",
+   "color": "#ff3b30",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "test_button",
+   "parent": "smoke_alarm",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    -0.024,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "test_cap",
+   "parent": "test_button",
+   "shape": "cylinder",
+   "size": [
+    0.03,
+    0.006
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#e2e4e6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "alarm_label",
+   "parent": "smoke_alarm",
+   "shape": "label",
+   "size": [
+    0.05,
+    0.012
+   ],
+   "position": [
+    0,
+    -0.0228,
+    -0.035
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "clear",
+   "color": "",
+   "points": [],
+   "text": "PUSH TO TEST",
+   "repeat": []
+  },
+  {
+   "id": "battery_door",
+   "parent": "smoke_alarm",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.066,
+    0.004,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_flap",
+   "parent": "battery_door",
+   "shape": "rounded_box",
+   "size": [
+    0.012,
+    0.022,
+    0.05
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#f2f2f0",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "battery",
+   "parent": "smoke_alarm",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.045,
+    0.004,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "battery_body",
+   "parent": "battery",
+   "shape": "rounded_box",
+   "size": [
+    0.026,
+    0.017,
+    0.048
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#2b2b2b",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "battery_band",
+   "parent": "battery",
+   "shape": "box",
+   "size": [
+    0.027,
+    0.018,
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0.012
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#d4a82a",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "vent_dust",
+   "parent": "smoke_alarm",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    -0.008,
+    0.06
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "dust_bits",
+   "parent": "vent_dust",
+   "shape": "clump",
+   "size": [
+    0.03,
+    0.01,
+    0.015
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "lint",
+   "color": "#9e968b",
+   "points": [],
+   "text": "",
+   "repeat": []
+  }
+ ],
+ "parts": [
+  {
+   "node": "smoke_alarm",
+   "label": "Smoke alarm",
+   "aliases": [
+    "alarm",
+    "detector",
+    "smoke detector",
+    "CO alarm"
+   ],
+   "joint": "twist",
+   "axis": [
+    0,
+    -1,
+    0
+   ],
+   "amount": -40,
+   "lift": 0.08,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "unlock",
+    "remove",
+    "insert",
+    "lock",
+    "look"
+   ],
+   "view": [
+    0.4,
+    -0.7,
+    0.8
+   ],
+   "rest": 0
+  },
+  {
+   "node": "test_button",
+   "label": "Test button",
+   "aliases": [
+    "test",
+    "hush button",
+    "silence button"
+   ],
+   "joint": "press",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0.004,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "press",
+    "look"
+   ],
+   "view": [
+    0.3,
+    -0.9,
+    0.5
+   ],
+   "rest": 0
+  },
+  {
+   "node": "battery_door",
+   "label": "Battery door",
+   "aliases": [
+    "battery cover",
+    "battery drawer"
+   ],
+   "joint": "hinge",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": -100,
+   "lift": 0,
+   "pivot": [
+    0,
+    -0.011,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.8,
+    -0.5,
+    0.6
+   ],
+   "rest": 0
+  },
+  {
+   "node": "battery",
+   "label": "Battery",
+   "aliases": [
+    "9-volt battery",
+    "9V battery",
+    "AA batteries"
+   ],
+   "joint": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "amount": 0.07,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "remove",
+    "insert",
+    "look"
+   ],
+   "view": [
+    0.8,
+    -0.5,
+    0.6
+   ],
+   "rest": 0
+  },
+  {
+   "node": "vent_dust",
+   "label": "Dust in the vents",
+   "aliases": [
+    "dust",
+    "cobweb"
+   ],
+   "joint": "debris",
+   "axis": [
+    0.4,
+    -1,
+    0.4
+   ],
+   "amount": 0.25,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "clean",
+    "look"
+   ],
+   "view": [
+    0.4,
+    -0.8,
+    0.6
+   ],
+   "rest": 0
+  },
+  {
+   "node": "led",
+   "label": "Red light",
+   "aliases": [
+    "light",
+    "LED"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.3,
+    -0.9,
+    0.5
+   ],
+   "rest": 0
+  }
+ ]
+}

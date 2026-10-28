@@ -294,7 +294,8 @@
             "caption": "Press Start button"
           }
         ]
-      ]
+      ],
+      "title": "Oven won't turn on"
     },
     {
       "id": "one_burner_will_not_heat",
@@ -460,7 +461,8 @@
         ]
       ],
       "cause": "the wrong pan or setting",
-      "next": "burner_element_failed"
+      "next": "burner_element_failed",
+      "title": "A burner won't heat"
     },
     {
       "id": "food_bakes_too_hot_or_cold",
@@ -679,7 +681,8 @@
         [],
         [],
         []
-      ]
+      ],
+      "title": "Bakes too hot or cold"
     },
     {
       "id": "oven_light_out",
@@ -930,7 +933,8 @@
             "caption": "Press oven light button"
           }
         ]
-      ]
+      ],
+      "title": "Oven light is out"
     },
     {
       "id": "burnt_on_cooktop_spill",
@@ -1154,7 +1158,8 @@
             "caption": "Dry glass with cloth"
           }
         ]
-      ]
+      ],
+      "title": "Burnt spill on the glass top"
     },
     {
       "id": "light_oven_spill_and_smell",
@@ -1399,7 +1404,8 @@
             "caption": "Close oven door"
           }
         ]
-      ]
+      ],
+      "title": "Spill on the oven floor"
     },
     {
       "id": "burner_element_failed",
@@ -1963,5 +1969,7 @@
     "igniter",
     "grate",
     "grates"
-  ]
+  ],
+  "category": "Oven and stove",
+  "icon": "range"
 }

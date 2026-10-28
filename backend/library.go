@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"sync"
 )
@@ -31,6 +32,8 @@ type libraryProblem struct {
 	Cause string `json:"cause,omitempty"`
 	// Next is the problem id of the next most likely cause, tried when this fix didn't work.
 	Next string `json:"next,omitempty"`
+	// Title is the problem in a few words for the one-tap picker ("Keeps running"); the first symptom otherwise.
+	Title string `json:"title,omitempty"`
 }
 
 type libraryEntry struct {
@@ -47,6 +50,12 @@ type libraryEntry struct {
 	RigID           string           `json:"rig_id,omitempty"`
 	// Contradicts lists words that mean the person's machine isn't this one ("coil" for a glass-top range).
 	Contradicts []string `json:"contradicts,omitempty"`
+	// Recipe names a hand-made model in models/ for things without a built-in rig (toilet, sink, smoke alarm);
+	// its fixes carry their beats in rig_beats, so the 3D and the camera guide need no model calls.
+	Recipe string `json:"recipe,omitempty"`
+	// Category and Icon place the entry in the app's one-tap picker ("Toilet", "toilet").
+	Category string `json:"category,omitempty"`
+	Icon     string `json:"icon,omitempty"`
 }
 
 type libraryQuery struct {
@@ -95,6 +104,13 @@ var applianceSynonyms = map[string]string{
 	"clothes dryer": "dryer", "tumble dryer": "dryer",
 	"oven": "range", "stove": "range", "cooktop": "range", "electric range": "range",
 	"over-the-range microwave": "microwave", "microwave oven": "microwave",
+	"fridge": "refrigerator", "freezer": "refrigerator",
+	"faucet": "sink", "tap": "sink", "drain": "sink", "p-trap": "sink",
+	"smoke detector": "smoke alarm", "carbon monoxide": "smoke alarm", "co alarm": "smoke alarm", "fire alarm": "smoke alarm",
+	"furnace": "hvac", "air handler": "hvac", "air filter": "hvac", "thermostat": "hvac", "heater": "hvac", "air conditioner": "hvac",
+	"gfci": "outlet", "receptacle": "outlet", "breaker": "outlet", "socket": "outlet",
+	"showerhead": "shower", "shower head": "shower",
+	"hinge": "door", "doorknob": "door", "door knob": "door",
 }
 
 func normalizeAppliance(name string) string {
@@ -102,7 +118,11 @@ func normalizeAppliance(name string) string {
 	if canonical, found := applianceSynonyms[name]; found {
 		return canonical
 	}
-	for _, canonical := range []string{"dishwasher", "microwave", "washer", "dryer", "range"} {
+	// Whole things first, so "range hood" isn't a range and "water heater" isn't the furnace.
+	if strings.Contains(name, "disposal") {
+		return "garbage disposal"
+	}
+	for _, canonical := range []string{"range hood", "water heater", "toilet", "refrigerator", "smoke alarm", "dishwasher", "microwave", "washer", "dryer", "range", "sink", "shower", "outlet", "door", "hvac"} {
 		if strings.Contains(name, canonical) {
 			return canonical
 		}
@@ -223,6 +243,107 @@ func nextFix(ruledOut []string) string {
 		}
 	}
 	return ""
+}
+
+//go:embed models
+var modelFiles embed.FS
+
+var libraryRigs sync.Map
+
+// libraryRig is an entry's hand-made recipe model as a generated rig, ready to send to the app; nil without one.
+func libraryRig(entry *libraryEntry) *generatedRig {
+	if entry == nil || entry.Recipe == "" {
+		return nil
+	}
+	if cached, found := libraryRigs.Load(entry.ID); found {
+		return cached.(*generatedRig)
+	}
+	data, err := modelFiles.ReadFile("models/" + entry.Recipe + ".json")
+	var built recipe
+	if err == nil {
+		err = json.Unmarshal(data, &built)
+	}
+	if err != nil {
+		log.Printf("library model %s: %v", entry.Recipe, err)
+		return nil
+	}
+	rig := &generatedRig{Catalog: recipeCatalog(&built, entry.Appliance), Recipe: data, LibraryID: entry.ID}
+	libraryRigs.Store(entry.ID, rig)
+	return rig
+}
+
+// libraryRecipeFor finds a library entry with a hand-made model for an appliance, so it never has to be generated.
+func libraryRecipeFor(appliance string) *libraryEntry {
+	name := normalizeAppliance(appliance)
+	for index := range library {
+		if library[index].Recipe != "" && normalizeAppliance(library[index].Appliance) == name {
+			return &library[index]
+		}
+	}
+	return nil
+}
+
+// recipeBeats are a library fix's ready beats on its entry's hand-made model, when they cover every step.
+func recipeBeats(libraryID, problemID string, stepCount int) [][]beat {
+	entry, problem := findLibraryFix(libraryID + "/" + problemID)
+	if entry == nil || problem == nil || entry.Recipe == "" || len(problem.RigBeats) != stepCount {
+		return nil
+	}
+	return problem.RigBeats
+}
+
+// pickerEntry is one tile in the app's "what needs fixing?" picker, with its common problems.
+type pickerEntry struct {
+	ID       string          `json:"id"`
+	Category string          `json:"category"`
+	Icon     string          `json:"icon"`
+	Problems []pickerProblem `json:"problems"`
+}
+
+type pickerProblem struct {
+	ID    string `json:"id"`
+	Title string `json:"title"`
+	Says  string `json:"says"`
+}
+
+// pickerEntries lists every library entry for the one-tap picker, in a stable order.
+func pickerEntries() []pickerEntry {
+	var entries []pickerEntry
+	for _, entry := range library {
+		category := entry.Category
+		if category == "" {
+			category = strings.ToUpper(entry.Appliance[:1]) + entry.Appliance[1:]
+		}
+		item := pickerEntry{ID: entry.ID, Category: category, Icon: entry.Icon}
+		for _, problem := range entry.Problems {
+			// A follow-up cause ("vent") is reached through "Still broken", not picked first.
+			if isFollowUp(&entry, problem.ID) {
+				continue
+			}
+			title := problem.Title
+			says := ""
+			if len(problem.Symptoms) > 0 {
+				says = problem.Symptoms[0]
+			}
+			if title == "" {
+				title = says
+			}
+			item.Problems = append(item.Problems, pickerProblem{ID: entry.ID + "/" + problem.ID, Title: title, Says: says})
+		}
+		entries = append(entries, item)
+	}
+	slices.SortStableFunc(entries, func(first, second pickerEntry) int { return strings.Compare(first.Category, second.Category) })
+	return entries
+}
+
+// isFollowUp reports whether a problem is only ever the next cause of another one in its entry.
+func isFollowUp(entry *libraryEntry, problemID string) bool {
+	for _, problem := range entry.Problems {
+		if problem.Next == problemID {
+			return true
+		}
+	}
+	return false
 }
 
 func findLibraryEntry(id string) *libraryEntry {

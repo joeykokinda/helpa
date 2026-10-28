@@ -280,7 +280,8 @@
             "caption": "Press Start button"
           }
         ]
-      ]
+      ],
+      "title": "Won't start"
     },
     {
       "id": "sparking_inside_microwave",
@@ -494,7 +495,8 @@
             "caption": "Press Start to heat"
           }
         ]
-      ]
+      ],
+      "title": "Sparks inside"
     },
     {
       "id": "vent_not_pulling_smells",
@@ -801,7 +803,8 @@
             "caption": "Slide filters until seated"
           }
         ]
-      ]
+      ],
+      "title": "Fan doesn't pull smoke"
     },
     {
       "id": "cooktop_light_not_working",
@@ -1072,7 +1075,8 @@
             "caption": "Press light to test"
           }
         ]
-      ]
+      ],
+      "title": "Stove light is out"
     },
     {
       "id": "turntable_rumbling_or_not_spinning",
@@ -1295,7 +1299,8 @@
           }
         ],
         []
-      ]
+      ],
+      "title": "Plate rumbles or won't spin"
     },
     {
       "id": "display_flashing_after_power_cut",
@@ -1410,7 +1415,8 @@
           }
         ],
         []
-      ]
+      ],
+      "title": "Screen flashing PF"
     },
     {
       "id": "inside_light_not_working",
@@ -1641,7 +1647,8 @@
             "caption": "Tighten two grille screws"
           }
         ]
-      ]
+      ],
+      "title": "Dark inside"
     },
     {
       "id": "runs_but_does_not_heat",
@@ -1714,7 +1721,8 @@
         "pro_visit_cost": 150,
         "aftercare": "Don't run it empty; that can wear out the heating part.",
         "stop_for_pro": true
-      }
+      },
+      "title": "Runs but doesn't heat"
     }
   ],
   "scene": {
@@ -2098,5 +2106,7 @@
   "rig_id": "microwave_otr",
   "contradicts": [
     "countertop"
-  ]
+  ],
+  "category": "Microwave",
+  "icon": "microwave"
 }

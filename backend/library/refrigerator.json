@@ -1,0 +1,614 @@
+{
+ "id": "refrigerator",
+ "appliance": "refrigerator",
+ "brand": "",
+ "model_family": "Works on most refrigerators",
+ "model_numbers": [],
+ "sticker_location": "Inside the fridge on the left wall, near the top or behind the crisper drawer.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "not_cold",
+   "title": "Not cold enough",
+   "symptoms": [
+    "The fridge isn't cold",
+    "My fridge is warm but the freezer is cold",
+    "Food is spoiling fast",
+    "The fridge feels warm"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "refrigerator",
+    "manual_url": "",
+    "diagnosis": "The coils under the fridge get blanketed in dust, so it can't shed heat and runs warm. Blocked air vents inside do the same. Cleaning the coils and clearing the vents usually brings the cold back in a few hours.",
+    "tools": [
+     "Vacuum with a brush tool",
+     "Flashlight"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "Unplug the fridge before you reach under it; the fan there can spin up."
+    ],
+    "steps": [
+     {
+      "instruction": "Unplug the fridge",
+      "details": [
+       "Pull the plug, not the cord.",
+       "Food is fine for an hour with the doors shut."
+      ],
+      "target_part": "power plug",
+      "photo": -1,
+      "motion": "pull_out",
+      "show_3d": true,
+      "check": "The inside light stays off when you open the door."
+     },
+     {
+      "instruction": "Pull off the grille at the bottom front",
+      "details": [
+       "It clips on; pull gently at both ends."
+      ],
+      "target_part": "bottom grille",
+      "photo": -1,
+      "motion": "pull_out",
+      "show_3d": true,
+      "check": "The grille is off and you can see under the fridge."
+     },
+     {
+      "instruction": "Vacuum the dust off the coils",
+      "details": [
+       "Use the brush tool and go slowly.",
+       "A flashlight helps you see to the back."
+      ],
+      "target_part": "coils",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The coils look black, not gray and fuzzy."
+     },
+     {
+      "instruction": "Clear the air vents in the freezer",
+      "details": [
+       "Move food back from the slots; air has to flow down to the fridge."
+      ],
+      "target_part": "freezer air vents",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Nothing blocks the slots on the back wall."
+     },
+     {
+      "instruction": "Set the dial to the middle",
+      "details": [],
+      "target_part": "temperature dial",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The dial points at 3 to 4, or the middle mark."
+     },
+     {
+      "instruction": "Grille back on, plug it in, wait 4 hours",
+      "details": [
+       "A glass of water on the middle shelf should read 37 to 40\u00b0F."
+      ],
+      "target_part": "bottom grille",
+      "photo": -1,
+      "motion": "push_in",
+      "show_3d": true,
+      "check": "The fridge hums and feels cold after a few hours."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "power_plug",
+      "action": "remove",
+      "caption": "Unplug it"
+     }
+    ],
+    [
+     {
+      "part": "toe_grille",
+      "action": "remove",
+      "caption": "Pull the grille off"
+     }
+    ],
+    [
+     {
+      "part": "condenser_coils",
+      "action": "look",
+      "caption": "The coils are under here"
+     },
+     {
+      "part": "coil_dust",
+      "action": "clean",
+      "caption": "Vacuum the dust off"
+     }
+    ],
+    [
+     {
+      "part": "freezer_door",
+      "action": "open",
+      "caption": "Open the freezer"
+     },
+     {
+      "part": "freezer_vent",
+      "action": "look",
+      "caption": "Keep these slots clear"
+     },
+     {
+      "part": "freezer_door",
+      "action": "close",
+      "caption": "Close it"
+     }
+    ],
+    [
+     {
+      "part": "fridge_door",
+      "action": "open",
+      "caption": "Open the fridge"
+     },
+     {
+      "part": "temperature_dial",
+      "action": "turn",
+      "caption": "Middle setting"
+     },
+     {
+      "part": "fridge_door",
+      "action": "close",
+      "caption": "Close it"
+     }
+    ],
+    [
+     {
+      "part": "toe_grille",
+      "action": "insert",
+      "caption": "Grille back on"
+     },
+     {
+      "part": "power_plug",
+      "action": "insert",
+      "caption": "Plug it back in"
+     }
+    ]
+   ],
+   "cause": "dusty coils",
+   "next": "bad_door_seal"
+  },
+  {
+   "id": "bad_door_seal",
+   "title": "Still warm with clean coils",
+   "symptoms": [
+    "Still warm with clean coils"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "refrigerator",
+    "manual_url": "",
+    "diagnosis": "With clean coils, the door seal is the next most likely cause: a gap lets warm air in all day. Cleaning the rubber and checking it grips fixes most of them.",
+    "tools": [
+     "Dollar bill",
+     "Warm soapy water",
+     "Cloth"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Close the door on a dollar bill",
+      "details": [
+       "Try the top, sides and bottom.",
+       "If it slides out easily, the seal isn't gripping there."
+      ],
+      "target_part": "door seal",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You feel the bill drag when you pull it out."
+     },
+     {
+      "instruction": "Wipe the seal with warm soapy water",
+      "details": [
+       "Sticky spills stop it sealing.",
+       "Dry it after."
+      ],
+      "target_part": "door seal",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The rubber is clean and not sticky."
+     },
+     {
+      "instruction": "Close the door and test again",
+      "details": [
+       "A torn or flat seal can be replaced; search your model number + door gasket."
+      ],
+      "target_part": "fridge door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The bill drags everywhere you test."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "fridge_door",
+      "action": "open",
+      "caption": "Open the door"
+     },
+     {
+      "part": "door_gasket",
+      "action": "look",
+      "caption": "Test the seal all around"
+     },
+     {
+      "part": "fridge_door",
+      "action": "close",
+      "caption": "Close it on the bill"
+     }
+    ],
+    [
+     {
+      "part": "fridge_door",
+      "action": "open",
+      "caption": "Open the door"
+     },
+     {
+      "part": "door_gasket",
+      "action": "clean",
+      "caption": "Wipe the rubber"
+     }
+    ],
+    [
+     {
+      "part": "fridge_door",
+      "action": "close",
+      "caption": "Close it"
+     }
+    ]
+   ],
+   "cause": "a leaky door seal"
+  },
+  {
+   "id": "water_inside",
+   "title": "Water in the bottom",
+   "symptoms": [
+    "There's water in the bottom of the fridge",
+    "Water under the crisper drawers",
+    "Ice on the back wall of the fridge",
+    "The fridge is leaking water"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "refrigerator",
+    "manual_url": "",
+    "diagnosis": "The small drain at the back of the fridge is blocked with ice or crumbs, so defrost water pools instead of draining away. Clearing it with warm water fixes it.",
+    "tools": [
+     "Towel",
+     "Turkey baster or squeeze bottle",
+     "Warm water"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Open the fridge and take out the bottom drawers",
+      "details": [],
+      "target_part": "fridge door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see the back wall at the bottom."
+     },
+     {
+      "instruction": "Soak up the water",
+      "details": [
+       "Use a towel or sponge."
+      ],
+      "target_part": "water puddle",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The floor of the fridge is dry."
+     },
+     {
+      "instruction": "Find the drain hole on the back wall",
+      "details": [
+       "It's low on the back wall, sometimes under a cover."
+      ],
+      "target_part": "drain hole",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see the small hole or channel."
+     },
+     {
+      "instruction": "Push warm water into the drain",
+      "details": [
+       "Use a turkey baster or a squeeze bottle.",
+       "A pipe cleaner loosens stuck crumbs."
+      ],
+      "target_part": "drain hole",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Water goes down the hole instead of pooling."
+     },
+     {
+      "instruction": "Put the drawers back and close the door",
+      "details": [],
+      "target_part": "fridge door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The bottom stays dry over the next day."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "fridge_door",
+      "action": "open",
+      "caption": "Open the fridge"
+     },
+     {
+      "part": "water_puddle",
+      "action": "look",
+      "caption": "Water pools here"
+     }
+    ],
+    [
+     {
+      "part": "water_puddle",
+      "action": "clean",
+      "caption": "Soak it up"
+     }
+    ],
+    [
+     {
+      "part": "defrost_drain",
+      "action": "look",
+      "caption": "The drain hole"
+     }
+    ],
+    [
+     {
+      "part": "drain_clog",
+      "action": "clean",
+      "caption": "Flush the clog out"
+     }
+    ],
+    [
+     {
+      "part": "fridge_door",
+      "action": "close",
+      "caption": "Close it"
+     }
+    ]
+   ],
+   "cause": "a blocked defrost drain"
+  },
+  {
+   "id": "water_filter",
+   "title": "Water tastes bad or flows slow",
+   "symptoms": [
+    "The water from the fridge tastes bad",
+    "The water dispenser is slow",
+    "The filter light is on",
+    "I need to change the fridge water filter"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "refrigerator",
+    "manual_url": "",
+    "diagnosis": "The water filter clogs after about six months, so water slows down and tastes off. Swapping it takes two minutes.",
+    "tools": [
+     "Towel"
+    ],
+    "replacement_parts": [
+     "Water filter for your fridge (match the old one's number)"
+    ],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Open the fridge and find the filter",
+      "details": [
+       "It's usually in the top right corner, or in the grille at the bottom."
+      ],
+      "target_part": "water filter",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see the filter cap."
+     },
+     {
+      "instruction": "Twist the old filter a quarter turn and pull",
+      "details": [
+       "A little water drips out; have a towel ready."
+      ],
+      "target_part": "water filter",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "The old filter is out."
+     },
+     {
+      "instruction": "Push the new filter in and twist to lock",
+      "details": [
+       "Take the cap off the new one first.",
+       "Match the model number on the old filter."
+      ],
+      "target_part": "water filter",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "It clicks and the cap lines up."
+     },
+     {
+      "instruction": "Run 2 gallons through the dispenser",
+      "details": [
+       "The first water can be cloudy or sputter; that's air.",
+       "Hold the filter reset button for 3 seconds if it has one."
+      ],
+      "target_part": "dispenser",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Water runs clear and steady."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "fridge_door",
+      "action": "open",
+      "caption": "Open the fridge"
+     },
+     {
+      "part": "water_filter",
+      "action": "look",
+      "caption": "The water filter"
+     }
+    ],
+    [
+     {
+      "part": "water_filter",
+      "action": "unlock",
+      "caption": "Quarter turn left"
+     },
+     {
+      "part": "water_filter",
+      "action": "remove",
+      "caption": "Pull it out"
+     }
+    ],
+    [
+     {
+      "part": "water_filter",
+      "action": "insert",
+      "caption": "Push the new one in"
+     },
+     {
+      "part": "water_filter",
+      "action": "lock",
+      "caption": "Twist to lock"
+     }
+    ],
+    [
+     {
+      "part": "fridge_door",
+      "action": "close",
+      "caption": "Close the door"
+     }
+    ]
+   ],
+   "cause": "an old water filter"
+  },
+  {
+   "id": "too_cold",
+   "title": "Freezing my food",
+   "symptoms": [
+    "The fridge is freezing my food",
+    "Everything in the fridge is frozen",
+    "Lettuce freezes in the fridge",
+    "It's too cold"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "refrigerator",
+    "manual_url": "",
+    "diagnosis": "The dial is set too cold, or food is blocking the cold air coming down from the freezer onto it. Turning the dial warmer and moving food fixes it within a day.",
+    "tools": [],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Turn the dial one step warmer",
+      "details": [
+       "On most fridges, a lower number is warmer."
+      ],
+      "target_part": "temperature dial",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The dial is one number lower (warmer)."
+     },
+     {
+      "instruction": "Move food away from the top back",
+      "details": [
+       "Cold air pours in at the top back."
+      ],
+      "target_part": "shelves",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Nothing sits right under the cold air slot."
+     },
+     {
+      "instruction": "Check again tomorrow",
+      "details": [
+       "37 to 40\u00b0F is right for a fridge."
+      ],
+      "target_part": "fridge",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": false,
+      "check": "Food stays cold but doesn't freeze."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "fridge_door",
+      "action": "open",
+      "caption": "Open the fridge"
+     },
+     {
+      "part": "temperature_dial",
+      "action": "turn",
+      "caption": "One step warmer"
+     }
+    ],
+    [
+     {
+      "part": "freezer_vent",
+      "action": "look",
+      "caption": "Cold air comes from here"
+     },
+     {
+      "part": "fridge_door",
+      "action": "close",
+      "caption": "Close the door"
+     }
+    ],
+    []
+   ],
+   "cause": "the dial set too cold"
+  }
+ ],
+ "recipe": "refrigerator",
+ "category": "Fridge",
+ "icon": "fridge",
+ "contradicts": []
+}

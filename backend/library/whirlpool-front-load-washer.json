@@ -367,7 +367,8 @@
         ]
       ],
       "cause": "a clogged drain pump filter",
-      "next": "drain_pump_failed"
+      "next": "drain_pump_failed",
+      "title": "Water left in the drum"
     },
     {
       "id": "smelly_washer",
@@ -631,7 +632,8 @@
             "caption": "Leave door slightly open"
           }
         ]
-      ]
+      ],
+      "title": "Smells musty"
     },
     {
       "id": "leaking_from_front",
@@ -889,7 +891,8 @@
             "caption": "Open cold water tap"
           }
         ]
-      ]
+      ],
+      "title": "Puddle in front"
     },
     {
       "id": "shaking_and_noisy",
@@ -1137,7 +1140,8 @@
             "caption": "Confirm level is even"
           }
         ]
-      ]
+      ],
+      "title": "Shakes a lot"
     },
     {
       "id": "will_not_start",
@@ -1364,7 +1368,8 @@
             "caption": "Hold Start to retry"
           }
         ]
-      ]
+      ],
+      "title": "Won't start"
     },
     {
       "id": "door_wont_open_low_water",
@@ -1583,7 +1588,8 @@
             "caption": "Press start button"
           }
         ]
-      ]
+      ],
+      "title": "Door won't open"
     },
     {
       "id": "drain_pump_failed",
@@ -2162,5 +2168,7 @@
     "top-loader",
     "top loading",
     "agitator"
-  ]
+  ],
+  "category": "Washer · front-load",
+  "icon": "washer_front"
 }

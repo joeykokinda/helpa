@@ -1,0 +1,770 @@
+{
+ "id": "bathroom-sink",
+ "appliance": "bathroom sink",
+ "brand": "",
+ "model_family": "Works on most bathroom sinks",
+ "model_numbers": [],
+ "sticker_location": "No sticker needed. Faucet brands are stamped on the base or the handle.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "slow_drain",
+   "title": "Drains slowly",
+   "symptoms": [
+    "The sink drains really slowly",
+    "Water sits in the sink",
+    "The bathroom sink is clogged",
+    "It gurgles and drains slow"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "bathroom sink",
+    "manual_url": "",
+    "diagnosis": "Hair and soap wrap around the drain stopper's rod right under the drain, and that is what slows almost every bathroom sink. Pulling the stopper and cleaning it fixes most of them in five minutes, no tools.",
+    "tools": [
+     "Paper towels",
+     "Flashlight"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "Skip chemical drain cleaner; it burns skin and eats old pipes.",
+     "If you already poured cleaner in, wear gloves and eye protection."
+    ],
+    "steps": [
+     {
+      "instruction": "Pull the drain stopper straight up",
+      "details": [
+       "Push the stopper down first, then pull.",
+       "If it won't come, turn it a quarter turn and pull again."
+      ],
+      "target_part": "drain stopper",
+      "photo": -1,
+      "motion": "lift",
+      "show_3d": true,
+      "check": "The stopper is out of the drain in your hand."
+     },
+     {
+      "instruction": "Pull the hair off the stopper",
+      "details": [
+       "Use a paper towel, it's gross but quick.",
+       "Look down the drain with a flashlight for more."
+      ],
+      "target_part": "hair clog on the stopper",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The stopper and its rod are clean."
+     },
+     {
+      "instruction": "Run hot water for one minute",
+      "details": [
+       "Hot tap water rinses the soap out.",
+       "Never use boiling water on plastic pipes."
+      ],
+      "target_part": "faucet",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Water goes straight down the open drain."
+     },
+     {
+      "instruction": "Drop the stopper back in",
+      "details": [
+       "Some stoppers have a slot: turn it so the rod catches."
+      ],
+      "target_part": "drain stopper",
+      "photo": -1,
+      "motion": "push_in",
+      "show_3d": true,
+      "check": "The stopper sits in the drain and moves up and down with the rod."
+     },
+     {
+      "instruction": "Test: run the water for 30 seconds",
+      "details": [
+       "Pull the stopper rod up so the drain is open."
+      ],
+      "target_part": "sink basin",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "No water stays in the bowl."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "pop_up_stopper",
+      "action": "remove",
+      "caption": "Lift the stopper out"
+     }
+    ],
+    [
+     {
+      "part": "stopper_hair",
+      "action": "clean",
+      "caption": "Pull the hair off"
+     }
+    ],
+    [
+     {
+      "part": "faucet_handle",
+      "action": "open",
+      "caption": "Turn on the hot water"
+     },
+     {
+      "part": "basin",
+      "action": "look",
+      "caption": "Watch it drain"
+     },
+     {
+      "part": "faucet_handle",
+      "action": "close",
+      "caption": "Turn the water off"
+     }
+    ],
+    [
+     {
+      "part": "pop_up_stopper",
+      "action": "insert",
+      "caption": "Put the stopper back"
+     }
+    ],
+    [
+     {
+      "part": "faucet_handle",
+      "action": "open",
+      "caption": "Run the water"
+     },
+     {
+      "part": "basin",
+      "action": "look",
+      "caption": "No puddle"
+     },
+     {
+      "part": "faucet_handle",
+      "action": "close",
+      "caption": "Water off"
+     }
+    ]
+   ],
+   "cause": "hair on the drain stopper",
+   "next": "trap_clog"
+  },
+  {
+   "id": "trap_clog",
+   "title": "Still slow after cleaning the stopper",
+   "symptoms": [
+    "Still slow after cleaning the stopper"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "bathroom sink",
+    "manual_url": "",
+    "diagnosis": "With the stopper clean, the clog is further down in the U-shaped P-trap under the sink, where gunk settles. It comes off by hand with two big plastic nuts, so you can empty it into a bucket.",
+    "tools": [
+     "Bucket",
+     "Old towel",
+     "Rubber gloves"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "If you used chemical drain cleaner, wear gloves and goggles: the trap water is caustic."
+    ],
+    "steps": [
+     {
+      "instruction": "Open the cabinet and clear it out",
+      "details": [
+       "Move everything out from under the sink."
+      ],
+      "target_part": "cabinet doors",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see the white U-shaped pipe."
+     },
+     {
+      "instruction": "Put a bucket under the U-bend",
+      "details": [
+       "Water will pour out when it comes off."
+      ],
+      "target_part": "bucket",
+      "photo": -1,
+      "motion": "push_in",
+      "show_3d": true,
+      "check": "The bucket sits right under the U-bend."
+     },
+     {
+      "instruction": "Unscrew both big nuts by hand",
+      "details": [
+       "Turn them toward you, counterclockwise from above.",
+       "Use pliers with a towel only if they're stuck."
+      ],
+      "target_part": "slip nuts",
+      "photo": -1,
+      "motion": "unscrew",
+      "show_3d": true,
+      "check": "Both nuts are loose and slide along the pipe."
+     },
+     {
+      "instruction": "Pull the U-bend down and empty it",
+      "details": [
+       "Tip it into the bucket.",
+       "Expect a bad smell; that's normal."
+      ],
+      "target_part": "P-trap",
+      "photo": -1,
+      "motion": "pull_out",
+      "show_3d": true,
+      "check": "The U-bend is off and empty."
+     },
+     {
+      "instruction": "Put the U-bend back and hand-tighten the nuts",
+      "details": [
+       "Check the thin washers are still inside the nuts.",
+       "Hand-tight is enough; too tight cracks them."
+      ],
+      "target_part": "P-trap",
+      "photo": -1,
+      "motion": "screw_in",
+      "show_3d": true,
+      "check": "Both nuts are snug and the trap doesn't wiggle."
+     },
+     {
+      "instruction": "Run water and look for drips",
+      "details": [
+       "A drip means a nut needs a quarter turn more."
+      ],
+      "target_part": "slip nuts",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Water drains fast and no drips fall into the bucket."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "door_left",
+      "action": "open",
+      "caption": "Open the left door"
+     },
+     {
+      "part": "door_right",
+      "action": "open",
+      "caption": "Open the right door"
+     },
+     {
+      "part": "p_trap",
+      "action": "look",
+      "caption": "This is the P-trap"
+     }
+    ],
+    [
+     {
+      "part": "bucket",
+      "action": "insert",
+      "caption": "Bucket under the trap"
+     }
+    ],
+    [
+     {
+      "part": "slip_nut_left",
+      "action": "open",
+      "caption": "Loosen this nut"
+     },
+     {
+      "part": "slip_nut_right",
+      "action": "open",
+      "caption": "Loosen this one too"
+     }
+    ],
+    [
+     {
+      "part": "p_trap",
+      "action": "remove",
+      "caption": "Pull the U-bend down"
+     },
+     {
+      "part": "trap_gunk",
+      "action": "clean",
+      "caption": "Clear out the gunk"
+     }
+    ],
+    [
+     {
+      "part": "p_trap",
+      "action": "insert",
+      "caption": "Push the U-bend up"
+     },
+     {
+      "part": "slip_nut_left",
+      "action": "close",
+      "caption": "Tighten this nut"
+     },
+     {
+      "part": "slip_nut_right",
+      "action": "close",
+      "caption": "And this one"
+     }
+    ],
+    [
+     {
+      "part": "faucet_handle",
+      "action": "open",
+      "caption": "Run the water"
+     },
+     {
+      "part": "p_trap",
+      "action": "look",
+      "caption": "Watch for drips"
+     },
+     {
+      "part": "faucet_handle",
+      "action": "close",
+      "caption": "Water off"
+     },
+     {
+      "part": "door_left",
+      "action": "close",
+      "caption": "Close the left door"
+     },
+     {
+      "part": "door_right",
+      "action": "close",
+      "caption": "Close the right door"
+     }
+    ]
+   ],
+   "cause": "a clog in the P-trap"
+  },
+  {
+   "id": "weak_faucet",
+   "title": "Weak water from the faucet",
+   "symptoms": [
+    "Water barely comes out of the faucet",
+    "The faucet stream is weak",
+    "Low water pressure at the sink",
+    "The water sprays sideways"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "bathroom sink",
+    "manual_url": "",
+    "diagnosis": "Little bits of minerals and grit collect in the aerator, the screen at the tip of the faucet, and choke the stream. Unscrewing it and rinsing it out brings the pressure back.",
+    "tools": [
+     "Cloth",
+     "Pliers (only if stuck)",
+     "White vinegar (for crust)"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Close the drain so nothing falls in",
+      "details": [
+       "The aerator has small parts; a towel over the drain works too."
+      ],
+      "target_part": "drain stopper",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The stopper is down."
+     },
+     {
+      "instruction": "Unscrew the faucet tip by hand",
+      "details": [
+       "Turn it to the right, looking down from above.",
+       "If it's stuck, wrap a cloth around it and use pliers gently."
+      ],
+      "target_part": "aerator",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "The aerator is off in your hand."
+     },
+     {
+      "instruction": "Rinse the grit out of the screen",
+      "details": [
+       "Tap it on the counter and rinse it under another tap.",
+       "White crust soaks off in vinegar in 30 minutes."
+      ],
+      "target_part": "aerator screen",
+      "photo": -1,
+      "motion": "rinse",
+      "show_3d": true,
+      "check": "You can see clean holes in the screen."
+     },
+     {
+      "instruction": "Screw the tip back on",
+      "details": [
+       "Keep the little parts in the same order."
+      ],
+      "target_part": "aerator",
+      "photo": -1,
+      "motion": "screw_in",
+      "show_3d": true,
+      "check": "It's snug and doesn't leak."
+     },
+     {
+      "instruction": "Turn the water on full",
+      "details": [
+       "Still weak? The valves under the sink may be half closed."
+      ],
+      "target_part": "faucet handle",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "A strong, even stream comes out."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "pop_up_stopper",
+      "action": "look",
+      "caption": "Close the drain first"
+     }
+    ],
+    [
+     {
+      "part": "aerator",
+      "action": "unlock",
+      "caption": "Unscrew the tip"
+     },
+     {
+      "part": "aerator",
+      "action": "remove",
+      "caption": "Take it off"
+     }
+    ],
+    [
+     {
+      "part": "aerator_scale",
+      "action": "clean",
+      "caption": "Rinse the grit out"
+     }
+    ],
+    [
+     {
+      "part": "aerator",
+      "action": "insert",
+      "caption": "Put it back"
+     },
+     {
+      "part": "aerator",
+      "action": "lock",
+      "caption": "Screw it on"
+     }
+    ],
+    [
+     {
+      "part": "faucet_handle",
+      "action": "open",
+      "caption": "Water on full"
+     },
+     {
+      "part": "faucet_handle",
+      "action": "close",
+      "caption": "Water off"
+     }
+    ]
+   ],
+   "cause": "a clogged aerator",
+   "next": "half_closed_valves"
+  },
+  {
+   "id": "half_closed_valves",
+   "title": "Still weak with a clean aerator",
+   "symptoms": [
+    "Still weak with a clean aerator"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "bathroom sink",
+    "manual_url": "",
+    "diagnosis": "With a clean aerator, the next most likely cause is a shutoff valve under the sink that got bumped or half closed. Opening both fully brings full pressure back.",
+    "tools": [],
+    "replacement_parts": [],
+    "safety": [
+     "If a valve drips when you turn it, close it back and call a plumber."
+    ],
+    "steps": [
+     {
+      "instruction": "Open the cabinet under the sink",
+      "details": [],
+      "target_part": "cabinet doors",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see two small valves on the wall."
+     },
+     {
+      "instruction": "Turn both valves all the way open",
+      "details": [
+       "Counterclockwise opens them.",
+       "Don't force a valve that won't move; call a plumber."
+      ],
+      "target_part": "shutoff valves",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "Both handles stop turning counterclockwise."
+     },
+     {
+      "instruction": "Test the faucet on hot and cold",
+      "details": [],
+      "target_part": "faucet",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Both run strong."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "door_left",
+      "action": "open",
+      "caption": "Open the left door"
+     },
+     {
+      "part": "door_right",
+      "action": "open",
+      "caption": "Open the right door"
+     },
+     {
+      "part": "shutoff_hot",
+      "action": "look",
+      "caption": "Hot valve"
+     },
+     {
+      "part": "shutoff_cold",
+      "action": "look",
+      "caption": "Cold valve"
+     }
+    ],
+    [
+     {
+      "part": "shutoff_hot",
+      "action": "turn",
+      "caption": "Open the hot valve"
+     },
+     {
+      "part": "shutoff_cold",
+      "action": "turn",
+      "caption": "Open the cold valve"
+     }
+    ],
+    [
+     {
+      "part": "faucet_handle",
+      "action": "open",
+      "caption": "Test the water"
+     },
+     {
+      "part": "faucet_handle",
+      "action": "close",
+      "caption": "Water off"
+     },
+     {
+      "part": "door_left",
+      "action": "close",
+      "caption": "Close the left door"
+     },
+     {
+      "part": "door_right",
+      "action": "close",
+      "caption": "Close the right door"
+     }
+    ]
+   ],
+   "cause": "a half-closed shutoff valve"
+  },
+  {
+   "id": "leak_under_sink",
+   "title": "Leaking under the sink",
+   "symptoms": [
+    "There's water under the sink",
+    "The cabinet under the sink is wet",
+    "It drips under the sink"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "bathroom sink",
+    "manual_url": "",
+    "diagnosis": "Most drips under a bathroom sink come from a loose plastic nut on the drain trap, which works loose over time. Finding the drip and snugging that nut by hand fixes it.",
+    "tools": [
+     "Paper towels",
+     "Bucket"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "If water sprays from a supply hose, close its shutoff valve right away."
+    ],
+    "steps": [
+     {
+      "instruction": "Open the cabinet and dry everything",
+      "details": [
+       "Starting dry makes the drip easy to find."
+      ],
+      "target_part": "cabinet",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The pipes and the cabinet floor are dry."
+     },
+     {
+      "instruction": "Put a bucket under the pipes",
+      "details": [],
+      "target_part": "bucket",
+      "photo": -1,
+      "motion": "push_in",
+      "show_3d": true,
+      "check": "The bucket is under the trap."
+     },
+     {
+      "instruction": "Run water and find the first drip",
+      "details": [
+       "Feel each joint with a dry paper towel.",
+       "Water on the supply hoses or valves is a different leak."
+      ],
+      "target_part": "drain pipes",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can point at where the drip starts."
+     },
+     {
+      "instruction": "Snug the leaking nut by hand",
+      "details": [
+       "A quarter turn past hand-tight at most."
+      ],
+      "target_part": "slip nut",
+      "photo": -1,
+      "motion": "screw_in",
+      "show_3d": true,
+      "check": "The nut is snug."
+     },
+     {
+      "instruction": "Run water again and check it's dry",
+      "details": [
+       "Still dripping at a valve or hose? Close the valve and call a plumber."
+      ],
+      "target_part": "drain pipes",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "No more drips."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "door_left",
+      "action": "open",
+      "caption": "Open the left door"
+     },
+     {
+      "part": "door_right",
+      "action": "open",
+      "caption": "Open the right door"
+     }
+    ],
+    [
+     {
+      "part": "bucket",
+      "action": "insert",
+      "caption": "Bucket under the pipes"
+     }
+    ],
+    [
+     {
+      "part": "faucet_handle",
+      "action": "open",
+      "caption": "Run the water"
+     },
+     {
+      "part": "slip_nut_left",
+      "action": "look",
+      "caption": "Check this nut"
+     },
+     {
+      "part": "slip_nut_right",
+      "action": "look",
+      "caption": "And this one"
+     },
+     {
+      "part": "faucet_handle",
+      "action": "close",
+      "caption": "Water off"
+     }
+    ],
+    [
+     {
+      "part": "slip_nut_left",
+      "action": "close",
+      "caption": "Tighten the nut"
+     },
+     {
+      "part": "slip_nut_right",
+      "action": "close",
+      "caption": "Tighten this one too"
+     }
+    ],
+    [
+     {
+      "part": "faucet_handle",
+      "action": "open",
+      "caption": "Run the water"
+     },
+     {
+      "part": "p_trap",
+      "action": "look",
+      "caption": "Stays dry"
+     },
+     {
+      "part": "faucet_handle",
+      "action": "close",
+      "caption": "Water off"
+     },
+     {
+      "part": "door_left",
+      "action": "close",
+      "caption": "Close the left door"
+     },
+     {
+      "part": "door_right",
+      "action": "close",
+      "caption": "Close the right door"
+     }
+    ]
+   ],
+   "cause": "a loose drain nut"
+  }
+ ],
+ "recipe": "bathroom_sink",
+ "category": "Sink",
+ "icon": "sink",
+ "contradicts": []
+}

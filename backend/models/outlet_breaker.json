@@ -1,0 +1,956 @@
+{
+ "name": "Kitchen outlet and breaker panel",
+ "nodes": [
+  {
+   "id": "wall",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.6,
+    1.8,
+    0.02
+   ],
+   "position": [
+    0,
+    0.9,
+    -0.3
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#ece8e1",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "floor_tiles",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.6,
+    0.006,
+    0.9
+   ],
+   "position": [
+    0,
+    0.003,
+    0.15000000000000002
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#d6d0c6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "counter",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    0.8,
+    0.04,
+    0.5
+   ],
+   "position": [
+    -0.35,
+    0.9,
+    -0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#e8e2d6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "counter_cabinet",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    0.8,
+    0.86,
+    0.48
+   ],
+   "position": [
+    -0.35,
+    0.45,
+    -0.06
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#d8ccb6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "backsplash",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    0.8,
+    0.45,
+    0.01
+   ],
+   "position": [
+    -0.35,
+    1.15,
+    -0.29
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#f3efe7",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "gfci_outlet",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.45,
+    1.08,
+    -0.282
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "gfci_plate",
+   "parent": "gfci_outlet",
+   "shape": "rounded_box",
+   "size": [
+    0.075,
+    0.12,
+    0.008
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "gfci_face",
+   "parent": "gfci_outlet",
+   "shape": "rounded_box",
+   "size": [
+    0.045,
+    0.1,
+    0.01
+   ],
+   "position": [
+    0,
+    0,
+    0.004
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#f7f7f4",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "slots_top",
+   "parent": "gfci_outlet",
+   "shape": "box",
+   "size": [
+    0.02,
+    0.006,
+    0.002
+   ],
+   "position": [
+    0,
+    0.035,
+    0.01
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "slots_bottom",
+   "parent": "gfci_outlet",
+   "shape": "box",
+   "size": [
+    0.02,
+    0.006,
+    0.002
+   ],
+   "position": [
+    0,
+    -0.035,
+    0.01
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "test_button",
+   "parent": "gfci_outlet",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0.008,
+    0.01
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "test_key",
+   "parent": "test_button",
+   "shape": "rounded_box",
+   "size": [
+    0.018,
+    0.009,
+    0.004
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "reset_button",
+   "parent": "gfci_outlet",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    -0.008,
+    0.01
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "reset_key",
+   "parent": "reset_button",
+   "shape": "rounded_box",
+   "size": [
+    0.018,
+    0.009,
+    0.004
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "#d33a2c",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "toaster",
+   "parent": "",
+   "shape": "rounded_box",
+   "size": [
+    0.26,
+    0.18,
+    0.15
+   ],
+   "position": [
+    -0.15,
+    1.01,
+    -0.1
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "stainless",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "toaster_cord",
+   "parent": "",
+   "shape": "hose",
+   "size": [
+    0.008
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [
+    [
+     -0.25,
+     0.94,
+     -0.17
+    ],
+    [
+     -0.36,
+     0.93,
+     -0.25
+    ],
+    [
+     -0.43,
+     1.03,
+     -0.275
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "panel",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.45,
+    1.25,
+    -0.29
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "panel_box",
+   "parent": "panel",
+   "shape": "rounded_box",
+   "size": [
+    0.36,
+    0.6,
+    0.08
+   ],
+   "position": [
+    0,
+    0,
+    0.04
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#bfc3c6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "panel_dead_front",
+   "parent": "panel",
+   "shape": "box",
+   "size": [
+    0.3,
+    0.52,
+    0.005
+   ],
+   "position": [
+    0,
+    0,
+    0.082
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#d5d8da",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "breakers_left",
+   "parent": "panel",
+   "shape": "rounded_box",
+   "size": [
+    0.1,
+    0.035,
+    0.03
+   ],
+   "position": [
+    -0.065,
+    0.2,
+    0.095
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": [
+    8,
+    0,
+    -0.05,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "breakers_right",
+   "parent": "panel",
+   "shape": "rounded_box",
+   "size": [
+    0.1,
+    0.035,
+    0.03
+   ],
+   "position": [
+    0.065,
+    0.2,
+    0.095
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": [
+    3,
+    0,
+    -0.05,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "breakers_right_low",
+   "parent": "panel",
+   "shape": "rounded_box",
+   "size": [
+    0.1,
+    0.035,
+    0.03
+   ],
+   "position": [
+    0.065,
+    -0.05,
+    0.095
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": [
+    4,
+    0,
+    -0.05,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "tripped_breaker",
+   "parent": "panel",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.065,
+    0.05,
+    0.095
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "tripped_body",
+   "parent": "tripped_breaker",
+   "shape": "rounded_box",
+   "size": [
+    0.1,
+    0.035,
+    0.03
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "black_plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "tripped_flag",
+   "parent": "tripped_breaker",
+   "shape": "box",
+   "size": [
+    0.01,
+    0.02,
+    0.012
+   ],
+   "position": [
+    0.02,
+    0,
+    0.018
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "#e2462f",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "panel_label",
+   "parent": "panel",
+   "shape": "label",
+   "size": [
+    0.08,
+    0.03
+   ],
+   "position": [
+    -0.11,
+    0.255,
+    0.087
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "clear",
+   "color": "",
+   "points": [],
+   "text": "KITCHEN 20A",
+   "repeat": []
+  },
+  {
+   "id": "panel_door",
+   "parent": "panel",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0,
+    0.09
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_sheet",
+   "parent": "panel_door",
+   "shape": "rounded_box",
+   "size": [
+    0.36,
+    0.6,
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#c9cdd0",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_latch",
+   "parent": "panel_door",
+   "shape": "rounded_box",
+   "size": [
+    0.02,
+    0.06,
+    0.012
+   ],
+   "position": [
+    -0.15,
+    0,
+    0.01
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  }
+ ],
+ "parts": [
+  {
+   "node": "gfci_outlet",
+   "label": "Outlet",
+   "aliases": [
+    "GFCI outlet",
+    "plug",
+    "socket",
+    "receptacle"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.2,
+    0.3,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "test_button",
+   "label": "TEST button",
+   "aliases": [
+    "test"
+   ],
+   "joint": "press",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "amount": 0.003,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "press",
+    "look"
+   ],
+   "view": [
+    0.1,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "reset_button",
+   "label": "RESET button",
+   "aliases": [
+    "reset",
+    "red button"
+   ],
+   "joint": "press",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "amount": 0.003,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "press",
+    "look"
+   ],
+   "view": [
+    0.1,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "toaster",
+   "label": "Toaster",
+   "aliases": [
+    "appliance",
+    "kettle"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.5,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "panel_door",
+   "label": "Panel door",
+   "aliases": [
+    "breaker box door",
+    "panel cover"
+   ],
+   "joint": "hinge",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 110,
+   "lift": 0,
+   "pivot": [
+    0.18,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    -0.3,
+    0.2,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "tripped_breaker",
+   "label": "Tripped breaker",
+   "aliases": [
+    "breaker",
+    "switch in the panel"
+   ],
+   "joint": "hinge",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "amount": -30,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    -0.015
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.2,
+    0.2,
+    1
+   ],
+   "rest": 0.5
+  },
+  {
+   "node": "panel_label",
+   "label": "Breaker labels",
+   "aliases": [
+    "labels",
+    "panel map"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.1,
+    0.1,
+    1
+   ],
+   "rest": 0
+  }
+ ]
+}

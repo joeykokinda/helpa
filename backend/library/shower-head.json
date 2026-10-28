@@ -1,0 +1,280 @@
+{
+ "id": "shower-head",
+ "appliance": "shower head",
+ "brand": "",
+ "model_family": "Works on most shower heads",
+ "model_numbers": [],
+ "sticker_location": "Brand is usually stamped on the shower head's face or neck.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "weak_spray",
+   "title": "Weak or sputtering spray",
+   "symptoms": [
+    "The shower pressure is weak",
+    "The shower head sprays sideways",
+    "Only some holes spray",
+    "The shower sputters"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "shower head",
+    "manual_url": "",
+    "diagnosis": "Hard water leaves white mineral crust in the tiny nozzles, so they clog one by one. Soaking the head in vinegar overnight dissolves it, no tools needed.",
+    "tools": [
+     "Plastic bag",
+     "White vinegar",
+     "Rubber band",
+     "Old toothbrush"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Fill a plastic bag halfway with white vinegar",
+      "details": [],
+      "target_part": "bag of vinegar",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The bag has enough vinegar to cover the nozzles."
+     },
+     {
+      "instruction": "Slip it over the head and band it on",
+      "details": [
+       "A rubber band or twist tie holds it to the arm."
+      ],
+      "target_part": "shower head",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The nozzles sit in the vinegar."
+     },
+     {
+      "instruction": "Leave it for a few hours or overnight",
+      "details": [
+       "Skip the soak for gold or brass finishes: 30 minutes only."
+      ],
+      "target_part": "mineral buildup",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The white crust has softened."
+     },
+     {
+      "instruction": "Take the bag off and rub the nozzles",
+      "details": [
+       "Rub each rubber nub with your thumb or an old toothbrush."
+      ],
+      "target_part": "nozzles",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The rubber nozzles are clean."
+     },
+     {
+      "instruction": "Run hot water for a minute",
+      "details": [],
+      "target_part": "shower handle",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "A strong, even spray."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "vinegar_bag",
+      "action": "look",
+      "caption": "Half a bag of vinegar"
+     }
+    ],
+    [
+     {
+      "part": "vinegar_bag",
+      "action": "insert",
+      "caption": "Bag over the head"
+     }
+    ],
+    [
+     {
+      "part": "nozzle_scale",
+      "action": "clean",
+      "caption": "The vinegar eats the crust"
+     }
+    ],
+    [
+     {
+      "part": "vinegar_bag",
+      "action": "remove",
+      "caption": "Bag off"
+     }
+    ],
+    [
+     {
+      "part": "shower_valve",
+      "action": "open",
+      "caption": "Water on"
+     },
+     {
+      "part": "shower_head",
+      "action": "look",
+      "caption": "Strong, even spray"
+     },
+     {
+      "part": "shower_valve",
+      "action": "close",
+      "caption": "Water off"
+     }
+    ]
+   ],
+   "cause": "mineral buildup in the nozzles"
+  },
+  {
+   "id": "leaks_at_arm",
+   "title": "Leaks where the head meets the pipe",
+   "symptoms": [
+    "The shower head leaks at the pipe",
+    "Water sprays from behind the shower head",
+    "It drips from the connection"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "shower head",
+    "manual_url": "",
+    "diagnosis": "Water escaping where the head screws on means the thread seal has worn out. Wrapping the pipe threads with plumber's tape seals it again.",
+    "tools": [
+     "Plumber's tape (PTFE)",
+     "Cloth",
+     "Pliers (only if stuck)"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Unscrew the shower head by hand",
+      "details": [
+       "Turn it to the left. Use a cloth and pliers only if it's stuck."
+      ],
+      "target_part": "shower head",
+      "photo": -1,
+      "motion": "twist_ccw",
+      "show_3d": true,
+      "check": "The head is off."
+     },
+     {
+      "instruction": "Wipe off the old tape",
+      "details": [],
+      "target_part": "arm threads",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The threads are bare and clean."
+     },
+     {
+      "instruction": "Wrap new tape 3 times clockwise",
+      "details": [
+       "Clockwise as you face the end of the pipe, so screwing on doesn't unroll it."
+      ],
+      "target_part": "arm threads",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Tape covers the threads, wrapped clockwise."
+     },
+     {
+      "instruction": "Screw the head back on hand tight",
+      "details": [
+       "Check the rubber washer is inside the head."
+      ],
+      "target_part": "shower head",
+      "photo": -1,
+      "motion": "twist_cw",
+      "show_3d": true,
+      "check": "It's snug."
+     },
+     {
+      "instruction": "Run the water and check for drips",
+      "details": [],
+      "target_part": "shower head",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "No water leaks at the connection."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "shower_head",
+      "action": "unlock",
+      "caption": "Turn it left"
+     },
+     {
+      "part": "shower_head",
+      "action": "remove",
+      "caption": "Take it off"
+     }
+    ],
+    [
+     {
+      "part": "arm_threads",
+      "action": "clean",
+      "caption": "Wipe the old tape off"
+     }
+    ],
+    [
+     {
+      "part": "arm_threads",
+      "action": "look",
+      "caption": "Wrap the tape here"
+     }
+    ],
+    [
+     {
+      "part": "shower_head",
+      "action": "insert",
+      "caption": "Put it back"
+     },
+     {
+      "part": "shower_head",
+      "action": "lock",
+      "caption": "Screw it on"
+     }
+    ],
+    [
+     {
+      "part": "shower_valve",
+      "action": "open",
+      "caption": "Water on"
+     },
+     {
+      "part": "arm_threads",
+      "action": "look",
+      "caption": "No drips"
+     },
+     {
+      "part": "shower_valve",
+      "action": "close",
+      "caption": "Water off"
+     }
+    ]
+   ],
+   "cause": "worn thread tape"
+  }
+ ],
+ "recipe": "shower_head",
+ "category": "Shower",
+ "icon": "shower",
+ "contradicts": []
+}

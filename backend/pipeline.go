@@ -209,12 +209,19 @@ type followUp struct {
 	// Tried says what was tried in words, for research when the library has no next cause.
 	Tried              string
 	Brand, ModelNumber string
+	// Direct is a library fix ("entry/problem") the person picked from the app's list of common problems.
+	Direct string
 }
 
 // readFollowUp reads what a "Still broken" request says was tried. Only real library fix ids are kept, and the
 // free text is capped, since it goes into the model prompt.
 func readFollowUp(request *http.Request) followUp {
 	follow := followUp{Tried: clip(request.FormValue("tried"), 400), Brand: clip(request.FormValue("brand"), 60), ModelNumber: clip(request.FormValue("model_number"), 60)}
+	if id := strings.TrimSpace(request.FormValue("fix")); id != "" {
+		if _, problem := findLibraryFix(id); problem != nil {
+			follow.Direct = id
+		}
+	}
 	for _, id := range strings.Split(request.FormValue("ruled_out"), ",") {
 		if _, problem := findLibraryFix(strings.TrimSpace(id)); problem != nil && len(follow.RuledOut) < 10 {
 			follow.RuledOut = append(follow.RuledOut, strings.TrimSpace(id))
@@ -246,6 +253,14 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		// The library knows the next most likely cause, so there's nothing to look at again.
 		entry, _ := findLibraryFix(next)
 		ident = identification{Appliance: entry.Appliance, Brand: follow.Brand, ModelNumber: follow.ModelNumber, Confidence: 1, LibraryFix: next}
+	} else if follow.Direct != "" && len(follow.RuledOut) == 0 {
+		// Picked from the app's list of common problems: the fix is known, so there's nothing to look at.
+		entry, problem := findLibraryFix(follow.Direct)
+		// No brand: picking from the list says nothing about whose machine it is.
+		ident = identification{Appliance: entry.Appliance, Confidence: 1, LibraryFix: follow.Direct}
+		if len(problem.Symptoms) > 0 {
+			ident.Symptom = problem.Symptoms[0]
+		}
 	} else if ident, err = identify(ctx, photos, complaint, true); err != nil {
 		// The first look is a shortcut, not a gate: research can still identify on its own.
 		log.Printf("identify: %v", err)
@@ -354,7 +369,7 @@ func libraryPlan(ident identification, complaint string, ruledOut []string, emit
 	}
 	// The first look named the fix; trust it when it is the same kind of machine and no other brand.
 	entry := findLibraryEntry(entryID)
-	if entry == nil || normalizeAppliance(entry.Appliance) != normalizeAppliance(ident.Appliance) || (ident.Brand != "" && !strings.EqualFold(entry.Brand, ident.Brand)) {
+	if entry == nil || normalizeAppliance(entry.Appliance) != normalizeAppliance(ident.Appliance) || (ident.Brand != "" && entry.Brand != "" && !strings.EqualFold(entry.Brand, ident.Brand)) {
 		return nil
 	}
 	if word := entry.contradiction(complaint + " " + ident.Appliance + " " + ident.Symptom); word != "" {
@@ -407,6 +422,15 @@ func buildModel(ctx context.Context, ident identification, complaint string, pho
 	if rig := matchRig(ident.Appliance); rig != nil && !rigContradicted(rig.ID, complaint+" "+ident.Appliance) {
 		emitTrack(emit, "model", "done", "Found a 3D model", rig.Name)
 		return modelResult{rig: rig}
+	}
+	// A library entry with a hand-made model (toilet, sink, smoke alarm) is as instant as a built-in rig.
+	entry, _ := findLibraryFix(ident.LibraryFix)
+	if entry == nil || entry.Recipe == "" {
+		entry = libraryRecipeFor(ident.Appliance)
+	}
+	if model := libraryRig(entry); model != nil {
+		emitTrack(emit, "model", "done", "Found a 3D model", model.Catalog.Name)
+		return modelResult{generated: model}
 	}
 	if ident.Appliance == "" {
 		return modelResult{}

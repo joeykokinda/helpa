@@ -24,6 +24,8 @@ import (
 type generatedRig struct {
 	Catalog rigCatalog      `json:"catalog"`
 	Recipe  json.RawMessage `json:"recipe"`
+	// LibraryID is set for a library entry's hand-made model, whose fixes come with their beats.
+	LibraryID string `json:"-"`
 }
 
 // The recipe schema and the reference recipes are copies of app/app/components/rig/recipes/recipe.schema.json and

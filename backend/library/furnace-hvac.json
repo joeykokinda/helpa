@@ -1,0 +1,285 @@
+{
+ "id": "furnace-hvac",
+ "appliance": "furnace",
+ "brand": "",
+ "model_family": "Works on most furnaces",
+ "model_numbers": [],
+ "sticker_location": "On the inside of the furnace's lower door, with the filter size printed on the old filter's frame.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "no_heat_or_ac",
+   "title": "Heat or AC won't come on",
+   "symptoms": [
+    "The heat won't come on",
+    "The AC isn't running",
+    "The furnace won't turn on",
+    "The thermostat screen is blank"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "furnace",
+    "manual_url": "",
+    "diagnosis": "Most no-heat calls are the thermostat: dead batteries, the wrong mode, or a setting below the room temperature. The next is the furnace's own power switch, which looks like a light switch and gets flipped off by accident.",
+    "tools": [
+     "AA or AAA batteries"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "If you smell gas, leave the house now and call the gas company from outside."
+    ],
+    "steps": [
+     {
+      "instruction": "Check the thermostat is on HEAT (or COOL)",
+      "details": [
+       "Set it 5 degrees above the room for heat, below for AC."
+      ],
+      "target_part": "thermostat",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "It shows HEAT and a target above the room temperature."
+     },
+     {
+      "instruction": "Blank screen? Put in fresh batteries",
+      "details": [
+       "Pull the cover straight off; most take two AA or AAA."
+      ],
+      "target_part": "batteries",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The screen lights up."
+     },
+     {
+      "instruction": "Make sure the furnace switch is ON",
+      "details": [
+       "It looks like a light switch, often with a red plate."
+      ],
+      "target_part": "furnace switch",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The switch near the furnace is up (on)."
+     },
+     {
+      "instruction": "Wait 5 minutes and listen",
+      "details": [
+       "Furnaces wait a few minutes before they fire."
+      ],
+      "target_part": "furnace",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You hear it start and feel air from the vents."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "thermostat",
+      "action": "look",
+      "caption": "Check the mode"
+     },
+     {
+      "part": "mode_switch",
+      "action": "press",
+      "caption": "Set HEAT or COOL"
+     },
+     {
+      "part": "temp_up",
+      "action": "press",
+      "caption": "Raise the setting"
+     }
+    ],
+    [
+     {
+      "part": "stat_cover",
+      "action": "remove",
+      "caption": "Pull the cover off"
+     },
+     {
+      "part": "stat_batteries",
+      "action": "remove",
+      "caption": "Old batteries out"
+     },
+     {
+      "part": "stat_batteries",
+      "action": "insert",
+      "caption": "New ones in"
+     },
+     {
+      "part": "stat_cover",
+      "action": "insert",
+      "caption": "Cover back on"
+     }
+    ],
+    [
+     {
+      "part": "furnace_switch",
+      "action": "look",
+      "caption": "The furnace switch"
+     },
+     {
+      "part": "switch_toggle",
+      "action": "look",
+      "caption": "Make sure it's up"
+     }
+    ],
+    [
+     {
+      "part": "lower_door",
+      "action": "look",
+      "caption": "It should start in a few minutes"
+     }
+    ]
+   ],
+   "cause": "the thermostat or a switched-off furnace",
+   "next": "dirty_filter"
+  },
+  {
+   "id": "dirty_filter",
+   "title": "Weak air or the house won't warm up",
+   "symptoms": [
+    "Weak air from the vents",
+    "The house isn't getting warm",
+    "The AC runs but it's not cooling well",
+    "Time to change the furnace filter",
+    "Still not heating with the thermostat set right"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "furnace",
+    "manual_url": "",
+    "diagnosis": "A clogged air filter starves the system of air, so it blows weakly, runs all day and can shut itself off. Filters should be changed every 1 to 3 months. A new one costs a few dollars and takes two minutes.",
+    "tools": [],
+    "replacement_parts": [
+     "Air filter, the same size as the old one"
+    ],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Turn the thermostat off",
+      "details": [
+       "So it doesn't pull dust while the filter is out."
+      ],
+      "target_part": "thermostat",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The system is off."
+     },
+     {
+      "instruction": "Slide the old filter out of its slot",
+      "details": [
+       "The slot is low on the side of the furnace, or behind a grille on a wall or ceiling."
+      ],
+      "target_part": "air filter",
+      "photo": -1,
+      "motion": "pull_out",
+      "show_3d": true,
+      "check": "The old filter is out."
+     },
+     {
+      "instruction": "Check the size printed on its frame",
+      "details": [
+       "A gray, dusty filter is overdue."
+      ],
+      "target_part": "air filter",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You know the size, like 16x25x1."
+     },
+     {
+      "instruction": "Slide the new one in, arrow toward the furnace",
+      "details": [
+       "The arrow shows which way the air flows."
+      ],
+      "target_part": "airflow arrow",
+      "photo": -1,
+      "motion": "push_in",
+      "show_3d": true,
+      "check": "The filter is all the way in and the arrow points into the furnace."
+     },
+     {
+      "instruction": "Turn the thermostat back on",
+      "details": [
+       "Write the date on the filter's frame."
+      ],
+      "target_part": "thermostat",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "Air from the vents feels strong."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "thermostat",
+      "action": "look",
+      "caption": "Set it to OFF"
+     },
+     {
+      "part": "mode_switch",
+      "action": "press",
+      "caption": "Off"
+     }
+    ],
+    [
+     {
+      "part": "air_filter",
+      "action": "remove",
+      "caption": "Slide it out"
+     }
+    ],
+    [
+     {
+      "part": "filter_dust",
+      "action": "look",
+      "caption": "Gray means overdue"
+     },
+     {
+      "part": "airflow_arrow",
+      "action": "look",
+      "caption": "Size and arrow are printed here"
+     }
+    ],
+    [
+     {
+      "part": "filter_dust",
+      "action": "clean",
+      "caption": "Swap for a clean one"
+     },
+     {
+      "part": "air_filter",
+      "action": "insert",
+      "caption": "Slide the new one in"
+     }
+    ],
+    [
+     {
+      "part": "mode_switch",
+      "action": "press",
+      "caption": "Back to HEAT or COOL"
+     }
+    ]
+   ],
+   "cause": "a clogged air filter"
+  }
+ ],
+ "recipe": "furnace",
+ "category": "Heat and AC",
+ "icon": "hvac",
+ "contradicts": []
+}

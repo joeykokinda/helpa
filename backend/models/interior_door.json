@@ -1,0 +1,945 @@
+{
+ "name": "Interior door",
+ "nodes": [
+  {
+   "id": "wall",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.6,
+    2.2,
+    0.02
+   ],
+   "position": [
+    0,
+    1.1,
+    -0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#ece8e1",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "floor_tiles",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.6,
+    0.006,
+    1.2
+   ],
+   "position": [
+    0,
+    0.003,
+    0.5499999999999999
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#d6d0c6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "frame_left",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    0.06,
+    2.06,
+    0.12
+   ],
+   "position": [
+    -0.46,
+    1.03,
+    -0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#f3efe6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "frame_right",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    0.06,
+    2.06,
+    0.12
+   ],
+   "position": [
+    0.46,
+    1.03,
+    -0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#f3efe6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "frame_top",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    0.98,
+    0.06,
+    0.12
+   ],
+   "position": [
+    0,
+    2.09,
+    -0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#f3efe6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "strike_plate",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.43,
+    0.95,
+    -0.02
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "strike_metal",
+   "parent": "strike_plate",
+   "shape": "rounded_box",
+   "size": [
+    0.012,
+    0.11,
+    0.03
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hinge_top",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.415,
+    1.8,
+    0.03
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hinge_top_leaf",
+   "parent": "hinge_top",
+   "shape": "box",
+   "size": [
+    0.04,
+    0.1,
+    0.006
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hinge_top_barrel",
+   "parent": "hinge_top",
+   "shape": "cylinder",
+   "size": [
+    0.014,
+    0.1
+   ],
+   "position": [
+    0,
+    0,
+    0.006
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hinge_pin",
+   "parent": "hinge_top",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0.06,
+    0.006
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "pin_head",
+   "parent": "hinge_pin",
+   "shape": "cylinder",
+   "size": [
+    0.016,
+    0.01
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "pin_shaft",
+   "parent": "hinge_pin",
+   "shape": "cylinder",
+   "size": [
+    0.006,
+    0.1
+   ],
+   "position": [
+    0,
+    -0.05,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hinge_screws",
+   "parent": "hinge_top",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.01,
+    0,
+    0.004
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "screw_heads",
+   "parent": "hinge_screws",
+   "shape": "cylinder",
+   "size": [
+    0.009,
+    0.004
+   ],
+   "position": [
+    0,
+    0.03,
+    0
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": [
+    3,
+    0,
+    -0.03,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "hinge_bottom",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.415,
+    0.25,
+    0.03
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hinge_bottom_leaf",
+   "parent": "hinge_bottom",
+   "shape": "box",
+   "size": [
+    0.04,
+    0.1,
+    0.006
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hinge_bottom_barrel",
+   "parent": "hinge_bottom",
+   "shape": "cylinder",
+   "size": [
+    0.014,
+    0.1
+   ],
+   "position": [
+    0,
+    0,
+    0.006
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.425,
+    1.03,
+    0.0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_slab",
+   "parent": "door",
+   "shape": "rounded_box",
+   "size": [
+    0.82,
+    2.02,
+    0.04
+   ],
+   "position": [
+    0.43,
+    0,
+    -0.012
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#faf8f3",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "panel_upper",
+   "parent": "door",
+   "shape": "rounded_box",
+   "size": [
+    0.6,
+    0.8,
+    0.006
+   ],
+   "position": [
+    0.42,
+    0.5,
+    0.022
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#efebe3",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "panel_lower",
+   "parent": "door",
+   "shape": "rounded_box",
+   "size": [
+    0.6,
+    0.7,
+    0.006
+   ],
+   "position": [
+    0.42,
+    -0.5,
+    0.022
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#efebe3",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_knob",
+   "parent": "door",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.76,
+    -0.08,
+    0.02
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "knob_rose",
+   "parent": "door_knob",
+   "shape": "cylinder",
+   "size": [
+    0.06,
+    0.01
+   ],
+   "position": [
+    0,
+    0,
+    0.005
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "knob_ball",
+   "parent": "door_knob",
+   "shape": "sphere",
+   "size": [
+    0.055,
+    0.055,
+    0.045
+   ],
+   "position": [
+    0,
+    0,
+    0.045
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "latch",
+   "parent": "door",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.84,
+    -0.08,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "latch_bolt",
+   "parent": "latch",
+   "shape": "rounded_box",
+   "size": [
+    0.025,
+    0.02,
+    0.016
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "oil_can",
+   "parent": "",
+   "shape": "cylinder",
+   "size": [
+    0.06,
+    0.12,
+    0.07
+   ],
+   "position": [
+    -0.62,
+    0.06,
+    0.4
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "painted_metal",
+   "color": "#2e7d4f",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "oil_can_label",
+   "parent": "",
+   "shape": "label",
+   "size": [
+    0.05,
+    0.03
+   ],
+   "position": [
+    -0.62,
+    0.07,
+    0.436
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "clear",
+   "color": "#ffffff",
+   "points": [],
+   "text": "OIL",
+   "repeat": []
+  }
+ ],
+ "parts": [
+  {
+   "node": "door",
+   "label": "Door",
+   "aliases": [
+    "door"
+   ],
+   "joint": "hinge",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": -70,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.4,
+    0.2,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "hinge_pin",
+   "label": "Hinge pin",
+   "aliases": [
+    "pin"
+   ],
+   "joint": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0.09,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "remove",
+    "insert",
+    "look"
+   ],
+   "view": [
+    0.4,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "hinge_top",
+   "label": "Top hinge",
+   "aliases": [
+    "hinge"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look",
+    "clean"
+   ],
+   "view": [
+    0.4,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "hinge_screws",
+   "label": "Hinge screws",
+   "aliases": [
+    "screws"
+   ],
+   "joint": "turn",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 180,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "turn",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "strike_plate",
+   "label": "Strike plate",
+   "aliases": [
+    "strike",
+    "latch plate",
+    "metal plate on the frame"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    -0.5,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "latch",
+   "label": "Latch",
+   "aliases": [
+    "latch bolt",
+    "tongue"
+   ],
+   "joint": "press",
+   "axis": [
+    -1,
+    0,
+    0
+   ],
+   "amount": 0.012,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "press",
+    "look"
+   ],
+   "view": [
+    0.8,
+    0.1,
+    0.6
+   ],
+   "rest": 0
+  },
+  {
+   "node": "door_knob",
+   "label": "Door knob",
+   "aliases": [
+    "handle",
+    "knob"
+   ],
+   "joint": "turn",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 50,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "turn",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.1,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "oil_can",
+   "label": "Oil",
+   "aliases": [
+    "lubricant",
+    "WD-40",
+    "grease"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.4,
+    0.5,
+    1
+   ],
+   "rest": 0
+  }
+ ]
+}

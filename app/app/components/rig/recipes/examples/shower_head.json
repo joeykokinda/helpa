@@ -1,0 +1,733 @@
+{
+ "name": "Shower head",
+ "nodes": [
+  {
+   "id": "tile_wall",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.2,
+    1.4,
+    0.02
+   ],
+   "position": [
+    0,
+    1.4,
+    -0.3
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#e9eef0",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "tile_side",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    0.02,
+    1.4,
+    0.8
+   ],
+   "position": [
+    -0.6,
+    1.4,
+    0.1
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#e3e9ec",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "tub",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.2,
+    0.5,
+    0.8
+   ],
+   "position": [
+    0,
+    0.25,
+    0.1
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#f7f7f5",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "tub_inside",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.05,
+    0.02,
+    0.65
+   ],
+   "position": [
+    0,
+    0.48,
+    0.1
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#eef0f0",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "valve_trim",
+   "parent": "",
+   "shape": "cylinder",
+   "size": [
+    0.18,
+    0.012
+   ],
+   "position": [
+    0,
+    1.25,
+    -0.288
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "shower_valve",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    1.25,
+    -0.27
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "valve_lever",
+   "parent": "shower_valve",
+   "shape": "capsule",
+   "size": [
+    0.025,
+    0.14
+   ],
+   "position": [
+    0.05,
+    0,
+    0.02
+   ],
+   "rotation": [
+    0,
+    0,
+    90
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "arm_flange",
+   "parent": "",
+   "shape": "cylinder",
+   "size": [
+    0.07,
+    0.012
+   ],
+   "position": [
+    0,
+    1.9,
+    -0.288
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "shower_arm",
+   "parent": "",
+   "shape": "hose",
+   "size": [
+    0.022
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [
+    [
+     0,
+     1.9,
+     -0.29
+    ],
+    [
+     0,
+     1.9,
+     -0.18
+    ],
+    [
+     0,
+     1.85,
+     -0.1
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "arm_threads",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    1.85,
+    -0.1
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "thread_tape",
+   "parent": "arm_threads",
+   "shape": "cylinder",
+   "size": [
+    0.024,
+    0.02
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    -45,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#ffffff",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "shower_head",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    1.83,
+    -0.08
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "head_neck",
+   "parent": "shower_head",
+   "shape": "cylinder",
+   "size": [
+    0.035,
+    0.05,
+    0.03
+   ],
+   "position": [
+    0,
+    0.0,
+    0.0
+   ],
+   "rotation": [
+    -45,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "head_dish",
+   "parent": "shower_head",
+   "shape": "lathe",
+   "size": [
+    0,
+    1,
+    1
+   ],
+   "position": [
+    0,
+    -0.035,
+    0.035
+   ],
+   "rotation": [
+    -45,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [
+    [
+     0.015,
+     0.04
+    ],
+    [
+     0.04,
+     0.02
+    ],
+    [
+     0.06,
+     0.0
+    ],
+    [
+     0.062,
+     -0.01
+    ],
+    [
+     0.0,
+     -0.012
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "nozzle_face",
+   "parent": "shower_head",
+   "shape": "cylinder",
+   "size": [
+    0.1,
+    0.004
+   ],
+   "position": [
+    0,
+    -0.042,
+    0.042
+   ],
+   "rotation": [
+    -45,
+    0,
+    0
+   ],
+   "material": "rubber",
+   "color": "#5c6166",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "nozzle_scale",
+   "parent": "shower_head",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    -0.046,
+    0.046
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "scale_crust",
+   "parent": "nozzle_scale",
+   "shape": "cylinder",
+   "size": [
+    0.09,
+    0.004
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    -45,
+    0,
+    0
+   ],
+   "material": "mineral_scale",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "vinegar_bag",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    1.75,
+    0.3
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "bag",
+   "parent": "vinegar_bag",
+   "shape": "sphere",
+   "size": [
+    0.16,
+    0.18,
+    0.14
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "clear",
+   "color": "#e8f1f4",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "bag_vinegar",
+   "parent": "vinegar_bag",
+   "shape": "sphere",
+   "size": [
+    0.13,
+    0.08,
+    0.11
+   ],
+   "position": [
+    0,
+    -0.04,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "water",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "bag_band",
+   "parent": "vinegar_bag",
+   "shape": "torus",
+   "size": [
+    0.05,
+    0.008
+   ],
+   "position": [
+    0,
+    0.085,
+    0
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "rubber",
+   "color": "#d84a3a",
+   "points": [],
+   "text": "",
+   "repeat": []
+  }
+ ],
+ "parts": [
+  {
+   "node": "shower_head",
+   "label": "Shower head",
+   "aliases": [
+    "head",
+    "spray head"
+   ],
+   "joint": "twist",
+   "axis": [
+    0,
+    -0.7,
+    0.7
+   ],
+   "amount": -360,
+   "lift": 0.06,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "unlock",
+    "remove",
+    "insert",
+    "lock",
+    "look"
+   ],
+   "view": [
+    0.6,
+    0.2,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "nozzle_scale",
+   "label": "Mineral buildup",
+   "aliases": [
+    "scale",
+    "white crust",
+    "clogged nozzles"
+   ],
+   "joint": "debris",
+   "axis": [
+    0,
+    -0.6,
+    0.8
+   ],
+   "amount": 0.15,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "clean",
+    "look"
+   ],
+   "view": [
+    0.3,
+    -0.5,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "vinegar_bag",
+   "label": "Bag of vinegar",
+   "aliases": [
+    "vinegar",
+    "plastic bag"
+   ],
+   "joint": "slide",
+   "axis": [
+    0,
+    -0.25,
+    0.38
+   ],
+   "amount": 1,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "insert",
+    "remove",
+    "look"
+   ],
+   "view": [
+    0.5,
+    0.2,
+    1
+   ],
+   "rest": 1
+  },
+  {
+   "node": "arm_threads",
+   "label": "Arm threads",
+   "aliases": [
+    "threads",
+    "thread tape",
+    "plumber's tape"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look",
+    "clean"
+   ],
+   "view": [
+    0.6,
+    0.2,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "shower_valve",
+   "label": "Shower handle",
+   "aliases": [
+    "handle",
+    "valve",
+    "faucet"
+   ],
+   "joint": "hinge",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 60,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.2,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "shower_arm",
+   "label": "Shower arm",
+   "aliases": [
+    "pipe",
+    "arm"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look"
+   ],
+   "view": [
+    0.6,
+    0.2,
+    1
+   ],
+   "rest": 0
+  }
+ ]
+}

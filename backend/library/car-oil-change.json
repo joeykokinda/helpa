@@ -430,7 +430,8 @@
             "caption": "Drop it, press it shut"
           }
         ]
-      ]
+      ],
+      "title": "Oil change"
     },
     {
       "id": "engine_oil_level_low",
@@ -724,7 +725,8 @@
             "caption": "Push dipstick fully in"
           }
         ]
-      ]
+      ],
+      "title": "Oil is low"
     },
     {
       "id": "engine_coolant_level_low",
@@ -968,7 +970,8 @@
             "caption": "Close hood firmly"
           }
         ]
-      ]
+      ],
+      "title": "Coolant is low"
     },
     {
       "id": "washer_fluid_not_spraying",
@@ -1189,7 +1192,8 @@
             "caption": "Test washer spray"
           }
         ]
-      ]
+      ],
+      "title": "Windshield fluid won't spray"
     },
     {
       "id": "weak_airflow_clogged_cabin_filter",
@@ -1440,7 +1444,8 @@
             "caption": "Press start button on"
           }
         ]
-      ]
+      ],
+      "title": "Weak air from the vents"
     },
     {
       "id": "battery_terminals_corroded_no_start",
@@ -1772,7 +1777,8 @@
             "caption": "Look at engine"
           }
         ]
-      ]
+      ],
+      "title": "Clicks and won't start"
     },
     {
       "id": "blown_fuse_dead_electrical_part",
@@ -2017,7 +2023,8 @@
             "caption": "Lower hood shut"
           }
         ]
-      ]
+      ],
+      "title": "Something electrical died"
     }
   ],
   "scene": {
@@ -2471,5 +2478,7 @@
     "tesla",
     "electric car",
     "ev"
-  ]
+  ],
+  "category": "Car",
+  "icon": "car"
 }

@@ -60,6 +60,11 @@ func main() {
 		writer.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(writer).Encode(entry)
 	})
+	http.HandleFunc("GET /api/fixes", func(writer http.ResponseWriter, request *http.Request) {
+		writer.Header().Set("Content-Type", "application/json")
+		writer.Header().Set("Cache-Control", "public, max-age=300")
+		json.NewEncoder(writer).Encode(pickerEntries())
+	})
 	http.HandleFunc("GET /api/health", handleHealth)
 	address := os.Getenv("ADDR")
 	if replayDir != "" && address == "" {
@@ -162,8 +167,9 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 	follow := readFollowUp(request)
-	// The next cause from the library needs no model calls, so it runs even in replay mode or past the budget.
-	if nextFix(follow.RuledOut) != "" {
+	// The next cause from the library, or a fix picked from the list, needs no model calls, so it runs even in
+	// replay mode or past the budget.
+	if nextFix(follow.RuledOut) != "" || (follow.Direct != "" && len(follow.RuledOut) == 0) {
 		if err := runPipeline(request.Context(), photos, complaint, follow, session, emit); err != nil {
 			emit(event{"type": "error", "message": err.Error()})
 		}

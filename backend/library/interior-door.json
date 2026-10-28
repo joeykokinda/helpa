@@ -1,0 +1,346 @@
+{
+ "id": "interior-door",
+ "appliance": "door",
+ "brand": "",
+ "model_family": "Works on most doors",
+ "model_numbers": [],
+ "sticker_location": "No sticker needed.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "squeaky",
+   "title": "Squeaks",
+   "symptoms": [
+    "The door squeaks",
+    "My door creaks when I open it",
+    "Squeaky hinge"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "door",
+    "manual_url": "",
+    "diagnosis": "The hinge pin is dry and its metal rubs as the door swings. Lifting the pin out, wiping it and oiling it stops the squeak for a year or more.",
+    "tools": [
+     "Nail and hammer",
+     "Light oil or petroleum jelly",
+     "Paper towel"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Close the door",
+      "details": [],
+      "target_part": "door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The door is shut, so it holds itself up while a pin is out."
+     },
+     {
+      "instruction": "Tap the top hinge pin up and out",
+      "details": [
+       "Push up from below with a nail and tap with a hammer.",
+       "Do one hinge at a time."
+      ],
+      "target_part": "hinge pin",
+      "photo": -1,
+      "motion": "lift",
+      "show_3d": true,
+      "check": "The pin is out in your hand."
+     },
+     {
+      "instruction": "Wipe it and coat it with a little oil",
+      "details": [
+       "Petroleum jelly or 3-in-1 oil works; skip WD-40, it dries out."
+      ],
+      "target_part": "hinge pin",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The pin is clean with a thin coat of oil."
+     },
+     {
+      "instruction": "Slide the pin back in and swing the door",
+      "details": [
+       "Repeat on the other hinges if it still squeaks."
+      ],
+      "target_part": "hinge pin",
+      "photo": -1,
+      "motion": "push_in",
+      "show_3d": true,
+      "check": "The door opens without a squeak."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "door",
+      "action": "close",
+      "caption": "Close the door"
+     }
+    ],
+    [
+     {
+      "part": "hinge_pin",
+      "action": "remove",
+      "caption": "Tap the pin up and out"
+     }
+    ],
+    [
+     {
+      "part": "oil_can",
+      "action": "look",
+      "caption": "A little oil"
+     },
+     {
+      "part": "hinge_top",
+      "action": "look",
+      "caption": "Wipe the hinge too"
+     }
+    ],
+    [
+     {
+      "part": "hinge_pin",
+      "action": "insert",
+      "caption": "Pin back in"
+     },
+     {
+      "part": "door",
+      "action": "open",
+      "caption": "Swing the door"
+     },
+     {
+      "part": "door",
+      "action": "close",
+      "caption": "Quiet now"
+     }
+    ]
+   ],
+   "cause": "a dry hinge pin"
+  },
+  {
+   "id": "wont_latch",
+   "title": "Won't stay closed",
+   "symptoms": [
+    "The door won't latch",
+    "The door won't stay closed",
+    "The door pops open",
+    "I have to slam the door to close it"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "door",
+    "manual_url": "",
+    "diagnosis": "The door has sagged a little, so the latch misses the hole in the metal plate on the frame. Tightening the top hinge screws lifts it back; a long screw in the top hinge fixes it for good.",
+    "tools": [
+     "Screwdriver",
+     "3-inch wood screw (if needed)"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Close the door slowly and watch the latch",
+      "details": [
+       "Rub a little lipstick or chalk on the latch to mark where it hits."
+      ],
+      "target_part": "latch",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see if the latch hits above or below the hole."
+     },
+     {
+      "instruction": "Tighten the screws in the top hinge",
+      "details": [
+       "Open the door to reach them."
+      ],
+      "target_part": "hinge screws",
+      "photo": -1,
+      "motion": "screw_in",
+      "show_3d": true,
+      "check": "All the top hinge screws are tight."
+     },
+     {
+      "instruction": "Still loose? Swap one screw for a 3-inch screw",
+      "details": [
+       "Use the middle hole on the frame side of the top hinge."
+      ],
+      "target_part": "hinge screws",
+      "photo": -1,
+      "motion": "screw_in",
+      "show_3d": true,
+      "check": "The long screw bites into the wall framing and pulls the door up."
+     },
+     {
+      "instruction": "Close the door and check it latches",
+      "details": [
+       "If it still misses, the strike plate can be moved up or down a little."
+      ],
+      "target_part": "door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The door clicks shut without slamming."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "door",
+      "action": "close",
+      "caption": "Close it slowly"
+     },
+     {
+      "part": "latch",
+      "action": "look",
+      "caption": "Watch where the latch hits"
+     },
+     {
+      "part": "strike_plate",
+      "action": "look",
+      "caption": "It should go in this hole"
+     }
+    ],
+    [
+     {
+      "part": "door",
+      "action": "open",
+      "caption": "Open the door"
+     },
+     {
+      "part": "hinge_screws",
+      "action": "turn",
+      "caption": "Tighten the screws"
+     }
+    ],
+    [
+     {
+      "part": "hinge_screws",
+      "action": "turn",
+      "caption": "A long screw here"
+     }
+    ],
+    [
+     {
+      "part": "door",
+      "action": "close",
+      "caption": "Click, it latches"
+     },
+     {
+      "part": "latch",
+      "action": "look",
+      "caption": "Latch catches"
+     }
+    ]
+   ],
+   "cause": "a sagging door"
+  },
+  {
+   "id": "sticks",
+   "title": "Sticks or rubs the frame",
+   "symptoms": [
+    "The door sticks",
+    "The door rubs on the frame",
+    "The door is hard to close",
+    "The door scrapes the floor"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "door",
+    "manual_url": "",
+    "diagnosis": "A door that rubs at the top corner on the latch side has sagged from loose hinge screws. Tightening them, or adding a long screw to the top hinge, pulls it back into line.",
+    "tools": [
+     "Screwdriver",
+     "3-inch wood screw (if needed)"
+    ],
+    "replacement_parts": [],
+    "safety": [],
+    "steps": [
+     {
+      "instruction": "Find where it rubs",
+      "details": [],
+      "target_part": "door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see a shiny worn spot or feel where it catches."
+     },
+     {
+      "instruction": "Tighten every hinge screw",
+      "details": [
+       "A screw that spins and won't tighten needs a longer one."
+      ],
+      "target_part": "hinge screws",
+      "photo": -1,
+      "motion": "screw_in",
+      "show_3d": true,
+      "check": "No screw turns any further."
+     },
+     {
+      "instruction": "Close the door and test",
+      "details": [
+       "Humid weather swells doors; a little sanding on the rubbing edge helps if needed."
+      ],
+      "target_part": "door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "It closes without rubbing."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "door",
+      "action": "close",
+      "caption": "Close it slowly"
+     },
+     {
+      "part": "door",
+      "action": "look",
+      "caption": "Look for the worn spot"
+     }
+    ],
+    [
+     {
+      "part": "door",
+      "action": "open",
+      "caption": "Open the door"
+     },
+     {
+      "part": "hinge_screws",
+      "action": "turn",
+      "caption": "Tighten the screws"
+     }
+    ],
+    [
+     {
+      "part": "door",
+      "action": "close",
+      "caption": "Close it"
+     }
+    ]
+   ],
+   "cause": "loose hinge screws"
+  }
+ ],
+ "recipe": "interior_door",
+ "category": "Door",
+ "icon": "door",
+ "contradicts": []
+}

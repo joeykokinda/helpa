@@ -1,0 +1,2002 @@
+{
+ "name": "Bathroom sink and vanity",
+ "nodes": [
+  {
+   "id": "wall",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.3,
+    1.5,
+    0.02
+   ],
+   "position": [
+    0,
+    0.75,
+    -0.32
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_enamel",
+   "color": "#ece8e1",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "floor_tiles",
+   "parent": "",
+   "shape": "box",
+   "size": [
+    1.3,
+    0.006,
+    0.9
+   ],
+   "position": [
+    0,
+    0.003,
+    0.13
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#d6d0c6",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "vanity",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "cabinet_left",
+   "parent": "vanity",
+   "shape": "box",
+   "size": [
+    0.02,
+    0.76,
+    0.5
+   ],
+   "position": [
+    -0.31,
+    0.42,
+    -0.06
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#e6dccb",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "cabinet_right",
+   "parent": "vanity",
+   "shape": "box",
+   "size": [
+    0.02,
+    0.76,
+    0.5
+   ],
+   "position": [
+    0.31,
+    0.42,
+    -0.06
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#e6dccb",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "cabinet_back",
+   "parent": "vanity",
+   "shape": "box",
+   "size": [
+    0.6,
+    0.76,
+    0.02
+   ],
+   "position": [
+    0,
+    0.42,
+    -0.3
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#d9cfbd",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "cabinet_floor",
+   "parent": "vanity",
+   "shape": "box",
+   "size": [
+    0.6,
+    0.02,
+    0.48
+   ],
+   "position": [
+    0,
+    0.07,
+    -0.06
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#d9cfbd",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "toe_kick",
+   "parent": "vanity",
+   "shape": "box",
+   "size": [
+    0.64,
+    0.06,
+    0.02
+   ],
+   "position": [
+    0,
+    0.03,
+    0.15
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#cbbfa9",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "counter",
+   "parent": "vanity",
+   "shape": "panel",
+   "size": [
+    0.68,
+    0.54,
+    0.035
+   ],
+   "position": [
+    0,
+    0.82,
+    -0.05
+   ],
+   "rotation": [
+    -90,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#f4f2ee",
+   "points": [
+    [
+     0,
+     0.03,
+     0.165
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "backsplash",
+   "parent": "vanity",
+   "shape": "box",
+   "size": [
+    0.68,
+    0.1,
+    0.015
+   ],
+   "position": [
+    0,
+    0.88,
+    -0.31
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#f4f2ee",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "basin",
+   "parent": "vanity",
+   "shape": "lathe",
+   "size": [
+    0,
+    1.25,
+    1
+   ],
+   "position": [
+    0,
+    0.835,
+    -0.08
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "ceramic",
+   "color": "#fbfaf7",
+   "points": [
+    [
+     0.02,
+     -0.16
+    ],
+    [
+     0.07,
+     -0.155
+    ],
+    [
+     0.12,
+     -0.12
+    ],
+    [
+     0.15,
+     -0.06
+    ],
+    [
+     0.165,
+     -0.01
+    ],
+    [
+     0.168,
+     0
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "drain_ring",
+   "parent": "vanity",
+   "shape": "torus",
+   "size": [
+    0.042,
+    0.008
+   ],
+   "position": [
+    0,
+    0.677,
+    -0.08
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "pop_up_stopper",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0.682,
+    -0.08
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stopper_cap",
+   "parent": "pop_up_stopper",
+   "shape": "cylinder",
+   "size": [
+    0.036,
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stopper_rod",
+   "parent": "pop_up_stopper",
+   "shape": "cylinder",
+   "size": [
+    0.008,
+    0.07
+   ],
+   "position": [
+    0,
+    -0.04,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "stopper_hair",
+   "parent": "pop_up_stopper",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    -0.05,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hair_wad",
+   "parent": "stopper_hair",
+   "shape": "clump",
+   "size": [
+    0.035,
+    0.05,
+    0.03
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "hair",
+   "color": "#5b4636",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "lift_rod",
+   "parent": "vanity",
+   "shape": "cylinder",
+   "size": [
+    0.008,
+    0.07
+   ],
+   "position": [
+    0,
+    0.89,
+    -0.25
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "lift_rod_knob",
+   "parent": "vanity",
+   "shape": "sphere",
+   "size": [
+    0.014
+   ],
+   "position": [
+    0,
+    0.93,
+    -0.25
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "faucet",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0.838,
+    -0.24
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "faucet_base",
+   "parent": "faucet",
+   "shape": "cylinder",
+   "size": [
+    0.06,
+    0.02,
+    0.07
+   ],
+   "position": [
+    0,
+    0.01,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "faucet_body",
+   "parent": "faucet",
+   "shape": "cylinder",
+   "size": [
+    0.042,
+    0.12
+   ],
+   "position": [
+    0,
+    0.08,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "spout",
+   "parent": "faucet",
+   "shape": "hose",
+   "size": [
+    0.026
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [
+    [
+     0,
+     0.11,
+     0
+    ],
+    [
+     0,
+     0.15,
+     0.04
+    ],
+    [
+     0,
+     0.145,
+     0.1
+    ],
+    [
+     0,
+     0.12,
+     0.13
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "aerator",
+   "parent": "faucet",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0.105,
+    0.13
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "aerator_body",
+   "parent": "aerator",
+   "shape": "cylinder",
+   "size": [
+    0.026,
+    0.022
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "aerator_screen",
+   "parent": "aerator",
+   "shape": "cylinder",
+   "size": [
+    0.02,
+    0.002
+   ],
+   "position": [
+    0,
+    -0.012,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "screen_mesh",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "aerator_scale",
+   "parent": "aerator",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    -0.016,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "scale_bits",
+   "parent": "aerator_scale",
+   "shape": "clump",
+   "size": [
+    0.02,
+    0.008,
+    0.02
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "mineral_scale",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "faucet_handle",
+   "parent": "faucet",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0.145,
+    -0.005
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "handle_lever",
+   "parent": "faucet_handle",
+   "shape": "capsule",
+   "size": [
+    0.016,
+    0.1
+   ],
+   "position": [
+    0,
+    0.0,
+    0.035
+   ],
+   "rotation": [
+    80,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "tailpiece",
+   "parent": "vanity",
+   "shape": "cylinder",
+   "size": [
+    0.034,
+    0.17
+   ],
+   "position": [
+    0,
+    0.585,
+    -0.08
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "trap_arm",
+   "parent": "vanity",
+   "shape": "hose",
+   "size": [
+    0.04
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#f2f2ee",
+   "points": [
+    [
+     0.12,
+     0.47,
+     -0.08
+    ],
+    [
+     0.12,
+     0.47,
+     -0.2
+    ],
+    [
+     0.12,
+     0.47,
+     -0.31
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "wall_escutcheon",
+   "parent": "vanity",
+   "shape": "cylinder",
+   "size": [
+    0.08,
+    0.008
+   ],
+   "position": [
+    0.12,
+    0.47,
+    -0.3
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "p_trap",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "trap_bend",
+   "parent": "p_trap",
+   "shape": "hose",
+   "size": [
+    0.042
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#f2f2ee",
+   "points": [
+    [
+     0,
+     0.5,
+     -0.08
+    ],
+    [
+     0,
+     0.42,
+     -0.08
+    ],
+    [
+     0.02,
+     0.375,
+     -0.08
+    ],
+    [
+     0.06,
+     0.36,
+     -0.08
+    ],
+    [
+     0.1,
+     0.375,
+     -0.08
+    ],
+    [
+     0.12,
+     0.42,
+     -0.08
+    ],
+    [
+     0.12,
+     0.47,
+     -0.08
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "trap_gunk",
+   "parent": "p_trap",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.06,
+    0.375,
+    -0.08
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "gunk_wad",
+   "parent": "trap_gunk",
+   "shape": "clump",
+   "size": [
+    0.05,
+    0.03,
+    0.035
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "grime",
+   "color": "#4b4332",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "slip_nut_left",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0,
+    0.5,
+    -0.08
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "nut_left",
+   "parent": "slip_nut_left",
+   "shape": "cylinder",
+   "size": [
+    0.056,
+    0.028
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#e8e8e2",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "slip_nut_right",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.12,
+    0.47,
+    -0.08
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "nut_right",
+   "parent": "slip_nut_right",
+   "shape": "cylinder",
+   "size": [
+    0.056,
+    0.028
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "white_plastic",
+   "color": "#e8e8e2",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "shutoff_hot",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.16,
+    0.32,
+    -0.285
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hot_valve",
+   "parent": "shutoff_hot",
+   "shape": "cylinder",
+   "size": [
+    0.03,
+    0.05
+   ],
+   "position": [
+    0,
+    0,
+    0.02
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "hot_handle",
+   "parent": "shutoff_hot",
+   "shape": "rounded_box",
+   "size": [
+    0.05,
+    0.02,
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "shutoff_cold",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.16,
+    0.32,
+    -0.285
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "cold_valve",
+   "parent": "shutoff_cold",
+   "shape": "cylinder",
+   "size": [
+    0.03,
+    0.05
+   ],
+   "position": [
+    0,
+    0,
+    0.02
+   ],
+   "rotation": [
+    90,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "cold_handle",
+   "parent": "shutoff_cold",
+   "shape": "rounded_box",
+   "size": [
+    0.05,
+    0.02,
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0.05
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "chrome",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "supply_hot",
+   "parent": "vanity",
+   "shape": "hose",
+   "size": [
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "foil",
+   "color": "",
+   "points": [
+    [
+     -0.16,
+     0.34,
+     -0.26
+    ],
+    [
+     -0.14,
+     0.55,
+     -0.25
+    ],
+    [
+     -0.04,
+     0.78,
+     -0.24
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "supply_cold",
+   "parent": "vanity",
+   "shape": "hose",
+   "size": [
+    0.012
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "foil",
+   "color": "",
+   "points": [
+    [
+     0.16,
+     0.34,
+     -0.26
+    ],
+    [
+     0.14,
+     0.55,
+     -0.25
+    ],
+    [
+     0.04,
+     0.78,
+     -0.24
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "bucket",
+   "parent": "",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.04,
+    0.0,
+    -0.02
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "bucket_body",
+   "parent": "bucket",
+   "shape": "lathe",
+   "size": [
+    0,
+    1,
+    1
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "#3d7bd9",
+   "points": [
+    [
+     0.09,
+     0
+    ],
+    [
+     0.095,
+     0.005
+    ],
+    [
+     0.115,
+     0.2
+    ],
+    [
+     0.12,
+     0.205
+    ]
+   ],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_left",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    -0.15,
+    0.43,
+    0.2
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_left_panel",
+   "parent": "door_left",
+   "shape": "rounded_box",
+   "size": [
+    0.29,
+    0.68,
+    0.02
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#efe7da",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_left_knob",
+   "parent": "door_left",
+   "shape": "sphere",
+   "size": [
+    0.022
+   ],
+   "position": [
+    0.11,
+    0.25,
+    0.018
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_right",
+   "parent": "vanity",
+   "shape": "group",
+   "size": [],
+   "position": [
+    0.15,
+    0.43,
+    0.2
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "plastic",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_right_panel",
+   "parent": "door_right",
+   "shape": "rounded_box",
+   "size": [
+    0.29,
+    0.68,
+    0.02
+   ],
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "wood",
+   "color": "#efe7da",
+   "points": [],
+   "text": "",
+   "repeat": []
+  },
+  {
+   "id": "door_right_knob",
+   "parent": "door_right",
+   "shape": "sphere",
+   "size": [
+    0.022
+   ],
+   "position": [
+    -0.11,
+    0.25,
+    0.018
+   ],
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "material": "brass",
+   "color": "",
+   "points": [],
+   "text": "",
+   "repeat": []
+  }
+ ],
+ "parts": [
+  {
+   "node": "door_left",
+   "label": "Cabinet door",
+   "aliases": [
+    "left cabinet door"
+   ],
+   "joint": "hinge",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": -105,
+   "lift": 0,
+   "pivot": [
+    -0.145,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.2,
+    0.5,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "door_right",
+   "label": "Cabinet door",
+   "aliases": [
+    "right cabinet door"
+   ],
+   "joint": "hinge",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 105,
+   "lift": 0,
+   "pivot": [
+    0.145,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.2,
+    0.5,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "aerator",
+   "label": "Aerator",
+   "aliases": [
+    "faucet tip",
+    "aerator screen",
+    "end of the faucet"
+   ],
+   "joint": "twist",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": -300,
+   "lift": -0.05,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "unlock",
+    "remove",
+    "insert",
+    "lock",
+    "look"
+   ],
+   "view": [
+    0.4,
+    0.5,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "aerator_scale",
+   "label": "Mineral buildup",
+   "aliases": [
+    "scale",
+    "grit"
+   ],
+   "joint": "debris",
+   "axis": [
+    0.3,
+    -1,
+    0.5
+   ],
+   "amount": 0.15,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "clean",
+    "look"
+   ],
+   "view": [
+    0.5,
+    0.6,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "faucet_handle",
+   "label": "Faucet handle",
+   "aliases": [
+    "handle",
+    "tap"
+   ],
+   "joint": "hinge",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "amount": 30,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.4,
+    0.7,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "pop_up_stopper",
+   "label": "Drain stopper",
+   "aliases": [
+    "stopper",
+    "pop-up",
+    "plug"
+   ],
+   "joint": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0.13,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "remove",
+    "insert",
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.2,
+    1,
+    0.7
+   ],
+   "rest": 0
+  },
+  {
+   "node": "stopper_hair",
+   "label": "Hair clog",
+   "aliases": [
+    "hair",
+    "gunk"
+   ],
+   "joint": "debris",
+   "axis": [
+    1,
+    0.6,
+    0.6
+   ],
+   "amount": 0.25,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "clean",
+    "look"
+   ],
+   "view": [
+    0.5,
+    0.6,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "lift_rod",
+   "label": "Stopper rod",
+   "aliases": [
+    "lift rod",
+    "pull rod"
+   ],
+   "joint": "press",
+   "axis": [
+    0,
+    -1,
+    0
+   ],
+   "amount": 0.02,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "press",
+    "look"
+   ],
+   "view": [
+    0.5,
+    0.6,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "p_trap",
+   "label": "P-trap",
+   "aliases": [
+    "trap",
+    "U-bend",
+    "curved pipe"
+   ],
+   "joint": "slide",
+   "axis": [
+    0,
+    -1,
+    0.5
+   ],
+   "amount": 0.14,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "remove",
+    "insert",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.2,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "trap_gunk",
+   "label": "Trap clog",
+   "aliases": [
+    "gunk",
+    "clog"
+   ],
+   "joint": "debris",
+   "axis": [
+    0.5,
+    -0.4,
+    1
+   ],
+   "amount": 0.3,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "clean",
+    "look"
+   ],
+   "view": [
+    0.5,
+    0.6,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "slip_nut_left",
+   "label": "Slip nut",
+   "aliases": [
+    "left nut",
+    "big plastic nut"
+   ],
+   "joint": "turn",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 180,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "turn",
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.3,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "slip_nut_right",
+   "label": "Slip nut",
+   "aliases": [
+    "right nut"
+   ],
+   "joint": "turn",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 180,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "turn",
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.3,
+    1
+   ],
+   "rest": 0
+  },
+  {
+   "node": "shutoff_hot",
+   "label": "Hot shutoff valve",
+   "aliases": [
+    "hot valve"
+   ],
+   "joint": "turn",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 90,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.3,
+    1
+   ],
+   "rest": 1
+  },
+  {
+   "node": "shutoff_cold",
+   "label": "Cold shutoff valve",
+   "aliases": [
+    "cold valve"
+   ],
+   "joint": "turn",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 90,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "open",
+    "close",
+    "look"
+   ],
+   "view": [
+    0.3,
+    0.3,
+    1
+   ],
+   "rest": 1
+  },
+  {
+   "node": "bucket",
+   "label": "Bucket",
+   "aliases": [
+    "pail",
+    "bowl"
+   ],
+   "joint": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "amount": 0.45,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "insert",
+    "remove",
+    "look"
+   ],
+   "view": [
+    0.5,
+    0.6,
+    1
+   ],
+   "rest": 1
+  },
+  {
+   "node": "basin",
+   "label": "Sink basin",
+   "aliases": [
+    "sink",
+    "bowl"
+   ],
+   "joint": "none",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "amount": 0,
+   "lift": 0,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "actions": [
+    "look",
+    "clean"
+   ],
+   "view": [
+    0.5,
+    0.6,
+    1
+   ],
+   "rest": 0
+  }
+ ]
+}

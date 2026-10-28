@@ -123,6 +123,13 @@ func showPlan(ctx context.Context, photos []string, plan json.RawMessage, compla
 		return
 	}
 	if model.generated != nil {
+		// A library fix on its entry's hand-made model already has its beats.
+		if model.generated.LibraryID == parsed.LibraryID {
+			if stepBeats := recipeBeats(parsed.LibraryID, parsed.LibraryProblem, len(parsed.Steps)); stepBeats != nil {
+				emit(event{"type": "rig", "rig": "generated", "step_beats": stepBeats, "recipe": model.generated.Recipe, "catalog": model.generated.Catalog})
+				return
+			}
+		}
 		stepBeats, err := choreograph(ctx, &model.generated.Catalog, plan)
 		if err == nil {
 			emit(event{"type": "rig", "rig": "generated", "step_beats": stepBeats, "recipe": model.generated.Recipe, "catalog": model.generated.Catalog})

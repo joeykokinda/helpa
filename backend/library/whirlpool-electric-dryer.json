@@ -281,7 +281,8 @@
         ]
       ],
       "cause": "a clogged lint screen",
-      "next": "vent_blocked"
+      "next": "vent_blocked",
+      "title": "Clothes still damp"
     },
     {
       "id": "dryer_will_not_start",
@@ -480,7 +481,8 @@
           }
         ],
         []
-      ]
+      ],
+      "title": "Won't start"
     },
     {
       "id": "dryer_tumbles_but_no_heat",
@@ -696,7 +698,8 @@
         ]
       ],
       "cause": "the wrong cycle or a tripped breaker",
-      "next": "vent_blocked"
+      "next": "vent_blocked",
+      "title": "Spins but no heat"
     },
     {
       "id": "dryer_stops_before_clothes_are_dry",
@@ -914,7 +917,8 @@
         ]
       ],
       "cause": "dirty moisture sensor strips",
-      "next": "vent_blocked"
+      "next": "vent_blocked",
+      "title": "Stops too early"
     },
     {
       "id": "thumping_banging_or_shaking",
@@ -1113,7 +1117,8 @@
           }
         ],
         []
-      ]
+      ],
+      "title": "Thumps and bangs"
     },
     {
       "id": "drum_light_not_working",
@@ -1359,7 +1364,8 @@
             "caption": "Check the new light"
           }
         ]
-      ]
+      ],
+      "title": "Light is out"
     },
     {
       "id": "clothes_wrinkled_after_sitting",
@@ -1575,7 +1581,8 @@
             "caption": "Take clothes out now"
           }
         ]
-      ]
+      ],
+      "title": "Clothes come out wrinkled"
     },
     {
       "id": "vent_blocked",
@@ -2348,5 +2355,7 @@
       }
     ]
   },
-  "rig_id": "dryer_top_vent"
+  "rig_id": "dryer_top_vent",
+  "category": "Dryer",
+  "icon": "dryer"
 }

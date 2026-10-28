@@ -1,0 +1,332 @@
+{
+ "id": "outlet-breaker",
+ "appliance": "outlet",
+ "brand": "",
+ "model_family": "Works on most outlets",
+ "model_numbers": [],
+ "sticker_location": "The breaker panel door has a list of what each breaker feeds.",
+ "manual_urls": [],
+ "parts": [],
+ "problems": [
+  {
+   "id": "outlet_dead",
+   "title": "An outlet stopped working",
+   "symptoms": [
+    "An outlet stopped working",
+    "Nothing works when I plug it in",
+    "The kitchen outlets are dead",
+    "The bathroom plug has no power"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "outlet",
+    "manual_url": "",
+    "diagnosis": "Kitchen, bathroom, garage and outdoor outlets are protected by a GFCI outlet with TEST and RESET buttons. When it trips, it cuts that outlet and others down the line. Pressing RESET almost always brings them back.",
+    "tools": [
+     "A lamp or phone charger to test"
+    ],
+    "replacement_parts": [],
+    "safety": [
+     "Keep hands dry and stay away from water when pressing the buttons.",
+     "If an outlet is warm, scorched or smells burnt, leave it off and call an electrician."
+    ],
+    "steps": [
+     {
+      "instruction": "Unplug what you were using",
+      "details": [
+       "The thing you plugged in may be what tripped it."
+      ],
+      "target_part": "toaster",
+      "photo": -1,
+      "motion": "pull_out",
+      "show_3d": true,
+      "check": "Nothing is plugged into the dead outlet."
+     },
+     {
+      "instruction": "Find the outlet with TEST and RESET buttons",
+      "details": [
+       "Check kitchen, bathroom, garage and outside outlets."
+      ],
+      "target_part": "outlet",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You've found it; it can be a few feet away from the dead one."
+     },
+     {
+      "instruction": "Press RESET firmly until it clicks",
+      "details": [
+       "If it won't stay in, the power may be off at the breaker."
+      ],
+      "target_part": "RESET button",
+      "photo": -1,
+      "motion": "press",
+      "show_3d": true,
+      "check": "It clicks and stays in."
+     },
+     {
+      "instruction": "Plug in a lamp or phone charger to test",
+      "details": [
+       "Test the dead outlet, not just the GFCI."
+      ],
+      "target_part": "outlet",
+      "photo": -1,
+      "motion": "push_in",
+      "show_3d": true,
+      "check": "It has power."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "toaster",
+      "action": "look",
+      "caption": "Unplug it first"
+     }
+    ],
+    [
+     {
+      "part": "gfci_outlet",
+      "action": "look",
+      "caption": "The one with buttons"
+     }
+    ],
+    [
+     {
+      "part": "reset_button",
+      "action": "press",
+      "caption": "Press RESET hard"
+     }
+    ],
+    [
+     {
+      "part": "gfci_outlet",
+      "action": "look",
+      "caption": "Test with a lamp"
+     }
+    ]
+   ],
+   "cause": "a tripped GFCI outlet",
+   "next": "breaker_tripped"
+  },
+  {
+   "id": "breaker_tripped",
+   "title": "Still dead after RESET",
+   "symptoms": [
+    "Still dead after RESET"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "outlet",
+    "manual_url": "",
+    "diagnosis": "If RESET didn't help, the breaker for that circuit has probably tripped. A tripped breaker sits in the middle, not fully on, and has to go all the way off before it goes back on.",
+    "tools": [],
+    "replacement_parts": [],
+    "safety": [
+     "Never remove the panel's inner cover; only touch the breaker switches.",
+     "If a breaker trips again right away, stop and call an electrician."
+    ],
+    "steps": [
+     {
+      "instruction": "Open the breaker panel door",
+      "details": [
+       "It's often in the garage, basement or a hall closet."
+      ],
+      "target_part": "panel door",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see the rows of breakers."
+     },
+     {
+      "instruction": "Find the breaker that's in the middle",
+      "details": [
+       "It may show a red or orange flag.",
+       "The label list on the door helps."
+      ],
+      "target_part": "tripped breaker",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You can see one breaker out of line with the rest."
+     },
+     {
+      "instruction": "Push it fully OFF, then back ON",
+      "details": [
+       "Push firmly; you'll feel it reset.",
+       "Stand to the side of the panel as you flip it."
+      ],
+      "target_part": "tripped breaker",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "It clicks into the ON position and stays."
+     },
+     {
+      "instruction": "Close the panel and test the outlet",
+      "details": [
+       "If it trips again right away, leave it off and call an electrician."
+      ],
+      "target_part": "outlet",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "The outlet works again."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "panel_door",
+      "action": "open",
+      "caption": "Open the panel"
+     }
+    ],
+    [
+     {
+      "part": "tripped_breaker",
+      "action": "look",
+      "caption": "This one is out of line"
+     },
+     {
+      "part": "panel_label",
+      "action": "look",
+      "caption": "Labels help"
+     }
+    ],
+    [
+     {
+      "part": "tripped_breaker",
+      "action": "close",
+      "caption": "All the way off"
+     },
+     {
+      "part": "tripped_breaker",
+      "action": "open",
+      "caption": "Then back on"
+     }
+    ],
+    [
+     {
+      "part": "panel_door",
+      "action": "close",
+      "caption": "Close the panel"
+     },
+     {
+      "part": "gfci_outlet",
+      "action": "look",
+      "caption": "Test the outlet"
+     }
+    ]
+   ],
+   "cause": "a tripped breaker"
+  },
+  {
+   "id": "breaker_keeps_tripping",
+   "title": "Breaker keeps tripping",
+   "symptoms": [
+    "The breaker keeps tripping",
+    "The power keeps going out in one room",
+    "It trips when I use the microwave and toaster"
+   ],
+   "plan": {
+    "brand": "",
+    "model_number": "",
+    "appliance": "outlet",
+    "manual_url": "",
+    "diagnosis": "A breaker that trips when several things run at once is overloaded: too many heaters, kettles or microwaves on one circuit. Spreading them out stops it. If it trips with nothing plugged in, that's a wiring fault for an electrician.",
+    "tools": [],
+    "replacement_parts": [],
+    "safety": [
+     "If it trips with nothing plugged in, or you smell burning, call an electrician."
+    ],
+    "steps": [
+     {
+      "instruction": "Unplug the big heat makers on that circuit",
+      "details": [
+       "Anything that heats draws the most power."
+      ],
+      "target_part": "toaster",
+      "photo": -1,
+      "motion": "pull_out",
+      "show_3d": true,
+      "check": "Space heaters, kettles, toasters and hair dryers are unplugged."
+     },
+     {
+      "instruction": "Reset the breaker: fully off, then on",
+      "details": [],
+      "target_part": "tripped breaker",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "It stays on."
+     },
+     {
+      "instruction": "Plug things back in one at a time",
+      "details": [
+       "Move heaters and kettles to outlets on another circuit."
+      ],
+      "target_part": "outlet",
+      "photo": -1,
+      "motion": "none",
+      "show_3d": true,
+      "check": "You know which combination trips it."
+     }
+    ],
+    "library_id": "",
+    "library_problem": ""
+   },
+   "rig_beats": [
+    [
+     {
+      "part": "toaster",
+      "action": "look",
+      "caption": "Unplug the heaters"
+     }
+    ],
+    [
+     {
+      "part": "panel_door",
+      "action": "open",
+      "caption": "Open the panel"
+     },
+     {
+      "part": "tripped_breaker",
+      "action": "close",
+      "caption": "Fully off"
+     },
+     {
+      "part": "tripped_breaker",
+      "action": "open",
+      "caption": "Then on"
+     },
+     {
+      "part": "panel_door",
+      "action": "close",
+      "caption": "Close it"
+     }
+    ],
+    [
+     {
+      "part": "gfci_outlet",
+      "action": "look",
+      "caption": "One at a time"
+     }
+    ]
+   ],
+   "cause": "an overloaded circuit"
+  }
+ ],
+ "recipe": "outlet_breaker",
+ "category": "Outlet or lights out",
+ "icon": "outlet",
+ "contradicts": []
+}
