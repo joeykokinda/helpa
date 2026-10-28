@@ -1,0 +1,20 @@
+{
+  "id": "range_hood",
+  "name": "Range hood",
+  "matches": ["range hood", "vent hood", "kitchen hood", "exhaust hood", "stove hood", "extractor", "hood fan", "chimney hood", "under cabinet hood"],
+  "scene": "A hood on the wall above a cooktop (show the cooktop counter below at 0.9 m and the wall cabinets or chimney above), with grease filters underneath, the fan behind them, the light, the control buttons on the front lip, and the duct going up.",
+  "size": "0.76-0.91 m wide, 0.12-0.2 m tall (under-cabinet) or a chimney up to the ceiling, 0.45-0.5 m deep; bottom at about 1.6 m.",
+  "parts": [
+    {"id": "hood_body", "label": "Hood", "required": true, "describe": "Stainless or painted canopy, hollow underneath.", "dims": "", "joint": "none", "axis": [0, 1, 0], "amount": 0, "actions": ["look"], "view": [0.6, 0.2, 1], "fallback": {"shape": "box", "size": [0.76, 0.15, 0.48], "position": [0, 1.67, -0.12], "material": "stainless"}},
+    {"id": "grease_filter", "label": "Grease filter", "required": true, "describe": "Aluminium mesh or stainless baffle filter under the hood; tips down from the back latch and comes out. Usually two side by side (use two parts or repeat on a static copy).", "dims": "0.25-0.35 x 0.28 m", "joint": "hinge", "axis": [1, 0, 0], "amount": -50, "actions": ["open", "close", "remove", "insert", "look"], "view": [0.3, -0.6, 1], "fallback": {"shape": "plane", "size": [0.3, 0.28], "position": [-0.17, 1.6, -0.12], "rotation": [-90, 0, 0], "material": "screen_mesh"}},
+    {"id": "filter_grease", "label": "Grease", "required": false, "describe": "Brown grease film on the filter (patch of oil or grime, child of the filter).", "dims": "", "joint": "debris", "axis": [0, -1, 0.5], "amount": 0.3, "actions": ["clean", "look"], "view": [0.3, -0.6, 1]},
+    {"id": "fan", "label": "Fan", "required": false, "describe": "Blower wheel in its housing above the filters.", "dims": "0.2 m", "joint": "turn", "axis": [0, 1, 0], "amount": 360, "actions": ["turn", "look"], "view": [0.3, -0.8, 0.8]},
+    {"id": "hood_light", "label": "Light", "required": true, "describe": "Bulb or LED under the front edge behind a lens that twists or pops out.", "dims": "0.05-0.08 m", "joint": "twist", "axis": [0, -1, 0], "amount": 90, "actions": ["unlock", "remove", "insert", "lock", "look"], "view": [0.3, -0.7, 1], "fallback": {"shape": "cylinder", "size": [0.06, 0.012, 0], "position": [0.25, 1.595, 0.05], "material": "glass"}},
+    {"id": "fan_button", "label": "Fan button", "required": true, "describe": "Button or slider on the front lip.", "dims": "0.02 m", "joint": "press", "axis": [0, 0, -1], "amount": 0.004, "actions": ["press", "look"], "view": [0.2, 0.1, 1], "fallback": {"shape": "rounded_box", "size": [0.025, 0.015, 0.008], "position": [-0.25, 1.64, 0.12], "material": "black_plastic"}},
+    {"id": "light_button", "label": "Light button", "required": false, "describe": "Button next to the fan button.", "dims": "0.02 m", "joint": "press", "axis": [0, 0, -1], "amount": 0.004, "actions": ["press", "look"], "view": [0.2, 0.1, 1]},
+    {"id": "duct", "label": "Duct", "required": false, "describe": "Round or rectangular duct going up from the top of the hood (foil or galvanised).", "dims": "0.15 m", "joint": "none", "axis": [0, 1, 0], "amount": 0, "actions": ["look"], "view": [0.6, 0.5, 1]}
+  ],
+  "debris": ["grease film on the filters", "grease drips under the hood"],
+  "views": ["from below and in front for the filters and light", "front for the buttons"],
+  "notes": "The hood sits high: keep the cooktop below as context. The underside must be open so the filters show."
+}

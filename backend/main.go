@@ -31,6 +31,12 @@ func main() {
 		}
 		return
 	}
+	if len(os.Args) > 1 && os.Args[1] == "generate-model" {
+		if err := generateModelCommand(context.Background(), os.Args[2:]); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
 	if len(os.Args) > 1 && os.Args[1] == "build-library" {
 		if err := buildLibrary(context.Background(), os.Args[2:]); err != nil {
 			log.Fatal(err)

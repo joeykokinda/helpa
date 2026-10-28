@@ -1,3 +1,4 @@
+import type { Recipe } from "../../lib/rig/recipe";
 import type { Beat, RigCatalog } from "../../lib/rig/types";
 import dishwasher from "./catalogs/dishwasher.json";
 import dryerTopVent from "./catalogs/dryer_top_vent.json";
@@ -24,3 +25,6 @@ export const rigLoaders: Record<string, () => Promise<RigModule>> = {
   range_electric: () => import("./Range").then((module) => module.rig),
   microwave_otr: () => import("./MicrowaveOtr").then((module) => module.rig),
 };
+
+/** An on-demand model (rig "generated"): the recipe arrives inline with the rig event, and its catalog derives from it. */
+export const loadGeneratedRig = (recipe: Recipe) => import("./RecipeModel").then((module) => module.recipeRig(recipe));

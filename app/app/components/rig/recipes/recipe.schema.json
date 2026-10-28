@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "nodes", "parts"],
+  "properties": {
+    "name": { "type": "string", "description": "What this is, e.g. 'Under-sink garbage disposal'." },
+    "nodes": {
+      "type": "array",
+      "description": "Every piece of geometry. Parents come before children. Metres; origin at the floor centre; +y up; +z toward the viewer.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "parent", "shape", "size", "position", "rotation", "material", "color", "points", "text", "repeat"],
+        "properties": {
+          "id": { "type": "string", "description": "Unique snake_case id." },
+          "parent": { "type": "string", "description": "Parent node id, or empty for the root. Position and rotation are in the parent's frame." },
+          "shape": {
+            "type": "string",
+            "enum": ["group", "box", "rounded_box", "panel", "cylinder", "cone", "tube", "sphere", "capsule", "torus", "lathe", "hose", "wire_grid", "plane", "patch", "clump", "label"]
+          },
+          "size": { "type": "array", "items": { "type": "number" }, "description": "Shape dimensions in metres; meaning depends on the shape." },
+          "position": { "type": "array", "items": { "type": "number" }, "description": "[x, y, z] in the parent's frame." },
+          "rotation": { "type": "array", "items": { "type": "number" }, "description": "[x, y, z] Euler degrees." },
+          "material": {
+            "type": "string",
+            "enum": ["white_enamel", "stainless", "chrome", "plastic", "black_plastic", "white_plastic", "rubber", "glass", "ceramic", "brass", "copper", "painted_metal", "cast_iron", "aluminum", "wood", "cardboard", "pleated_filter", "foil", "perforated_metal", "screen_mesh", "chain", "glow", "water", "grime", "lint", "food_scraps", "rust", "mineral_scale", "hair", "oil", "clear"]
+          },
+          "color": { "type": "string", "description": "Hex like #c8ccd2 to tint the material, or empty for its usual colour." },
+          "points": { "type": "array", "items": { "type": "array", "items": { "type": "number" } }, "description": "lathe: [radius, y] profile; hose: [x, y, z] path; panel: holes as [x, y, radius] or [x, y, width, height]. Empty otherwise." },
+          "text": { "type": "string", "description": "Printed text for a label, empty otherwise." },
+          "repeat": { "type": "array", "items": { "type": "number" }, "description": "[count, dx, dy, dz, spin_degrees] copies, each shifted and spun about the parent's y axis; empty for one." }
+        }
+      }
+    },
+    "parts": {
+      "type": "array",
+      "description": "Nodes the guide can point at or move. The node and everything under it moves together.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node", "label", "aliases", "joint", "axis", "amount", "lift", "pivot", "actions", "view", "rest"],
+        "properties": {
+          "node": { "type": "string", "description": "Id of the node that is this part; use the blueprint part id." },
+          "label": { "type": "string", "description": "1-3 plain words a beginner understands." },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "joint": { "type": "string", "enum": ["none", "slide", "hinge", "twist", "press", "turn", "debris"] },
+          "axis": { "type": "array", "items": { "type": "number" }, "description": "slide/press: direction; hinge/twist/turn: rotation axis; debris: direction it is carried away. In the parent's frame." },
+          "amount": { "type": "number", "description": "slide: metres; press: depth in metres; hinge/twist/turn: degrees, sign picks the way; debris: metres away." },
+          "lift": { "type": "number", "description": "twist: metres it lifts out along the axis after turning; 0 otherwise." },
+          "pivot": { "type": "array", "items": { "type": "number" }, "description": "hinge: point on the hinge line in the node's own frame; [0, 0, 0] otherwise." },
+          "actions": { "type": "array", "items": { "type": "string", "enum": ["open", "close", "remove", "insert", "unlock", "lock", "press", "turn", "clean", "look"] } },
+          "view": { "type": "array", "items": { "type": "number" }, "description": "Direction from the part to the camera, e.g. [0.4, 0.6, 1]." },
+          "rest": { "type": "number", "description": "Joint amount it starts at: 0 normally, 1 for a valve that is normally open." }
+        }
+      }
+    }
+  }
+}
