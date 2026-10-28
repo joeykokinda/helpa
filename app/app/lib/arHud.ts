@@ -22,6 +22,19 @@ function doubleStroke(context: CanvasRenderingContext2D, width: number, color: s
   context.stroke();
 }
 
+/** The swung part's outline in perspective, so a door still reads when its hologram is nearly edge-on. */
+export function drawOutline(context: CanvasRenderingContext2D, corners: { x: number; y: number }[], opacity: number) {
+  if (opacity <= 0.01) return;
+  context.save();
+  context.globalAlpha = opacity;
+  context.lineJoin = "round";
+  doubleStroke(context, 2, cyan, () => {
+    corners.forEach((corner, index) => (index ? context.lineTo(corner.x, corner.y) : context.moveTo(corner.x, corner.y)));
+    context.closePath();
+  });
+  context.restore();
+}
+
 /** Corner brackets that snap onto the part, then a floating label with a leader line. */
 export function drawLockOn(context: CanvasRenderingContext2D, rect: ScreenRect, lock: number, opacity: number, name: string, action: string) {
   if (opacity <= 0.01) return;

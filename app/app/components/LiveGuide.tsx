@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { checkStep, locatePart, type Plan } from "../lib/api";
 import { ArLayer, type GhostDraw, type ScreenRect } from "../lib/arLayer";
-import { drawLockOn, drawPress, drawTrail, drawTurn, Particles } from "../lib/arHud";
+import { drawLockOn, drawOutline, drawPress, drawTrail, drawTurn, Particles } from "../lib/arHud";
 import { useCameraControls } from "../lib/camera";
 import {
   actionWords,
@@ -83,6 +83,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
   const glCanvasRef = useRef<HTMLCanvasElement>(null);
   const hudCanvasRef = useRef<HTMLCanvasElement>(null);
   const helpaRef = useRef<HTMLDivElement>(null);
+  const captionRef = useRef<HTMLParagraphElement>(null);
   const trackRef = useRef<MediaStreamTrack | null>(null);
   const playHeadRef = useRef<PlayHead>({ index: 0, within: 0, progress: 0 });
   const tracksRef = useRef<Record<string, Track>>({});
@@ -282,6 +283,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         }
       }
       lastIndex = play.index;
+      const caption = beats.length > 1 ? `${play.index + 1}. ${beats[play.index]?.caption ?? ""}` : (beats[0]?.caption ?? "");
+      if (captionRef.current && captionRef.current.textContent !== caption) captionRef.current.textContent = caption;
       lastWithin = play.within;
 
       const rectOf = (box: Box): ScreenRect => {
@@ -328,6 +331,12 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         else if (!demo && part === watched) draws.push({ id: part, cutout: track.cutout, rect, pose: { ...pose, angle: 0, move: [0, 0, 0], depth: 0 }, appear: 1, leaving: false, hole: 0, mode: "slot", opacity: confidence });
       }
       layer.render(draws, time, reducedMotion);
+      // Swung parts also get their outline in perspective, so a door reads even when its hologram is thin.
+      for (const draw of draws) {
+        if (draw.mode !== "ghost" || defs[draw.id]?.joint.kind !== "hinge" || Math.abs(draw.pose.angle) < 0.05) continue;
+        const corners = ([[0, 0], [1, 0], [1, 1], [0, 1]] as [number, number][]).map((corner) => layer.project(draw.rect, draw.pose, corner));
+        drawOutline(hud, corners, draw.opacity * draw.appear * (draw.leaving ? 0.5 : 1));
+      }
 
       // Lock-on brackets and the label on the part this beat is about.
       const showLock = Boolean(focusTrack && fresh(focusTrack) && confidence > 0.3);
@@ -721,9 +730,13 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       </div>
 
       {rig && hasRig && (
-        <div className="live-corner" aria-label="3D guide">
-          <RigStep rigId={rig.id} stepBeats={rig.stepBeats} stepIndex={stepIndex} recipe={rig.recipe} playHeadRef={playHeadRef} holo />
-        </div>
+        <>
+          {/* The beat's caption sits above the corner model instead of on top of it. */}
+          <p ref={captionRef} className="live-corner-caption" aria-live="polite" />
+          <div className="live-corner" aria-label="3D guide">
+            <RigStep rigId={rig.id} stepBeats={rig.stepBeats} stepIndex={stepIndex} recipe={rig.recipe} playHeadRef={playHeadRef} holo />
+          </div>
+        </>
       )}
 
       <AnimatePresence>

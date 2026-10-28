@@ -147,6 +147,8 @@ export class ArLayer {
         vertexShader,
         fragmentShader,
         transparent: true,
+        // A door swung toward the camera shows its back; without this it would disappear.
+        side: THREE.DoubleSide,
         depthTest: false,
         depthWrite: false,
         uniforms: {

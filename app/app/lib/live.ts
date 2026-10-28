@@ -297,7 +297,11 @@ export function jointPose(joint: Joint, from: number, amount: number, size: { wi
       // The pivot is the box edge on the hinge side: a negative angle about +y swings the right edge toward you.
       const vertical = Math.abs(joint.axis[1]) >= Math.abs(joint.axis[0]);
       const pivot: [number, number] = vertical ? [joint.angle < 0 ? 0 : 1, 0.5] : [0.5, joint.angle > 0 ? 1 : 0];
-      return { ...still, pivot, axis: toView(joint.axis, pitch), angle: joint.angle * (amount - from), depth: Math.abs(amount - from) };
+      // A flat hologram swung past about 70 degrees turns edge-on and vanishes, so swings out of the screen's
+      // plane stop there; it still reads as wide open. Swings in the screen's plane (a tap handle) keep their angle.
+      const axis = toView(joint.axis, pitch);
+      const angle = Math.abs(axis[2]) < 0.7 ? Math.sign(joint.angle) * Math.min(Math.abs(joint.angle), 1.22) : joint.angle;
+      return { ...still, pivot, axis, angle: angle * (amount - from), depth: Math.abs(amount - from) };
     }
     case "twist": {
       const lift = (twistLift(amount) - twistLift(from)) * size.height * 1.1;

@@ -82,7 +82,7 @@ const frameFor = (size: number) => Math.max(0.12, Math.min(0.9, size * 1.25 + 0.
 const standoffFor = (size: number) => Math.max(0.42, Math.min(2.6, (size * 1.5 + 0.16) / Math.tan(THREE.MathUtils.degToRad(17.5))));
 
 /** Orthographic, isometric-style framing of the current beat's part, from the side its catalog says shows it best, with an eased dolly between beats. */
-function CameraDirector({ beat, def, nodes, controlsRef, userMovedRef }: { beat?: Beat; def?: RigPartDef; nodes: RefObject<Record<string, THREE.Group>>; controlsRef: RefObject<OrbitControlsImpl | null>; userMovedRef: RefObject<boolean> }) {
+function CameraDirector({ beat, def, nodes, controlsRef, userMovedRef, widen = 1 }: { beat?: Beat; def?: RigPartDef; widen?: number; nodes: RefObject<Record<string, THREE.Group>>; controlsRef: RefObject<OrbitControlsImpl | null>; userMovedRef: RefObject<boolean> }) {
   const flight = useRef<{ from: Pose; to: Pose; elapsed: number } | null>(null);
   const framedBeatRef = useRef<Beat | undefined>(undefined);
   const placedRef = useRef(false);
@@ -99,7 +99,7 @@ function CameraDirector({ beat, def, nodes, controlsRef, userMovedRef }: { beat?
       if (node) {
         const box = worldBox(node);
         const partSize = box.getSize(new THREE.Vector3()).length();
-        goal.current = { target: box.getCenter(new THREE.Vector3()), direction: new THREE.Vector3(...(def?.view ?? [0.6, 0.5, 1])).normalize(), distance: standoffFor(partSize), halfHeight: frameFor(partSize) };
+        goal.current = { target: box.getCenter(new THREE.Vector3()), direction: new THREE.Vector3(...(def?.view ?? [0.6, 0.5, 1])).normalize(), distance: standoffFor(partSize), halfHeight: Math.min(1.2, frameFor(partSize) * widen) };
       }
       const target = controls?.target ?? goal.current.target;
       const offset = camera.position.clone().sub(target);
@@ -265,7 +265,7 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
           <BeatArrow beat={beat} def={def} nodes={nodesRef} />
           <MotionGuide beat={beat} def={def} from={beatFrom} to={beatTo} nodes={nodesRef} playRef={playRef} />
           <Effects beat={beat} def={def} nodes={nodesRef} playRef={playRef} />
-          <CameraDirector beat={beat} def={def} nodes={nodesRef} controlsRef={controlsRef} userMovedRef={userMovedRef} />
+          <CameraDirector widen={holo ? 1.8 : 1} beat={beat} def={def} nodes={nodesRef} controlsRef={controlsRef} userMovedRef={userMovedRef} />
           <PinTracker beat={beat} def={def} nodes={nodesRef} pinRef={pinRef} leaderRef={leaderRef} dotRef={dotRef} />
           <StyledRenderer focusRef={focusRef} nodesRef={nodesRef} />
           <OrbitControls
