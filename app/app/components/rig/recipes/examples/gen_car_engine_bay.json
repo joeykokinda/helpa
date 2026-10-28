@@ -1,0 +1,2248 @@
+{
+  "name": "2016 Toyota Camry engine bay",
+  "nodes": [
+    {
+      "id": "floor",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        3,
+        0.02,
+        3
+      ],
+      "position": [
+        0,
+        0.01,
+        0.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_pan",
+      "parent": "",
+      "shape": "lathe",
+      "size": [
+        0
+      ],
+      "position": [
+        0.05,
+        0.02,
+        0.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2a2c30",
+      "points": [
+        [
+          0,
+          0.02
+        ],
+        [
+          0.16,
+          0.02
+        ],
+        [
+          0.19,
+          0.04
+        ],
+        [
+          0.19,
+          0.1
+        ],
+        [
+          0.17,
+          0.1
+        ],
+        [
+          0.17,
+          0.05
+        ],
+        [
+          0,
+          0.05
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "floor_drip",
+      "parent": "",
+      "shape": "patch",
+      "size": [
+        0.12,
+        0.09
+      ],
+      "position": [
+        0.35,
+        0.022,
+        0.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "oil",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "ramp_left",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.32,
+        0.2,
+        1.1
+      ],
+      "position": [
+        -0.78,
+        0.1,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#8a1f1f",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "ramp_right",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.32,
+        0.2,
+        1.1
+      ],
+      "position": [
+        0.78,
+        0.1,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#8a1f1f",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tyre_left",
+      "parent": "",
+      "shape": "torus",
+      "size": [
+        0.62,
+        0.19,
+        0
+      ],
+      "position": [
+        -0.78,
+        0.32,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#1b1c1e",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tyre_right",
+      "parent": "",
+      "shape": "torus",
+      "size": [
+        0.62,
+        0.19,
+        0
+      ],
+      "position": [
+        0.78,
+        0.32,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#1b1c1e",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rim_left",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.4,
+        0.16,
+        0
+      ],
+      "position": [
+        -0.78,
+        0.32,
+        0.35
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "#c9ccd2",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rim_right",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.4,
+        0.16,
+        0
+      ],
+      "position": [
+        0.78,
+        0.32,
+        0.35
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "#c9ccd2",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "car_body",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0,
+        -0.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#aeb4bc",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "bumper",
+      "parent": "car_body",
+      "shape": "rounded_box",
+      "size": [
+        1.8,
+        0.32,
+        0.18
+      ],
+      "position": [
+        0,
+        0.68,
+        0.95
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#b8bec6",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "grille",
+      "parent": "car_body",
+      "shape": "box",
+      "size": [
+        0.9,
+        0.12,
+        0.02
+      ],
+      "position": [
+        0,
+        0.68,
+        1.045
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#22252a",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "headlight_left",
+      "parent": "car_body",
+      "shape": "rounded_box",
+      "size": [
+        0.38,
+        0.14,
+        0.08
+      ],
+      "position": [
+        -0.65,
+        0.78,
+        1.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "glass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "headlight_right",
+      "parent": "car_body",
+      "shape": "rounded_box",
+      "size": [
+        0.38,
+        0.14,
+        0.08
+      ],
+      "position": [
+        0.65,
+        0.78,
+        1.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "glass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "fender_left",
+      "parent": "car_body",
+      "shape": "rounded_box",
+      "size": [
+        0.18,
+        0.25,
+        1.4
+      ],
+      "position": [
+        -0.88,
+        0.95,
+        0.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#b8bec6",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "fender_right",
+      "parent": "car_body",
+      "shape": "rounded_box",
+      "size": [
+        0.18,
+        0.25,
+        1.4
+      ],
+      "position": [
+        0.88,
+        0.95,
+        0.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#b8bec6",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "radiator_support",
+      "parent": "car_body",
+      "shape": "box",
+      "size": [
+        1.4,
+        0.08,
+        0.08
+      ],
+      "position": [
+        0,
+        0.72,
+        0.78
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2b2e33",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "radiator",
+      "parent": "car_body",
+      "shape": "box",
+      "size": [
+        1.1,
+        0.32,
+        0.06
+      ],
+      "position": [
+        0,
+        0.62,
+        0.74
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "fan_shroud",
+      "parent": "car_body",
+      "shape": "cylinder",
+      "size": [
+        0.32,
+        0.04,
+        0
+      ],
+      "position": [
+        -0.15,
+        0.62,
+        0.68
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#1e2023",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "firewall",
+      "parent": "car_body",
+      "shape": "box",
+      "size": [
+        1.5,
+        0.5,
+        0.04
+      ],
+      "position": [
+        0,
+        0.8,
+        -0.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#151312",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "hood",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        1.65,
+        -0.65
+      ],
+      "rotation": [
+        -48,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#b8bec6",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "hood_panel",
+      "parent": "hood",
+      "shape": "rounded_box",
+      "size": [
+        1.5,
+        0.04,
+        1.1
+      ],
+      "position": [
+        0,
+        0.5,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#b8bec6",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "hood_liner",
+      "parent": "hood",
+      "shape": "box",
+      "size": [
+        1.2,
+        0.01,
+        0.85
+      ],
+      "position": [
+        0,
+        0.47,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "lint",
+      "color": "#3a3d42",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "prop_rod",
+      "parent": "car_body",
+      "shape": "hose",
+      "size": [
+        0.008
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [
+        [
+          0.6,
+          0.85,
+          0.6
+        ],
+        [
+          0.62,
+          1.15,
+          0.1
+        ],
+        [
+          0.55,
+          1.35,
+          -0.3
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "engine",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.68,
+        -0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cast_iron",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "engine_block",
+      "parent": "engine",
+      "shape": "rounded_box",
+      "size": [
+        0.6,
+        0.35,
+        0.5
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cast_iron",
+      "color": "#3c3f45",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "valve_cover",
+      "parent": "engine",
+      "shape": "rounded_box",
+      "size": [
+        0.52,
+        0.12,
+        0.42
+      ],
+      "position": [
+        0,
+        0.25,
+        -0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#1f2125",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cover_rib",
+      "parent": "engine",
+      "shape": "box",
+      "size": [
+        0.44,
+        0.015,
+        0.02
+      ],
+      "position": [
+        0,
+        0.315,
+        -0.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2a2d32",
+      "points": [],
+      "text": "",
+      "repeat": [
+        4,
+        0,
+        0,
+        0.08,
+        0
+      ]
+    },
+    {
+      "id": "cover_label",
+      "parent": "engine",
+      "shape": "label",
+      "size": [
+        0.22,
+        0.05
+      ],
+      "position": [
+        -0.05,
+        0.255,
+        0.195
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "clear",
+      "color": "#d8dce1",
+      "points": [],
+      "text": "VVT-i 2.5",
+      "repeat": []
+    },
+    {
+      "id": "coil_pack",
+      "parent": "engine",
+      "shape": "box",
+      "size": [
+        0.06,
+        0.04,
+        0.08
+      ],
+      "position": [
+        -0.15,
+        0.33,
+        -0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#111214",
+      "points": [],
+      "text": "",
+      "repeat": [
+        4,
+        0.1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "intake_runner",
+      "parent": "engine",
+      "shape": "hose",
+      "size": [
+        0.055
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [
+        [
+          -0.15,
+          0.15,
+          -0.25
+        ],
+        [
+          -0.15,
+          0.28,
+          -0.38
+        ],
+        [
+          0.15,
+          0.28,
+          -0.38
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "serp_belt",
+      "parent": "engine",
+      "shape": "hose",
+      "size": [
+        0.02
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "",
+      "points": [
+        [
+          -0.31,
+          0.05,
+          -0.1
+        ],
+        [
+          -0.31,
+          0.05,
+          0.2
+        ],
+        [
+          -0.31,
+          -0.15,
+          0.2
+        ],
+        [
+          -0.31,
+          -0.15,
+          -0.1
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "pulley",
+      "parent": "engine",
+      "shape": "cylinder",
+      "size": [
+        0.12,
+        0.025,
+        0
+      ],
+      "position": [
+        -0.32,
+        0.05,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "oil_fill_cap",
+      "parent": "engine",
+      "shape": "cylinder",
+      "size": [
+        0.055,
+        0.03,
+        0
+      ],
+      "position": [
+        0.15,
+        0.335,
+        0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2b2d31",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "oil_cap_symbol",
+      "parent": "oil_fill_cap",
+      "shape": "label",
+      "size": [
+        0.04,
+        0.02
+      ],
+      "position": [
+        0,
+        0.016,
+        0
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "material": "clear",
+      "color": "#f2c230",
+      "points": [],
+      "text": "OIL",
+      "repeat": []
+    },
+    {
+      "id": "dipstick_tube",
+      "parent": "engine",
+      "shape": "tube",
+      "size": [
+        0.014,
+        0.35,
+        0.002
+      ],
+      "position": [
+        -0.12,
+        0.1,
+        0.28
+      ],
+      "rotation": [
+        8,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "dipstick",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        -0.12,
+        0.98,
+        0.29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#f2c230",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "dipstick_loop",
+      "parent": "dipstick",
+      "shape": "torus",
+      "size": [
+        0.042,
+        0.009,
+        0
+      ],
+      "position": [
+        0,
+        0.02,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#f2c230",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "dipstick_rod",
+      "parent": "dipstick",
+      "shape": "cylinder",
+      "size": [
+        0.006,
+        0.48,
+        0
+      ],
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "oil_filter",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0.22,
+        0.55,
+        0.22
+      ],
+      "rotation": [
+        15,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#2f6fdb",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "oil_filter_can",
+      "parent": "oil_filter",
+      "shape": "cylinder",
+      "size": [
+        0.085,
+        0.11,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#2f6fdb",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "oil_pan",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.48,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "oil_pan_body",
+      "parent": "oil_pan",
+      "shape": "rounded_box",
+      "size": [
+        0.48,
+        0.12,
+        0.38
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#4a4d53",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_plug",
+      "parent": "oil_pan",
+      "shape": "cylinder",
+      "size": [
+        0.022,
+        0.018,
+        0
+      ],
+      "position": [
+        0.05,
+        -0.07,
+        0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "chrome",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_oil",
+      "parent": "oil_pan",
+      "shape": "hose",
+      "size": [
+        0.012
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "oil",
+      "color": "#1a1205",
+      "points": [
+        [
+          0.05,
+          -0.08,
+          0.05
+        ],
+        [
+          0.05,
+          -0.2,
+          0.12
+        ],
+        [
+          0.05,
+          -0.32,
+          0.18
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "battery",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        -0.52,
+        0.82,
+        0.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "battery_box",
+      "parent": "battery",
+      "shape": "rounded_box",
+      "size": [
+        0.26,
+        0.2,
+        0.17
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "battery_label",
+      "parent": "battery",
+      "shape": "label",
+      "size": [
+        0.15,
+        0.06
+      ],
+      "position": [
+        0,
+        0,
+        0.086
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "clear",
+      "color": "#c1272d",
+      "points": [],
+      "text": "12V 70AH",
+      "repeat": []
+    },
+    {
+      "id": "negative_terminal",
+      "parent": "battery",
+      "shape": "cylinder",
+      "size": [
+        0.025,
+        0.04,
+        0
+      ],
+      "position": [
+        -0.06,
+        0.12,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "#d8dce1",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "positive_terminal",
+      "parent": "battery",
+      "shape": "cylinder",
+      "size": [
+        0.028,
+        0.045,
+        0
+      ],
+      "position": [
+        0.06,
+        0.12,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#c1272d",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "terminal_corrosion",
+      "parent": "battery",
+      "shape": "clump",
+      "size": [
+        0.04,
+        0.02,
+        0.04
+      ],
+      "position": [
+        -0.06,
+        0.135,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "mineral_scale",
+      "color": "#cfe0c0",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "washer_reservoir",
+      "parent": "",
+      "shape": "rounded_box",
+      "size": [
+        0.18,
+        0.25,
+        0.22
+      ],
+      "position": [
+        0.58,
+        0.78,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "white_plastic",
+      "color": "#dfe6ea",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "washer_fluid_cap",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0.58,
+        0.92,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#2f7fd8",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "washer_cap_top",
+      "parent": "washer_fluid_cap",
+      "shape": "cylinder",
+      "size": [
+        0.05,
+        0.025,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#2f7fd8",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "coolant_tank",
+      "parent": "",
+      "shape": "rounded_box",
+      "size": [
+        0.18,
+        0.18,
+        0.15
+      ],
+      "position": [
+        -0.55,
+        0.82,
+        -0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "white_plastic",
+      "color": "#e5edf5",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "coolant_cap",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.05,
+        0.025,
+        0
+      ],
+      "position": [
+        -0.55,
+        0.925,
+        -0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#1a1b1e",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "brake_reservoir",
+      "parent": "",
+      "shape": "rounded_box",
+      "size": [
+        0.14,
+        0.09,
+        0.09
+      ],
+      "position": [
+        0.35,
+        0.92,
+        -0.58
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "white_plastic",
+      "color": "#e8ecef",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "brake_fluid_cap",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.045,
+        0.025,
+        0
+      ],
+      "position": [
+        0.35,
+        0.98,
+        -0.58
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#d8b93a",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "air_filter_box",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0.48,
+        0.85,
+        -0.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#1e2023",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "airbox_base",
+      "parent": "air_filter_box",
+      "shape": "rounded_box",
+      "size": [
+        0.35,
+        0.1,
+        0.26
+      ],
+      "position": [
+        0,
+        -0.04,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "air_filter_box_lid",
+      "parent": "air_filter_box",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.03,
+        -0.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "airbox_lid_panel",
+      "parent": "air_filter_box_lid",
+      "shape": "rounded_box",
+      "size": [
+        0.35,
+        0.05,
+        0.26
+      ],
+      "position": [
+        0,
+        0.02,
+        0.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "air_filter",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.3,
+        0.04,
+        0.2
+      ],
+      "position": [
+        0.48,
+        0.84,
+        -0.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "pleated_filter",
+      "color": "#d9cfae",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "air_filter_dirt",
+      "parent": "air_filter",
+      "shape": "patch",
+      "size": [
+        0.22,
+        0.14
+      ],
+      "position": [
+        0,
+        0.021,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "grime",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "intake_hose",
+      "parent": "",
+      "shape": "hose",
+      "size": [
+        0.07
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "",
+      "points": [
+        [
+          0.32,
+          0.87,
+          -0.25
+        ],
+        [
+          0.15,
+          0.9,
+          -0.18
+        ],
+        [
+          0.05,
+          0.92,
+          -0.1
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    }
+  ],
+  "parts": [
+    {
+      "node": "hood",
+      "label": "Hood",
+      "aliases": [
+        "bonnet",
+        "car hood"
+      ],
+      "joint": "hinge",
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "amount": 70,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.6,
+        1
+      ],
+      "rest": 1
+    },
+    {
+      "node": "engine",
+      "label": "Engine",
+      "aliases": [
+        "motor",
+        "2.5L engine"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.8,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "oil_fill_cap",
+      "label": "Oil fill cap",
+      "aliases": [
+        "engine oil cap",
+        "filler cap"
+      ],
+      "joint": "twist",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 120,
+      "lift": 0.03,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1,
+        0.6
+      ],
+      "rest": 0
+    },
+    {
+      "node": "dipstick",
+      "label": "Dipstick",
+      "aliases": [
+        "oil dip stick",
+        "yellow loop"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0.45,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "oil_filter",
+      "label": "Oil filter",
+      "aliases": [
+        "oil canister"
+      ],
+      "joint": "twist",
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "amount": 540,
+      "lift": 0.06,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.12,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "drain_plug",
+      "label": "Drain plug",
+      "aliases": [
+        "sump plug",
+        "oil drain bolt"
+      ],
+      "joint": "twist",
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "amount": 720,
+      "lift": 0.03,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.12,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "oil_pan",
+      "label": "Oil pan",
+      "aliases": [
+        "sump",
+        "oil sump"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.35,
+        -0.12,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "drain_oil",
+      "label": "Old oil",
+      "aliases": [
+        "draining oil",
+        "used oil"
+      ],
+      "joint": "debris",
+      "axis": [
+        0,
+        -0.958,
+        0.287
+      ],
+      "amount": 0.15,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.2,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "battery",
+      "label": "Battery",
+      "aliases": [
+        "car battery",
+        "12V battery"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        0.8
+      ],
+      "rest": 0
+    },
+    {
+      "node": "negative_terminal",
+      "label": "Negative terminal",
+      "aliases": [
+        "black terminal",
+        "minus cable"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0.06,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1,
+        0.6
+      ],
+      "rest": 0
+    },
+    {
+      "node": "positive_terminal",
+      "label": "Positive terminal",
+      "aliases": [
+        "red terminal",
+        "plus cable"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0.06,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1,
+        0.6
+      ],
+      "rest": 0
+    },
+    {
+      "node": "terminal_corrosion",
+      "label": "Corrosion",
+      "aliases": [
+        "battery corrosion",
+        "white crust"
+      ],
+      "joint": "debris",
+      "axis": [
+        0,
+        0.958,
+        0.287
+      ],
+      "amount": 0.2,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.3,
+        1,
+        0.6
+      ],
+      "rest": 0
+    },
+    {
+      "node": "washer_fluid_cap",
+      "label": "Washer fluid cap",
+      "aliases": [
+        "windshield washer cap",
+        "blue cap"
+      ],
+      "joint": "hinge",
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "amount": -100,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.4,
+        1,
+        0.8
+      ],
+      "rest": 0
+    },
+    {
+      "node": "air_filter_box_lid",
+      "label": "Air filter box lid",
+      "aliases": [
+        "airbox lid",
+        "air cleaner lid"
+      ],
+      "joint": "hinge",
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "amount": -60,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        -0.13
+      ],
+      "actions": [
+        "open",
+        "close",
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        0.8
+      ],
+      "rest": 0
+    },
+    {
+      "node": "air_filter",
+      "label": "Air filter",
+      "aliases": [
+        "engine air filter",
+        "pleated filter"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0.2,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.4,
+        1,
+        0.7
+      ],
+      "rest": 0
+    },
+    {
+      "node": "coolant_cap",
+      "label": "Coolant cap",
+      "aliases": [
+        "radiator cap",
+        "overflow cap"
+      ],
+      "joint": "twist",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 120,
+      "lift": 0.03,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.4,
+        1,
+        0.8
+      ],
+      "rest": 0
+    },
+    {
+      "node": "brake_fluid_cap",
+      "label": "Brake fluid cap",
+      "aliases": [
+        "brake reservoir cap"
+      ],
+      "joint": "twist",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 120,
+      "lift": 0.02,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.4,
+        1,
+        0.8
+      ],
+      "rest": 0
+    }
+  ]
+}

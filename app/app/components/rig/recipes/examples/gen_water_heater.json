@@ -1,0 +1,1722 @@
+{
+  "name": "Rheem 40 gallon gas water heater",
+  "nodes": [
+    {
+      "id": "room",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "floor",
+      "parent": "room",
+      "shape": "box",
+      "size": [
+        1.4,
+        0.01,
+        1.4
+      ],
+      "position": [
+        0,
+        0.005,
+        0.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "ceramic",
+      "color": "#d8d2c8",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "back_wall",
+      "parent": "room",
+      "shape": "box",
+      "size": [
+        1.4,
+        1.8,
+        0.02
+      ],
+      "position": [
+        0,
+        0.9,
+        -0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "white_enamel",
+      "color": "#e6e2d9",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_pan",
+      "parent": "room",
+      "shape": "lathe",
+      "size": [
+        0
+      ],
+      "position": [
+        0,
+        0.01,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [
+        [
+          0.33,
+          0.03
+        ],
+        [
+          0.35,
+          0.03
+        ],
+        [
+          0.35,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "pan_drain_fitting",
+      "parent": "room",
+      "shape": "cylinder",
+      "size": [
+        0.022,
+        0.04,
+        0
+      ],
+      "position": [
+        0.32,
+        0.02,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "material": "plastic",
+      "color": "#c9cdd2",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "water_spot",
+      "parent": "room",
+      "shape": "patch",
+      "size": [
+        0.18,
+        0.14
+      ],
+      "position": [
+        -0.35,
+        0.012,
+        0.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "water",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tank",
+      "parent": "",
+      "shape": "lathe",
+      "size": [
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [
+        [
+          0,
+          0.04
+        ],
+        [
+          0.2,
+          0.04
+        ],
+        [
+          0.26,
+          0.06
+        ],
+        [
+          0.275,
+          0.1
+        ],
+        [
+          0.275,
+          1.08
+        ],
+        [
+          0.265,
+          1.18
+        ],
+        [
+          0.22,
+          1.26
+        ],
+        [
+          0.12,
+          1.31
+        ],
+        [
+          0,
+          1.32
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tank_jacket",
+      "parent": "tank",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#ece9e2",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "top_rim_ring",
+      "parent": "tank",
+      "shape": "torus",
+      "size": [
+        0.44,
+        0.014,
+        0
+      ],
+      "position": [
+        0,
+        1.24,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#d33f2e",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "draft_hood",
+      "parent": "tank",
+      "shape": "cylinder",
+      "size": [
+        0.22,
+        0.08,
+        0.16
+      ],
+      "position": [
+        0,
+        1.33,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "flue_pipe",
+      "parent": "tank",
+      "shape": "cylinder",
+      "size": [
+        0.102,
+        0.5,
+        0
+      ],
+      "position": [
+        0,
+        1.62,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "flue_elbow",
+      "parent": "tank",
+      "shape": "hose",
+      "size": [
+        0.102
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [
+        [
+          0,
+          1.85,
+          0
+        ],
+        [
+          0,
+          1.95,
+          -0.02
+        ],
+        [
+          0,
+          2,
+          -0.12
+        ],
+        [
+          0,
+          2,
+          -0.25
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "flue_screw",
+      "parent": "tank",
+      "shape": "cylinder",
+      "size": [
+        0.008,
+        0.006,
+        0
+      ],
+      "position": [
+        0.055,
+        1.38,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": [
+        3,
+        0,
+        0,
+        0,
+        120
+      ]
+    },
+    {
+      "id": "front_label",
+      "parent": "tank",
+      "shape": "label",
+      "size": [
+        0.24,
+        0.32
+      ],
+      "position": [
+        0,
+        0.78,
+        0.277
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "clear",
+      "color": "#1d2125",
+      "points": [],
+      "text": "Rheem 40 GAL",
+      "repeat": []
+    },
+    {
+      "id": "label_band_top",
+      "parent": "tank",
+      "shape": "tube",
+      "size": [
+        0.552,
+        0.03,
+        0.002
+      ],
+      "position": [
+        0,
+        0.98,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c0392b",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rating_plate",
+      "parent": "tank",
+      "shape": "label",
+      "size": [
+        0.09,
+        0.12
+      ],
+      "position": [
+        -0.12,
+        0.55,
+        0.245
+      ],
+      "rotation": [
+        -10,
+        -25,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "GAS 40000 BTU",
+      "repeat": []
+    },
+    {
+      "id": "anode_cap_cold",
+      "parent": "tank",
+      "shape": "cylinder",
+      "size": [
+        0.03,
+        0.02,
+        0
+      ],
+      "position": [
+        -0.12,
+        1.315,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "anode_cap_hot",
+      "parent": "tank",
+      "shape": "cylinder",
+      "size": [
+        0.03,
+        0.02,
+        0
+      ],
+      "position": [
+        0.12,
+        1.315,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cold_nipple",
+      "parent": "tank",
+      "shape": "cylinder",
+      "size": [
+        0.022,
+        0.1,
+        0
+      ],
+      "position": [
+        -0.12,
+        1.36,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "copper",
+      "color": "#2b6cb0",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "hot_nipple",
+      "parent": "tank",
+      "shape": "cylinder",
+      "size": [
+        0.022,
+        0.1,
+        0
+      ],
+      "position": [
+        0.12,
+        1.36,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "copper",
+      "color": "#d34a3a",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cold_pipe",
+      "parent": "",
+      "shape": "hose",
+      "size": [
+        0.022
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "copper",
+      "color": "",
+      "points": [
+        [
+          -0.12,
+          1.41,
+          0.02
+        ],
+        [
+          -0.12,
+          1.65,
+          0.02
+        ],
+        [
+          -0.12,
+          1.78,
+          -0.1
+        ],
+        [
+          -0.12,
+          1.78,
+          -0.48
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "hot_pipe",
+      "parent": "",
+      "shape": "hose",
+      "size": [
+        0.022
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "copper",
+      "color": "",
+      "points": [
+        [
+          0.12,
+          1.41,
+          0.02
+        ],
+        [
+          0.12,
+          1.65,
+          0.02
+        ],
+        [
+          0.12,
+          1.78,
+          -0.1
+        ],
+        [
+          0.12,
+          1.78,
+          -0.48
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cold_shutoff_valve",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        -0.12,
+        1.58,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "shutoff_body",
+      "parent": "cold_shutoff_valve",
+      "shape": "cylinder",
+      "size": [
+        0.032,
+        0.045,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "shutoff_handle",
+      "parent": "cold_shutoff_valve",
+      "shape": "rounded_box",
+      "size": [
+        0.09,
+        0.014,
+        0.02
+      ],
+      "position": [
+        0,
+        0.035,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c0392b",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cold_tag",
+      "parent": "cold_shutoff_valve",
+      "shape": "label",
+      "size": [
+        0.05,
+        0.02
+      ],
+      "position": [
+        0.04,
+        -0.04,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "clear",
+      "color": "#ffffff",
+      "points": [],
+      "text": "COLD",
+      "repeat": []
+    },
+    {
+      "id": "tp_valve",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0.245,
+        1.08,
+        0.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tp_body",
+      "parent": "tp_valve",
+      "shape": "cylinder",
+      "size": [
+        0.02,
+        0.07,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tp_spout",
+      "parent": "tp_valve",
+      "shape": "cylinder",
+      "size": [
+        0.018,
+        0.03,
+        0
+      ],
+      "position": [
+        0.01,
+        -0.025,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tp_lever",
+      "parent": "tp_valve",
+      "shape": "box",
+      "size": [
+        0.07,
+        0.006,
+        0.012
+      ],
+      "position": [
+        0.01,
+        0.02,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        -15
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tp_discharge",
+      "parent": "tp_valve",
+      "shape": "hose",
+      "size": [
+        0.019
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "copper",
+      "color": "",
+      "points": [
+        [
+          0.01,
+          -0.04,
+          0
+        ],
+        [
+          0.01,
+          -0.3,
+          0.02
+        ],
+        [
+          0.01,
+          -0.7,
+          0.02
+        ],
+        [
+          0.01,
+          -0.95,
+          0.05
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_valve",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.18,
+        0.26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_nipple",
+      "parent": "drain_valve",
+      "shape": "cylinder",
+      "size": [
+        0.02,
+        0.05,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_body",
+      "parent": "drain_valve",
+      "shape": "cylinder",
+      "size": [
+        0.028,
+        0.045,
+        0
+      ],
+      "position": [
+        0,
+        -0.01,
+        0.04
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "#d8a43a",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_handle",
+      "parent": "drain_valve",
+      "shape": "rounded_box",
+      "size": [
+        0.05,
+        0.012,
+        0.02
+      ],
+      "position": [
+        0,
+        0.015,
+        0.045
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_spout",
+      "parent": "drain_valve",
+      "shape": "cylinder",
+      "size": [
+        0.018,
+        0.02,
+        0.014
+      ],
+      "position": [
+        0,
+        -0.01,
+        0.075
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drain_hose",
+      "parent": "drain_valve",
+      "shape": "hose",
+      "size": [
+        0.02
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "",
+      "points": [
+        [
+          0,
+          -0.01,
+          0.085
+        ],
+        [
+          0.05,
+          -0.05,
+          0.18
+        ],
+        [
+          0.15,
+          -0.12,
+          0.3
+        ],
+        [
+          0.35,
+          -0.15,
+          0.35
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "sediment",
+      "parent": "drain_valve",
+      "shape": "clump",
+      "size": [
+        0.06,
+        0.03,
+        0.08
+      ],
+      "position": [
+        0.05,
+        -0.06,
+        0.18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "mineral_scale",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "gas_control",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.38,
+        0.28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "gas_valve_box",
+      "parent": "gas_control",
+      "shape": "rounded_box",
+      "size": [
+        0.12,
+        0.14,
+        0.07
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2f3338",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "gas_label",
+      "parent": "gas_control",
+      "shape": "label",
+      "size": [
+        0.08,
+        0.06
+      ],
+      "position": [
+        0,
+        0.01,
+        0.036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "clear",
+      "color": "#ffffff",
+      "points": [],
+      "text": "PILOT ON",
+      "repeat": []
+    },
+    {
+      "id": "gas_knob",
+      "parent": "gas_control",
+      "shape": "cylinder",
+      "size": [
+        0.042,
+        0.025,
+        0
+      ],
+      "position": [
+        0,
+        0.085,
+        0.01
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "temp_dial",
+      "parent": "gas_control",
+      "shape": "cylinder",
+      "size": [
+        0.05,
+        0.015,
+        0
+      ],
+      "position": [
+        0,
+        -0.045,
+        0.036
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "igniter_button",
+      "parent": "gas_control",
+      "shape": "cylinder",
+      "size": [
+        0.018,
+        0.02,
+        0
+      ],
+      "position": [
+        0.085,
+        0.02,
+        0.01
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "material": "plastic",
+      "color": "#c0392b",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "gas_pipe_in",
+      "parent": "gas_control",
+      "shape": "hose",
+      "size": [
+        0.015
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "copper",
+      "color": "",
+      "points": [
+        [
+          -0.04,
+          -0.07,
+          0
+        ],
+        [
+          -0.08,
+          -0.15,
+          -0.05
+        ],
+        [
+          -0.15,
+          -0.2,
+          -0.2
+        ],
+        [
+          -0.2,
+          -0.1,
+          -0.48
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "pilot_tube",
+      "parent": "gas_control",
+      "shape": "hose",
+      "size": [
+        0.006
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "copper",
+      "color": "",
+      "points": [
+        [
+          0.02,
+          -0.07,
+          0
+        ],
+        [
+          0.02,
+          -0.15,
+          0.02
+        ],
+        [
+          0,
+          -0.22,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "burner_cover",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.15,
+        0.272
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "burner_door",
+      "parent": "burner_cover",
+      "shape": "rounded_box",
+      "size": [
+        0.18,
+        0.13,
+        0.015
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#ece9e2",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "viewer_window",
+      "parent": "burner_cover",
+      "shape": "cylinder",
+      "size": [
+        0.04,
+        0.008,
+        0
+      ],
+      "position": [
+        0,
+        -0.01,
+        0.008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "glass",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "pilot_flame",
+      "parent": "burner_cover",
+      "shape": "cone",
+      "size": [
+        0.02,
+        0.045
+      ],
+      "position": [
+        0,
+        -0.01,
+        -0.03
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "glow",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rust_patch_base",
+      "parent": "",
+      "shape": "patch",
+      "size": [
+        0.12,
+        0.1
+      ],
+      "position": [
+        0.12,
+        0.045,
+        0.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rust",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    }
+  ],
+  "parts": [
+    {
+      "node": "tank",
+      "label": "Tank",
+      "aliases": [
+        "heater",
+        "hot water tank",
+        "jacket"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "cold_shutoff_valve",
+      "label": "Cold water valve",
+      "aliases": [
+        "cold inlet valve",
+        "water shutoff",
+        "cold valve"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 90,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.5,
+        1
+      ],
+      "rest": 1
+    },
+    {
+      "node": "tp_valve",
+      "label": "T\u0026P relief valve",
+      "aliases": [
+        "relief valve",
+        "TPR valve",
+        "temperature pressure valve"
+      ],
+      "joint": "hinge",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 60,
+      "lift": 0,
+      "pivot": [
+        0,
+        0.02,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        1,
+        0.4,
+        0.7
+      ],
+      "rest": 0
+    },
+    {
+      "node": "drain_valve",
+      "label": "Drain valve",
+      "aliases": [
+        "hose bib",
+        "boiler drain",
+        "tank drain"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 180,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "turn",
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "sediment",
+      "label": "Sediment",
+      "aliases": [
+        "mineral buildup",
+        "sludge",
+        "scale"
+      ],
+      "joint": "debris",
+      "axis": [
+        0,
+        -0.447,
+        0.894
+      ],
+      "amount": 0.3,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "gas_control",
+      "label": "Gas control",
+      "aliases": [
+        "gas valve",
+        "thermostat control",
+        "control box"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.2,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "gas_knob",
+      "label": "Gas knob",
+      "aliases": [
+        "pilot knob",
+        "ON PILOT OFF knob",
+        "control knob"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": -90,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.6,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "igniter_button",
+      "label": "Igniter button",
+      "aliases": [
+        "spark button",
+        "piezo igniter",
+        "red button"
+      ],
+      "joint": "press",
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "amount": 0.004,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.2,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "burner_cover",
+      "label": "Burner cover",
+      "aliases": [
+        "access door",
+        "burner access",
+        "combustion cover"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 0.12,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.2,
+        1
+      ],
+      "rest": 0
+    }
+  ]
+}

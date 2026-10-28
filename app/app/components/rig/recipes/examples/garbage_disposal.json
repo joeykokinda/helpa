@@ -68,6 +68,6 @@
     {"node": "discharge_tube", "label": "Discharge tube", "aliases": ["outlet tube", "drain elbow"], "joint": "none", "axis": [0, 1, 0], "amount": 0, "lift": 0, "pivot": [0, 0, 0], "actions": ["look"], "view": [1, 0.3, 0.7], "rest": 0},
     {"node": "mounting_ring", "label": "Mounting ring", "aliases": ["mounting lugs", "mount", "lower ring"], "joint": "twist", "axis": [0, 1, 0], "amount": -30, "lift": 0, "pivot": [0, 0, 0], "actions": ["unlock", "lock", "look"], "view": [0.7, 0.2, 1], "rest": 0},
     {"node": "disposal_body", "label": "Disposal", "aliases": ["garbage disposal", "disposer", "unit", "motor"], "joint": "none", "axis": [0, 1, 0], "amount": 0, "lift": 0, "pivot": [0, 0, 0], "actions": ["look"], "view": [0.8, 0.3, 1], "rest": 0},
-    {"node": "dishwasher_inlet", "label": "Dishwasher inlet", "aliases": ["knockout plug", "dishwasher connection"], "joint": "none", "axis": [0, 1, 0], "amount": 0, "lift": 0, "pivot": [0, 0, 0], "actions": ["look"], "view": [-1, 0.3, 0.6], "rest": 0}
+    {"node": "dishwasher_inlet", "label": "Dishwasher inlet", "aliases": ["knockout plug", "dishwasher connection"], "joint": "none", "axis": [0, 1, 0], "amount": 0, "lift": 0, "pivot": [0, 0, 0], "actions": ["look"], "view": [-0.35, 0.25, 1], "rest": 0}
   ]
 }

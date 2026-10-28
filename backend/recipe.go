@@ -6,9 +6,11 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"math"
 	"mime"
+	"net/http"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -228,7 +230,8 @@ PARENT's y axis each time (bolt circles, ribs, fins, spokes); [] for one.
 PARTS (what the guide moves). Each part names a node; that node and all its children move together, so put the part's
 node exactly where it pivots and build its pieces as children. Use the blueprint part ids as node ids.
 joint and amount: slide (axis = direction, amount metres), hinge (axis, pivot = point on the hinge line in the node's own
-frame, amount degrees, the sign picks the way it swings), twist (unscrew: axis, amount degrees, lift = metres it lifts out
+frame, amount degrees, the sign picks the way it swings; axis [0,1,0] for a side-hinged door with the pivot on its left or
+right edge, [1,0,0] for a drop-down door hinged at its bottom edge (dishwashers, ovens) or a lid hinged at its back edge), twist (unscrew: axis, amount degrees, lift = metres it lifts out
 after turning), press (axis = push direction, amount = depth metres), turn (axis, amount degrees), debris (axis = direction it
 is carried off, amount metres), none (only pointed at).
 Allowed actions: slide open/close/remove/insert/look; hinge open/close/remove/insert/look; twist unlock/lock/remove/insert/look;
@@ -237,7 +240,7 @@ Every part also gets "look". view = direction from the part to the camera, picke
 look from [0.6,0.3,1]; into a tank from above [0.3,1,0.6]; underneath [0.5,-0.3,1]).
 Motions must not pass through other geometry: lift lids up and to the side, pull things out along a clear path.
 
-QUALITY. Follow the reference recipes' level of detail: 35-70 nodes. Real proportions and colours. Smooth silhouettes
+QUALITY. Follow the reference recipes' level of detail: 40-60 nodes. Real proportions and colours. Smooth silhouettes
 (lathes, rounded boxes, hoses), small recognisable details (screws via repeat, seams, labels, knobs, clamps, nuts at pipe
 joints), and just enough surroundings (wall, cabinet, counter, floor tiles, engine bay walls) to make sense of it.
 Hollow things (tanks, cabinets, basins, housings) are built from walls or cut-away lathes so their inside shows when opened.
@@ -274,18 +277,20 @@ func requestRecipe(ctx context.Context, appliance string, chosen *blueprint, pho
 	}
 	prompt := fmt.Sprintf("%s\nBLUEPRINT (the parts to build and how they move):\n%s\n\nBuild the recipe for: %s\n%s",
 		references.String(), blueprintJSON, appliance, photoNote)
-	reply, err := createResponse(ctx, map[string]any{
+	started := time.Now()
+	text, err := recipeResponse(ctx, map[string]any{
 		"model":        "muse-spark-1.3",
 		"instructions": recipeInstructions,
-		"reasoning":    map[string]any{"effort": "low"},
+		"reasoning":    map[string]any{"effort": recipeEffort},
 		"input":        []any{userMessage(prompt, photos...)},
 		"text":         map[string]any{"format": map[string]any{"type": "json_schema", "name": "recipe", "schema": recipeSchema, "strict": true}},
 	})
 	if err != nil {
 		return nil, nil, err
 	}
+	log.Printf("generate model %q: %s in %.1fs", appliance, chosen.ID, time.Since(started).Seconds())
 	var built recipe
-	if err := json.Unmarshal([]byte(reply.text()), &built); err != nil {
+	if err := json.Unmarshal([]byte(text), &built); err != nil {
 		return nil, nil, fmt.Errorf("recipe was not valid json: %w", err)
 	}
 	if built.Name == "" {
@@ -296,6 +301,50 @@ func requestRecipe(ctx context.Context, appliance string, chosen *blueprint, pho
 		return nil, repairs, fmt.Errorf("recipe has no geometry")
 	}
 	return &built, repairs, nil
+}
+
+// recipeEffort is Muse's reasoning effort for recipes; HELPA_RECIPE_EFFORT overrides it for measuring.
+var recipeEffort = cmpOr(os.Getenv("HELPA_RECIPE_EFFORT"), "minimal")
+
+func cmpOr(value, fallback string) string {
+	if value == "" {
+		return fallback
+	}
+	return value
+}
+
+// recipeResponse is createResponse plus a token-usage log line, since output length is what sets the latency.
+func recipeResponse(ctx context.Context, body map[string]any) (string, error) {
+	reply, err := postResponses(ctx, body)
+	if err != nil {
+		return "", err
+	}
+	defer reply.Body.Close()
+	data, err := io.ReadAll(reply.Body)
+	if err != nil {
+		return "", err
+	}
+	if reply.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("meta api %d: %s", reply.StatusCode, data)
+	}
+	var parsed struct {
+		response
+		Usage struct {
+			InputTokens  int `json:"input_tokens"`
+			OutputTokens int `json:"output_tokens"`
+			Details      struct {
+				Reasoning int `json:"reasoning_tokens"`
+			} `json:"output_tokens_details"`
+		} `json:"usage"`
+	}
+	if err := json.Unmarshal(data, &parsed); err != nil {
+		return "", err
+	}
+	if parsed.Error != nil {
+		return "", fmt.Errorf("meta api: %s", parsed.Error.Message)
+	}
+	log.Printf("recipe tokens: %d in, %d out (%d reasoning)", parsed.Usage.InputTokens, parsed.Usage.OutputTokens, parsed.Usage.Details.Reasoning)
+	return parsed.text(), nil
 }
 
 /* ---------- validation and repair ---------- */
@@ -411,7 +460,8 @@ func repairRecipe(built *recipe, chosen *blueprint) []string {
 		repairPart(&built.Parts[index], note)
 	}
 
-	if chosen != nil {
+	// The generic blueprint only suggests parts, so it enforces nothing.
+	if chosen != nil && chosen.ID != "generic" {
 		for _, expected := range chosen.Parts {
 			ensureBlueprintPart(built, expected, byID, note)
 		}
@@ -615,13 +665,11 @@ func ensureBlueprintPart(built *recipe, expected blueprintPart, byID map[string]
 			part = &built.Parts[index]
 		}
 	}
-	if part == nil && byID[expected.ID] == nil {
-		// The model may have built it under another name: match the label.
-		for index := range built.Parts {
-			candidate := &built.Parts[index]
+	if part == nil {
+		// The model may have built it under another name: a matching label counts as present, with its own motion.
+		for _, candidate := range built.Parts {
 			if strings.EqualFold(candidate.Label, expected.Label) || slices.ContainsFunc(candidate.Aliases, func(alias string) bool { return strings.EqualFold(alias, expected.Label) }) {
-				part = candidate
-				break
+				return
 			}
 		}
 	}

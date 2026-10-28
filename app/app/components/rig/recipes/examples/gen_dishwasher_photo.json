@@ -1,0 +1,1599 @@
+{
+  "name": "Asko stainless built-in dishwasher",
+  "nodes": [
+    {
+      "id": "surround",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "floor",
+      "parent": "surround",
+      "shape": "box",
+      "size": [
+        1.2,
+        0.006,
+        1.4
+      ],
+      "position": [
+        0,
+        0.003,
+        0.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "ceramic",
+      "color": "#c8bfae",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "back_wall",
+      "parent": "surround",
+      "shape": "box",
+      "size": [
+        1.2,
+        1.3,
+        0.02
+      ],
+      "position": [
+        0,
+        0.65,
+        -0.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "wood",
+      "color": "#4a3a28",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cab_left",
+      "parent": "surround",
+      "shape": "box",
+      "size": [
+        0.04,
+        0.86,
+        0.62
+      ],
+      "position": [
+        -0.36,
+        0.43,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2b2e33",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cab_right",
+      "parent": "surround",
+      "shape": "box",
+      "size": [
+        0.04,
+        0.86,
+        0.62
+      ],
+      "position": [
+        0.36,
+        0.43,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2b2e33",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cab_top",
+      "parent": "surround",
+      "shape": "box",
+      "size": [
+        0.76,
+        0.04,
+        0.62
+      ],
+      "position": [
+        0,
+        0.875,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#1e2023",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "#8f959c",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub_back",
+      "parent": "tub",
+      "shape": "box",
+      "size": [
+        0.6,
+        0.72,
+        0.01
+      ],
+      "position": [
+        0,
+        0.47,
+        -0.27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub_side_left",
+      "parent": "tub",
+      "shape": "box",
+      "size": [
+        0.01,
+        0.72,
+        0.56
+      ],
+      "position": [
+        -0.305,
+        0.47,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub_side_right",
+      "parent": "tub",
+      "shape": "box",
+      "size": [
+        0.01,
+        0.72,
+        0.56
+      ],
+      "position": [
+        0.305,
+        0.47,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub_top",
+      "parent": "tub",
+      "shape": "box",
+      "size": [
+        0.62,
+        0.01,
+        0.56
+      ],
+      "position": [
+        0,
+        0.83,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub_rib",
+      "parent": "tub",
+      "shape": "box",
+      "size": [
+        0.5,
+        0.015,
+        0.012
+      ],
+      "position": [
+        0,
+        0.68,
+        -0.265
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub_rib2",
+      "parent": "tub",
+      "shape": "box",
+      "size": [
+        0.5,
+        0.015,
+        0.012
+      ],
+      "position": [
+        0,
+        0.52,
+        -0.265
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tub_bottom",
+      "parent": "tub",
+      "shape": "box",
+      "size": [
+        0.6,
+        0.01,
+        0.56
+      ],
+      "position": [
+        0,
+        0.11,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "#aeb4bb",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "sump",
+      "parent": "tub",
+      "shape": "cylinder",
+      "size": [
+        0.24,
+        0.015,
+        0
+      ],
+      "position": [
+        0,
+        0.115,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "front_frame_top",
+      "parent": "",
+      "shape": "rounded_box",
+      "size": [
+        0.68,
+        0.05,
+        0.03
+      ],
+      "position": [
+        0,
+        0.845,
+        0.28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "control_strip",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.5,
+        0.02,
+        0.002
+      ],
+      "position": [
+        0,
+        0.845,
+        0.296
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#202226",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "control_button",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.012,
+        0.004,
+        0
+      ],
+      "position": [
+        -0.12,
+        0.845,
+        0.297
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#d7dadc",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "control_button2",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.01,
+        0.004,
+        0
+      ],
+      "position": [
+        -0.08,
+        0.845,
+        0.297
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#d7dadc",
+      "points": [],
+      "text": "",
+      "repeat": [
+        4,
+        0.035,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "brand_label",
+      "parent": "",
+      "shape": "label",
+      "size": [
+        0.08,
+        0.015
+      ],
+      "position": [
+        0.12,
+        0.845,
+        0.297
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "clear",
+      "color": "#c9ced3",
+      "points": [],
+      "text": "ASKO",
+      "repeat": []
+    },
+    {
+      "id": "side_seal",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.015,
+        0.7,
+        0.015
+      ],
+      "position": [
+        -0.315,
+        0.47,
+        0.28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#2a2d31",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "side_seal_r",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.015,
+        0.7,
+        0.015
+      ],
+      "position": [
+        0.315,
+        0.47,
+        0.28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#2a2d31",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "door",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.11,
+        0.29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "door_inner",
+      "parent": "door",
+      "shape": "box",
+      "size": [
+        0.6,
+        0.02,
+        0.68
+      ],
+      "position": [
+        0,
+        0,
+        0.24
+      ],
+      "rotation": [
+        -77,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "door_gasket_edge",
+      "parent": "door",
+      "shape": "box",
+      "size": [
+        0.58,
+        0.015,
+        0.04
+      ],
+      "position": [
+        0,
+        0.055,
+        0.075
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#3a3d42",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "detergent_dispenser",
+      "parent": "door",
+      "shape": "rounded_box",
+      "size": [
+        0.16,
+        0.02,
+        0.12
+      ],
+      "position": [
+        -0.08,
+        0.07,
+        0.36
+      ],
+      "rotation": [
+        13,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#6b7076",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "dispenser_lid",
+      "parent": "door",
+      "shape": "rounded_box",
+      "size": [
+        0.12,
+        0.02,
+        0.12
+      ],
+      "position": [
+        0.14,
+        0.07,
+        0.36
+      ],
+      "rotation": [
+        13,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#43464b",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "toe_kick",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.6,
+        0.07,
+        0.02
+      ],
+      "position": [
+        0,
+        0.045,
+        0.27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_rack",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.585,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#34373c",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_base",
+      "parent": "upper_rack",
+      "shape": "wire_grid",
+      "size": [
+        0.54,
+        0.48,
+        0.03
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_side",
+      "parent": "upper_rack",
+      "shape": "wire_grid",
+      "size": [
+        0.02,
+        0.48,
+        0.03
+      ],
+      "position": [
+        -0.27,
+        0.06,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_side_r",
+      "parent": "upper_rack",
+      "shape": "wire_grid",
+      "size": [
+        0.02,
+        0.48,
+        0.03
+      ],
+      "position": [
+        0.27,
+        0.06,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rack_stop",
+      "parent": "upper_rack",
+      "shape": "box",
+      "size": [
+        0.04,
+        0.03,
+        0.06
+      ],
+      "position": [
+        0.26,
+        0.02,
+        0.18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "white_plastic",
+      "color": "#9aa0a7",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_tine",
+      "parent": "upper_rack",
+      "shape": "capsule",
+      "size": [
+        0.006,
+        0.09
+      ],
+      "position": [
+        -0.08,
+        0.06,
+        -0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        20
+      ],
+      "material": "painted_metal",
+      "color": "#35383d",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_tine_row",
+      "parent": "upper_rack",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#35383d",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "stem_guard",
+      "parent": "upper_rack",
+      "shape": "box",
+      "size": [
+        0.045,
+        0.22,
+        0.015
+      ],
+      "position": [
+        -0.15,
+        0.09,
+        0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        25
+      ],
+      "material": "rubber",
+      "color": "#565b61",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "stem_guard_r",
+      "parent": "upper_rack",
+      "shape": "box",
+      "size": [
+        0.045,
+        0.22,
+        0.015
+      ],
+      "position": [
+        0.15,
+        0.09,
+        0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        -25
+      ],
+      "material": "rubber",
+      "color": "#565b61",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_spray",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.32,
+        0.015,
+        0.03
+      ],
+      "position": [
+        0,
+        0.52,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#3d4046",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "upper_hub",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.04,
+        0.03,
+        0
+      ],
+      "position": [
+        0,
+        0.53,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#6e747b",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "lower_rack",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.28,
+        0.04
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#33363b",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "lower_base",
+      "parent": "lower_rack",
+      "shape": "wire_grid",
+      "size": [
+        0.54,
+        0.5,
+        0.025
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "lower_side_l",
+      "parent": "lower_rack",
+      "shape": "wire_grid",
+      "size": [
+        0.5,
+        0.02,
+        0.025
+      ],
+      "position": [
+        -0.27,
+        0.08,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "lower_side_r2",
+      "parent": "lower_rack",
+      "shape": "wire_grid",
+      "size": [
+        0.5,
+        0.02,
+        0.025
+      ],
+      "position": [
+        0.27,
+        0.08,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cutlery_basket",
+      "parent": "lower_rack",
+      "shape": "box",
+      "size": [
+        0.2,
+        0.12,
+        0.12
+      ],
+      "position": [
+        -0.12,
+        0.08,
+        -0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#7a8087",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cutlery_handle",
+      "parent": "lower_rack",
+      "shape": "torus",
+      "size": [
+        0.12,
+        0.012,
+        0
+      ],
+      "position": [
+        -0.12,
+        0.14,
+        0.04
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#9aa0a7",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "manual_pack",
+      "parent": "lower_rack",
+      "shape": "box",
+      "size": [
+        0.3,
+        0.02,
+        0.2
+      ],
+      "position": [
+        0.05,
+        0.03,
+        0.08
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#c9cdd2",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "lower_spray",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        0.36,
+        0.018,
+        0.035
+      ],
+      "position": [
+        0,
+        0.17,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#5a5e64",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "filter",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.125,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "coarse_filter",
+      "parent": "filter",
+      "shape": "cylinder",
+      "size": [
+        0.14,
+        0.015,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "stainless",
+      "color": "#6a6e74",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "fine_filter_hub",
+      "parent": "filter",
+      "shape": "cylinder",
+      "size": [
+        0.05,
+        0.02,
+        0
+      ],
+      "position": [
+        0.04,
+        0.01,
+        0.03
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#3c3f44",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "food_soil",
+      "parent": "filter",
+      "shape": "patch",
+      "size": [
+        0.12,
+        0.1
+      ],
+      "position": [
+        -0.02,
+        0.012,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "food_scraps",
+      "color": "#8a8e94",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rinse_cap",
+      "parent": "",
+      "shape": "cylinder",
+      "size": [
+        0.06,
+        0.01,
+        0
+      ],
+      "position": [
+        -0.22,
+        0.3,
+        -0.26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#c9ced3",
+      "points": [],
+      "text": "",
+      "repeat": []
+    }
+  ],
+  "parts": [
+    {
+      "node": "tub",
+      "label": "Dishwasher tub",
+      "aliases": [
+        "tub",
+        "cabinet",
+        "unit"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.7,
+        0.5,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "door",
+      "label": "Door",
+      "aliases": [
+        "front door",
+        "drop down door"
+      ],
+      "joint": "hinge",
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "amount": -85,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.5,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "upper_rack",
+      "label": "Upper rack",
+      "aliases": [
+        "top rack",
+        "upper basket"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 0.3,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.4,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "lower_rack",
+      "label": "Lower rack",
+      "aliases": [
+        "bottom rack",
+        "lower basket"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 0.35,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.4,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "filter",
+      "label": "Filter",
+      "aliases": [
+        "drain filter",
+        "strainer"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0.2,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "remove",
+        "insert",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        0.6
+      ],
+      "rest": 0
+    },
+    {
+      "node": "lower_spray",
+      "label": "Lower spray arm",
+      "aliases": [
+        "wash arm",
+        "sprayer"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 120,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.8,
+        0.8
+      ],
+      "rest": 0
+    },
+    {
+      "node": "upper_spray",
+      "label": "Upper spray arm",
+      "aliases": [
+        "upper wash arm"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 120,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.5,
+        0.4,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "control_button",
+      "label": "Power button",
+      "aliases": [
+        "buttons",
+        "controls"
+      ],
+      "joint": "press",
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "amount": 0.004,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "food_soil",
+      "label": "Filter buildup",
+      "aliases": [
+        "food",
+        "grime",
+        "clog"
+      ],
+      "joint": "debris",
+      "axis": [
+        0,
+        0.928,
+        0.371
+      ],
+      "amount": 0.3,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.9,
+        0.6
+      ],
+      "rest": 0
+    },
+    {
+      "node": "rinse_cap",
+      "label": "Rinse cap",
+      "aliases": [
+        "salt cap",
+        "rinse aid cap"
+      ],
+      "joint": "twist",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 180,
+      "lift": 0.02,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.4,
+        0.8,
+        1
+      ],
+      "rest": 0
+    }
+  ]
+}

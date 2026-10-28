@@ -1,0 +1,2158 @@
+{
+  "name": "Trek road bike with rim brakes",
+  "nodes": [
+    {
+      "id": "bike",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "floor_pad",
+      "parent": "",
+      "shape": "box",
+      "size": [
+        2.2,
+        0.006,
+        0.7
+      ],
+      "position": [
+        0,
+        0.003,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "ceramic",
+      "color": "#c8ccd2",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "frame_top_tube",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.032
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          -0.48,
+          0.82,
+          0
+        ],
+        [
+          -0.1,
+          0.84,
+          0
+        ],
+        [
+          0.32,
+          0.82,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "frame_down_tube",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.038
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          0,
+          0.3,
+          0
+        ],
+        [
+          0.18,
+          0.58,
+          0
+        ],
+        [
+          0.34,
+          0.8,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "frame_seat_tube",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.032
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          0,
+          0.3,
+          0
+        ],
+        [
+          -0.22,
+          0.58,
+          0
+        ],
+        [
+          -0.32,
+          0.81,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "seat_stay",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.016
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          -0.52,
+          0.355,
+          0.02
+        ],
+        [
+          -0.42,
+          0.6,
+          0.01
+        ],
+        [
+          -0.32,
+          0.8,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "seat_stay_L",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.016
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          -0.52,
+          0.355,
+          -0.02
+        ],
+        [
+          -0.42,
+          0.6,
+          -0.01
+        ],
+        [
+          -0.32,
+          0.8,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "chain_stay",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.018
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          -0.52,
+          0.355,
+          0.03
+        ],
+        [
+          -0.25,
+          0.32,
+          0.03
+        ],
+        [
+          0,
+          0.3,
+          0.02
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "fork_blade",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.02
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          0.52,
+          0.355,
+          0.025
+        ],
+        [
+          0.44,
+          0.6,
+          0.015
+        ],
+        [
+          0.36,
+          0.82,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "fork_blade_L",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.02
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#c8102e",
+      "points": [
+        [
+          0.52,
+          0.355,
+          -0.025
+        ],
+        [
+          0.44,
+          0.6,
+          -0.015
+        ],
+        [
+          0.36,
+          0.82,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "head_tube",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.042
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "painted_metal",
+      "color": "#1a1a1c",
+      "points": [
+        [
+          0.33,
+          0.73,
+          0
+        ],
+        [
+          0.37,
+          0.9,
+          0
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "headset_spacer",
+      "parent": "bike",
+      "shape": "cylinder",
+      "size": [
+        0.032,
+        0.03,
+        0
+      ],
+      "position": [
+        0.376,
+        0.925,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "stem",
+      "parent": "bike",
+      "shape": "box",
+      "size": [
+        0.11,
+        0.028,
+        0.03
+      ],
+      "position": [
+        0.4,
+        0.96,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        -15
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "handlebar",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.024
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [
+        [
+          0.44,
+          0.97,
+          -0.2
+        ],
+        [
+          0.45,
+          0.97,
+          -0.1
+        ],
+        [
+          0.45,
+          0.98,
+          0
+        ],
+        [
+          0.45,
+          0.97,
+          0.1
+        ],
+        [
+          0.44,
+          0.97,
+          0.2
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drop_bar_R",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.024
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [
+        [
+          0.45,
+          0.97,
+          0.2
+        ],
+        [
+          0.52,
+          0.96,
+          0.2
+        ],
+        [
+          0.53,
+          0.9,
+          0.2
+        ],
+        [
+          0.49,
+          0.88,
+          0.2
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "drop_bar_L",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.024
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [
+        [
+          0.45,
+          0.97,
+          -0.2
+        ],
+        [
+          0.52,
+          0.96,
+          -0.2
+        ],
+        [
+          0.53,
+          0.9,
+          -0.2
+        ],
+        [
+          0.49,
+          0.88,
+          -0.2
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "bar_tape_R",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.03
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#111113",
+      "points": [
+        [
+          0.52,
+          0.96,
+          0.2
+        ],
+        [
+          0.53,
+          0.9,
+          0.2
+        ],
+        [
+          0.49,
+          0.88,
+          0.2
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "bar_tape_L",
+      "parent": "bike",
+      "shape": "hose",
+      "size": [
+        0.03
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#111113",
+      "points": [
+        [
+          0.52,
+          0.96,
+          -0.2
+        ],
+        [
+          0.53,
+          0.9,
+          -0.2
+        ],
+        [
+          0.49,
+          0.88,
+          -0.2
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "trek_logo",
+      "parent": "bike",
+      "shape": "label",
+      "size": [
+        0.16,
+        0.03
+      ],
+      "position": [
+        0.18,
+        0.62,
+        0.022
+      ],
+      "rotation": [
+        0,
+        0,
+        63
+      ],
+      "material": "clear",
+      "color": "#e8e8e6",
+      "points": [],
+      "text": "TREK",
+      "repeat": []
+    },
+    {
+      "id": "seat_post",
+      "parent": "bike",
+      "shape": "cylinder",
+      "size": [
+        0.027,
+        0.18,
+        0
+      ],
+      "position": [
+        -0.345,
+        0.87,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        12
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "seat_post_clamp",
+      "parent": "bike",
+      "shape": "torus",
+      "size": [
+        0.034,
+        0.01,
+        0
+      ],
+      "position": [
+        -0.322,
+        0.815,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "clamp_lever",
+      "parent": "seat_post_clamp",
+      "shape": "capsule",
+      "size": [
+        0.012,
+        0.05
+      ],
+      "position": [
+        0.03,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "saddle",
+      "parent": "bike",
+      "shape": "panel",
+      "size": [
+        0.14,
+        0.27,
+        0.06
+      ],
+      "position": [
+        -0.38,
+        0.965,
+        0
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#1b1b1d",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "front_wheel",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0.52,
+        0.355,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "front_tyre",
+      "parent": "front_wheel",
+      "shape": "torus",
+      "size": [
+        0.66,
+        0.028,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#1c1c1e",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "front_rim",
+      "parent": "front_wheel",
+      "shape": "torus",
+      "size": [
+        0.62,
+        0.014,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "front_spoke",
+      "parent": "front_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.0025,
+        0.61,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "#d0d3d8",
+      "points": [],
+      "text": "",
+      "repeat": [
+        8,
+        0,
+        0,
+        0,
+        22.5
+      ]
+    },
+    {
+      "id": "front_hub",
+      "parent": "front_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.02,
+        0.07,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "quick_release",
+      "parent": "front_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.006,
+        0.09,
+        0
+      ],
+      "position": [
+        0,
+        0.045,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "chrome",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "qr_lever",
+      "parent": "quick_release",
+      "shape": "capsule",
+      "size": [
+        0.012,
+        0.06
+      ],
+      "position": [
+        0,
+        0.06,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        20
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rear_wheel",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        -0.52,
+        0.355,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rear_tyre",
+      "parent": "rear_wheel",
+      "shape": "torus",
+      "size": [
+        0.66,
+        0.028,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#1c1c1e",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rear_rim",
+      "parent": "rear_wheel",
+      "shape": "torus",
+      "size": [
+        0.62,
+        0.014,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rear_spoke",
+      "parent": "rear_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.0025,
+        0.61,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "#d0d3d8",
+      "points": [],
+      "text": "",
+      "repeat": [
+        8,
+        0,
+        0,
+        0,
+        22.5
+      ]
+    },
+    {
+      "id": "rear_hub",
+      "parent": "rear_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.02,
+        0.08,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cassette",
+      "parent": "rear_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.09,
+        0.03,
+        0.07
+      ],
+      "position": [
+        0,
+        0.035,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "chrome",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "cassette2",
+      "parent": "rear_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.11,
+        0.012,
+        0
+      ],
+      "position": [
+        0,
+        0.02,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "chrome",
+      "color": "#8a8f96",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "tire_valve",
+      "parent": "rear_wheel",
+      "shape": "cylinder",
+      "size": [
+        0.008,
+        0.03,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        -0.295
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "brass",
+      "color": "#8c6f2a",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "valve_cap",
+      "parent": "tire_valve",
+      "shape": "cylinder",
+      "size": [
+        0.01,
+        0.014,
+        0
+      ],
+      "position": [
+        0,
+        0.02,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#111111",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "thorn",
+      "parent": "rear_wheel",
+      "shape": "clump",
+      "size": [
+        0.02,
+        0.014,
+        0.02
+      ],
+      "position": [
+        0.05,
+        0.01,
+        -0.335
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "#2a2a2c",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "crank",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0,
+        0.3,
+        0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "chainring",
+      "parent": "crank",
+      "shape": "cylinder",
+      "size": [
+        0.19,
+        0.006,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "chainring_guard",
+      "parent": "crank",
+      "shape": "torus",
+      "size": [
+        0.19,
+        0.008,
+        0
+      ],
+      "position": [
+        0,
+        0,
+        0.008
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "crank_arm_R",
+      "parent": "crank",
+      "shape": "box",
+      "size": [
+        0.024,
+        0.17,
+        0.014
+      ],
+      "position": [
+        0.06,
+        -0.06,
+        0.015
+      ],
+      "rotation": [
+        0,
+        0,
+        -35
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "crank_arm_L",
+      "parent": "crank",
+      "shape": "box",
+      "size": [
+        0.024,
+        0.17,
+        0.014
+      ],
+      "position": [
+        -0.06,
+        0.06,
+        -0.015
+      ],
+      "rotation": [
+        0,
+        0,
+        -35
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "pedal_R",
+      "parent": "crank",
+      "shape": "box",
+      "size": [
+        0.09,
+        0.018,
+        0.07
+      ],
+      "position": [
+        0.115,
+        -0.135,
+        0.03
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "pedal_L",
+      "parent": "crank",
+      "shape": "box",
+      "size": [
+        0.09,
+        0.018,
+        0.07
+      ],
+      "position": [
+        -0.115,
+        0.135,
+        -0.03
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "chain",
+      "parent": "",
+      "shape": "hose",
+      "size": [
+        0.012
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "chain",
+      "color": "",
+      "points": [
+        [
+          0.085,
+          0.385,
+          0.05
+        ],
+        [
+          0,
+          0.4,
+          0.05
+        ],
+        [
+          -0.4,
+          0.4,
+          0.055
+        ],
+        [
+          -0.51,
+          0.39,
+          0.055
+        ],
+        [
+          -0.55,
+          0.355,
+          0.055
+        ],
+        [
+          -0.51,
+          0.32,
+          0.055
+        ],
+        [
+          -0.35,
+          0.305,
+          0.05
+        ],
+        [
+          0,
+          0.21,
+          0.05
+        ],
+        [
+          0.085,
+          0.215,
+          0.05
+        ],
+        [
+          0.085,
+          0.385,
+          0.05
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "chain_grime",
+      "parent": "chain",
+      "shape": "hose",
+      "size": [
+        0.015
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "oil",
+      "color": "",
+      "points": [
+        [
+          0,
+          0.4,
+          0.056
+        ],
+        [
+          -0.3,
+          0.398,
+          0.061
+        ],
+        [
+          -0.45,
+          0.36,
+          0.061
+        ]
+      ],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rear_derailleur",
+      "parent": "",
+      "shape": "rounded_box",
+      "size": [
+        0.03,
+        0.06,
+        0.02
+      ],
+      "position": [
+        -0.52,
+        0.28,
+        0.06
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "#2b2b2e",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "jockey_pulley",
+      "parent": "rear_derailleur",
+      "shape": "cylinder",
+      "size": [
+        0.028,
+        0.01,
+        0
+      ],
+      "position": [
+        0.015,
+        -0.05,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": [
+        2,
+        0.035,
+        -0.04,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "front_brake",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0.44,
+        0.705,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "front_brake_arch",
+      "parent": "front_brake",
+      "shape": "torus",
+      "size": [
+        0.07,
+        0.012,
+        4
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "front_pad",
+      "parent": "front_brake",
+      "shape": "box",
+      "size": [
+        0.01,
+        0.03,
+        0.02
+      ],
+      "position": [
+        -0.032,
+        -0.02,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "rubber",
+      "color": "#c46a6a",
+      "points": [],
+      "text": "",
+      "repeat": [
+        2,
+        0.064,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "rear_brake",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        -0.47,
+        0.7,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "rear_brake_arch",
+      "parent": "rear_brake",
+      "shape": "torus",
+      "size": [
+        0.07,
+        0.012,
+        4
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "brake_lever",
+      "parent": "",
+      "shape": "group",
+      "size": [],
+      "position": [
+        0.5,
+        0.93,
+        0.2
+      ],
+      "rotation": [
+        0,
+        0,
+        -20
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "lever_body",
+      "parent": "brake_lever",
+      "shape": "rounded_box",
+      "size": [
+        0.025,
+        0.04,
+        0.025
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "black_plastic",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    },
+    {
+      "id": "lever_blade",
+      "parent": "brake_lever",
+      "shape": "capsule",
+      "size": [
+        0.012,
+        0.1
+      ],
+      "position": [
+        0.01,
+        -0.06,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "aluminum",
+      "color": "",
+      "points": [],
+      "text": "",
+      "repeat": []
+    }
+  ],
+  "parts": [
+    {
+      "node": "front_wheel",
+      "label": "Front wheel",
+      "aliases": [
+        "front tyre",
+        "front tire"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": -360,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "rear_wheel",
+      "label": "Rear wheel",
+      "aliases": [
+        "back wheel",
+        "rear tire"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": -360,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "tire_valve",
+      "label": "Tyre valve",
+      "aliases": [
+        "valve cap",
+        "presta valve"
+      ],
+      "joint": "twist",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 360,
+      "lift": 0.012,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "unlock",
+        "remove",
+        "insert",
+        "lock",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.2,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "chain",
+      "label": "Chain",
+      "aliases": [
+        "bike chain",
+        "drive chain"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look",
+        "clean"
+      ],
+      "view": [
+        0.2,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "chain_grime",
+      "label": "Chain grime",
+      "aliases": [
+        "oily grime",
+        "chain lube dirt"
+      ],
+      "joint": "debris",
+      "axis": [
+        0,
+        0.287,
+        0.958
+      ],
+      "amount": 0.2,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "clean",
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.3,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "crank",
+      "label": "Crank and pedals",
+      "aliases": [
+        "pedals",
+        "chainring",
+        "crankset"
+      ],
+      "joint": "turn",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 360,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "turn",
+        "look"
+      ],
+      "view": [
+        0.2,
+        0.2,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "rear_derailleur",
+      "label": "Rear derailleur",
+      "aliases": [
+        "derailer",
+        "gear changer"
+      ],
+      "joint": "none",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "look"
+      ],
+      "view": [
+        0.1,
+        0.1,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "front_brake",
+      "label": "Front brake",
+      "aliases": [
+        "front rim brake",
+        "front caliper"
+      ],
+      "joint": "press",
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "amount": 0.006,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.4,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "rear_brake",
+      "label": "Rear brake",
+      "aliases": [
+        "back brake",
+        "rear caliper"
+      ],
+      "joint": "press",
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "amount": 0.006,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "press",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.4,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "brake_lever",
+      "label": "Brake lever",
+      "aliases": [
+        "brake handle",
+        "right lever"
+      ],
+      "joint": "hinge",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "amount": 20,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.6,
+        0.6,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "quick_release",
+      "label": "Quick release",
+      "aliases": [
+        "wheel skewer",
+        "wheel lock"
+      ],
+      "joint": "hinge",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 90,
+      "lift": 0,
+      "pivot": [
+        0,
+        0.04,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.2,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "seat_post_clamp",
+      "label": "Seat clamp",
+      "aliases": [
+        "seat post bolt",
+        "seat clamp"
+      ],
+      "joint": "hinge",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 90,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.4,
+        1
+      ],
+      "rest": 0
+    },
+    {
+      "node": "saddle",
+      "label": "Saddle",
+      "aliases": [
+        "seat",
+        "bike seat"
+      ],
+      "joint": "slide",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "amount": 0.08,
+      "lift": 0,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "actions": [
+        "open",
+        "close",
+        "look"
+      ],
+      "view": [
+        0.3,
+        0.5,
+        1
+      ],
+      "rest": 0
+    }
+  ]
+}

@@ -5,7 +5,7 @@
   "scene": "The thing itself on the floor or a counter in its usual spot (a counter for small appliances, a wall for wall-mounted things), with only the surroundings needed to make sense of it. Front faces +z.",
   "size": "Use the real size of this kind of thing.",
   "parts": [
-    {"id": "main_body", "label": "The unit", "required": true, "describe": "The main housing, shaped like the real thing (lathes for round housings, rounded boxes for moulded cases, panels for faces with openings).", "dims": "", "joint": "none", "axis": [0, 1, 0], "amount": 0, "actions": ["look"], "view": [0.7, 0.5, 1], "fallback": {"shape": "rounded_box", "size": [0.4, 0.4, 0.3], "position": [0, 0.2, 0], "material": "white_plastic"}},
+    {"id": "main_body", "label": "The unit", "required": false, "describe": "The main housing, shaped like the real thing (lathes for round housings, rounded boxes for moulded cases, panels for faces with openings).", "dims": "", "joint": "none", "axis": [0, 1, 0], "amount": 0, "actions": ["look"], "view": [0.7, 0.5, 1], "fallback": {"shape": "rounded_box", "size": [0.4, 0.4, 0.3], "position": [0, 0.2, 0], "material": "white_plastic"}},
     {"id": "door", "label": "Door", "required": false, "describe": "A door, lid or hatch hinged at one edge.", "dims": "", "joint": "hinge", "axis": [0, 1, 0], "amount": -100, "actions": ["open", "close", "look"], "view": [0.6, 0.5, 1]},
     {"id": "cover", "label": "Cover", "required": false, "describe": "A panel or cap that comes off (screws or clips).", "dims": "", "joint": "slide", "axis": [0, 0, 1], "amount": 0.15, "actions": ["remove", "insert", "look"], "view": [0.5, 0.4, 1]},
     {"id": "filter", "label": "Filter", "required": false, "describe": "A filter, screen, tray, basket or cartridge that slides or lifts out.", "dims": "", "joint": "slide", "axis": [0, 1, 0], "amount": 0.2, "actions": ["remove", "insert", "look"], "view": [0.4, 0.7, 1]},
@@ -18,5 +18,5 @@
   ],
   "debris": ["whatever the usual buildup is for this thing: grime, scale, lint, hair, crumbs, rust"],
   "views": ["front-right three-quarter", "close at each part from the side that shows it"],
-  "notes": "Rename these generic parts to what this thing really has (e.g. 'water_tank', 'crumb_tray', 'brush_roll') and add more where the real thing has them; only main_body is required."
+  "notes": "Rename these generic parts to what this thing really has (e.g. 'water_tank', 'crumb_tray', 'brush_roll') and add more where the real thing has them; nothing is required, but every part the fix could touch should exist."
 }
