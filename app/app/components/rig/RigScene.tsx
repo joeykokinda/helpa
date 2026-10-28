@@ -1,50 +1,53 @@
 "use client";
 
-import { ContactShadows, Environment, Lightformer, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState, type ComponentRef, type RefObject } from "react";
 import * as THREE from "three";
 import { applyBeats, pulseActions, restState, type Beat, type RigCatalog, type RigPartDef, type RigState } from "../../lib/rig/types";
 import { RigProvider } from "./RigRuntime";
+import BeatArrow from "./style/BeatArrow";
+import Effects from "./style/Effects";
+import Ground from "./style/Ground";
+import MotionGuide, { type PlayHead } from "./style/MotionGuide";
+import { beatSeconds, easeInOutCubic, moveAmount, pulseAmount, timing } from "./style/motion";
+import StyledRenderer from "./style/StyledRenderer";
+import { palette } from "./style/toon";
 
 type OrbitControlsImpl = ComponentRef<typeof OrbitControls>;
 
-const accent = "#ff8a2a";
-const leadSeconds = 0.45;
-const moveSeconds = 1.5;
-const holdSeconds = 0.55;
-const beatSeconds = leadSeconds + moveSeconds + holdSeconds;
 const endHoldSeconds = 1.4;
+const slowFactor = 1.8;
+const flightSeconds = 1.2;
 
-const ease = (progress: number) => (progress < 0.5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2);
-
-/** Where the timeline is: which beat, and how far through its move. */
-function timelineAt(seconds: number, beatCount: number, slow: boolean) {
-  const scaled = seconds / (slow ? 1.8 : 1);
+/** Where the timeline is: which beat, how far into it, and how far through its move. */
+function timelineAt(seconds: number, beatCount: number, slow: boolean): PlayHead {
+  const scaled = seconds / (slow ? slowFactor : 1);
   const total = beatCount * beatSeconds + endHoldSeconds;
   const local = scaled % total;
   const index = Math.min(beatCount - 1, Math.floor(local / beatSeconds));
   const within = local - index * beatSeconds;
-  const progress = local >= beatCount * beatSeconds ? 1 : Math.min(1, Math.max(0, (within - leadSeconds) / moveSeconds));
-  return { index, progress };
+  const progress = local >= beatCount * beatSeconds ? 1 : Math.min(1, Math.max(0, (within - timing.lead) / timing.move));
+  return { index, within, progress };
 }
 
 /** Joint amounts at a moment: earlier beats done, the current one part way. */
-function amountsAt(start: RigState, beats: Beat[], index: number, progress: number): RigState {
+function amountsAt(start: RigState, beats: Beat[], defs: Record<string, RigPartDef>, index: number, progress: number): RigState {
   const state = applyBeats(start, beats.slice(0, index));
   const beat = beats[index];
   if (!beat) return state;
   const from = state[beat.part] ?? 0;
+  const joint = defs[beat.part]?.joint ?? { kind: "none" };
   if (pulseActions.includes(beat.action)) {
-    state[beat.part] = beat.action === "look" ? from : Math.sin(Math.min(1, progress) * Math.PI);
+    state[beat.part] = beat.action === "look" ? from : pulseAmount(beat.action, progress);
   } else {
     const target = applyBeats({}, [beat])[beat.part];
-    if (target !== undefined) state[beat.part] = from + (target - from) * ease(progress);
+    if (target !== undefined) state[beat.part] = moveAmount(joint, from, target, progress);
   }
   return state;
 }
 
-function Timeline({ beats, start, slow, clockStartRef, amountsRef, focusRef, onBeat }: { beats: Beat[]; start: RigState; slow: boolean; clockStartRef: RefObject<number>; amountsRef: RefObject<RigState>; focusRef: RefObject<string | null>; onBeat: (index: number) => void }) {
+function Timeline({ beats, defs, start, slow, clockStartRef, amountsRef, focusRef, playRef, onBeat }: { beats: Beat[]; defs: Record<string, RigPartDef>; start: RigState; slow: boolean; clockStartRef: RefObject<number>; amountsRef: RefObject<RigState>; focusRef: RefObject<string | null>; playRef: RefObject<PlayHead>; onBeat: (index: number) => void }) {
   const lastIndexRef = useRef(-1);
   useFrame(({ clock }) => {
     if (!beats.length) {
@@ -52,12 +55,13 @@ function Timeline({ beats, start, slow, clockStartRef, amountsRef, focusRef, onB
       focusRef.current = null;
       return;
     }
-    const { index, progress } = timelineAt(clock.elapsedTime - clockStartRef.current, beats.length, slow);
-    amountsRef.current = amountsAt(start, beats, index, progress);
-    focusRef.current = beats[index].part;
-    if (index !== lastIndexRef.current) {
-      lastIndexRef.current = index;
-      onBeat(index);
+    const play = timelineAt(clock.elapsedTime - clockStartRef.current, beats.length, slow);
+    playRef.current = play;
+    amountsRef.current = amountsAt(start, beats, defs, play.index, play.progress);
+    focusRef.current = beats[play.index].part;
+    if (play.index !== lastIndexRef.current) {
+      lastIndexRef.current = play.index;
+      onBeat(play.index);
     }
   });
   return null;
@@ -69,145 +73,99 @@ function worldBox(node: THREE.Object3D | undefined) {
   return box;
 }
 
-/** Big orange arrow for the current beat, built from the part's real joint so it always points the right way. */
-function BeatArrow({ beat, def, nodes }: { beat?: Beat; def?: RigPartDef; nodes: RefObject<Record<string, THREE.Group>> }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const straightRef = useRef<THREE.Group>(null);
-  const curvedRef = useRef<THREE.Group>(null);
+type Pose = { target: THREE.Vector3; direction: THREE.Vector3; distance: number; halfHeight: number };
 
-  useFrame(({ clock }) => {
-    const group = groupRef.current;
-    const node = beat ? nodes.current[beat.part] : undefined;
-    if (!group || !beat || !def || !node) {
-      if (group) group.visible = false;
-      return;
-    }
-    const joint = def.joint;
-    const showArrow = beat.action !== "look" && joint.kind !== "none";
-    group.visible = showArrow;
-    if (!showArrow) return;
-    const box = worldBox(node);
-    const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    const radius = Math.max(0.04, Math.min(0.18, size.length() * 0.35));
-    const worldQuaternion = node.getWorldQuaternion(new THREE.Quaternion());
-    const nudge = (Math.sin(clock.elapsedTime * 5) + 1) * 0.5;
-    const reverse = beat.action === "close" || beat.action === "insert" || beat.action === "lock";
-    const curved = joint.kind === "hinge" || joint.kind === "twist" || joint.kind === "turn";
-    straightRef.current!.visible = !curved;
-    curvedRef.current!.visible = curved;
+/** Half the view height that frames a part of this size: buttons get close-ups, doors get the whole appliance. */
+const frameFor = (size: number) => Math.max(0.12, Math.min(0.9, size * 1.25 + 0.11));
+/** How far back the camera stands. Orthographic, so this only decides what sits in front of the part. */
+const standoffFor = (size: number) => Math.max(0.42, Math.min(2.6, (size * 1.5 + 0.16) / Math.tan(THREE.MathUtils.degToRad(17.5))));
 
-    if (curved) {
-      const axis = new THREE.Vector3(...joint.axis).applyQuaternion(worldQuaternion).normalize();
-      const spinSign = Math.sign(joint.angle) * (reverse ? -1 : 1);
-      let anchor = center.clone();
-      if (joint.kind === "hinge") anchor = node.localToWorld(new THREE.Vector3(...joint.pivot)).add(new THREE.Vector3(0, size.y * 0.5 + 0.05, 0));
-      else anchor.add(axis.clone().multiplyScalar(Math.max(size.x, size.y, size.z) * 0.6 + 0.02));
-      group.position.copy(anchor);
-      group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), axis);
-      curvedRef.current!.rotation.y = spinSign * (0.2 + nudge * 0.25);
-      curvedRef.current!.scale.set(spinSign < 0 ? -radius : radius, radius, radius);
-      return;
-    }
-    let direction = new THREE.Vector3(0, 1, 0);
-    if (joint.kind === "slide" || joint.kind === "press") direction = new THREE.Vector3(...joint.direction).applyQuaternion(worldQuaternion).normalize();
-    if (joint.kind === "debris") direction = new THREE.Vector3(...joint.away).applyQuaternion(worldQuaternion).normalize();
-    if (reverse) direction.negate();
-    const length = joint.kind === "debris" ? 0.16 : Math.max(0.1, radius * 1.4);
-    // Pulls start at the part and point out; presses, inserts and closes come from outside and point in.
-    const extent = Math.abs(size.clone().dot(direction)) * 0.5;
-    const inward = joint.kind === "press" || reverse;
-    const start = inward ? center.clone().sub(direction.clone().multiplyScalar(extent + length + 0.04)) : center.clone().add(direction.clone().multiplyScalar(extent + 0.02));
-    group.position.copy(start).add(direction.clone().multiplyScalar(nudge * 0.02));
-    group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction);
-    straightRef.current!.scale.setScalar(length);
-  });
-
-  const material = <meshBasicMaterial color={accent} depthTest={false} transparent opacity={0.96} toneMapped={false} />;
-  return (
-    <group ref={groupRef} renderOrder={20}>
-      <group ref={straightRef}>
-        <mesh position={[0, 0.4, 0]} renderOrder={20}>
-          <cylinderGeometry args={[0.07, 0.07, 0.8, 20]} />
-          {material}
-        </mesh>
-        <mesh position={[0, 0.92, 0]} renderOrder={20}>
-          <coneGeometry args={[0.18, 0.32, 28]} />
-          {material}
-        </mesh>
-      </group>
-      <group ref={curvedRef}>
-        <mesh rotation={[Math.PI / 2, 0, 0]} renderOrder={20}>
-          <torusGeometry args={[1, 0.06, 12, 64, Math.PI * 1.3]} />
-          {material}
-        </mesh>
-        <mesh position={[Math.cos(Math.PI * 1.3), 0, -Math.sin(Math.PI * 1.3)]} rotation={[0, Math.PI * 1.3, Math.PI / 2]} renderOrder={20}>
-          <coneGeometry args={[0.16, 0.32, 24]} />
-          {material}
-        </mesh>
-      </group>
-    </group>
-  );
-}
-
-/** Frames the current beat's part from the side that shows it best, flying smoothly between beats. */
+/** Orthographic, isometric-style framing of the current beat's part, from the side its catalog says shows it best, with an eased dolly between beats. */
 function CameraDirector({ beat, def, nodes, controlsRef, userMovedRef }: { beat?: Beat; def?: RigPartDef; nodes: RefObject<Record<string, THREE.Group>>; controlsRef: RefObject<OrbitControlsImpl | null>; userMovedRef: RefObject<boolean> }) {
-  const { camera } = useThree();
-  const placedRef = useRef(false);
-  const goal = useRef({ position: new THREE.Vector3(1.6, 1.4, 2.2), target: new THREE.Vector3(0, 0.55, 0) });
-
-  useEffect(() => {
-    userMovedRef.current = false;
-  }, [beat, userMovedRef]);
-
+  const flight = useRef<{ from: Pose; to: Pose; elapsed: number } | null>(null);
   const framedBeatRef = useRef<Beat | undefined>(undefined);
-  useFrame((_, delta) => {
+  const placedRef = useRef(false);
+  const goal = useRef<Pose>({ target: new THREE.Vector3(0, 0.5, 0), direction: new THREE.Vector3(0.6, 0.5, 1).normalize(), distance: 2.6, halfHeight: 0.8 });
+
+  useFrame(({ camera, size }, delta) => {
+    const ortho = camera as THREE.OrthographicCamera;
+    const controls = controlsRef.current;
+    const fit = Math.min(size.width, size.height);
     const node = beat ? nodes.current[beat.part] : undefined;
     // Frame each beat once, where the part is when the beat starts, so the camera doesn't chase debris away.
-    if (node && framedBeatRef.current !== beat) {
+    if ((node && framedBeatRef.current !== beat) || !placedRef.current) {
       framedBeatRef.current = beat;
-      const box = worldBox(node);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3()).length();
-      const view = new THREE.Vector3(...(def?.view ?? [0.6, 0.5, 1])).normalize();
-      const fov = THREE.MathUtils.degToRad((camera as THREE.PerspectiveCamera).fov);
-      // Close enough to see the part, far enough to keep its surroundings for context.
-      // Scale with the part: a button gets a close-up, a door gets the whole appliance.
-      const distance = Math.max(0.42, Math.min(2.6, (size * 1.5 + 0.16) / Math.tan(fov / 2)));
-      goal.current.target.copy(center);
-      goal.current.position.copy(center).add(view.multiplyScalar(distance));
+      if (node) {
+        const box = worldBox(node);
+        const partSize = box.getSize(new THREE.Vector3()).length();
+        goal.current = { target: box.getCenter(new THREE.Vector3()), direction: new THREE.Vector3(...(def?.view ?? [0.6, 0.5, 1])).normalize(), distance: standoffFor(partSize), halfHeight: frameFor(partSize) };
+      }
+      const target = controls?.target ?? goal.current.target;
+      const offset = camera.position.clone().sub(target);
+      const current: Pose = { target: target.clone(), direction: offset.clone().normalize(), distance: offset.length(), halfHeight: fit / (2 * ortho.zoom) };
+      // The first shot cuts straight in; later ones dolly from wherever the camera is, including after the user orbits.
+      flight.current = placedRef.current ? { from: current, to: goal.current, elapsed: 0 } : { from: goal.current, to: goal.current, elapsed: flightSeconds };
+      placedRef.current = true;
+      userMovedRef.current = false;
     }
-    if (userMovedRef.current) return;
-    const blend = placedRef.current ? 1 - Math.exp(-delta * 2) : 1;
-    placedRef.current = true;
-    camera.position.lerp(goal.current.position, blend);
-    const controls = controlsRef.current;
+    if (userMovedRef.current || !flight.current) return;
+    const active = flight.current;
+    active.elapsed = Math.min(flightSeconds, active.elapsed + delta);
+    const blend = easeInOutCubic(active.elapsed / flightSeconds);
+    const target = active.from.target.clone().lerp(active.to.target, blend);
+    const turn = new THREE.Quaternion().setFromUnitVectors(active.from.direction, active.to.direction);
+    const direction = active.from.direction.clone().applyQuaternion(new THREE.Quaternion().slerp(turn, blend));
+    const distance = THREE.MathUtils.lerp(active.from.distance, active.to.distance, blend);
+    // Zoom in log space so close-ups ease in as smoothly as wide shots.
+    const halfHeight = Math.exp(THREE.MathUtils.lerp(Math.log(active.from.halfHeight), Math.log(active.to.halfHeight), blend));
+    camera.position.copy(target).addScaledVector(direction, distance);
+    ortho.zoom = fit / (2 * halfHeight);
+    ortho.updateProjectionMatrix();
     if (controls) {
-      controls.target.lerp(goal.current.target, blend);
+      controls.target.copy(target);
+      controls.minZoom = fit / (2 * 1.6);
+      controls.maxZoom = fit / (2 * 0.05);
       controls.update();
-    }
+    } else camera.lookAt(target);
   });
   return null;
 }
 
-function PinTracker({ beat, nodes, pinRef }: { beat?: Beat; nodes: RefObject<Record<string, THREE.Group>>; pinRef: RefObject<HTMLDivElement | null> }) {
-  const { camera, size } = useThree();
-  useFrame(() => {
+/** Keeps the annotation pill near its part, with a dashed leader line to a dot on the part. */
+function PinTracker({ beat, nodes, pinRef, leaderRef, dotRef }: { beat?: Beat; nodes: RefObject<Record<string, THREE.Group>>; pinRef: RefObject<HTMLDivElement | null>; leaderRef: RefObject<SVGLineElement | null>; dotRef: RefObject<SVGCircleElement | null> }) {
+  const sideRef = useRef(1);
+  useFrame(({ camera, size }) => {
     const pin = pinRef.current;
+    const leader = leaderRef.current;
+    const dot = dotRef.current;
     const node = beat ? nodes.current[beat.part] : undefined;
-    if (!pin) return;
+    if (!pin || !leader || !dot) return;
     if (!node) {
       pin.style.opacity = "0";
+      leader.style.opacity = dot.style.opacity = "0";
       return;
     }
     const box = worldBox(node);
-    const point = box.getCenter(new THREE.Vector3());
-    point.y = box.max.y;
-    const projected = point.project(camera);
-    const x = Math.min(size.width - 130, Math.max(12, ((projected.x + 1) / 2) * size.width));
-    const y = Math.min(size.height - 80, Math.max(60, ((1 - projected.y) / 2) * size.height));
-    pin.style.transform = `translate(${x}px, ${y}px)`;
-    pin.style.opacity = projected.z < 1 ? "1" : "0";
+    const projected = box.getCenter(new THREE.Vector3()).project(camera);
+    const anchorX = ((projected.x + 1) / 2) * size.width;
+    const anchorY = ((1 - projected.y) / 2) * size.height;
+    // Put the pill on the roomier side, and keep it there for the beat so it doesn't flip mid-move.
+    const side = anchorX > size.width * 0.62 ? -1 : anchorX < size.width * 0.38 ? 1 : sideRef.current;
+    sideRef.current = side;
+    const width = pin.offsetWidth;
+    const height = pin.offsetHeight;
+    const left = Math.min(size.width - width - 10, Math.max(10, anchorX + side * 34 - (side < 0 ? width : 0)));
+    const top = Math.min(size.height - height - 96, Math.max(56, anchorY - 74));
+    pin.style.transform = `translate(${left}px, ${top}px)`;
+    const endX = Math.min(left + width - 14, Math.max(left + 14, anchorX));
+    leader.setAttribute("x1", `${anchorX}`);
+    leader.setAttribute("y1", `${anchorY}`);
+    leader.setAttribute("x2", `${endX}`);
+    leader.setAttribute("y2", `${top + (anchorY > top ? height : 0)}`);
+    dot.setAttribute("cx", `${anchorX}`);
+    dot.setAttribute("cy", `${anchorY}`);
+    const visible = projected.z < 1 ? "1" : "0";
+    pin.style.opacity = leader.style.opacity = dot.style.opacity = visible;
   });
   return null;
 }
@@ -228,53 +186,67 @@ type RigSceneProps = {
   stepIndex: number;
 };
 
-/** The appliance model playing one step: each beat moves a real part, with an arrow, a caption and a following camera. */
+/** The appliance model playing one step: each beat moves a real part, with a guide, an arrow, a caption and a following camera. */
 export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSceneProps) {
   const defs = useMemo(() => Object.fromEntries(catalog.parts.map((part) => [part.id, part])), [catalog]);
-  const beats = stepBeats[stepIndex] ?? [];
+  const beats = useMemo(() => stepBeats[stepIndex] ?? [], [stepBeats, stepIndex]);
   const start = useMemo(() => applyBeats(restState(catalog), stepBeats.slice(0, stepIndex).flat()), [catalog, stepBeats, stepIndex]);
   const amountsRef = useRef<RigState>({ ...start });
   const focusRef = useRef<string | null>(null);
+  const playRef = useRef<PlayHead>({ index: 0, within: 0, progress: 0 });
   const nodesRef = useRef<Record<string, THREE.Group>>({});
   const clockStartRef = useRef(0);
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const userMovedRef = useRef(false);
   const pinRef = useRef<HTMLDivElement | null>(null);
+  const leaderRef = useRef<SVGLineElement | null>(null);
+  const dotRef = useRef<SVGCircleElement | null>(null);
   const [beatIndex, setBeatIndex] = useState(0);
   const [slow, setSlow] = useState(false);
   const [replays, setReplays] = useState(0);
   const beat = beats[beatIndex];
+  const def = beat ? defs[beat.part] : undefined;
+  const beatFrom = beat ? (applyBeats(start, beats.slice(0, beatIndex))[beat.part] ?? 0) : 0;
+  const beatTo = beat ? (applyBeats({}, [beat])[beat.part] ?? beatFrom) : 0;
   const runtime = useMemo(() => ({ defs, amounts: amountsRef, focus: focusRef, nodes: nodesRef }), [defs]);
 
   return (
-    <div className="scene-3d rig-scene">
-      <Canvas camera={{ position: [1.6, 1.4, 2.2], fov: 35, near: 0.02, far: 30 }} dpr={[1, 2]} shadows>
+    <div className="scene-3d rig-scene" data-beat-seconds={beatSeconds * (slow ? slowFactor : 1)}>
+      <Canvas orthographic camera={{ position: [1.6, 1.4, 2.2], zoom: 220, near: 0.01, far: 12 }} dpr={[1, 2]} shadows="variance" flat>
         <RigProvider value={runtime}>
           <StartClock clockStartRef={clockStartRef} restartKey={`${stepIndex}-${replays}-${slow}`} />
-          <Timeline beats={beats} start={start} slow={slow} clockStartRef={clockStartRef} amountsRef={amountsRef} focusRef={focusRef} onBeat={setBeatIndex} />
-          <ambientLight intensity={0.3} />
-          <directionalLight position={[1.8, 3.2, 2.4]} intensity={1.7} castShadow shadow-mapSize={[1024, 1024]} />
-          <Environment resolution={128}>
-            <Lightformer form="rect" intensity={2.4} position={[0, 4, 2]} scale={[6, 3, 1]} />
-            <Lightformer form="rect" intensity={1.2} color="#ffe9d2" position={[-4, 1.5, 1]} rotation-y={Math.PI / 2} scale={[4, 2, 1]} />
-            <Lightformer form="rect" intensity={1} color="#dbe7ff" position={[4, 1.5, -1]} rotation-y={-Math.PI / 2} scale={[4, 2, 1]} />
-          </Environment>
+          <Timeline beats={beats} defs={defs} start={start} slow={slow} clockStartRef={clockStartRef} amountsRef={amountsRef} focusRef={focusRef} playRef={playRef} onBeat={setBeatIndex} />
+          <hemisphereLight args={["#fffdf8", "#b9a990", 2.2]} />
+          <directionalLight
+            position={[-1.3, 3.0, 1.65]}
+            intensity={1.05}
+            color="#fff6ea"
+            castShadow
+            shadow-mapSize={[1024, 1024]}
+            shadow-radius={9}
+            shadow-blurSamples={10}
+            shadow-bias={-0.0004}
+            shadow-camera-left={-1.6}
+            shadow-camera-right={1.6}
+            shadow-camera-top={1.6}
+            shadow-camera-bottom={-1.6}
+            shadow-camera-near={0.5}
+            shadow-camera-far={8}
+          />
+          <color attach="background" args={[palette.paper]} />
           <Model />
-          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.001, 0]} receiveShadow>
-            <circleGeometry args={[2.2, 64]} />
-            <meshBasicMaterial color="#f1ede7" toneMapped={false} />
-          </mesh>
-          <ContactShadows position={[0, 0.001, 0]} scale={3} blur={2.4} far={1.2} opacity={0.4} resolution={512} />
-          <BeatArrow beat={beat} def={beat ? defs[beat.part] : undefined} nodes={nodesRef} />
-          <CameraDirector beat={beat} def={beat ? defs[beat.part] : undefined} nodes={nodesRef} controlsRef={controlsRef} userMovedRef={userMovedRef} />
-          <PinTracker beat={beat} nodes={nodesRef} pinRef={pinRef} />
+          <Ground />
+          <BeatArrow beat={beat} def={def} nodes={nodesRef} />
+          <MotionGuide beat={beat} def={def} from={beatFrom} to={beatTo} nodes={nodesRef} playRef={playRef} />
+          <Effects beat={beat} def={def} nodes={nodesRef} playRef={playRef} />
+          <CameraDirector beat={beat} def={def} nodes={nodesRef} controlsRef={controlsRef} userMovedRef={userMovedRef} />
+          <PinTracker beat={beat} nodes={nodesRef} pinRef={pinRef} leaderRef={leaderRef} dotRef={dotRef} />
+          <StyledRenderer focusRef={focusRef} nodesRef={nodesRef} />
           <OrbitControls
             ref={controlsRef}
             makeDefault
             enablePan={false}
             enableDamping
-            minDistance={0.3}
-            maxDistance={5}
             onStart={() => {
               userMovedRef.current = true;
             }}
@@ -282,10 +254,15 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSc
         </RigProvider>
       </Canvas>
       {beat && (
-        <div ref={pinRef} className="scene-pin" aria-hidden="true">
-          <span className="scene-pin-dot" />
-          <span className="scene-pin-label">{defs[beat.part]?.label ?? beat.part}</span>
-        </div>
+        <>
+          <svg className="scene-pin-leader" aria-hidden="true">
+            <line ref={leaderRef} />
+            <circle ref={dotRef} r={5} />
+          </svg>
+          <div ref={pinRef} className="scene-pin" aria-hidden="true">
+            <span className="scene-pin-label">{def?.label ?? beat.part}</span>
+          </div>
+        </>
       )}
       <div className="scene-controls">
         <button type="button" className="scene-control" onClick={() => setReplays((count) => count + 1)} aria-label="Replay">

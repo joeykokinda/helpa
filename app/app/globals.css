@@ -1962,25 +1962,56 @@ a:focus-visible {
   align-items: center;
   gap: 6px;
   transition: opacity 0.2s;
+  will-change: transform;
 }
+/* The older single-part player puts the label above a dot; rig scenes draw a leader line instead. */
 .scene-pin-dot {
   width: 12px;
   height: 12px;
   margin: -6px 0 0 -6px;
   border-radius: 50%;
   background: #ff8a2a;
-  box-shadow: 0 0 0 4px rgb(255 138 42 / 0.3);
+  border: 1.5px solid #2b2522;
+}
+.scene-pin-dot + .scene-pin-label {
+  transform: translateY(-28px);
 }
 .scene-pin-label {
-  transform: translateY(-28px);
-  background: #111112;
-  color: #fff;
+  display: block;
+  background: #ffffff;
+  color: #2b2522;
+  border: 1.5px solid #2b2522;
   border-radius: 999px;
-  padding: 4px 12px;
-  font-size: 14px;
-  font-weight: 700;
+  padding: 4px 11px;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.01em;
   white-space: nowrap;
-  box-shadow: 0 4px 14px rgb(0 0 0 / 0.18);
+  box-shadow: 0 2px 0 rgb(43 37 34 / 0.85);
+}
+.scene-pin-leader {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.scene-pin-leader line {
+  stroke: #2b2522;
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  stroke-linecap: round;
+  transition: opacity 0.2s;
+}
+.scene-pin-leader circle {
+  fill: #ff8a2a;
+  stroke: #2b2522;
+  stroke-width: 1.5;
+  transition: opacity 0.2s;
+}
+.compare-tile .scene-pin-leader {
+  display: none;
 }
 .scene-controls {
   position: absolute;
@@ -1993,14 +2024,21 @@ a:focus-visible {
   min-width: 44px;
   height: 36px;
   border-radius: 999px;
-  border: none;
-  background: rgb(255 255 255 / 0.85);
-  color: #111112;
-  font-weight: 700;
+  border: 1.5px solid #2b2522;
+  background: #ffffff;
+  color: #2b2522;
+  font-weight: 750;
   font-size: 14px;
   padding: 0 12px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+  box-shadow: 0 2px 0 rgb(43 37 34 / 0.85);
+}
+.scene-control:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.scene-control[aria-pressed="true"] {
+  background: #ff8a2a;
 }
 
 .theme-toggle {
@@ -2016,6 +2054,10 @@ a:focus-visible {
 /* Rig scenes (owned by components/rig) */
 .rig-scene {
   height: min(52vh, 420px);
+  background: #f4eee4;
+}
+:root[data-theme="dark"] .rig-scene {
+  background: #f4eee4;
 }
 .rig-beats {
   position: absolute;
@@ -2036,29 +2078,39 @@ a:focus-visible {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgb(17 17 18 / 0.2);
+  background: rgb(43 37 34 / 0.22);
   transition: background 0.2s, transform 0.2s;
 }
 .rig-beat-dot-on {
   background: #ff8a2a;
+  box-shadow: 0 0 0 1.5px #2b2522;
   transform: scale(1.3);
 }
-.rig-caption {
+.rig-scene .rig-caption {
   position: static;
   transform: none;
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 7px 14px 7px 8px;
+  background: #ffffff;
+  color: #2b2522;
+  border: 1.5px solid #2b2522;
+  box-shadow: 0 3px 0 rgb(43 37 34 / 0.85);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 .rig-caption-count {
   display: inline-grid;
   place-items: center;
+  flex: none;
   width: 22px;
   height: 22px;
   border-radius: 50%;
+  border: 1.5px solid #2b2522;
   background: #ff8a2a;
-  color: #111112;
-  font-size: 13px;
+  color: #2b2522;
+  font-size: 12px;
 }
 
 /* Step without a 3D model or photo: a calm "where to look" card instead of a second Helpa. */

@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { createContext, useContext, useLayoutEffect, useRef, type ReactNode, type RefObject } from "react";
 import * as THREE from "three";
 import type { RigPartDef, RigState } from "../../lib/rig/types";
+import { palette, toonCopy } from "./style/toon";
 
 type RigRuntime = {
   defs: Record<string, RigPartDef>;
@@ -27,10 +28,12 @@ export function useRig() {
   return rig;
 }
 
-const highlight = new THREE.Color("#ff8a2a");
+const highlight = new THREE.Color(palette.accent);
 
-/** Applies a joint at amount 0..1 to the inner group, relative to where the part rests. */
-function applyJoint(def: RigPartDef, amount: number, inner: THREE.Group, materials: THREE.MeshStandardMaterial[]) {
+type PartMaterial = THREE.Material & { emissive?: THREE.Color; emissiveIntensity?: number; map?: THREE.Texture | null };
+
+/** Applies a joint at amount 0..1 to the inner group, relative to where the part rests. Amounts may overshoot a little for easing. */
+export function applyJoint(def: RigPartDef, amount: number, inner: THREE.Object3D, materials: PartMaterial[] = []) {
   inner.position.set(0, 0, 0);
   inner.quaternion.identity();
   inner.scale.setScalar(1);
@@ -39,9 +42,15 @@ function applyJoint(def: RigPartDef, amount: number, inner: THREE.Group, materia
     case "slide":
       inner.position.set(...joint.direction).normalize().multiplyScalar(joint.distance * amount);
       break;
-    case "press":
-      inner.position.set(...joint.direction).normalize().multiplyScalar(joint.depth * amount);
+    case "press": {
+      const direction = new THREE.Vector3(...joint.direction).normalize();
+      inner.position.copy(direction).multiplyScalar(joint.depth * amount);
+      // Squash along the press, bulge a little across it; a release past rest stretches instead.
+      const along = 1 - 0.22 * amount;
+      const across = 1 + 0.08 * amount;
+      inner.scale.set(across + (along - across) * Math.abs(direction.x), across + (along - across) * Math.abs(direction.y), across + (along - across) * Math.abs(direction.z));
       break;
+    }
     case "hinge": {
       const pivot = new THREE.Vector3(...joint.pivot);
       const rotation = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...joint.axis).normalize(), joint.angle * amount);
@@ -72,7 +81,6 @@ function applyJoint(def: RigPartDef, amount: number, inner: THREE.Group, materia
       inner.scale.setScalar(1 - 0.35 * drift);
       const opacity = 1 - Math.max(0, (amount - 0.55) / 0.45);
       for (const material of materials) {
-        material.transparent = true;
         material.opacity = opacity * ((material.userData.baseOpacity as number) ?? 1);
       }
       inner.visible = opacity > 0.01;
@@ -91,17 +99,21 @@ function registerNode(rig: RigRuntime, id: string, outer: THREE.Group) {
 }
 
 /** Each part's own (cloned) materials, keyed by its inner group. */
-const partMaterials = new WeakMap<THREE.Group, THREE.MeshStandardMaterial[]>();
+const partMaterials = new WeakMap<THREE.Group, PartMaterial[]>();
 
-/** Clones the materials of a part's meshes so it can glow alone; stops at nested parts, which own theirs. */
-function claimMaterials(inner: THREE.Group) {
-  const owned: THREE.MeshStandardMaterial[] = [];
+/** Gives a part's meshes their own cel-shaded materials so it can glow alone; stops at nested parts, which own theirs. */
+function claimMaterials(inner: THREE.Group, fades: boolean) {
+  const owned: PartMaterial[] = [];
   const walk = (object: THREE.Object3D) => {
     if (object !== inner && object.userData.rigPart) return;
     const mesh = object as THREE.Mesh;
     if (mesh.isMesh) {
       const cloned = (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map((material) => {
-        const copy = (material as THREE.MeshStandardMaterial).clone();
+        const toon = toonCopy(material);
+        const copy = (toon === material ? material.clone() : toon) as PartMaterial;
+        copy.userData = { ...material.userData, ...toon.userData };
+        // Set once, so fading debris never swaps shader programs mid-animation.
+        if (fades) copy.transparent = true;
         copy.userData.baseOpacity = copy.opacity;
         copy.userData.baseEmissive = copy.emissive?.clone();
         copy.userData.baseEmissiveIntensity = copy.emissiveIntensity;
@@ -116,14 +128,15 @@ function claimMaterials(inner: THREE.Group) {
   return owned;
 }
 
-function paintGlow(materials: THREE.MeshStandardMaterial[], focused: boolean, seconds: number) {
-  const pulse = (Math.sin(seconds * 4) + 1) / 2;
+/** The focused part gets a thick outline from the style pass; this only adds a faint warm breath on top. */
+function paintGlow(materials: PartMaterial[], focused: boolean, seconds: number) {
+  const pulse = (Math.sin(seconds * 5) + 1) / 2;
   for (const material of materials) {
     if (!material.emissive) continue;
     if (focused) {
       material.emissive.copy(highlight);
       // Textured things (lint, mesh, grime) only get a hint of glow so they still look like themselves.
-      material.emissiveIntensity = material.map ? 0.06 + pulse * 0.08 : 0.16 + pulse * 0.2;
+      material.emissiveIntensity = material.map ? 0.02 + pulse * 0.03 : 0.04 + pulse * 0.06;
     } else {
       if (material.userData.baseEmissive) material.emissive.copy(material.userData.baseEmissive);
       material.emissiveIntensity = (material.userData.baseEmissiveIntensity as number) ?? 1;
@@ -151,7 +164,7 @@ export function RigPart({ id, position, rotation, children }: RigPartProps) {
     const inner = innerRef.current;
     const outer = outerRef.current;
     if (!inner || !outer) return;
-    partMaterials.set(inner, claimMaterials(inner));
+    partMaterials.set(inner, claimMaterials(inner, rig.defs[id]?.joint.kind === "debris"));
     return registerNode(rig, id, outer);
   }, [id, rig]);
 
