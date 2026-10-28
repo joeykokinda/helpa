@@ -8,7 +8,7 @@ import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import { tidy } from "../lib/text";
 
-type DoneProps = { plan: Plan | null; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void };
+type DoneProps = { plan: Plan | null; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void; savedName?: string };
 
 /** Little stars that pop out from behind Helpa once, like a party popper. */
 function Burst() {
@@ -31,7 +31,7 @@ function Burst() {
   );
 }
 
-export default function Done({ plan, minutes, mood, speaking, onRestart }: DoneProps) {
+export default function Done({ plan, minutes, mood, speaking, onRestart, savedName }: DoneProps) {
   const [shared, setShared] = useState(false);
   // Only claim savings when a technician or shop would really have been paid for this fix.
   const saved = plan?.pro_visit_cost ?? 0;
@@ -88,6 +88,18 @@ export default function Done({ plan, minutes, mood, speaking, onRestart }: DoneP
           </motion.div>
         )}
 
+        {savedName && (
+          <motion.div className="card home-saved" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
+            <span className="home-saved-icon" aria-hidden="true">
+              <Icon name="home" size={20} />
+            </span>
+            <div>
+              <strong>Saved to My Home</strong>
+              <p>I&apos;ll remember your {savedName}, what you fixed, and when it needs care.</p>
+            </div>
+          </motion.div>
+        )}
+
         {saved > 0 && (
           <motion.div className="card saved-card" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.55, type: "spring", stiffness: 220, damping: 18 }}>
             <span className="saved-label">Doing it yourself saved about</span>
@@ -114,7 +126,7 @@ export default function Done({ plan, minutes, mood, speaking, onRestart }: DoneP
           {shared ? "Shared" : "Share"}
         </button>
         <button className="btn btn-primary press" onClick={onRestart}>
-          Fix another
+          {savedName ? "Go to My Home" : "Fix another"}
         </button>
       </div>
     </section>
