@@ -22,6 +22,10 @@ type CaptureProps = {
   bubble: string;
   mood: HelpaMood;
   speaking: boolean;
+  /** Starts on the describe screen with this filled in, e.g. from Ask Helpa about a saved machine. */
+  prefill?: { identity: string; description: string };
+  /** Back to My Home, when there is one. */
+  onHome?: () => void;
 };
 
 export const cameraPrompt = "Point me at the broken thing, or its model sticker.";
@@ -31,17 +35,17 @@ const scanFrames = 3;
 const suggestions = ["Dishwasher leaves grit", "Washer won't drain", "Dryer takes forever", "Garbage disposal hums", "Fridge is leaking", "Toilet keeps running"];
 
 /** Full-bleed camera first; falls back to (or switches to) a describe screen with text and hold-to-talk. */
-export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mood, speaking }: CaptureProps) {
+export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mood, speaking, prefill, onHome }: CaptureProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const backdropRef = useRef<HTMLVideoElement>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const [camera, setCamera] = useState<"starting" | "ready" | "failed">("starting");
-  const [screen, setScreen] = useState<"camera" | "describe">("camera");
+  const [screen, setScreen] = useState<"camera" | "describe">(prefill ? "describe" : "camera");
   const [captureMode, setCaptureMode] = useState<"photo" | "scan" | "model">("photo");
   // The model number Helpa read off the sticker (or a VIN), sent along with the problem.
-  const [identity, setIdentity] = useState("");
+  const [identity, setIdentity] = useState(prefill?.identity ?? "");
   const [photos, setPhotos] = useState<{ blob: Blob; url: string }[]>([]);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(prefill?.description ?? "");
   const [recording, setRecording] = useState(false);
   const [transcribing, setTranscribing] = useState(false);
   const [scanning, setScanning] = useState(false);
@@ -243,7 +247,13 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
         </AnimatePresence>
 
         <div className="topbar camera-top">
-          <span className="wordmark camera-wordmark">helpa</span>
+          {onHome ? (
+            <button className="icon-button glass press" onClick={onHome} aria-label="My Home">
+              <Icon name="home" />
+            </button>
+          ) : (
+            <span className="wordmark camera-wordmark">helpa</span>
+          )}
           <div className="topbar-actions">
             {torch !== "unsupported" && (
               <button
@@ -344,6 +354,10 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
             {camera === "ready" ? (
               <button className="icon-button press" onClick={openCamera} aria-label="Back to camera">
                 <Icon name="back" />
+              </button>
+            ) : onHome ? (
+              <button className="icon-button press" onClick={onHome} aria-label="My Home">
+                <Icon name="home" />
               </button>
             ) : (
               <span className="wordmark">helpa</span>

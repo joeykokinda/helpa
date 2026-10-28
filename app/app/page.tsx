@@ -10,11 +10,14 @@ import Capture, { cameraPrompt } from "./components/Capture";
 import CheckMoment, { type CheckState } from "./components/CheckMoment";
 import Confetti from "./components/Confetti";
 import Done from "./components/Done";
+import MachinePage from "./components/MachinePage";
+import MyHome from "./components/MyHome";
 import Helpa, { type HelpaMood } from "./components/Helpa";
 import Icon, { type IconName } from "./components/Icons";
 import Onboarding, { hasOnboarded } from "./components/Onboarding";
 import PartPhoto from "./components/PartPhoto";
 import { rigLoaders } from "./components/rig/registry";
+import { listMachines, saveFix, type Machine } from "./lib/home";
 import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
 import { requestMotionPermission } from "./lib/live";
 import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
@@ -72,7 +75,7 @@ function iconFor(tool: string): IconName {
   return toolIcons.find(([pattern]) => pattern.test(tool))?.[1] ?? "toolbox";
 }
 
-type Stage = "start" | "working" | "plan" | "step" | "done";
+type Stage = "home" | "machine" | "start" | "working" | "plan" | "step" | "done";
 type Question = { session: string; question: string; choices: string[] };
 
 const noSubscription = () => () => {};
@@ -108,6 +111,24 @@ export default function Home() {
   const checkToken = useRef(0);
   const startedAt = useRef(0);
   const [fixMinutes, setFixMinutes] = useState(0);
+  // My Home: the machines Helpa remembers, kept on the phone.
+  const [machines, setMachines] = useState<Machine[]>([]);
+  // Hold the first screen until My Home is read, so returning people don't flash the camera first.
+  const [homeLoaded, setHomeLoaded] = useState(false);
+  const [machineId, setMachineId] = useState<string>();
+  const [prefill, setPrefill] = useState<{ identity: string; description: string }>();
+  const [savedName, setSavedName] = useState("");
+  const runRef = useRef<{ photos: Blob[]; sample?: string }>({ photos: [] });
+
+  useEffect(() => {
+    listMachines().then((list) => {
+      setMachines(list);
+      setHomeLoaded(true);
+      if (list.length) setStage((current) => (current === "start" ? "home" : current));
+    });
+  }, []);
+
+  const rememberMachine = (machine: Machine) => setMachines((current) => [machine, ...current.filter((other) => other.id !== machine.id)]);
 
   const showTutorial = tutorial === "open" || (tutorial === "auto" && firstRun === true);
 
@@ -205,6 +226,8 @@ export default function Home() {
     stopSpeaking();
     setStage("working");
     startedAt.current = Date.now();
+    runRef.current = { photos, sample };
+    setSavedName("");
     setLive(false);
     setRows([{ key: "look", title: photos.length ? "Looking at your photo" : "Understanding the problem", detail: description ? `"${firstSentence(description)}"` : "" }]);
     setLibraryHit(null);
@@ -283,7 +306,14 @@ export default function Home() {
       setStage("done");
       setFixMinutes(minutesSince(startedAt.current));
       stopSpeaking();
-      say("You did it! That's fixed. I'm proud of you.", "celebrate");
+      const name = /^(car|truck|suv|vehicle)$/i.test(plan.appliance.trim()) ? "car" : tidy(plan.appliance).toLowerCase();
+      say(`You did it! That's fixed. I'll remember your ${name}.`, "celebrate");
+      saveFix(plan, { rig: playableRig ? { id: playableRig.id, recipe: playableRig.recipe } : undefined, photos: runRef.current.photos, sample: Boolean(runRef.current.sample) })
+        .then((machine) => {
+          rememberMachine(machine);
+          setSavedName(name);
+        })
+        .catch(() => {});
       return;
     }
     enterStep(Math.max(0, index));
@@ -329,6 +359,12 @@ export default function Home() {
 
   const restart = () => {
     stopSpeaking();
+    setPrefill(undefined);
+    if (machines.length) {
+      setStage("home");
+      setMood("idle");
+      return;
+    }
     setStage("start");
     say("What else can I help with? Point me at it, or tell me.", "idle", false);
   };
@@ -339,11 +375,50 @@ export default function Home() {
   };
 
   let screen: ReactNode = null;
-  if (firstRun === null) screen = null;
+  if (firstRun === null || !homeLoaded) screen = null;
   else if (showTutorial) screen = <Onboarding key="tutorial" onFinish={() => setTutorial("closed")} />;
+  else if (stage === "home")
+    screen = (
+      <MyHome
+        machines={machines}
+        mood={mood}
+        speaking={speaking}
+        onOpen={(machine) => {
+          stopSpeaking();
+          setMachineId(machine.id);
+          setStage("machine");
+        }}
+        onFix={() => {
+          setPrefill(undefined);
+          setBubble(cameraPrompt);
+          setStage("start");
+        }}
+        onSample={(photo, sample) => start([photo], sample.complaint, sample.id)}
+        onHelp={openTutorial}
+      />
+    );
+  else if (stage === "machine" && machines.some((machine) => machine.id === machineId))
+    screen = (
+      <MachinePage
+        machine={machines.find((machine) => machine.id === machineId) as Machine}
+        onChange={rememberMachine}
+        onBack={() => {
+          stopSpeaking();
+          setStage("home");
+        }}
+        onFix={(identity, complaint) => {
+          stopSpeaking();
+          setPrefill({ identity, description: complaint });
+          setBubble(complaint ? "I wrote down what you told me. Add a photo if you can." : "What's going on with it?");
+          setStage("start");
+        }}
+      />
+    );
   else if (stage === "start")
     screen = (
       <Capture
+        prefill={prefill}
+        onHome={machines.length ? () => setStage("home") : undefined}
         onSubmit={start}
         say={say}
         onListening={(listening) => setMood(listening ? "listening" : "idle")}
@@ -566,7 +641,7 @@ export default function Home() {
         />
       </section>
     );
-  } else if (stage === "done") screen = <Done plan={plan} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} />;
+  } else if (stage === "done") screen = <Done plan={plan} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} savedName={savedName} />;
 
   return (
     <MotionConfig reducedMotion="user">

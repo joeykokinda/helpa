@@ -188,3 +188,16 @@ export function describeSearch(action: SearchAction): { key: string; title: stri
   if (action.type === "find_in_page") return { key: "find", title: "Finding the right section", detail: action.pattern ? `Looking for "${action.pattern}"` : "" };
   return { key: "search", title: "Looking up your model", detail: "Searching official guides" };
 }
+
+export type AskReply = { answer: string; start_fix: boolean; complaint: string };
+
+/** A follow-up question about one saved machine; Helpa answers with what the phone remembers about it. */
+export async function askHelpa(machine: unknown, messages: { role: string; text: string }[], question: string): Promise<AskReply> {
+  const response = await fetch(`${API_URL}/api/ask`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ machine, messages, question }),
+  });
+  if (!response.ok) throw new Error("I couldn't answer that right now. Try again?");
+  return (await response.json()) as AskReply;
+}
