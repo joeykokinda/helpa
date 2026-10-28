@@ -696,7 +696,7 @@
         ]
       ],
       "cause": "the wrong cycle or a tripped breaker",
-      "next": "thermal_fuse_or_heater"
+      "next": "vent_blocked"
     },
     {
       "id": "dryer_stops_before_clothes_are_dry",
