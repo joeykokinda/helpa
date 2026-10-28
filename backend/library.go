@@ -129,6 +129,10 @@ func lookupLibrary(query libraryQuery) *libraryEntry {
 			continue
 		}
 		score := 1
+		// "top-load washer" picks the top-loader over the front-loader, which both count as a washer.
+		if strings.EqualFold(strings.TrimSpace(entry.Appliance), strings.TrimSpace(query.Appliance)) {
+			score++
+		}
 		if brand != "" {
 			if !strings.EqualFold(entry.Brand, brand) {
 				continue
