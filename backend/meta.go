@@ -51,6 +51,7 @@ func (item outputItem) text() string {
 
 type response struct {
 	Output []outputItem `json:"output"`
+	Usage  tokenUsage   `json:"usage"`
 	Error  *struct {
 		Message string `json:"message"`
 	} `json:"error"`
@@ -123,6 +124,7 @@ func createResponse(ctx context.Context, body map[string]any) (response, error) 
 	if parsed.Error != nil {
 		return response{}, fmt.Errorf("meta api: %s", parsed.Error.Message)
 	}
+	recordReply(body, parsed.Usage, parsed.Output)
 	return parsed, nil
 }
 
@@ -164,6 +166,10 @@ func streamResponse(ctx context.Context, body map[string]any, onItem func(output
 			}
 			items = append(items, item)
 			onItem(item)
+		case "response.completed":
+			if streamEvent.Response != nil {
+				recordReply(body, streamEvent.Response.Usage, items)
+			}
 		case "response.failed", "error":
 			if streamEvent.Response != nil && streamEvent.Response.Error != nil {
 				return nil, fmt.Errorf("meta api: %s", streamEvent.Response.Error.Message)

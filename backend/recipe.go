@@ -343,6 +343,7 @@ func recipeResponse(ctx context.Context, body map[string]any) (string, error) {
 	if parsed.Error != nil {
 		return "", fmt.Errorf("meta api: %s", parsed.Error.Message)
 	}
+	recordReply(body, tokenUsage{parsed.Usage.InputTokens, parsed.Usage.OutputTokens}, parsed.Output)
 	log.Printf("recipe tokens: %d in, %d out (%d reasoning)", parsed.Usage.InputTokens, parsed.Usage.OutputTokens, parsed.Usage.Details.Reasoning)
 	return parsed.text(), nil
 }
