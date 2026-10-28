@@ -113,6 +113,8 @@ export default function Home() {
   const [fixMinutes, setFixMinutes] = useState(0);
   // My Home: the machines Helpa remembers, kept on the phone.
   const [machines, setMachines] = useState<Machine[]>([]);
+  // Hold the first screen until My Home is read, so returning people don't flash the camera first.
+  const [homeLoaded, setHomeLoaded] = useState(false);
   const [machineId, setMachineId] = useState<string>();
   const [prefill, setPrefill] = useState<{ identity: string; description: string }>();
   const [savedName, setSavedName] = useState("");
@@ -121,6 +123,7 @@ export default function Home() {
   useEffect(() => {
     listMachines().then((list) => {
       setMachines(list);
+      setHomeLoaded(true);
       if (list.length) setStage((current) => (current === "start" ? "home" : current));
     });
   }, []);
@@ -372,7 +375,7 @@ export default function Home() {
   };
 
   let screen: ReactNode = null;
-  if (firstRun === null) screen = null;
+  if (firstRun === null || !homeLoaded) screen = null;
   else if (showTutorial) screen = <Onboarding key="tutorial" onFinish={() => setTutorial("closed")} />;
   else if (stage === "home")
     screen = (

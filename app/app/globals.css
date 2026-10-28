@@ -3358,3 +3358,11 @@ a:focus-visible {
   font-size: 15px;
   line-height: 1.4;
 }
+.home-saved div {
+  text-align: left;
+}
+.machine-twin .scene-controls,
+.machine-twin .rig-beat-dots,
+.machine-twin .rig-caption {
+  display: none;
+}
