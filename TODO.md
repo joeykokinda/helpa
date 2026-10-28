@@ -26,14 +26,21 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [ ] 🛠 **My Home** (next, after the merges): the main screen is your machines as cards with their mini 3D twins + "Fix something new". Machine page: 3D twin, identity (model, age, manual, part numbers), fix history, care reminders (lint screen, Camry oil interval), and **Ask Helpa**: follow-up chat with that machine's full context (`/api/ask`). Every finished fix saves to history. No login, stored on the phone (IndexedDB). Each card shows a status: Healthy, Repaired, Maintenance due; a reason to open the app when nothing is broken.
 - [ ] 🛠 Adapt to the person: first-timer vs experienced, Spanish, hands busy → voice.
 
-## In progress (branches, merging into main)
-- [ ] 🤖 `live-guide`: live camera AR as repair holograms (cyan holo ghost of the real part, scan-sweep materialize, target-lock brackets + labels, glowing trails). Same joints/beats as the 3D rig, one clock. Hybrid render: cutout for slide/lift, perspective plane around the pivot for hinge/twist, pulse for press. SAM re-anchors ~1s, gyro + patch tracking between, confidence fade to the corner 3D. **"Your turn" loop**: demo plays, then Helpa watches the real part → COMPLETED / INCOMPLETE (specific correction) / UNCERTAIN (better angle). Guided sticker/VIN capture with invisible internal zoom (full-res crop); the viewfinder stays a normal camera. Targets: dryer lint screen, dishwasher filter twist+lift, door hinge, Camry drain plug oil.
-- [ ] 🤖 `exact-models`: 2015 Toyota Camry 2.5L (2AR-FE) oil change with real specs; common Whirlpool top-load washer + matching electric dryer with real model numbers; identity chip on plan/step screens; car camera views and puffs fixed; **effects** (oil stream into the pan, filter dribble, pour into fill, dipstick level, lint peel, dishwasher drain) defined in catalog JSON so AR reuses them.
-- [ ] 🤖 `try-and-polish`: Try a sample cards (cached streams), Helpa talks less, done-screen celebration, agent tracks on the working screen, never-blank loading/error, icon/splash/OG share card.
+## Merged (live on the link)
+- [x] `live-guide`: live camera AR as repair holograms (cyan holo ghost of the real part, scan-sweep materialize, target-lock brackets + labels, glowing trails). Same joints/beats as the 3D rig, one clock. Hybrid render: cutout for slide/lift, perspective plane around the pivot for hinge/twist, pulse for press. SAM re-anchors ~1s, gyro + patch tracking between, confidence fade to the corner 3D. **"Your turn" loop**: demo plays, then Helpa watches the real part → COMPLETED / INCOMPLETE (specific correction) / UNCERTAIN (better angle). Guided sticker/VIN capture with invisible internal zoom (full-res crop); the viewfinder stays a normal camera. Targets: dryer lint screen, dishwasher filter twist+lift, door hinge, Camry drain plug oil.
+- [x] `exact-models`: 2015 Toyota Camry 2.5L (2AR-FE) oil change with real specs; common Whirlpool top-load washer + matching electric dryer with real model numbers; identity chip on plan/step screens; car camera views and puffs fixed; **effects** (oil stream into the pan, filter dribble, pour into fill, dipstick level, lint peel, dishwasher drain) defined in catalog JSON so AR reuses them.
+- [x] `try-and-polish`: Try a sample cards (cached streams), Helpa talks less, done-screen celebration, agent tracks on the working screen, never-blank loading/error, icon/splash/OG share card.
 - [x] Isometric toon look: outlines, cel shading, grid floor, ortho camera, dashed motion paths, overshoot easing, clean-up sparkles. Applies to every model.
 - [x] On-demand models: recipe format + renderer, per-category blueprints, reference recipes, `generateModel` (Muse builds a model from photo + identity).
 - [x] Parallel pipeline: fast identify, then model / research / measure in parallel, then choreograph. Helpa asks clarifying questions with tap answers. No-visual fallback.
 - [x] New hand-built models: garbage disposal (hex-key jam, reset button) and car oil change (drain plug, filter, dipstick, fill cap).
+
+## In progress (round 2)
+- [ ] 🤖 `my-home`: My Home first screen (machine cards, status pills), machine page (3D twin, identity, history, care reminders), Ask Helpa follow-up chat (`/api/ask`), IndexedDB, done screen saves the machine.
+- [ ] 🤖 `live-hardening`: lint-screen lock (prompt phrasings + rig region prior), tap-to-anchor fallback so the demo never stalls, door ghost + corner caption fixes, washer sample library match + honest savings, fps on headless and the Seeker.
+- [ ] 🤖 `proof`: per-IP rate limits, body cap, daily Meta budget with sample fallback; 50-case eval set + runner; 10-case chatbot comparison; docs/EVAL.md.
+- [ ] 🛠 Then: host on brach (frontend service + Funnel), README, shot list + script.
+- [ ] 🙋 Plug the Seeker in (USB) for real-device AR tests; test on an iPhone in Safari.
 
 ## Your exact model, not a generic one (the core pitch)
 - [x] 🙋 Inputs: 2015 Toyota Camry; "a normal washer and dryer" (we picked a popular Whirlpool pair).
