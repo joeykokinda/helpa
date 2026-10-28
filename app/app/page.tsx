@@ -21,6 +21,9 @@ import { rigLoaders } from "./components/rig/registry";
 import { listMachines, saveFix, type Machine } from "./lib/home";
 import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "./lib/api";
 import { requestMotionPermission } from "./lib/live";
+import { usePrefs } from "./lib/prefs";
+import { useVoiceCommands, type VoiceCommand } from "./lib/voice";
+import HandsFree from "./components/HandsFree";
 import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
 import { tidy } from "./lib/text";
 import type { Beat } from "./lib/rig/types";
@@ -121,6 +124,11 @@ export default function Home() {
   const [prefill, setPrefill] = useState<{ identity: string; description: string }>();
   const [savedName, setSavedName] = useState("");
   const runRef = useRef<{ photos: Blob[]; sample?: string; description: string; attempts: Attempt[]; fix?: string }>({ photos: [], description: "", attempts: [] });
+  // Hands-free: spoken commands drive the steps while your hands are busy.
+  const { handsFree } = usePrefs();
+  const [heard, setHeard] = useState("");
+  const heardTimer = useRef(0);
+  const [liveCommand, setLiveCommand] = useState<{ command: VoiceCommand; at: number } | null>(null);
   // Fixes already tried this time that didn't work ("Still broken"), shown as what we've ruled out.
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
@@ -400,6 +408,28 @@ export default function Home() {
     setTutorial("open");
   };
 
+  const openLive = () => {
+    requestMotionPermission();
+    stopSpeaking();
+    setLive(true);
+  };
+
+  const voiceState = useVoiceCommands(handsFree && stage === "step", speaking, (command, words) => {
+    setHeard(words);
+    window.clearTimeout(heardTimer.current);
+    heardTimer.current = window.setTimeout(() => setHeard(""), 2200);
+    // On the camera, the Live Guide acts on it (show again, check now); on the step page, the page does.
+    if (live) return setLiveCommand({ command, at: Date.now() });
+    if (!plan || !step) return;
+    if (command === "next") goToStep(stepIndex + 1);
+    else if (command === "back") goToStep(stepIndex - 1);
+    else if (command === "repeat") say(step.instruction, "pointing");
+    else {
+      openLive();
+      if (command === "check") setLiveCommand({ command, at: Date.now() });
+    }
+  });
+
   let screen: ReactNode = null;
   if (firstRun === null || !homeLoaded) screen = null;
   else if (showTutorial) screen = <Onboarding key="tutorial" onFinish={() => setTutorial("closed")} />;
@@ -502,6 +532,8 @@ export default function Home() {
         onDone={() => goToStep(stepIndex + 1)}
         onNext={() => goToStep(stepIndex + 1)}
         onClose={() => setLive(false)}
+        command={liveCommand}
+        handsFree={<HandsFree state={voiceState} heard={heard} glass />}
       />
     );
   else if (stage === "step" && plan && step) {
@@ -630,6 +662,7 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
+                <HandsFree state={voiceState} heard={heard} />
                 <h1 className="step-text">{tidy(step.instruction)}</h1>
 
                 {has3d && stepPhoto && (
@@ -643,14 +676,7 @@ export default function Home() {
                   </div>
                 )}
                 {visual && <div className="visual-card">{visual}</div>}
-                <button
-                  className="btn btn-secondary press live-open"
-                  onClick={() => {
-                    requestMotionPermission();
-                    stopSpeaking();
-                    setLive(true);
-                  }}
-                >
+                <button className="btn btn-secondary press live-open" onClick={openLive}>
                   <Icon name="live" size={20} />
                   Show me on my camera
                 </button>

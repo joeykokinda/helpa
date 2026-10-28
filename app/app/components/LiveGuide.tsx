@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { checkStep, locatePart, type Plan } from "../lib/api";
 import { ArLayer, type GhostDraw, type ScreenRect } from "../lib/arLayer";
 import { drawLockOn, drawOutline, drawPress, drawTrail, drawTurn, Particles } from "../lib/arHud";
@@ -31,6 +31,7 @@ import {
   type Gray,
 } from "../lib/live";
 import { parseMasks } from "../lib/masks";
+import { recipeCatalog, type Recipe } from "../lib/rig/recipe";
 import { applyBeats, restState, type Beat, type Joint, type RigCatalog, type RigPartDef, type RigState } from "../lib/rig/types";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
@@ -55,6 +56,10 @@ type LiveGuideProps = {
   onDone: () => void;
   onNext: () => void;
   onClose: () => void;
+  /** A spoken command from hands-free mode, acted on once per `at`. */
+  command?: { command: "next" | "back" | "repeat" | "show" | "check"; at: number } | null;
+  /** The hands-free switch, shown under the title. */
+  handsFree?: ReactNode;
 };
 
 /** Demo: the hologram acts out the step. Turn: the person does it while Helpa watches the real part. */
@@ -76,7 +81,7 @@ const fluidParts = /drain_plug|drain plug|drain_hose_cap|drain cap/i;
 const pourParts = /new_oil|jug|bottle|pitcher/i;
 
 /** The live camera with Helpa's holograms on it: the step played on the real machine, then checked as you do it. */
-export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, onDone, onNext, onClose }: LiveGuideProps) {
+export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, onDone, onNext, onClose, command, handsFree }: LiveGuideProps) {
   const step = plan.steps[stepIndex];
   const reducedMotion = useReducedMotion() ?? false;
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -114,7 +119,13 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     sayRef.current = say;
   });
 
-  const catalog = useMemo<RigCatalog | null>(() => (rig ? ((rig.catalog as RigCatalog | undefined) ?? rigCatalogs.find((candidate) => candidate.id === rig.id) ?? null) : null), [rig]);
+  // A generated or library model carries its recipe: its joints come from there (the backend's catalog only
+  // lists parts and actions, for the choreographer).
+  const catalog = useMemo<RigCatalog | null>(() => {
+    if (!rig) return null;
+    if (rig.recipe) return recipeCatalog(rig.recipe as Recipe, [plan.appliance].filter(Boolean));
+    return (rig.catalog as RigCatalog | undefined) ?? rigCatalogs.find((candidate) => candidate.id === rig.id) ?? null;
+  }, [rig, plan.appliance]);
   const rigBeats = useMemo(() => rig?.stepBeats[stepIndex] ?? [], [rig, stepIndex]);
   const hasRig = Boolean(catalog && rigBeats.length);
   // Without a model for this step, the step's target part still gets locked on and outlined.
@@ -683,6 +694,21 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     enterPhase("demo");
   };
 
+  // Hands-free: "show me again", "check", "next", "back" without touching the screen.
+  const handledCommand = useRef(0);
+  useEffect(() => {
+    if (!command || command.at === handledCommand.current) return;
+    handledCommand.current = command.at;
+    const run = setTimeout(() => {
+      if (command.command === "repeat" || command.command === "show") showAgain();
+      else if (command.command === "check") checkNow();
+      else if (command.command === "next") onNext();
+      else onClose();
+    });
+    return () => clearTimeout(run);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [command]);
+
   const partName = defs[watched]?.label ?? step.target_part ?? "part";
   const lastStep = stepIndex + 1 === plan.steps.length;
 
@@ -719,6 +745,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         )}
       </div>
 
+      {handsFree && <div className="live-hands-free">{handsFree}</div>}
       <div className="live-status" aria-live="polite">
         {camera === "failed" ? (
           <p className="live-pill">I need the camera for this. You can go back to the 3D guide.</p>

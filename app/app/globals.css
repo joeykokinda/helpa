@@ -3585,3 +3585,73 @@ a:focus-visible {
   flex: none;
   color: var(--tertiary);
 }
+
+/* Hands-free: a small switch under the step; on, a breathing dot and the word Helpa heard. */
+.hands-free-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+}
+.hands-free {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.hands-free-on {
+  background: var(--primary);
+  color: var(--primary-text);
+}
+.hands-free-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+  animation: listen 1.6s ease-out infinite;
+}
+@keyframes listen {
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+.hands-free-heard {
+  color: var(--secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
+.hands-free-glass {
+  background: rgb(14 14 15 / 0.62);
+  color: #ffffff;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.hands-free-glass.hands-free-on {
+  background: #ffffff;
+  color: #0e0e0f;
+}
+span.hands-free-glass {
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.live-hands-free {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hands-free-dot {
+    animation: none;
+  }
+}
