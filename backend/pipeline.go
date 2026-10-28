@@ -304,9 +304,10 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 
 var urgentWords = []string{"burning", "burnt smell", "smoke", "smoking", "fire", "flames", "melted", "melting", "smell gas", "gas smell", "smells like gas"}
 
-// hazardPattern marks a danger to the person themselves, not just a job beyond them.
+// hazardPattern marks a danger built into the repair itself, not just a job beyond the person. Warnings like
+// "stop if you see sparks" are left out: plans add them to ordinary fixes, and real sparking gets the model's flag.
 var hazardPattern = regexp.MustCompile(`(?i)\b(gas (leak|smell)|smell(s|ed)? (of |like )?gas|carbon monoxide|refrigerant|capacitor|magnetron|high[- ]voltage|dangerous charge|` +
-	`spark(s|ing)?|smoke|burning smell|airbags?|live (wire|wiring)|electric shock|electrocut\w*)\b`)
+	`airbags?|live (wire|wiring)|electrocut\w*)\b`)
 
 var proStep = regexp.MustCompile(`(?i)\b(call|contact|hire|book|schedule)\b.*\b(pro|technician|professional|plumber|electrician|mechanic|repair (service|person|shop)|service|gas company|fire department|911)\b`)
 
@@ -330,9 +331,9 @@ func markSafetyStop(plan json.RawMessage) json.RawMessage {
 	if len(steps) == 0 || !hazardPattern.MatchString(strings.Join(text, " ")) {
 		return plan
 	}
+	// The last instruction itself is the hand-off; "if it's still cold, call a pro" in its details is a fallback.
 	last, _ := steps[len(steps)-1].(map[string]any)
-	lastStep := fmt.Sprint(last["instruction"], " ", last["details"])
-	if !proStep.MatchString(lastStep) {
+	if instruction, _ := last["instruction"].(string); !proStep.MatchString(instruction) {
 		return plan
 	}
 	parsed["stop_for_pro"] = true

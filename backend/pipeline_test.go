@@ -168,6 +168,12 @@ func TestSafetyStop(t *testing.T) {
 	if strings.Contains(string(markSafetyStop(json.RawMessage(fuse))), `"stop_for_pro":true`) {
 		t.Fatal("a part swap for a pro still shows its animation")
 	}
+	// The coil burner from the eval: warnings about sparks and a pro as the fallback still leave a DIY fix.
+	coil := `{"diagnosis":"The coil burned out.","safety":["Do not touch wiring - call a pro for that.","Stop and call a pro if you see sparks or a burning smell."],` +
+		`"steps":[{"instruction":"Push new matching coil firmly into socket","details":[]},{"instruction":"Run a short heat test with water pan","details":["If it still stays cold, call a pro about the socket."]}]}`
+	if strings.Contains(string(markSafetyStop(json.RawMessage(coil))), `"stop_for_pro":true`) {
+		t.Fatal("a coil swap with a pro as the fallback is not a safety stop")
+	}
 	// A hazard the person can deal with themselves (the last step isn't a pro) stays a normal fix.
 	foil := `{"diagnosis":"Foil is sparking.","safety":["Sparks can damage the oven."],"steps":[{"instruction":"Take the foil out","details":[]}]}`
 	if strings.Contains(string(markSafetyStop(json.RawMessage(foil))), `"stop_for_pro":true`) {
