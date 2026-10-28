@@ -229,6 +229,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         const guess = { x: gyro.x, y: gyro.y };
         gyro.x = gyro.y = 0;
         const change = grayChange(previousGray, gray);
+        // Hands in the picture are fine; the phone itself swinging around is not "settled".
+        let moving = change > 9;
         if (previousGray) {
           const shift = frameShift(previousGray, gray, current?.box ?? null, [guess, { x: -guess.x, y: -guess.y }]);
           const dx = shift.x / gray.width;
@@ -240,12 +242,13 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
             track.target = { ...track.target, x: track.target.x + dx, y: track.target.y + dy };
           }
           const fast = gyro.speed > 110 || Math.hypot(shift.x, shift.y) > 9;
+          moving ||= Math.hypot(shift.x, shift.y) > 2 || gyro.speed > 25;
           const trusted = shift.score > 0.6 || change < 3;
           const goal = fast || !trusted ? 0.15 : 1;
           confidenceRef.current += (goal - confidenceRef.current) * Math.min(1, seconds * 2 * (goal < confidenceRef.current ? 3 : 2));
         }
         const watch = watchRef.current;
-        if (change > 4) watch.stillSince = now;
+        if (moving) watch.stillSince = now;
         previousGray = gray;
       }
 
@@ -339,7 +342,9 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         }
 
         // Helpa stands beside the part, on the roomier side, pointing at it.
-        const nextSide = rect.left + rect.width / 2 < width / 2 ? "right" : "left";
+        // Switch sides only once the part is clearly over the other half, so Helpa doesn't hop back and forth.
+        const middle = (rect.left + rect.width / 2) / width;
+        const nextSide = middle < 0.4 ? "right" : middle > 0.6 ? "left" : side;
         if (nextSide !== side) {
           side = nextSide;
           setHelpaSide(side);
