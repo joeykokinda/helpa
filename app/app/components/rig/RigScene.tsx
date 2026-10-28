@@ -237,7 +237,7 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
 
   return (
     <div className={holo ? "scene-3d rig-scene rig-scene-holo" : "scene-3d rig-scene"} data-beat-seconds={beatSeconds * (slow ? slowFactor : 1)}>
-      <Canvas orthographic camera={{ position: [1.6, 1.4, 2.2], zoom: 220, near: 0.01, far: 12 }} dpr={[1, 2]} shadows="variance" flat>
+      <Canvas orthographic camera={{ position: [1.6, 1.4, 2.2], zoom: 220, near: 0.01, far: 12 }} dpr={holo ? [1, 1.25] : [1, 2]} shadows={holo ? false : "variance"} flat>
         <RigProvider value={runtime}>
           <StartClock clockStartRef={clockStartRef} restartKey={`${stepIndex}-${replays}-${slow}`} />
           <Timeline beats={beats} defs={defs} start={start} slow={slow} clockStartRef={clockStartRef} amountsRef={amountsRef} focusRef={focusRef} playRef={playRef} onBeat={setBeatIndex} />

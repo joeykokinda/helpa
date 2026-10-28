@@ -153,8 +153,11 @@ export const grayWidth = 160;
 /** A small grey copy of the frame for patch tracking and for telling whether the picture moved. */
 export function grayFrame(video: HTMLVideoElement, scratch: CanvasRenderingContext2D) {
   const height = Math.round((grayWidth * video.videoHeight) / video.videoWidth);
-  scratch.canvas.width = grayWidth;
-  scratch.canvas.height = height;
+  // Setting a canvas's size reallocates it even when unchanged, so only on a real change.
+  if (scratch.canvas.width !== grayWidth || scratch.canvas.height !== height) {
+    scratch.canvas.width = grayWidth;
+    scratch.canvas.height = height;
+  }
   scratch.drawImage(video, 0, 0, grayWidth, height);
   const pixels = scratch.getImageData(0, 0, grayWidth, height).data;
   const gray = new Float32Array(grayWidth * height);
@@ -163,7 +166,6 @@ export function grayFrame(video: HTMLVideoElement, scratch: CanvasRenderingConte
 }
 
 export type Gray = ReturnType<typeof grayFrame>;
-
 const patchRadius = 6;
 
 /** Normalized cross-correlation of a patch around (x, y) in one frame with one around (u, v) in another. */

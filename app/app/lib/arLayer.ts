@@ -119,7 +119,7 @@ export class ArLayer {
     if (width === this.width && height === this.height) return;
     this.width = width;
     this.height = height;
-    this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    this.renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio || 1));
     this.renderer.setSize(width, height, false);
     this.camera.aspect = width / height;
     this.camera.fov = (2 * Math.atan(height / 2 / perspectiveDistance) * 180) / Math.PI;

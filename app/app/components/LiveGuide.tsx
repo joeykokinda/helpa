@@ -211,7 +211,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     let lastIndex = 0;
     let loops = 0;
     let lastPhase: Phase = "demo";
-    let frame = 0;
+    let lastTracked = 0;
     let lastFired = "";
     let ownClockStart = performance.now();
     let side: "left" | "right" = "right";
@@ -223,7 +223,6 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       raf = requestAnimationFrame(tick);
       const seconds = Math.min(0.1, (now - lastTime) / 1000);
       lastTime = now;
-      frame++;
       if (!video.videoWidth) return;
       const width = video.clientWidth;
       const height = video.clientHeight;
@@ -237,7 +236,10 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       hud.clearRect(0, 0, width, height);
 
       // Track the picture between SAM updates: patches on a small grey frame, seeded by the gyro.
-      if (frame % 2 === 0) {
+      // About 20 times a second: reading the video back to the CPU is the costliest thing in this loop.
+      if (now - lastTracked > 45) {
+        const trackSeconds = Math.min(0.2, (now - lastTracked) / 1000);
+        lastTracked = now;
         const gray = grayFrame(video, scratch);
         const current = tracksRef.current[phaseRef.current === "demo" ? beats[playHeadRef.current.index]?.part : watched];
         const gyro = gyroRef.current;
@@ -260,7 +262,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
           moving ||= Math.hypot(shift.x, shift.y) > 2 || gyro.speed > 25;
           const trusted = shift.score > 0.6 || change < 3;
           const goal = fast || !trusted ? 0.15 : 1;
-          confidenceRef.current += (goal - confidenceRef.current) * Math.min(1, seconds * 2 * (goal < confidenceRef.current ? 3 : 2));
+          confidenceRef.current += (goal - confidenceRef.current) * Math.min(1, trackSeconds * 2 * (goal < confidenceRef.current ? 3 : 2));
         }
         const watch = watchRef.current;
         if (moving) watch.stillSince = now;
