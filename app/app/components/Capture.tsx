@@ -398,6 +398,13 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               )}
             </div>
 
+            {photos.length === 0 && !description.trim() && (
+              <div className="sample-block">
+                <p className="label">Nothing broken right now? Try a sample</p>
+                <SampleCards onPick={trySample} busy={loadingSample} />
+              </div>
+            )}
+
             {!description.trim() && (
               <ul className="suggestions" aria-label="Suggestions">
                 {suggestions.map((suggestion) => (
@@ -408,13 +415,6 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
                   </li>
                 ))}
               </ul>
-            )}
-
-            {photos.length === 0 && !description.trim() && (
-              <div className="sample-block">
-                <p className="label">Nothing broken right now? Try a sample</p>
-                <SampleCards onPick={trySample} busy={loadingSample} />
-              </div>
             )}
 
             <ul className="photo-strip" aria-label="Your photos">

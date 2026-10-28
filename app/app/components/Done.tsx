@@ -65,8 +65,7 @@ export default function Done({ plan, minutes, mood, speaking, onRestart }: DoneP
         <motion.div className="done-headline" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
           <h1 className="display">You fixed it!</h1>
           <p className="lede">
-            Your {identity ? `${identity} ` : ""}
-            {thing} is good to go, and you did it yourself.
+            Your {identity && /^(car|truck|suv|vehicle)$/.test(thing) ? identity : [identity, thing].filter(Boolean).join(" ")} is good to go, and you did it yourself.
           </p>
         </motion.div>
 

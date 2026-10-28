@@ -87,7 +87,8 @@ export default function Home() {
   const identified = useRef(false);
   const [sceneFailed, setSceneFailed] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
-  const [view, setView] = useState<"3d" | "photo">("3d");
+  // "auto" picks 3D when this step has it; the 3D model can arrive a moment after the plan.
+  const [view, setView] = useState<"auto" | "3d" | "photo">("auto");
   const [check, setCheck] = useState<CheckState | null>(null);
   const checkInputRef = useRef<HTMLInputElement>(null);
   const checkToken = useRef(0);
@@ -117,7 +118,9 @@ export default function Home() {
         addRow({ key: "identify", title: "Figured out what it is", detail: "" });
         break;
       case "identify": {
-        const name = [known(agentEvent.brand), known(agentEvent.appliance)].filter(Boolean).join(" ");
+        // Cars read better by make and model ("Toyota Camry"), appliances by brand and kind ("Whirlpool dryer").
+        const isCar = /^(car|truck|suv|vehicle)$/i.test(agentEvent.appliance.trim());
+        const name = [known(agentEvent.brand), isCar ? known(agentEvent.model_number) || known(agentEvent.appliance) : known(agentEvent.appliance)].filter(Boolean).join(" ");
         if (!name) break;
         addRow({ key: "identify", title: "Figured out what it is", detail: capitalize(name) });
         if (!identified.current) say(`That looks like ${/^[aeiou]/i.test(name) ? "an" : "a"} ${name}.`, "found");
@@ -254,7 +257,7 @@ export default function Home() {
     setStepIndex(index);
     setStage("step");
     closeCheck();
-    setView(playableRig ? ((playableRig.stepBeats[index]?.length ?? 0) > 0 ? "3d" : "photo") : next.show_3d && !sceneMissing ? "3d" : "photo");
+    setView("auto");
     stopSpeaking();
     say(next.instruction, "pointing");
   };
@@ -362,7 +365,8 @@ export default function Home() {
     const lastStep = stepIndex + 1 === plan.steps.length;
     const stepMask = stepMasks[stepIndex] ? [stepMasks[stepIndex]] : [];
     let visual: ReactNode = null;
-    if (view === "3d" && has3d) visual = guide3d ?? <SceneSkeleton text="Building your 3D model" />;
+    const shownView = view === "auto" ? (has3d ? "3d" : "photo") : view;
+    if (shownView === "3d" && has3d) visual = guide3d ?? <SceneSkeleton text="Building your 3D model" />;
     else if (stepPhoto) visual = <PartPhoto photoUrl={stepPhoto} samTexts={stepMask} label={step.target_part} />;
     else if (step.target_part)
       visual = (
@@ -479,10 +483,10 @@ export default function Home() {
 
                 {has3d && stepPhoto && (
                   <div className="segmented" role="tablist" aria-label="View">
-                    <button role="tab" aria-selected={view === "3d"} className="press" onClick={() => setView("3d")}>
+                    <button role="tab" aria-selected={shownView === "3d"} className="press" onClick={() => setView("3d")}>
                       <Icon name="cube" size={16} /> 3D guide
                     </button>
-                    <button role="tab" aria-selected={view === "photo"} className="press" onClick={() => setView("photo")}>
+                    <button role="tab" aria-selected={shownView === "photo"} className="press" onClick={() => setView("photo")}>
                       <Icon name="image" size={16} /> Your photo
                     </button>
                   </div>

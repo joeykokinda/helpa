@@ -8,8 +8,12 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
+  // Share cards need absolute URLs; set SITE_URL to the public address when deploying.
+  metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
   title: "Helpa",
-  description: "Your friendly little house helper for fixing things at home.",
+  description: "Snap what's broken and Helpa shows you the fix, step by step, on a 3D model of your machine.",
+  openGraph: { title: "Helpa: see the fix in 3D", description: "Snap what's broken. Helpa finds your exact machine, shows every move on a 3D model, and checks your work.", siteName: "Helpa" },
+  twitter: { card: "summary_large_image", title: "Helpa: see the fix in 3D" },
   applicationName: "Helpa",
   appleWebApp: { capable: true, title: "Helpa", statusBarStyle: "default" },
   icons: {
@@ -21,7 +25,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fafafa",
+  themeColor: "#faf8f5",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
