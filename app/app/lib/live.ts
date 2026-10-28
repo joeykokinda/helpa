@@ -256,8 +256,9 @@ export type Pose = { pivot: [number, number]; axis: Vec3; angle: number; move: V
 const twistTurn = (amount: number) => Math.min(1, Math.max(0, amount * 2));
 const twistLift = (amount: number) => Math.max(0, amount * 2 - 1);
 
-export function jointPose(joint: Joint, from: number, amount: number, size: { width: number; height: number }, centroid: [number, number], pitch: number): Pose {
-  const travel = Math.max(size.width, size.height);
+export function jointPose(joint: Joint, from: number, amount: number, size: { width: number; height: number }, centroid: [number, number], pitch: number, reach = Infinity): Pose {
+  // Things slide about their own size, but never off the screen.
+  const travel = Math.min(reach, Math.max(size.width, size.height));
   const still: Pose = { pivot: [0.5, 0.5], axis: [0, 0, 1], angle: 0, move: [0, 0, 0], depth: 0 };
   switch (joint.kind) {
     case "slide": {

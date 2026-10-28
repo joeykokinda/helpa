@@ -8,9 +8,10 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
-const maxLocatePhrases = 3
+const maxLocatePhrases = 4
 
 // handleLocate finds a part on a live camera frame with SAM 3.1. The phone sends a few names for the part,
 // best first, and gets back the first one SAM can see, so it can keep using that name.
@@ -44,18 +45,31 @@ func handleLocate(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, "send exactly one photo", http.StatusBadRequest)
 		return
 	}
-	for _, phrase := range phrases {
-		raw, err := segment(request.Context(), photos[0], phrase)
-		if err != nil {
-			log.Printf("locate %q: %v", phrase, err)
-			http.Error(writer, "couldn't look right now", http.StatusBadGateway)
-			return
-		}
-		if strings.Contains(raw, "<|mask") {
-			json.NewEncoder(writer).Encode(map[string]string{"sam": raw, "phrase": phrase})
+	// All names at once, so a miss costs one SAM round trip instead of one per name; the best-ranked hit wins.
+	results := make([]string, len(phrases))
+	failures := make([]error, len(phrases))
+	var wait sync.WaitGroup
+	for index, phrase := range phrases {
+		wait.Add(1)
+		go func() {
+			defer wait.Done()
+			results[index], failures[index] = segment(request.Context(), photos[0], phrase)
+		}()
+	}
+	wait.Wait()
+	for index, phrase := range phrases {
+		if strings.Contains(results[index], "<|mask") {
+			log.Printf("locate %q: found", phrase)
+			json.NewEncoder(writer).Encode(map[string]string{"sam": results[index], "phrase": phrase})
 			return
 		}
 	}
+	if failures[0] != nil {
+		log.Printf("locate %q: %v", phrases[0], failures[0])
+		http.Error(writer, "couldn't look right now", http.StatusBadGateway)
+		return
+	}
+	log.Printf("locate %q: nothing", phrases)
 	json.NewEncoder(writer).Encode(map[string]string{"sam": "", "phrase": ""})
 }
 

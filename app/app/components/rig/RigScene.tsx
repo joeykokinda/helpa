@@ -178,6 +178,19 @@ function StartClock({ clockStartRef, restartKey }: { clockStartRef: RefObject<nu
   return null;
 }
 
+/** The camera-mode hologram floats over the live picture, so the models' room walls and backdrops go. */
+function HideBackdrops() {
+  const { scene } = useThree();
+  useFrame(() => {
+    scene.traverse((object) => {
+      const mesh = object as THREE.Mesh;
+      const geometry = mesh.geometry as THREE.PlaneGeometry | undefined;
+      if (mesh.isMesh && geometry?.type === "PlaneGeometry" && geometry.parameters.width * geometry.parameters.height > 1.5) mesh.visible = false;
+    });
+  });
+  return null;
+}
+
 type RigSceneProps = {
   catalog: RigCatalog;
   Model: () => React.JSX.Element;
@@ -240,7 +253,7 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
           />
           {!holo && <color attach="background" args={[palette.paper]} />}
           <Model />
-          {!holo && <Ground />}
+          {holo ? <HideBackdrops /> : <Ground />}
           <BeatArrow beat={beat} def={def} nodes={nodesRef} />
           <MotionGuide beat={beat} def={def} from={beatFrom} to={beatTo} nodes={nodesRef} playRef={playRef} />
           <Effects beat={beat} def={def} nodes={nodesRef} playRef={playRef} />

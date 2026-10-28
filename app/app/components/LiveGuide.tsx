@@ -26,7 +26,7 @@ import {
   type Gray,
 } from "../lib/live";
 import { parseMasks } from "../lib/masks";
-import { applyBeats, restState, type Beat, type RigCatalog, type RigPartDef, type RigState } from "../lib/rig/types";
+import { applyBeats, restState, type Beat, type Joint, type RigCatalog, type RigPartDef, type RigState } from "../lib/rig/types";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import { rigCatalogs } from "./rig/registry";
@@ -195,6 +195,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     let lastWithin = 0;
     let lastIndex = 0;
     let loops = 0;
+    let lastPhase: Phase = "demo";
     let frame = 0;
     let lastFired = "";
     let ownClockStart = performance.now();
@@ -251,8 +252,11 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       // One clock: the corner model's play head, or our own when there is no model for this step.
       let play = playHeadRef.current;
       if (!hasRig) play = timelineAt((now - ownClockStart) / 1000, beats.length, false);
+      // "Show me again" restarts the count; a loop only counts if the person could see it on their machine.
+      if (phaseRef.current === "demo" && lastPhase !== "demo") loops = 0;
+      lastPhase = phaseRef.current;
       if (play.index < lastIndex || (play.index === lastIndex && play.within + 0.5 < lastWithin)) {
-        loops++;
+        if (wasLocked) loops++;
         particles.clear();
         if (loops >= demoLoops && phaseRef.current === "demo") {
           enterPhase("turn");
@@ -268,10 +272,11 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         return { left: shown.left + box.x * shown.width, top: shown.top + box.y * shown.height, width: box.width * shown.width, height: box.height * shown.height };
       };
       for (const track of Object.values(tracksRef.current)) track.box = easeBox(track.box, track.target, seconds);
-      const fresh = (track: Track | undefined) => track && now - track.seenAt < 6000 && track.misses < 3;
+      const fresh = (track: Track | undefined) => track && now - track.seenAt < 8000 && track.misses < 4;
       const confidence = confidenceRef.current;
       const draws: GhostDraw[] = [];
       const pitch = gyroRef.current.pitch;
+      const poseFor = (joint: Joint, from: number, amount: number, rect: ScreenRect, centroid: [number, number]) => jointPose(joint, from, amount, rect, centroid, pitch, height * 0.28);
       const time = now / 1000;
       const demo = phaseRef.current === "demo";
       const motionNow = beatMotion(beats, stepStart, defs, play.index, play.progress);
@@ -300,7 +305,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
           state.leaving = true;
           state.value = Math.max(0, state.value - seconds * 1.6);
         }
-        const pose = jointPose(def.joint, startAmount, amounts[part] ?? startAmount, rect, track.cutout.centroid, pitch);
+        const pose = poseFor(def.joint, startAmount, amounts[part] ?? startAmount, rect, track.cutout.centroid);
         if (state.value > 0) draws.push({ id: part, cutout: track.cutout, rect, pose, appear: state.value, leaving: state.leaving, hole: state.leaving ? 0 : Math.min(1, pose.depth * 2.5) * state.value, mode: "ghost", opacity: confidence });
         else if (!demo && part === watched) draws.push({ id: part, cutout: track.cutout, rect, pose: { ...pose, angle: 0, move: [0, 0, 0], depth: 0 }, appear: 1, leaving: false, hole: 0, mode: "slot", opacity: confidence });
       }
@@ -320,15 +325,15 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
           const fadeOut = 1 - Math.max(0, (play.within - timing.lead - timing.move) / timing.hold);
           const guideOpacity = appearIn * fadeOut * confidence;
           if (joint.kind === "turn" || (joint.kind === "twist" && (beat.action === "unlock" || beat.action === "lock"))) {
-            const center = layer.project(rect, jointPose(joint, startAmount, from, rect, focusTrack.cutout.centroid, pitch), focusTrack.cutout.centroid);
+            const center = layer.project(rect, poseFor(joint, startAmount, from, rect, focusTrack.cutout.centroid), focusTrack.cutout.centroid);
             drawTurn(hud, center.x, center.y, Math.max(rect.width, rect.height) * 0.62, (joint.kind === "turn" ? joint.angle : -joint.angle) * (end - from || 1) < 0, guideOpacity, time);
           } else if (joint.kind === "press" || beat.action === "press") {
             drawPress(hud, rect.left + rect.width / 2, rect.top + rect.height / 2, Math.max(rect.width, rect.height) * 0.55, play.progress, guideOpacity);
           } else if (beat.action !== "look" && Math.abs(end - from) > 0.01) {
             // The trail follows the ghost: the free edge of a door, the middle of anything that slides or lifts.
-            const pivot = jointPose(joint, startAmount, from, rect, focusTrack.cutout.centroid, pitch).pivot;
+            const pivot = poseFor(joint, startAmount, from, rect, focusTrack.cutout.centroid).pivot;
             const point: [number, number] = joint.kind === "hinge" ? [1 - pivot[0] * 0.8 - 0.1, 1 - pivot[1] * 0.8 - 0.1] : focusTrack.cutout.centroid;
-            const points = Array.from({ length: 14 }, (_, index) => layer.project(rect, jointPose(joint, startAmount, from + ((end - from) * index) / 13, rect, focusTrack.cutout.centroid, pitch), point));
+            const points = Array.from({ length: 14 }, (_, index) => layer.project(rect, poseFor(joint, startAmount, from + ((end - from) * index) / 13, rect, focusTrack.cutout.centroid), point));
             drawTrail(hud, points, guideOpacity, time);
           }
         }
@@ -367,7 +372,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
           const track = tracksRef.current[host];
           const hostDef = defs[host];
           const rect = rectOf(track.box);
-          const pose = jointPose(hostDef.joint, stepStart[host] ?? 0, amounts[host] ?? 0, rect, track.cutout.centroid, pitch);
+          const pose = poseFor(hostDef.joint, stepStart[host] ?? 0, amounts[host] ?? 0, rect, track.cutout.centroid);
           const center = layer.project(rect, pose, track.cutout.centroid);
           const away = def.joint.kind === "debris" ? def.joint.away : [0, 1, 0.3];
           const length = Math.hypot(away[0], away[1]) || 1;
@@ -407,10 +412,18 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     const scratch = document.createElement("canvas").getContext("2d", { willReadFrequently: true })!;
     const backoff: Record<string, number> = {};
 
+    // SAM knows plain nouns better than repair words ("filter" finds a lint screen that "lint screen" misses),
+    // so after the full names it tries their last words, three at a time, and keeps whichever one worked.
+    const attempts: Record<string, number> = {};
     const phrasesFor = (part: string) => {
       const def = defs[part];
-      const names = [phraseRef.current[part], def?.label, ...(def?.aliases ?? []).filter((alias) => !alias.includes("_")), part === watched ? step.target_part : ""];
-      return [...new Set(names.filter((name): name is string => Boolean(name && name.trim())).map((name) => name.toLowerCase()))].slice(0, 3);
+      const full = [def?.label, ...(def?.aliases ?? []).filter((alias) => !alias.includes("_")), part === watched ? step.target_part : ""];
+      const names = [full[0], ...full.map((name) => name?.trim().split(/\s+/).pop()), ...full.slice(1)];
+      const candidates = [...new Set(names.filter((name): name is string => Boolean(name && name.trim())).map((name) => name.toLowerCase()))];
+      const known = phraseRef.current[part];
+      if (known) return [known, ...candidates.filter((name) => name !== known)].slice(0, 2);
+      const offset = ((attempts[part] = (attempts[part] ?? -1) + 1) * 4) % Math.max(1, candidates.length);
+      return [...candidates, ...candidates].slice(offset, offset + 4);
     };
 
     const locate = async (part: string, now: number) => {
@@ -432,7 +445,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         const seen = performance.now();
         if (!mask) {
           if (track) track.misses++;
-          else backoff[part] = seen + 2500;
+          else backoff[part] = seen + 1200;
           if (track && track.misses >= 2) backoff[part] = seen + 2500;
           if (phaseRef.current !== "demo" && part === watched && track) watchRef.current.changed = true;
           return;
