@@ -2481,3 +2481,27 @@ a:focus-visible {
   opacity: 0.32;
   cursor: default;
 }
+
+.tag-row li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.tag-row li svg {
+  color: var(--accent);
+}
+
+/* Camera: show the full frame; a blurred copy fills the rest instead of cropping in. */
+.camera-video {
+  object-fit: contain;
+  touch-action: none;
+}
+.camera-backdrop {
+  position: absolute;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  object-fit: cover;
+  filter: blur(28px) saturate(1.2) brightness(0.7);
+  transform: scale(1.1);
+}

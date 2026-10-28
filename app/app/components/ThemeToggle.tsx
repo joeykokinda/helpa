@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Icon from "./Icons";
 
 const storageKey = "helpa-theme";
 
@@ -19,7 +20,7 @@ export default function ThemeToggle({ className = "icon-button press" }: { class
   };
   return (
     <button className={`${className} theme-toggle`} onClick={toggle} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} aria-pressed={dark}>
-      <span aria-hidden="true">{dark ? "☀" : "☾"}</span>
+      <Icon name={dark ? "sun" : "moon"} size={19} />
     </button>
   );
 }

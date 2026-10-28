@@ -8,7 +8,7 @@ import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } fro
 import Capture from "./components/Capture";
 import CheckMoment, { type CheckState } from "./components/CheckMoment";
 import Helpa, { type HelpaMood } from "./components/Helpa";
-import Icon from "./components/Icons";
+import Icon, { type IconName } from "./components/Icons";
 import Onboarding, { hasOnboarded } from "./components/Onboarding";
 import PartPhoto from "./components/PartPhoto";
 import { rigLoaders } from "./components/rig/registry";
@@ -41,22 +41,19 @@ function capitalize(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-const toolEmoji: [RegExp, string][] = [
-  [/screwdriver/i, "🪛"],
-  [/wrench|hex|allen|key|pliers/i, "🔧"],
-  [/flashlight|torch|light/i, "🔦"],
-  [/towel|rag|cloth/i, "🧻"],
-  [/bucket|bowl|pan|tray|container/i, "🪣"],
-  [/glove/i, "🧤"],
-  [/brush|toothbrush/i, "🪥"],
-  [/sponge|soap|vinegar|clean/i, "🧽"],
-  [/tong|tweezer/i, "🥢"],
-  [/tape|measure/i, "📏"],
-  [/phone|camera/i, "📱"],
+const toolIcons: [RegExp, IconName][] = [
+  [/screwdriver/i, "screwdriver"],
+  [/wrench|hex|allen|key|pliers|socket/i, "wrench"],
+  [/flashlight|torch|light/i, "flashlight"],
+  [/towel|rag|cloth|bucket|bowl|pan|tray|container|water|vinegar/i, "droplet"],
+  [/glove/i, "hand"],
+  [/brush|toothbrush|sponge|soap|clean/i, "brush"],
+  [/tape|measure|ruler/i, "ruler"],
+  [/phone|camera/i, "camera"],
 ];
 
-function emojiFor(tool: string) {
-  return toolEmoji.find(([pattern]) => pattern.test(tool))?.[1] ?? "🧰";
+function iconFor(tool: string): IconName {
+  return toolIcons.find(([pattern]) => pattern.test(tool))?.[1] ?? "toolbox";
 }
 
 type Stage = "start" | "working" | "plan" | "step" | "done";
@@ -767,7 +764,9 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
             <ul className="icon-chips">
               {plan.tools.map((tool) => (
                 <li key={tool}>
-                  <span aria-hidden="true">{emojiFor(tool)}</span>
+                  <span aria-hidden="true">
+                    <Icon name={iconFor(tool)} size={17} />
+                  </span>
                   {tidy(tool)}
                 </li>
               ))}
@@ -778,7 +777,9 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
                 <ul className="icon-chips icon-chips-soft">
                   {plan.replacement_parts.map((part) => (
                     <li key={part}>
-                      <span aria-hidden="true">🔩</span>
+                      <span aria-hidden="true">
+                        <Icon name="bolt" size={17} />
+                      </span>
                       {tidy(part)}
                     </li>
                   ))}

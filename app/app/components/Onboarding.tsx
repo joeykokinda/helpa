@@ -2,22 +2,31 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import Icon, { type IconName } from "./Icons";
 import Helpa, { type HelpaMood } from "./Helpa";
 
-const slides: { mood: HelpaMood; title: string; body: string; tags?: string[] }[] = [
+const slides: { mood: HelpaMood; title: string; body: string; tags?: { icon: IconName; label: string }[] }[] = [
   { mood: "celebrate", title: "Hi, I'm Helpa", body: "I help you fix things around your home. No experience needed." },
   {
     mood: "listening",
     title: "Show me or tell me",
-    body: "Snap a photo of what's broken, or its model sticker. Or just describe it by typing or holding to talk.",
-    tags: ["📸 Photo", "⌨️ Type", "🎙️ Talk"],
+    body: "Snap a photo of what's broken or its model sticker, or just tell me what's wrong.",
+    tags: [
+      { icon: "camera", label: "Photo" },
+      { icon: "mic", label: "Talk" },
+      { icon: "keyboard", label: "Type" },
+    ],
   },
   { mood: "searching", title: "I do the homework", body: "I find your exact manual, spot the parts, and make a simple plan." },
   {
     mood: "pointing",
     title: "Fix it step by step",
-    body: "I show you where everything is in 3D, read each step out loud, and check your work.",
-    tags: ["🧊 3D guide", "🔊 Read aloud", "✅ Check my work"],
+    body: "I show you each move on a 3D model of your machine, read every step out loud, and check your work.",
+    tags: [
+      { icon: "cube", label: "3D guide" },
+      { icon: "speaker", label: "Read aloud" },
+      { icon: "check", label: "Checks your work" },
+    ],
   },
 ];
 
@@ -98,7 +107,10 @@ export default function Onboarding({ onFinish }: { onFinish: () => void }) {
             {slide.tags && (
               <ul className="tag-row">
                 {slide.tags.map((tag) => (
-                  <li key={tag}>{tag}</li>
+                  <li key={tag.label}>
+                    <Icon name={tag.icon} size={17} />
+                    {tag.label}
+                  </li>
                 ))}
               </ul>
             )}

@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 import ThemeToggle from "./ThemeToggle";
 
 import { AnimatePresence, motion } from "motion/react";
@@ -26,6 +28,9 @@ const suggestions = ["Dishwasher leaves grit", "Washer won't drain", "Dryer take
 /** Full-bleed camera first; falls back to (or switches to) a describe screen with text and hold-to-talk. */
 export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mood, speaking }: CaptureProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const backdropRef = useRef<HTMLVideoElement>(null);
+  const zoomRangeRef = useRef<{ min: number; max: number; current: number } | null>(null);
+  const pinchRef = useRef<{ distance: number; zoom: number } | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const [camera, setCamera] = useState<"starting" | "ready" | "failed">("starting");
   const [screen, setScreen] = useState<"camera" | "describe">("camera");
@@ -66,7 +71,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       if (brightness > 50) return;
       if (darkWarnedRef.current || torch === "on") return;
       darkWarnedRef.current = true;
-      say(torch === "off" ? "It's dark in there. Tap the lightning button for your flashlight." : "It's pretty dark. Can you add some light so I can see?", "worried", false);
+      say(torch === "off" ? "It's dark in there. Tap the lightning bolt for your flashlight." : "It's dark here. Can you turn on a light?", "worried", false);
     }, 1200);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,6 +96,13 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
         trackRef.current = track ?? null;
         const capabilities = (track?.getCapabilities?.() ?? {}) as MediaTrackCapabilities & { torch?: boolean };
         if (capabilities.torch) setTorch("off");
+        // Start at the widest view; zooming in is something the user (or Helpa) does on purpose.
+        const zoom = (capabilities as MediaTrackCapabilities & { zoom?: { min: number; max: number } }).zoom;
+        if (track && zoom) {
+          zoomRangeRef.current = { min: zoom.min, max: zoom.max, current: zoom.min };
+          track.applyConstraints({ advanced: [{ zoom: zoom.min } as MediaTrackConstraintSet] }).catch(() => {});
+        }
+        if (backdropRef.current) backdropRef.current.srcObject = granted;
         if (videoRef.current) {
           videoRef.current.srcObject = granted;
           setCamera("ready");
@@ -110,6 +122,19 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       link.click();
       setTimeout(() => URL.revokeObjectURL(link.href), 4000);
     });
+
+  // Pinch to zoom with the camera's own zoom, so photos stay sharp and Helpa sees what you see.
+  const pinchDistance = (touches: React.TouchList) => Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
+  const onPinchStart = (touchEvent: React.TouchEvent) => {
+    if (touchEvent.touches.length === 2 && zoomRangeRef.current) pinchRef.current = { distance: pinchDistance(touchEvent.touches), zoom: zoomRangeRef.current.current };
+  };
+  const onPinchMove = (touchEvent: React.TouchEvent) => {
+    const range = zoomRangeRef.current;
+    if (!pinchRef.current || !range || touchEvent.touches.length !== 2) return;
+    const next = Math.min(range.max, Math.max(range.min, pinchRef.current.zoom * (pinchDistance(touchEvent.touches) / pinchRef.current.distance)));
+    range.current = next;
+    trackRef.current?.applyConstraints({ advanced: [{ zoom: next } as MediaTrackConstraintSet] }).catch(() => {});
+  };
 
   const addPhotos = (blobs: Blob[]) =>
     setPhotos((current) => [...current, ...blobs.map((blob) => ({ blob, url: URL.createObjectURL(blob) }))].slice(-maxPhotos));
@@ -209,7 +234,19 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   return (
     <>
       <section className={`screen camera ${screen === "camera" ? "" : "camera-hidden"}`} aria-label="Show Helpa the problem" aria-hidden={screen !== "camera"}>
-        <video ref={videoRef} className="camera-video" autoPlay playsInline muted aria-label="Camera preview" />
+        {/* The whole frame, never cropped, over a soft blurred copy that fills the screen. */}
+        <video ref={backdropRef} className="camera-backdrop" autoPlay playsInline muted aria-hidden="true" />
+        <video
+          ref={videoRef}
+          className="camera-video"
+          autoPlay
+          playsInline
+          muted
+          aria-label="Camera preview"
+          onTouchStart={onPinchStart}
+          onTouchMove={onPinchMove}
+          onTouchEnd={() => (pinchRef.current = null)}
+        />
         <div className="camera-shade" aria-hidden="true" />
         {camera === "starting" && <div className="camera-starting skeleton" aria-hidden="true" />}
         <AnimatePresence>
