@@ -9,6 +9,7 @@ import { RigProvider } from "./RigRuntime";
 import BeatArrow from "./style/BeatArrow";
 import Effects from "./style/Effects";
 import Ground from "./style/Ground";
+import PartEffects from "./style/PartEffects";
 import MotionGuide, { type PlayHead } from "./style/MotionGuide";
 import { beatSeconds, easeInOutCubic, moveAmount, pulseAmount, timing } from "./style/motion";
 import StyledRenderer from "./style/StyledRenderer";
@@ -132,8 +133,10 @@ function CameraDirector({ beat, def, nodes, controlsRef, userMovedRef }: { beat?
 }
 
 /** Keeps the annotation pill near its part, with a dashed leader line to a dot on the part. */
-function PinTracker({ beat, nodes, pinRef, leaderRef, dotRef }: { beat?: Beat; nodes: RefObject<Record<string, THREE.Group>>; pinRef: RefObject<HTMLDivElement | null>; leaderRef: RefObject<SVGLineElement | null>; dotRef: RefObject<SVGCircleElement | null> }) {
+function PinTracker({ beat, def, nodes, pinRef, leaderRef, dotRef }: { beat?: Beat; def?: RigPartDef; nodes: RefObject<Record<string, THREE.Group>>; pinRef: RefObject<HTMLDivElement | null>; leaderRef: RefObject<SVGLineElement | null>; dotRef: RefObject<SVGCircleElement | null> }) {
   const sideRef = useRef(1);
+  // Debris flies off during its beat; the pin stays where it was so the label keeps naming the spot.
+  const pinnedRef = useRef<{ beat?: Beat; at: THREE.Vector3 | null }>({ at: null });
   useFrame(({ camera, size }) => {
     const pin = pinRef.current;
     const leader = leaderRef.current;
@@ -145,8 +148,12 @@ function PinTracker({ beat, nodes, pinRef, leaderRef, dotRef }: { beat?: Beat; n
       leader.style.opacity = dot.style.opacity = "0";
       return;
     }
-    const box = worldBox(node);
-    const projected = box.getCenter(new THREE.Vector3()).project(camera);
+    const pinned = pinnedRef.current;
+    if (pinned.beat !== beat) {
+      pinned.beat = beat;
+      pinned.at = def?.joint.kind === "debris" ? worldBox(node).getCenter(new THREE.Vector3()) : null;
+    }
+    const projected = (pinned.at?.clone() ?? worldBox(node).getCenter(new THREE.Vector3())).project(camera);
     const anchorX = ((projected.x + 1) / 2) * size.width;
     const anchorY = ((1 - projected.y) / 2) * size.height;
     // Put the pill on the roomier side, and keep it there for the beat so it doesn't flip mid-move.
@@ -235,12 +242,13 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex }: RigSc
           />
           <color attach="background" args={[palette.paper]} />
           <Model />
+          <PartEffects effects={catalog.effects} />
           <Ground />
           <BeatArrow beat={beat} def={def} nodes={nodesRef} />
           <MotionGuide beat={beat} def={def} from={beatFrom} to={beatTo} nodes={nodesRef} playRef={playRef} />
           <Effects beat={beat} def={def} nodes={nodesRef} playRef={playRef} />
           <CameraDirector beat={beat} def={def} nodes={nodesRef} controlsRef={controlsRef} userMovedRef={userMovedRef} />
-          <PinTracker beat={beat} nodes={nodesRef} pinRef={pinRef} leaderRef={leaderRef} dotRef={dotRef} />
+          <PinTracker beat={beat} def={def} nodes={nodesRef} pinRef={pinRef} leaderRef={leaderRef} dotRef={dotRef} />
           <StyledRenderer focusRef={focusRef} nodesRef={nodesRef} />
           <OrbitControls
             ref={controlsRef}

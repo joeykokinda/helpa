@@ -2,16 +2,18 @@
   "id": "whirlpool-top-load-washer",
   "appliance": "top-load washer",
   "brand": "Whirlpool",
-  "model_family": "Whirlpool WTW5000-series 4.5-4.8 cu. ft. top-load washers with built-in faucet",
+  "model_family": "Whirlpool WTW5057LW 4.7 cu. ft. top-load washer with 2-in-1 removable agitator and built-in faucet",
   "model_numbers": [
+    "WTW5057LW",
     "WTW5010LW",
     "WTW5015LW",
-    "WTW5057LW",
     "WTW5020SW",
     "WTW5025SW"
   ],
   "sticker_location": "Beneath the washer lid on the tub rim. Lift the lid and look around the edge of the tub opening.",
   "manual_urls": [
+    "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
+    "https://www.whirlpool.com/content/dam/global/documents/202408/repair-parts-list-w11744693-reva.pdf",
     "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
     "https://www.whirlpool.com/content/dam/global/documents/202408/quick-start-guide-w11646249-revD.pdf",
     "https://www.whirlpool.com/content/dam/global/documents/202408/saftey-and-installation-instructions-w11646252-revD.pdf"
@@ -115,7 +117,7 @@
         "brand": "Whirlpool",
         "model_number": "WTW5057LW",
         "appliance": "top-load washer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
         "diagnosis": "The lid may not be fully latched, or the control may need a simple reset. The washer will not run until the lid is closed and Start is held.",
         "tools": [],
         "replacement_parts": [],
@@ -327,7 +329,7 @@
         "brand": "Whirlpool",
         "model_number": "WTW5057LW",
         "appliance": "top-load washer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
         "diagnosis": "A kinked drain hose or an uneven, tightly packed load often stops draining and spinning. Too much soap can also slow the spin.",
         "tools": [
           "Old towel"
@@ -553,7 +555,7 @@
         "brand": "Whirlpool",
         "model_number": "WTW5057LW",
         "appliance": "top-load washer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
         "diagnosis": "Clothes bunched on one side make the tub thump and shake. A washer that rocks on its feet will shake even more.",
         "tools": [
           "Adjustable wrench"
@@ -802,7 +804,7 @@
         "brand": "Whirlpool",
         "model_number": "WTW5057LW",
         "appliance": "top-load washer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
         "diagnosis": "Both wall taps must be on and the hoses must not be kinked. Tiny screens where the hoses join the washer can get clogged with grit.",
         "tools": [
           "Bucket",
@@ -1077,7 +1079,7 @@
         "brand": "Whirlpool",
         "model_number": "WTW5057LW",
         "appliance": "top-load washer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
         "diagnosis": "Clothes tucked under the lid or soap crust around the latch can stop the lid from locking. Clearing the edge and resetting often helps.",
         "tools": [
           "Soft damp cloth"
@@ -1333,7 +1335,7 @@
         "brand": "Whirlpool",
         "model_number": "WTW5057LW",
         "appliance": "top-load washer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/owners-manual-w11354658-revB.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
         "diagnosis": "Soap and dirt build up inside the tub over time, especially with too much soap. A monthly Clean Washer cycle clears the build-up.",
         "tools": [
           "Soft cloth"
@@ -1592,7 +1594,7 @@
       {
         "color": "#dfe6ea",
         "id": "cabinet",
-        "label": "Cabinet \u2014 see-through outer shell",
+        "label": "Cabinet — see-through outer shell",
         "opacity": 0.22,
         "position": [
           0,
@@ -1614,7 +1616,7 @@
       {
         "color": "#e8eef1",
         "id": "top",
-        "label": "Top and raised back control panel \u2014 see-through",
+        "label": "Top and raised back control panel — see-through",
         "opacity": 0.35,
         "position": [
           0,
@@ -1636,7 +1638,7 @@
       {
         "color": "#c7d3d8",
         "id": "tub",
-        "label": "Outer tub \u2014 see-through",
+        "label": "Outer tub — see-through",
         "opacity": 0.2,
         "position": [
           0,
@@ -1658,7 +1660,7 @@
       {
         "color": "#eef3f5",
         "id": "lid",
-        "label": "Lid \u2014 shown open",
+        "label": "Lid — shown open",
         "opacity": 0.9,
         "position": [
           0,
@@ -1768,7 +1770,7 @@
       {
         "color": "#607d8b",
         "id": "impeller_plate",
-        "label": "Impeller plate \u2014 flat plate under the agitator base",
+        "label": "Impeller plate — flat plate under the agitator base",
         "opacity": 1,
         "position": [
           0,
@@ -1922,7 +1924,7 @@
       {
         "color": "#9aa5ab",
         "id": "drain_hose",
-        "label": "Drain hose \u2014 gray ribbed hose at the back",
+        "label": "Drain hose — gray ribbed hose at the back",
         "opacity": 1,
         "position": [
           -23,
@@ -1944,7 +1946,7 @@
       {
         "color": "#7d9bb3",
         "id": "water_inlet_hoses",
-        "label": "Water inlet hoses \u2014 hot and cold pair at the back",
+        "label": "Water inlet hoses — hot and cold pair at the back",
         "opacity": 1,
         "position": [
           17,
@@ -1966,7 +1968,7 @@
       {
         "color": "#ffb74d",
         "id": "inlet_valve_screens",
-        "label": "Inlet valve screens \u2014 inside the rear hose connections",
+        "label": "Inlet valve screens — inside the rear hose connections",
         "opacity": 1,
         "position": [
           17,
@@ -1988,7 +1990,7 @@
       {
         "color": "#263238",
         "id": "leveling_feet",
-        "label": "Leveling feet \u2014 four screw feet at the bottom corners",
+        "label": "Leveling feet — four screw feet at the bottom corners",
         "opacity": 1,
         "position": [
           0,

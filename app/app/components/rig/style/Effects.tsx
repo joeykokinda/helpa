@@ -83,7 +83,8 @@ export default function Effects({ beat, def, nodes, playRef }: { beat?: Beat; de
             float time = (elapsed - seed.w * 0.18) / 0.95;
             life = clamp(time, 0.0, 1.0);
             point += direction * spread * (0.3 + 1.1 * (1.0 - pow(1.0 - life, 3.0))) + vec3(0.0, spread * 0.5 * life, 0.0);
-            size = spread * (0.8 + 0.7 * seed.x) * (0.6 + 0.7 * life) * enabled.x * step(0.0, time) * step(time, 1.0);
+            // Pop up fast, then shrink away: toon puffs vanish by getting smaller, not by going see-through.
+            size = spread * (0.55 + 0.45 * seed.x) * pow(sin(min(life * 1.6, 1.0) * 1.5708), 0.5) * (1.0 - smoothstep(0.55, 1.0, life)) * enabled.x * step(0.0, time) * step(time, 1.0);
           } else if (kind < 1.5) {
             float time = (elapsed - 0.08 - seed.w * 0.4) / 0.75;
             life = clamp(time, 0.0, 1.0);
@@ -117,11 +118,12 @@ export default function Effects({ beat, def, nodes, playRef }: { beat?: Beat; de
           float radius = length(point);
           vec4 color = vec4(0.0);
           if (vKind < 0.5) {
-            // cartoon dust puff: cream body, ink rim, a lighter cap
-            float body = 1.0 - smoothstep(0.9, 0.97, radius);
-            float rim = smoothstep(0.66, 0.72, radius);
-            vec3 fill = mix(vec3(1.0), vec3(0.95, 0.91, 0.85), smoothstep(-0.4, 0.8, point.y));
-            color = vec4(mix(fill, ink, rim), body * (1.0 - smoothstep(0.7, 1.0, vLife)));
+            // cartoon dust puff: an opaque lumpy cloud, warm white with a shaded underside and an ink rim
+            float edge = 0.88 + 0.07 * sin(atan(point.y, point.x) * 5.0 + vSeed * 6.2831);
+            float body = 1.0 - smoothstep(edge - 0.03, edge, radius);
+            float rim = smoothstep(edge - 0.17, edge - 0.12, radius);
+            vec3 fill = mix(vec3(1.0, 0.99, 0.96), vec3(0.93, 0.87, 0.78), smoothstep(-0.2, 0.7, point.y));
+            color = vec4(mix(fill, ink, rim), body);
           } else if (vKind < 1.5) {
             float star = max(0.0, 1.0 - abs(point.x * point.y) * 22.0 - radius * 0.95);
             vec3 tint = mix(vec3(1.0, 0.84, 0.35), vec3(1.0, 1.0, 0.92), smoothstep(0.2, 0.7, star));

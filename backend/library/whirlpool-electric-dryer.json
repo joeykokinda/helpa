@@ -2,15 +2,17 @@
   "id": "whirlpool-electric-dryer",
   "appliance": "electric dryer",
   "brand": "Whirlpool",
-  "model_family": "Whirlpool 7.0 cu. ft. Top Load Electric Dryer with Moisture Sensor",
+  "model_family": "Whirlpool WED5050LW 7.0 cu. ft. top-load electric dryer with moisture sensing (same cabinet as WED5010LW and WED6150PW)",
   "model_numbers": [
-    "WED6150PW",
-    "WED6150PB",
+    "WED5050LW",
     "WED5010LW",
-    "WED5050LW"
+    "WED6150PW",
+    "WED6150PB"
   ],
-  "sticker_location": "Open the dryer door and look on the rim around the door opening, inside the door pocket. The white or silver sticker there shows the model and serial numbers.",
+  "sticker_location": "Open the dryer door and look on the frame around the door opening. The white sticker there shows the model number (WED5050LW) and serial number.",
   "manual_urls": [
+    "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
+    "https://whirlpool.com/content/dam/global/documents/202203/repair-parts-list-w11559723-revb.pdf",
     "https://www.whirlpool.com/content/dam/global/documents/202311/owners-manual-w11691173-revA.pdf",
     "https://www.whirlpool.com/content/dam/global/documents/202306/quick-start-guide-w11423864-revD.pdf",
     "https://www.whirlpool.com/content/dam/global/documents/202106/cycle-guide-w11423872-revc.pdf"
@@ -122,10 +124,10 @@
       ],
       "plan": {
         "brand": "Whirlpool",
-        "model_number": "WED6150PW",
+        "model_number": "WED5050LW",
         "appliance": "electric dryer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202311/owners-manual-w11691173-revA.pdf",
-        "diagnosis": "A blocked lint screen or blocked outside vent is the most common cause. Too many clothes in the drum can also stop air moving through the load.",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
+        "diagnosis": "Your lint screen is choking the airflow. Hot air has to pass through it to leave the drum, so a clogged screen traps moist air and the clothes stay damp. A blocked outside vent or an overfull drum does the same.",
         "tools": [],
         "replacement_parts": [],
         "safety": [
@@ -134,6 +136,18 @@
           "If the vent inside the wall needs cleaning, have a qualified vent cleaner do it."
         ],
         "steps": [
+          {
+            "instruction": "See where the hot air gets stuck",
+            "details": [
+              "Hot air leaves the drum through the lint screen.",
+              "A full screen chokes it, so clothes stay damp."
+            ],
+            "target_part": "Lint screen",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You know the air has to get through the lint screen."
+          },
           {
             "instruction": "Pull the lint screen straight up",
             "details": [
@@ -181,150 +195,88 @@
             "check": "The drum is only about half to three-quarters full."
           },
           {
-            "instruction": "Turn cycle knob to Normal",
+            "instruction": "Run a short timed dry, feel the vent",
             "details": [
-              "Normal uses medium heat for mixed loads."
+              "Set Timed Dry for 10 minutes and press Start.",
+              "Go outside and hold your hand under the vent hood.",
+              "Air should feel strong and warm, like a hair dryer."
             ],
-            "target_part": "cycle knob",
+            "target_part": "Vent hose",
             "photo": -1,
             "motion": "none",
             "show_3d": true,
-            "check": "The knob points to Normal."
-          },
-          {
-            "instruction": "Hold hand under outside vent hood",
-            "details": [
-              "Run the dryer 5 to 10 minutes first.",
-              "Air should feel strong, like a hair dryer on high."
-            ],
-            "target_part": "outside vent hood",
-            "photo": -1,
-            "motion": "none",
-            "show_3d": true,
-            "check": "Strong warm air blows out and the flap opens."
+            "check": "Strong warm air blows out and the vent flap opens."
           }
         ],
         "library_id": "",
         "library_problem": ""
       },
-      "step_animations": [
-        {
-          "axis": "z",
-          "caption": "Pull lint screen out",
-          "distance": 20.0,
-          "motion": "pull_out",
-          "part_ids": [
-            "lint_screen",
-            "lint_screen_slot"
-          ],
-          "step": 0
-        },
-        {
-          "axis": "y",
-          "caption": "Roll lint off screen",
-          "distance": 0.0,
-          "motion": "none",
-          "part_ids": [
-            "lint_screen"
-          ],
-          "step": 1
-        },
-        {
-          "axis": "z",
-          "caption": "Push lint screen in",
-          "distance": 20.0,
-          "motion": "push_in",
-          "part_ids": [
-            "lint_screen",
-            "lint_screen_slot"
-          ],
-          "step": 2
-        },
-        {
-          "axis": "z",
-          "caption": "Remove half the load",
-          "distance": 30.0,
-          "motion": "pull_out",
-          "part_ids": [
-            "dryer_drum",
-            "dryer_door"
-          ],
-          "step": 3
-        },
-        {
-          "axis": "z",
-          "caption": "Turn knob to Normal",
-          "distance": 3.0,
-          "motion": "twist_cw",
-          "part_ids": [
-            "cycle_knob",
-            "control_panel"
-          ],
-          "step": 4
-        },
-        {
-          "axis": "y",
-          "caption": "Check outside vent airflow",
-          "distance": 0.0,
-          "motion": "none",
-          "part_ids": [
-            "outside_vent_hood",
-            "vent_hose"
-          ],
-          "step": 5
-        }
-      ],
       "rig_beats": [
+        [
+          {
+            "part": "air_path",
+            "action": "look",
+            "caption": "Lint blocks the hot air"
+          }
+        ],
         [
           {
             "part": "lint_screen",
             "action": "remove",
-            "caption": "Pull lint screen out"
+            "caption": "Pull lint screen straight up"
           }
         ],
         [
           {
             "part": "lint",
             "action": "clean",
-            "caption": "Roll lint off screen"
+            "caption": "Roll the lint off"
           }
         ],
         [
           {
             "part": "lint_screen",
             "action": "insert",
-            "caption": "Push lint screen in"
+            "caption": "Push it back down flat"
           }
         ],
         [
           {
             "part": "dryer_door",
             "action": "open",
-            "caption": "Open dryer door"
+            "caption": "Open the door"
           },
           {
             "part": "dryer_drum",
             "action": "look",
-            "caption": "Check drum half full"
+            "caption": "Leave it half full"
           },
           {
             "part": "dryer_door",
             "action": "close",
-            "caption": "Close dryer door"
+            "caption": "Close the door"
           }
         ],
         [
           {
             "part": "cycle_knob",
             "action": "turn",
-            "caption": "Turn knob to Normal"
-          }
-        ],
-        [
+            "caption": "Timed Dry, 10 minutes"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press and hold Start"
+          },
+          {
+            "part": "air_path",
+            "action": "look",
+            "caption": "Air flows freely now"
+          },
           {
             "part": "vent_hose",
             "action": "look",
-            "caption": "Check outside vent airflow"
+            "caption": "Feel warm air outside"
           }
         ]
       ]
@@ -338,9 +290,9 @@
       ],
       "plan": {
         "brand": "Whirlpool",
-        "model_number": "WED6150PW",
+        "model_number": "WED5050LW",
         "appliance": "electric dryer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/quick-start-guide-w11423864-revD.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
         "diagnosis": "Usually the door is not latched, no cycle is chosen, or the start button was only tapped. A tripped home breaker can also stop it.",
         "tools": [],
         "replacement_parts": [],
@@ -537,9 +489,9 @@
       ],
       "plan": {
         "brand": "Whirlpool",
-        "model_number": "WED6150PW",
+        "model_number": "WED5050LW",
         "appliance": "electric dryer",
-        "manual_url": "https://producthelp.whirlpool.com/Laundry/Dryers/Product_Info/Dryer_Product_Assistance/Dryer_is_Not_Heating",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
         "diagnosis": "The Air Only cycle makes no heat by design, so check that first. If a heated cycle is chosen, one of the two home breakers may have tripped.",
         "tools": [],
         "replacement_parts": [],
@@ -751,9 +703,9 @@
       ],
       "plan": {
         "brand": "Whirlpool",
-        "model_number": "WED6150PW",
+        "model_number": "WED5050LW",
         "appliance": "electric dryer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202106/cycle-guide-w11423872-revc.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
         "diagnosis": "Sensor cycles stop when the metal sensor strips think clothes are dry. Very small loads may not touch the strips, and dryer-sheet coating on the strips can fool them.",
         "tools": [
           "soft cloth"
@@ -967,9 +919,9 @@
       ],
       "plan": {
         "brand": "Whirlpool",
-        "model_number": "WED6150PW",
+        "model_number": "WED5050LW",
         "appliance": "electric dryer",
-        "manual_url": "https://producthelp.whirlpool.com/Laundry/Dryers/Dryer/Noise/Thumping_Sound_-_Dryer",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
         "diagnosis": "Sheets and blankets often roll into a tight ball that thumps as it tumbles. A dryer that is not level, or a missing foot, can also rock and knock.",
         "tools": [
           "level or phone level app"
@@ -1166,9 +1118,9 @@
       ],
       "plan": {
         "brand": "Whirlpool",
-        "model_number": "WED6150PW",
+        "model_number": "WED5050LW",
         "appliance": "electric dryer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202311/owners-manual-w11691173-revA.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
         "diagnosis": "The small bulb inside the drum has likely burned out. The manual shows how to change it with a new 10 W appliance bulb.",
         "tools": [
           "1/4 inch nut driver or socket wrench",
@@ -1412,9 +1364,9 @@
       ],
       "plan": {
         "brand": "Whirlpool",
-        "model_number": "WED6150PW",
+        "model_number": "WED5050LW",
         "appliance": "electric dryer",
-        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202306/quick-start-guide-w11423864-revD.pdf",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
         "diagnosis": "Wrinkles set when a finished load sits still in a warm drum. The Wrinkle Shield option keeps tumbling the load, and Steam Refresh can relax wrinkles in dry clothes.",
         "tools": [],
         "replacement_parts": [],
@@ -1845,7 +1797,7 @@
       {
         "color": "#dfe6eb",
         "id": "dryer_door",
-        "label": "Dryer door \u2014 open",
+        "label": "Dryer door — open",
         "opacity": 0.75,
         "position": [
           43,
@@ -2087,7 +2039,7 @@
       {
         "color": "#3a7bd5",
         "id": "water_inlet_hose",
-        "label": "Water inlet hose \u2014 steam models (behind dryer)",
+        "label": "Water inlet hose — steam models (behind dryer)",
         "opacity": 1.0,
         "position": [
           -24,

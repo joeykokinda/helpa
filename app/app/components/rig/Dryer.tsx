@@ -9,7 +9,7 @@ import type { RigModule } from "./registry";
 import { RigPart } from "./RigRuntime";
 import { foilTexture, lintTexture, perforatedTexture, screenMeshTexture } from "./textures";
 
-/** Whirlpool top-vent electric dryer (WED5010 / WED6150 family), lint screen on the top panel. Metres, origin at the floor. */
+/** Whirlpool WED5050LW top-load electric dryer (same cabinet as WED5010LW / WED6150PW), lint screen on the top panel. Metres, origin at the floor. */
 const width = 0.686;
 const height = 0.975;
 const depth = 0.72;
@@ -340,6 +340,31 @@ function Feet() {
   );
 }
 
+/** Where the air goes: through the tumbling clothes, out through the lint screen, down to the blower, out the vent. */
+export const airRoute: [number, number, number][] = [
+  [0, 0.42, 0.18],
+  [0, 0.58, 0.02],
+  [0, 0.8, -0.16],
+  [0, 0.55, -0.26],
+  [0, 0.14, -0.28],
+  [0, 0.12, -front],
+  [0, 0.13, -front - 0.1],
+  [0.05, 0.25, -front - 0.18],
+  [0.12, 0.35, -front - 0.225],
+];
+
+/** An invisible stand-in the size of the air route, so the camera can frame the whole airflow. */
+function AirPath() {
+  return (
+    <RigPart id="air_path">
+      <mesh position={[0, 0.5, -0.1]} visible={false}>
+        <boxGeometry args={[0.3, 0.8, 0.9]} />
+        <meshBasicMaterial />
+      </mesh>
+    </RigPart>
+  );
+}
+
 export function DryerModel() {
   return (
     <group>
@@ -351,11 +376,13 @@ export function DryerModel() {
       <Console />
       <BehindTheDryer />
       <Feet />
+      <AirPath />
     </group>
   );
 }
 
 const sampleSteps: { instruction: string; beats: Beat[] }[] = [
+  { instruction: "See where the air gets stuck", beats: [{ part: "air_path", action: "look", caption: "Lint blocks the hot air" }] },
   {
     instruction: "Clean the lint screen",
     beats: [
@@ -375,6 +402,13 @@ const sampleSteps: { instruction: string; beats: Beat[] }[] = [
     ],
   },
   { instruction: "Check the vent hose", beats: [{ part: "vent_hose", action: "look", caption: "Make sure it isn't crushed" }] },
+  {
+    instruction: "Run a short timed dry, feel the vent",
+    beats: [
+      { part: "air_path", action: "look", caption: "Air flows freely now" },
+      { part: "vent_hose", action: "look", caption: "Strong warm air outside" },
+    ],
+  },
 ];
 
 export const rig: RigModule = { catalog: dryerCatalog, Model: DryerModel, sampleSteps };
