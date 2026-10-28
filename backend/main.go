@@ -151,6 +151,12 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 	}
 	session := newSession()
 	defer session.close()
+	if sample := openSample(request.FormValue("sample")); sample != nil {
+		defer sample.Close()
+		replayStream(request, sample, session, emit)
+		emit(event{"type": "done"})
+		return
+	}
 	if replayDir != "" {
 		replayFix(request, complaint, session, emit)
 		emit(event{"type": "done"})

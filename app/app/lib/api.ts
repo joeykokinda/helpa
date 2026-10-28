@@ -87,10 +87,12 @@ export type AgentEvent =
   | { type: "done" };
 
 /** Posts photos and a description to the agent and calls onEvent for every streamed event. */
-export async function streamFix(photos: Blob[], complaint: string, onEvent: (event: AgentEvent) => void) {
+export async function streamFix(photos: Blob[], complaint: string, onEvent: (event: AgentEvent) => void, sample?: string) {
   const form = new FormData();
   photos.forEach((photo, index) => form.append("photos", photo, `photo-${index}.jpg`));
   form.append("complaint", complaint);
+  // A sample id makes the backend replay that sample's recorded run instead of calling the models.
+  if (sample) form.append("sample", sample);
   const response = await fetch(`${API_URL}/api/fix`, { method: "POST", body: form });
   if (!response.ok || !response.body) {
     throw new Error((await response.text()) || `request failed (${response.status})`);

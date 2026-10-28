@@ -2,10 +2,28 @@ package main
 
 import (
 	"context"
+	"io"
 	"strings"
 	"testing"
 	"time"
 )
+
+func TestSamplesHavePlans(t *testing.T) {
+	for _, id := range []string{"dishwasher", "dryer", "disposal", "washer", "car"} {
+		sample := openSample(id)
+		if sample == nil {
+			t.Fatalf("sample %s is missing", id)
+		}
+		data, _ := io.ReadAll(sample)
+		sample.Close()
+		if !strings.Contains(string(data), `"type":"plan"`) {
+			t.Errorf("sample %s has no plan", id)
+		}
+	}
+	if openSample("../main.go") != nil || openSample("") != nil {
+		t.Error("openSample must only open recorded samples")
+	}
+}
 
 func TestSessionAskAndAnswer(t *testing.T) {
 	session := newSession()

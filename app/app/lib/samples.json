@@ -1,0 +1,7 @@
+[
+  { "id": "dishwasher", "title": "Gritty dishes", "complaint": "My dishwasher leaves gritty bits all over the dishes" },
+  { "id": "dryer", "title": "Clothes still wet", "complaint": "My dryer runs a full cycle and the clothes are still damp" },
+  { "id": "disposal", "title": "Disposal hums", "complaint": "My garbage disposal just hums and won't spin" },
+  { "id": "washer", "title": "Won't drain", "complaint": "My washer won't drain, there's water left in the drum" },
+  { "id": "car", "title": "Oil change", "complaint": "My 2015 Toyota Camry 2.5L is due for an oil change and I want to do it myself" }
+]

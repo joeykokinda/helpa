@@ -10,9 +10,10 @@ import { transcribe } from "../lib/api";
 import { captureFrame, shrinkPhoto, toWav } from "../lib/media";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
+import { SampleCards, SampleSheetButton, samplePhoto, type Sample } from "./Samples";
 
 type CaptureProps = {
-  onSubmit: (photos: Blob[], description: string) => void;
+  onSubmit: (photos: Blob[], description: string, sample?: string) => void;
   say: (text: string, mood?: HelpaMood, aloud?: boolean) => void;
   onListening: (listening: boolean) => void;
   onHelp: () => void;
@@ -226,6 +227,18 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
     setScreen("camera");
   };
 
+  const [loadingSample, setLoadingSample] = useState<string>();
+  const trySample = async (sample: Sample) => {
+    setLoadingSample(sample.id);
+    try {
+      onSubmit([await samplePhoto(sample)], sample.complaint, sample.id);
+    } catch {
+      say("I couldn't load that sample. Try another one?", "worried", false);
+    } finally {
+      setLoadingSample(undefined);
+    }
+  };
+
   const canSubmit = photos.length > 0 || description.trim().length > 0;
   const uploadInput = (
     <input type="file" accept="image/*" multiple hidden onChange={(changeEvent) => upload(changeEvent.target.files)} />
@@ -310,6 +323,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               </button>
             </div>
           )}
+          {photos.length === 0 && !scanning && <SampleSheetButton onPick={trySample} />}
           <div className="mode-switch" role="radiogroup" aria-label="Capture mode">
             {(["photo", "scan"] as const).map((option) => (
               <button key={option} role="radio" aria-checked={captureMode === option} className="press" onClick={() => setCaptureMode(option)} disabled={scanning}>
@@ -394,6 +408,13 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
                   </li>
                 ))}
               </ul>
+            )}
+
+            {photos.length === 0 && !description.trim() && (
+              <div className="sample-block">
+                <p className="label">Nothing broken right now? Try a sample</p>
+                <SampleCards onPick={trySample} busy={loadingSample} />
+              </div>
             )}
 
             <ul className="photo-strip" aria-label="Your photos">
