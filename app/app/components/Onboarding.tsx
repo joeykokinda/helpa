@@ -10,18 +10,18 @@ const slides: { mood: HelpaMood; title: string; body: string; tags?: { icon: Ico
   {
     mood: "listening",
     title: "Show me or tell me",
-    body: "Snap a photo of what's broken or its model sticker, or just tell me what's wrong.",
+    body: "Snap a photo of what's broken, tell me what's wrong, or pick it from my list of common problems.",
     tags: [
       { icon: "camera", label: "Photo" },
       { icon: "mic", label: "Talk" },
-      { icon: "keyboard", label: "Type" },
+      { icon: "toolbox", label: "Pick it" },
     ],
   },
   { mood: "searching", title: "I do the homework", body: "I find your exact manual, spot the parts, and make a simple plan." },
   {
     mood: "pointing",
     title: "Fix it step by step",
-    body: "I show you each move on a 3D model of your machine, read every step out loud, and check your work.",
+    body: "I show each move in 3D and on your own camera, read every step out loud, and check your work. Hands busy? Just say \u201cnext\u201d.",
     tags: [
       { icon: "cube", label: "3D guide" },
       { icon: "speaker", label: "Read aloud" },

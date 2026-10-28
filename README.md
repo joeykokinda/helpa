@@ -2,15 +2,17 @@
 
 **Helpa understands how your machine works and guides your hands through fixing it.**
 
-Point your phone at a broken dryer, dishwasher, disposal or car. Helpa reads the model sticker, researches that exact
-machine, and shows each move on a 3D model of it. Then it plays the move as a hologram on your real machine through
-the camera, watches you do it, and tells you when you got it right.
+Point your phone at a broken dryer, dishwasher, toilet, sink, fridge or car, say what's wrong, or just pick it from a
+list. Helpa reads the model sticker, researches that exact machine, and shows each move on a 3D model of it. Then it
+plays the move as a hologram on your real machine through the camera, watches you do it, and tells you when you got
+it right. Simple enough for anyone: big buttons, every step read aloud, and "next" said out loud when your hands are full.
 
 Built solo for the Meta Global AI Developer Hackathon (Oct 27 to Nov 4, 2026). Everything in this repo was written
 during the hackathon.
 
-**Try it:** https://brach.taild3399f.ts.net on any phone (Android Chrome or iPhone Safari). Nothing broken? Tap
-**Try a sample** on the first screen (gritty dishes, clothes still wet, disposal hums, washer won't drain, Camry oil
+**Try it:** https://brach.taild3399f.ts.net on any phone (Android Chrome or iPhone Safari). Tap a tile under
+**Or pick it** (toilet, sink, fridge, smoke alarm...) for a ready fix in a second. Nothing broken? **Watch a fix**
+on the first screen (gritty dishes, clothes still wet, disposal hums, washer won't drain, Camry oil
 change) for the full flow in about 30 seconds. Add it to your home screen to use it like an app.
 
 | My Home | The plan | 3D step | Done |
@@ -26,6 +28,13 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
 
 ## What it does
 
+- **Show it, tell it, or pick it.** The first screen is three ways in: the camera, your voice, or a tile for every
+  thing Helpa knows (16 things, 90 ready fixes, from a running toilet to a chirping smoke alarm). Picking a problem
+  goes straight to its fix, no typing and no photo.
+- **Circle it.** Draw on your own photo with a finger to show exactly where the problem is; the marked photo goes to
+  Muse Spark. **Muse Image** then redraws your photo as a repair diagram, the part circled and the move drawn on,
+  shown with the plan and used as your share card when it's fixed.
+- **Hands-free.** Say "next", "back", "repeat", "show me" or "check" while you work; Helpa ignores its own voice.
 - **Your exact machine.** Snap the model sticker or VIN, or just say what's wrong. Helpa reads the identity
   ("Whirlpool WED5050LW", "2015 Toyota Camry 2.5L"), pulls that model's manual and parts list, and asks a tap-to-answer
   question when it needs one.
@@ -33,7 +42,8 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
   Each step plays as beats on the model, with effects for what actually happens: air choking at a clogged lint
   screen, oil streaming into the pan, standing water draining.
 - **Live Guide (AR).** "Show me on my camera" finds the part on your live camera, locks onto it, and plays the move
-  as a cyan hologram of your own part, with the 3D twin in the corner playing the same beat on the same clock.
+  as a frosted-glass hologram of your own part with an orange path for the move, the 3D twin in the corner playing the
+  same beat on the same clock. The picture fills the screen on a phone held upright.
 - **Your turn.** After the demo, Helpa watches the real part and answers **COMPLETED** (moves on by itself),
   **INCOMPLETE** (a specific correction, like "that's the spray arm, the filter is the round cap below it") or
   **UNCERTAIN** (asks for a better angle). The animation finishing never counts as you finishing.
@@ -49,7 +59,8 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
 | `muse-wonder-1.0` | The research agent for unknown problems: finds the manual, diagnoses, writes beginner steps, calls tools. It also built the 8-machine library of known fixes ahead of time |
 | `sam-3.1` | Highlights parts on your photos; live locate on camera frames (up to 4 part names in parallel, cropped to where the part sits); point prompts when you tap a part; finds the model sticker |
 | `muse-voice-transcribe-1.0` | Describe the problem, or ask Helpa, out loud |
-| `muse-image-1.0` | The "Try a sample" photos |
+| `muse-image-1.0` | Redraws your own photo as a repair diagram (part circled, move drawn on) for the plan and the share card; the "Try a sample" photos |
+| `muse-spark-open-1026` (open weights, Baseten) | Check my work, when `BASETEN_API_KEY` is set; Muse Spark backs it up. The check says when the open model made the call |
 | Hosted `web_search` | Manuals, exploded parts diagrams, specs (Camry: 0W-20, 4.6 qt with filter, 14 mm plug) |
 
 ## How it works
@@ -71,6 +82,9 @@ flowchart LR
 
 - **Parallel pipeline.** After a fast identification, research, the 3D model and part measuring run at the same time
   and stream to the phone as they land. Known fixes (8 library machines) skip research and arrive in about 3 to 5 s.
+- **Hand-made recipe models.** Sink, toilet, fridge, smoke alarm, outlet and breaker panel, furnace and thermostat,
+  shower head and door are recipes (`tools/build_home_fixes.py`), with their fixes' beats written alongside, so a
+  picked fix plays in 3D and on the camera with no model calls.
 - **Rigs.** 8 hand-built models (top-vent dryer, dishwasher, front and top-load washers, range, over-the-range
   microwave, garbage disposal, car oil change), each with a catalog of parts, joints, actions, aliases and effects.
   The catalog is the one animation language: the 3D view and the AR overlay both read it.

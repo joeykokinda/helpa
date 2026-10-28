@@ -26,6 +26,7 @@ Snap the model sticker or describe the problem → Helpa identifies the exact ma
 | Safety and cost | Per-IP rate limits, 16 MB upload cap, $15/day Meta budget (`HELPA_DAILY_BUDGET_USD`), then "Helpa is resting" plus a sample. |
 | Proof | `docs/EVAL.md`: 50 cases, 49/50 right appliance, 8/8 dangerous cases to a pro, 0 dangerous instructions, 125/149 key steps, 3D on every non-stop case. vs a plain chatbot: same content, 3x less reading (214 vs 598 words), first action on line 2 vs 6. |
 | Docs | `README.md` for judges, `docs/VIDEO.md` (shot list, voiceover, 30 s X cut), `docs/X_POST.md`. |
+| Round 4 (branch `round-4`, Oct 28) | New look (ink and paper, one signal orange `#ff5b2e`, Schibsted Grotesk, Helpa's own two-tone icon set, caution-tape safety card). Home is the first screen for everyone: Show me / Tell me / **pick it** (a tile per thing, 16 things, 90 fixes; a picked fix runs with no model calls via `fix=entry/problem`). 8 new hand-made recipe models + fixes: sink, toilet, fridge, smoke alarm, outlet and breaker, furnace and thermostat, shower head, door (`tools/build_home_fixes.py` writes models, library entries and beats). AR restyled: frosted-glass hologram, orange motion paths, white label pills, full-bleed camera on phones, twists spin flat, labels dodge a rising ghost; live guide no longer crashes on recipe models. Hands-free voice (next, back, repeat, show me, check). Circle the problem on your photo. Muse Image draws the fix on your photo (`/api/illustrate`, plan card + share card). Muse Spark Open check (`BASETEN_API_KEY`, falls back to Spark). |
 
 ## Run and deploy
 
@@ -43,15 +44,13 @@ Snap the model sticker or describe the problem → Helpa identifies the exact ma
 
 ## What's next, in order
 
-1. **Real-phone test of Live Guide** (biggest unknown). Seeker over USB (`adb reverse`) and iPhone Safari: lock times, hologram anchoring while moving, gyro direction, fps, the iOS motion permission prompt.
-2. **Round 4 (not started; both agents were cut off before saving anything):**
-   - `creative`: "draw the issue" (Muse Image or a hand-drawn canvas annotation on your own photo; doubles as the X share image) and video with audio (8 s clip, transcribe plus sound features).
-   - `spanish`: Spanish UI, steps and voice (pre-translated library), plus an accessibility pass (labels, 44px targets, contrast, reduced motion, aria-live).
-   - The empty branches and worktrees `creative` and `spanish` exist at `05aa483`; start them fresh.
-3. **Open-weights bonus ($10K):** Glimmer or Spark Open for check-my-work on Baseten or Modal. Needs rex to confirm credits.
-4. **Polish:** retake the README My Home screenshot (shows the old WED6150PW); real AR clips for the README (`docs/media/live-lint.mp4`, `live-oil.mp4`, `sticker.mp4`); dishwasher x-ray water reads as a flat panel; the 3D car body is still a generic sedan.
-5. **Unverified facts to check on the real car:** filter element 04152-YZZA1 vs YZZA6; 4.6 vs 4.8 qt.
-6. **Film and ship (rex):** follow `docs/VIDEO.md` on the real dryer and the Camry, run a blind test with someone who hasn't seen the app, post on X (`docs/X_POST.md`), submit the repo, video, live link and X link.
+1. **Merge `round-4` into `main` and deploy** (`./scripts/deploy-brach.sh`). Nothing in round 4 has run against the live Meta API yet.
+2. **Live-test the new Meta paths with the real key:** `/api/illustrate` (Muse Image via the Responses API, `input_image` reference, reads the `image_generation_call` result) and, with Baseten credits, `BASETEN_API_KEY=... ` for Muse Spark Open checks (`HELPA_OPEN_WEIGHTS_URL` / `HELPA_OPEN_WEIGHTS_MODEL` override the endpoint and model). Both fail soft.
+3. **Real-phone test of Live Guide** (still the biggest unknown): the new full-bleed camera, frosted hologram on a white dryer, hands-free on iPhone Safari (`webkitSpeechRecognition`) and Android Chrome.
+4. **Video and X post:** show pick-it (toilet keeps running in one tap), circle-it, the Muse Image drawing, hands-free "next" with wet hands, and the AR lint screen. Update `docs/VIDEO.md` shot list.
+5. **Spanish is parked.** 2,000 library strings were translated but not wired in; restart from scratch if wanted.
+6. Polish: retake README screenshots (new look), real AR clips, the smoke alarm overview camera looks at the ceiling from above (steps are fine).
+7. Unverified car facts: filter element 04152-YZZA1 vs YZZA6; 4.6 vs 4.8 qt.
 
 ## Decisions to keep
 

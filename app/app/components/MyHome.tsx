@@ -97,12 +97,6 @@ export default function MyHome({ machines, mood, speaking, onOpen, onFix, onTell
           </button>
         </div>
 
-        <section className="home-section" aria-labelledby="pick-heading">
-          <h2 id="pick-heading" className="section-title">
-            Or pick it
-          </h2>
-          <FixPicker onPick={(fix, says) => onPickFix(fix, says)} />
-        </section>
 
         {machines.length > 0 && (
           <section className="home-section" aria-labelledby="home-heading">
@@ -130,6 +124,13 @@ export default function MyHome({ machines, mood, speaking, onOpen, onFix, onTell
             </ul>
           </section>
         )}
+
+        <section className="home-section" aria-labelledby="pick-heading">
+          <h2 id="pick-heading" className="section-title">
+            Or pick it
+          </h2>
+          <FixPicker onPick={(fix, says) => onPickFix(fix, says)} />
+        </section>
 
         <section className="home-section sample-block" aria-labelledby="sample-heading">
           <h2 id="sample-heading" className="section-title">
