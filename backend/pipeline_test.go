@@ -72,6 +72,15 @@ func TestLibraryPlanFastPath(t *testing.T) {
 	if libraryPlan(ident, emit) != nil {
 		t.Fatal("used a Whirlpool fix for a Samsung")
 	}
+	// The car fix is found from however the first look names it, and keeps the model the person showed.
+	camry := identification{Appliance: "car", Brand: "Toyota", ModelNumber: "2015 Camry LE 2.5L", LibraryFix: "car-oil-change/engine_oil_due_for_change"}
+	plan = libraryPlan(camry, emit)
+	if plan == nil || !strings.Contains(string(plan), `"model_number":"2015 Camry LE 2.5L"`) {
+		t.Fatalf("car fix: %s", plan)
+	}
+	if normalizeAppliance("carpet cleaner") == "car" || normalizeAppliance("2015 Toyota Camry") != "car" {
+		t.Fatal("car names must match on whole words")
+	}
 }
 
 func TestMatchRigWholeWords(test *testing.T) {

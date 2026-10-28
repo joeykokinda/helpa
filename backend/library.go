@@ -106,6 +106,12 @@ func normalizeAppliance(name string) string {
 			return canonical
 		}
 	}
+	// Whole words only, so "carpet" isn't a car.
+	for _, word := range []string{"car", "sedan", "suv", "truck", "vehicle", "automobile", "camry", "corolla"} {
+		if containsWords(name, word) {
+			return "car"
+		}
+	}
 	return name
 }
 

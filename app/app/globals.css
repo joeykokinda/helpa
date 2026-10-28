@@ -528,6 +528,11 @@ a:focus-visible {
   color: var(--accent-strong);
 }
 
+.eyebrow-identity {
+  font-weight: 600;
+  color: var(--secondary);
+}
+
 .label {
   font-size: 12px;
   letter-spacing: 0.08em;

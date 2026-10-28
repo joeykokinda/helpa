@@ -633,7 +633,28 @@
             "caption": "Twist filter right"
           }
         ],
-        []
+        [
+          {
+            "part": "door",
+            "action": "close",
+            "caption": "Close the door"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Start a short rinse"
+          },
+          {
+            "part": "rinse_water",
+            "action": "open",
+            "caption": "Fresh water fills the bottom"
+          },
+          {
+            "part": "rinse_water",
+            "action": "close",
+            "caption": "It drains away: fixed"
+          }
+        ]
       ]
     },
     {

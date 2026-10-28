@@ -30,12 +30,55 @@ export type RigPartDef = {
 /** One movement in a step: "open the door", "peel off the lint". */
 export type Beat = { part: string; action: RigAction; caption: string };
 
+/** A condition on a part's joint amount; `orFocus` also passes while that part's beat is playing. */
+export type EffectWhen = { part: string; min?: number; max?: number; orFocus?: boolean };
+
+/**
+ * What an action does to the world, beyond the part moving: oil pouring out of the drain hole, water going down.
+ * Anchored to parts so the 3D guide and the live camera overlay can both draw them from the catalog.
+ *  - flow: a liquid stream falling from `from` onto `to` (or `length` metres down)
+ *  - drip: drops falling from `from`
+ *  - pool: a liquid surface in `from` (a pan, a tub) at a height between `range`, following `level`
+ *  - airflow: glowing air moving along `points` (in `from`'s frame); while `level` is low it chokes at `chokeAt`
+ */
+export type RigEffect = {
+  kind: "flow" | "drip" | "pool" | "airflow";
+  /** Part the effect is anchored to. */
+  from: string;
+  /** Anchor offset in the part's frame. */
+  offset?: Vec3;
+  /** Ride along with the part's motion (a filter being unscrewed) instead of staying where it rests. */
+  follow?: boolean;
+  /** flow: the part it lands in, and where in that part's frame. */
+  to?: string;
+  toOffset?: Vec3;
+  /** flow and drip: fall height in metres when there's no `to`. */
+  length?: number;
+  /** flow: stream width; drip: drop size; pool: radius (circle) or [x, z] size (box). */
+  width?: number;
+  size?: [number, number];
+  /** pool: surface height in the part's frame at level 0 and level 1. */
+  range?: [number, number];
+  /** airflow: the route, and the index of the point where a clog chokes it. */
+  points?: Vec3[];
+  chokeAt?: number;
+  color: string;
+  opacity?: number;
+  /** Draw over the model, for liquid behind a closed door or panel. */
+  xray?: boolean;
+  /** Every condition must hold for the effect to show. */
+  when: EffectWhen[];
+  /** 0..1 from a part's amount: a pool's fill, a stream's strength. */
+  level?: { part: string; invert?: boolean };
+};
+
 export type RigCatalog = {
   id: string;
   name: string;
   /** Appliance names this rig stands in for, e.g. "top-load dryer". */
   matches: string[];
   parts: RigPartDef[];
+  effects?: RigEffect[];
 };
 
 /** Where each part sits along its joint: 0 is home (closed, in place), 1 is fully open, out, or cleaned away. */

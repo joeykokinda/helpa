@@ -1,6 +1,6 @@
 {
   "id": "car_oil_change",
-  "name": "Compact sedan: engine bay and underside",
+  "name": "2015 Toyota Camry 2.5L",
   "matches": [
     "car",
     "oil change",
@@ -15,7 +15,12 @@
     "civic",
     "under the hood",
     "car battery",
-    "motor oil"
+    "motor oil",
+    "camry",
+    "toyota camry",
+    "2015 camry",
+    "2015 toyota camry",
+    "mid-size sedan"
   ],
   "parts": [
     {
@@ -77,8 +82,8 @@
         "look"
       ],
       "view": [
-        0.25,
-        0.25,
+        0.15,
+        -0.3,
         1
       ]
     },
@@ -112,9 +117,9 @@
         "look"
       ],
       "view": [
-        1,
-        0.25,
-        -0.35
+        0.35,
+        0.3,
+        -1
       ]
     },
     {
@@ -291,25 +296,29 @@
     },
     {
       "id": "oil_filter",
-      "label": "Oil filter",
+      "label": "Oil filter (cartridge)",
       "aliases": [
-        "engine_oil_filter",
+        "cartridge filter",
         "engine oil filter",
+        "engine_oil_filter",
         "filter",
-        "spin-on filter",
-        "oil filter canister",
+        "filter cap",
+        "filter cartridge",
+        "filter element",
         "filter housing",
-        "filter cartridge"
+        "oil filter canister",
+        "oil filter element",
+        "spin-on filter"
       ],
       "joint": {
         "kind": "twist",
         "axis": [
           0,
-          -0.8,
-          0.6
+          -1,
+          0
         ],
         "angle": 3.0,
-        "lift": 0.09
+        "lift": 0.11
       },
       "actions": [
         "unlock",
@@ -319,14 +328,14 @@
         "look"
       ],
       "view": [
-        0.3,
-        -0.12,
+        0.45,
+        -0.35,
         1
       ]
     },
     {
       "id": "drain_plug",
-      "label": "Oil drain plug",
+      "label": "Drain plug (14 mm)",
       "aliases": [
         "oil_drain_plug",
         "oil drain plug",
@@ -384,9 +393,9 @@
         "look"
       ],
       "view": [
-        0.7,
-        0.05,
-        1
+        1,
+        0.28,
+        0.5
       ]
     },
     {
@@ -1327,6 +1336,112 @@
         1,
         0.35,
         -0.45
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "kind": "flow",
+      "from": "drain_plug",
+      "offset": [
+        0,
+        -0.012,
+        0
+      ],
+      "to": "drain_pan",
+      "toOffset": [
+        0,
+        0.03,
+        0
+      ],
+      "width": 0.018,
+      "color": "#6b4519",
+      "when": [
+        {
+          "part": "drain_plug",
+          "min": 0.6
+        },
+        {
+          "part": "old_oil",
+          "max": 0.995
+        }
+      ],
+      "level": {
+        "part": "old_oil",
+        "invert": true
+      }
+    },
+    {
+      "kind": "pool",
+      "from": "drain_pan",
+      "follow": true,
+      "range": [
+        0.016,
+        0.07
+      ],
+      "width": 0.19,
+      "color": "#6b4519",
+      "when": [],
+      "level": {
+        "part": "old_oil"
+      }
+    },
+    {
+      "kind": "drip",
+      "from": "oil_filter",
+      "follow": true,
+      "offset": [
+        0,
+        -0.078,
+        0
+      ],
+      "width": 0.02,
+      "length": 0.26,
+      "color": "#6b4519",
+      "when": [
+        {
+          "part": "oil_filter",
+          "min": 0.3,
+          "max": 1.3
+        }
+      ]
+    },
+    {
+      "kind": "drip",
+      "from": "oil_filter",
+      "offset": [
+        0.012,
+        -0.004,
+        0
+      ],
+      "width": 0.02,
+      "length": 0.27,
+      "color": "#6b4519",
+      "when": [
+        {
+          "part": "oil_filter",
+          "min": 0.65,
+          "max": 1.3
+        }
+      ]
+    },
+    {
+      "kind": "flow",
+      "from": "new_oil",
+      "follow": true,
+      "offset": [
+        0,
+        -0.012,
+        0
+      ],
+      "length": 0.19,
+      "width": 0.012,
+      "color": "#e3a93c",
+      "when": [
+        {
+          "part": "new_oil",
+          "min": 0.55
+        }
       ]
     }
   ]

@@ -11,8 +11,9 @@ import type { RigModule } from "./registry";
 import { RigPart, useRig } from "./RigRuntime";
 
 /**
- * A generic compact sedan (Corolla-sized: 4.63 m long, 1.78 m wide, 2.70 m wheelbase) with a transverse inline four,
- * driven forward onto ramps so the underside can be reached. Car parts are modelled in the car's own frame:
+ * A 2015 Toyota Camry (XV50) with the 2.5 L 2AR-FE transverse four: cartridge oil filter hanging under the front of
+ * the block beside the oil pan, 14 mm drain plug, yellow dipstick loop up front, fill cap on the valve cover. Body
+ * proportions are a mid-size sedan's, simplified. Driven forward onto ramps so the underside can be reached. Car parts are modelled in the car's own frame:
  * metres, ground under the tyres at y = 0, front axle at z = 0.6, +z toward the front bumper, +x the driver's side.
  * The car frame is pitched nose-up about the rear tyre contact; the ramps, chocks, drain pan and oil stream sit in the
  * world frame on the floor.
@@ -33,8 +34,7 @@ const washerNeck: Vec3 = [-0.6, 0.72, 1.12];
 const drainPlugAt: Vec3 = [-0.08, 0.2, 0.84];
 const dipstickTop: Vec3 = [-0.25, 0.775, 0.987];
 const dipstickTilt = Math.atan2(0.2016, 0.979);
-const filterBase: Vec3 = [-0.12, 0.335, 0.955];
-const filterTilt = Math.atan2(0.6, -0.8);
+const filterBase: Vec3 = [-0.27, 0.3, 0.975];
 const archStart = Math.PI + Math.atan2(0.115, Math.sqrt(0.38 ** 2 - 0.115 ** 2));
 const archEnd = -Math.atan2(0.115, Math.sqrt(0.38 ** 2 - 0.115 ** 2));
 
@@ -409,7 +409,7 @@ function Interior() {
     <group>
       {/* dashboard and the instrument hood */}
       <Block center={[0, 0.84, -0.03]} size={[1.32, 0.18, 0.46]} radius={0.05}>
-        <meshStandardMaterial color="#2d3035" roughness={0.75} />
+        <meshStandardMaterial color="#464a51" roughness={0.75} />
       </Block>
       <Block center={[0.37, 0.95, -0.17]} size={[0.3, 0.06, 0.12]} radius={0.02}>
         <meshStandardMaterial color="#1c1e21" roughness={0.6} />
@@ -420,14 +420,18 @@ function Interior() {
       </Block>
       {/* driver knee panel with the hood release on its left */}
       <Block center={[0.43, 0.68, -0.18]} size={[0.44, 0.14, 0.16]} radius={0.02}>
-        <meshStandardMaterial color="#2a2c31" roughness={0.75} />
+        <meshStandardMaterial color="#4b4f56" roughness={0.75} />
       </Block>
       <Block center={[0.655, 0.5, -0.12]} size={[0.02, 0.22, 0.2]} radius={0.005}>
-        <meshStandardMaterial color="#2a2c31" roughness={0.75} />
+        <meshStandardMaterial color="#4b4f56" roughness={0.75} />
       </Block>
+      {/* Camry: the release sits low on the left kick panel by the driver's left knee; pull it toward you */}
       <RigPart id="hood_release_lever" position={[0.63, 0.53, -0.18]}>
-        <Block center={[0, -0.025, -0.012]} size={[0.025, 0.055, 0.02]} radius={0.006}>
-          <meshStandardMaterial color="#9aa1a8" roughness={0.5} />
+        <Block center={[0, -0.028, -0.014]} size={[0.03, 0.065, 0.026]} radius={0.008}>
+          <meshStandardMaterial color="#d3d7dc" roughness={0.45} />
+        </Block>
+        <Block center={[-0.0155, -0.035, -0.014]} size={[0.002, 0.03, 0.016]} radius={0.0008}>
+          <meshStandardMaterial color="#e0702e" roughness={0.5} />
         </Block>
       </RigPart>
       {/* steering wheel with its spoke buttons */}
@@ -765,12 +769,7 @@ function Engine() {
 }
 
 function OilFill() {
-  const rig = useRig();
-  const streamRef = useRef<THREE.Group>(null);
   const spout: Vec3 = [fillNeck[0] + 0.0, fillNeck[1] + 0.25, fillNeck[2]];
-  useFrame(() => {
-    if (streamRef.current) streamRef.current.visible = (rig.amounts.current.new_oil ?? 0) > 0.7;
-  });
   return (
     <group>
       {/* filler neck opening, seen once the cap is off */}
@@ -811,12 +810,6 @@ function OilFill() {
             <meshStandardMaterial color="#d6a32a" roughness={0.5} />
           </Block>
         </RigPart>
-        <group ref={streamRef} visible={false}>
-          <mesh position={[spout[0], spout[1] - 0.06, spout[2]]}>
-            <cylinderGeometry args={[0.005, 0.006, 0.12, 12]} />
-            <meshStandardMaterial color="#d9a33a" transparent opacity={0.85} roughness={0.15} />
-          </mesh>
-        </group>
       </ShowFromBeat>
     </group>
   );
@@ -885,40 +878,43 @@ function Dipstick() {
   );
 }
 
+/**
+ * The 2AR-FE's cartridge filter: a housing on the front of the block pointing straight down, next to the oil pan.
+ * The cap (64 mm, 14 flutes) unscrews and comes down with the paper element inside it.
+ */
 function OilFilter() {
-  const band = useMemo(() => labelTexture("OIL FILTER", "#ffffff", 30), []);
+  const pleats = useMemo(() => pleatTexture(), []);
   return (
     <group>
-      {/* the mounting boss on the block */}
-      <group position={filterBase} rotation={[filterTilt, 0, 0]}>
-        <mesh position={[0, -0.005, 0]}>
-          <cylinderGeometry args={[0.042, 0.042, 0.02, 32]} />
-          <meshStandardMaterial {...aluminium} />
-        </mesh>
-      </group>
+      {/* the housing on the block */}
+      <mesh position={[filterBase[0], filterBase[1] + 0.012, filterBase[2]]}>
+        <cylinderGeometry args={[0.044, 0.044, 0.024, 32]} />
+        <meshStandardMaterial {...aluminium} />
+      </mesh>
       <RigPart id="oil_filter" position={filterBase}>
-        <group rotation={[filterTilt, 0, 0]}>
-          <mesh position={[0, 0.012, 0]}>
-            <cylinderGeometry args={[0.036, 0.036, 0.006, 32]} />
-            <meshStandardMaterial color="#2a2c30" roughness={0.6} />
-          </mesh>
-          <mesh position={[0, 0.055, 0]} castShadow>
-            <cylinderGeometry args={[0.038, 0.038, 0.08, 40]} />
-            <meshStandardMaterial color="#e9e8e3" roughness={0.4} metalness={0.2} />
-          </mesh>
-          <mesh position={[0, 0.06, 0]}>
-            <cylinderGeometry args={[0.0385, 0.0385, 0.03, 40, 1, true]} />
-            <meshStandardMaterial color="#1f4f99" roughness={0.45} />
-          </mesh>
-          <mesh position={[0, 0.06, 0]}>
-            <cylinderGeometry args={[0.039, 0.039, 0.024, 40, 1, true, -0.8, 1.6]} />
-            <meshStandardMaterial map={band} transparent roughness={0.45} />
-          </mesh>
-          <mesh position={[0, 0.096, 0]} scale={[1, 0.25, 1]}>
-            <sphereGeometry args={[0.038, 32, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshStandardMaterial color="#e9e8e3" roughness={0.4} metalness={0.2} />
-          </mesh>
-        </group>
+        {/* the paper element, up inside the housing until the cap comes down */}
+        <mesh position={[0, 0.028, 0]}>
+          <cylinderGeometry args={[0.03, 0.03, 0.052, 28]} />
+          <meshStandardMaterial map={pleats} color="#e8dcc0" roughness={0.9} />
+        </mesh>
+        {/* cap with its fluted wrench end and the drain-tool port */}
+        <mesh position={[0, -0.03, 0]} castShadow>
+          <cylinderGeometry args={[0.038, 0.038, 0.06, 40]} />
+          <meshStandardMaterial color="#2a2d32" roughness={0.45} metalness={0.4} />
+        </mesh>
+        <mesh position={[0, -0.066, 0]}>
+          <cylinderGeometry args={[0.032, 0.035, 0.012, 14]} />
+          <meshStandardMaterial color="#3a3e44" roughness={0.4} metalness={0.5} />
+        </mesh>
+        <mesh position={[0, -0.074, 0]}>
+          <cylinderGeometry args={[0.008, 0.008, 0.006, 16]} />
+          <meshStandardMaterial color="#c9ced4" metalness={0.8} roughness={0.3} />
+        </mesh>
+        {/* the O-ring that gets replaced */}
+        <mesh position={[0, 0.0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.037, 0.003, 8, 32]} />
+          <meshStandardMaterial color="#1b1c1f" roughness={0.7} />
+        </mesh>
       </RigPart>
     </group>
   );
@@ -1277,31 +1273,13 @@ function Ramp({ x }: { x: number }) {
   );
 }
 
+/** The oil stream, the filling pan and the drips are catalog effects (see `effects` in car_oil_change.json). */
 function Floor() {
-  const rig = useRig();
-  const streamRef = useRef<THREE.Group>(null);
-  const panOilRef = useRef<THREE.Mesh>(null);
   const hole = carToWorld(drainPlugAt);
   const panFloor = 0.012;
   const streamLength = hole[1] - 0.06;
   const rearContact = carToWorld([0, 0, rearAxleZ]);
-  useFrame(({ clock }) => {
-    const amounts = rig.amounts.current;
-    const drained = amounts.old_oil ?? 0;
-    const plugOut = (amounts.drain_plug ?? 0) > 0.6;
-    const stream = streamRef.current;
-    if (stream) {
-      stream.visible = drained < 0.995 && (plugOut || rig.focus.current === "old_oil");
-      const thickness = 1 - drained * 0.8 + Math.sin(clock.elapsedTime * 24) * 0.05;
-      stream.scale.set(thickness, 1, thickness);
-    }
-    const panOil = panOilRef.current;
-    if (panOil) {
-      const level = Math.max(drained, plugOut && drained < 0.01 ? 0.08 : 0);
-      panOil.visible = level > 0.005;
-      panOil.position.y = panFloor + 0.005 + level * 0.05;
-    }
-  });
+  const panColor = "#e0702e";
   return (
     <group>
       <RigPart id="ramps">
@@ -1329,28 +1307,23 @@ function Floor() {
       <RigPart id="drain_pan" position={[hole[0], 0, hole[2]]}>
         <mesh position={[0, 0.05, 0]} castShadow>
           <cylinderGeometry args={[0.22, 0.2, 0.1, 48, 1, true]} />
-          <meshStandardMaterial color="#1f2124" roughness={0.6} side={THREE.DoubleSide} />
+          <meshStandardMaterial color={panColor} roughness={0.6} side={THREE.DoubleSide} />
         </mesh>
         <mesh position={[0, panFloor / 2, 0]}>
           <cylinderGeometry args={[0.2, 0.2, panFloor, 48]} />
-          <meshStandardMaterial color="#1f2124" roughness={0.6} />
+          <meshStandardMaterial color="#b9541f" roughness={0.6} />
         </mesh>
         <mesh position={[0, 0.1, 0]} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[0.22, 0.008, 8, 48]} />
-          <meshStandardMaterial color="#1f2124" roughness={0.6} />
-        </mesh>
-        <mesh ref={panOilRef} rotation={[-Math.PI / 2, 0, 0]} visible={false}>
-          <circleGeometry args={[0.2, 48]} />
-          <meshStandardMaterial color="#3b2a12" roughness={0.12} metalness={0.2} />
+          <meshStandardMaterial color={panColor} roughness={0.6} />
         </mesh>
       </RigPart>
+      {/* the space the old oil falls through, so the camera can frame it */}
       <RigPart id="old_oil" position={[hole[0], hole[1] - 0.02, hole[2]]}>
-        <group ref={streamRef} visible={false}>
-          <mesh position={[0, -streamLength / 2, 0]}>
-            <cylinderGeometry args={[0.007, 0.01, streamLength, 14]} />
-            <meshStandardMaterial color="#3b2a12" roughness={0.15} transparent opacity={0.92} />
-          </mesh>
-        </group>
+        <mesh position={[0, -streamLength / 2, 0]} visible={false}>
+          <boxGeometry args={[0.1, streamLength, 0.1]} />
+          <meshBasicMaterial />
+        </mesh>
       </RigPart>
     </group>
   );
@@ -1383,6 +1356,8 @@ export function CarOilChangeModel() {
         </group>
       </group>
       <Floor />
+      {/* a shop light under the car, so the underside reads instead of going black */}
+      <directionalLight position={[0.5, -1.6, 1.4]} intensity={0.9} color="#fff4e6" />
     </group>
   );
 }
@@ -1414,41 +1389,68 @@ const sampleSteps: { instruction: string; beats: Beat[] }[] = [
       ...closeHood,
     ],
   },
+  // The 2015 Camry 2.5L oil change, the same beats as the library fix (backend/library/car-oil-change.json).
   {
-    instruction: "Drain the old oil",
+    instruction: "Drive onto ramps, chock the wheels",
     beats: [
-      { part: "ramps", action: "look", caption: "Drive onto ramps, engine off" },
-      { part: "wheel_chocks", action: "look", caption: "Chock the rear wheels" },
-      ...openHood,
-      { part: "oil_fill_cap", action: "unlock", caption: "Loosen the fill cap" },
-      { part: "drain_pan", action: "insert", caption: "Slide the pan underneath" },
-      { part: "drain_plug", action: "unlock", caption: "Turn the plug counterclockwise" },
-      { part: "drain_plug", action: "remove", caption: "Pull it away quickly" },
-      { part: "old_oil", action: "clean", caption: "Let it drain completely" },
-      { part: "drain_plug", action: "insert", caption: "New washer, screw plug in" },
+      { part: "ramps", action: "look", caption: "Drive up, engine off" },
+      { part: "wheel_chocks", action: "look", caption: "Chock both rear wheels" },
     ],
   },
   {
-    instruction: "Replace the oil filter",
+    instruction: "Open the hood, loosen the fill cap",
+    beats: [...openHood, { part: "oil_fill_cap", action: "unlock", caption: "Loosen the cap, air in" }],
+  },
+  {
+    instruction: "Drain the oil from the 14 mm plug",
     beats: [
-      { part: "oil_filter", action: "unlock", caption: "Turn it counterclockwise" },
-      { part: "oil_filter", action: "remove", caption: "Lower it, it's full of oil" },
-      { part: "oil_filter", action: "insert", caption: "Oil the gasket, spin on" },
-      { part: "oil_filter", action: "look", caption: "Hand-tight plus three-quarter turn" },
+      { part: "drain_pan", action: "insert", caption: "Pan under the plug" },
+      { part: "drain_plug", action: "unlock", caption: "14 mm wrench, turn left" },
+      { part: "drain_plug", action: "remove", caption: "Pull it away fast" },
+      { part: "old_oil", action: "clean", caption: "Let it drain out" },
+      { part: "drain_plug", action: "insert", caption: "New gasket, plug in" },
+      { part: "drain_plug", action: "lock", caption: "Snug to 27 ft-lb" },
+    ],
+  },
+  {
+    instruction: "Swap the cartridge filter",
+    beats: [
+      { part: "oil_filter", action: "unlock", caption: "64 mm cap wrench, left" },
+      { part: "oil_filter", action: "remove", caption: "Lower the cap, it drips" },
+      { part: "oil_filter", action: "insert", caption: "New element and O-ring" },
+      { part: "oil_filter", action: "lock", caption: "Snug to 18 ft-lb" },
       { part: "drain_pan", action: "remove", caption: "Slide the pan out" },
     ],
   },
   {
-    instruction: "Fill with new oil and check it",
+    instruction: "Pour in 4.4 quarts of 0W-20",
     beats: [
       { part: "oil_fill_cap", action: "remove", caption: "Lift off the fill cap" },
-      { part: "new_oil", action: "turn", caption: "Pour in the new oil" },
-      { part: "oil_fill_cap", action: "insert", caption: "Screw the cap back on" },
-      { part: "engine", action: "look", caption: "Run it one minute, stop" },
-      { part: "dipstick", action: "remove", caption: "Pull the dipstick" },
-      { part: "dipstick", action: "look", caption: "Top up to the full dot" },
-      { part: "dipstick", action: "insert", caption: "Push it back in" },
-      { part: "drain_plug", action: "look", caption: "Check underneath for drips" },
+      { part: "new_oil", action: "turn", caption: "Pour 0W-20 slowly" },
+      { part: "oil_fill_cap", action: "insert", caption: "Cap back on" },
+      { part: "oil_fill_cap", action: "lock", caption: "Twist it tight" },
+    ],
+  },
+  {
+    instruction: "Run it one minute, check for drips",
+    beats: [
+      { part: "driver_door", action: "open", caption: "Open the driver's door" },
+      { part: "start_button", action: "press", caption: "Start, idle one minute" },
+      { part: "start_button", action: "press", caption: "Engine off" },
+      { part: "driver_door", action: "close", caption: "Close the door" },
+      { part: "drain_plug", action: "look", caption: "No drips at the plug" },
+      { part: "oil_filter", action: "look", caption: "None at the filter" },
+    ],
+  },
+  {
+    instruction: "Check the dipstick, top up to F",
+    beats: [
+      { part: "dipstick", action: "remove", caption: "Pull the yellow loop" },
+      { part: "dipstick_oil", action: "clean", caption: "Wipe it clean" },
+      { part: "dipstick", action: "insert", caption: "Push it all the way in" },
+      { part: "dipstick", action: "remove", caption: "Pull it out again" },
+      { part: "dipstick_oil", action: "look", caption: "Oil between L and F" },
+      { part: "dipstick", action: "insert", caption: "Put it back" },
       ...closeHood,
     ],
   },
