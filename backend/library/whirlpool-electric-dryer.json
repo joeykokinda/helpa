@@ -1691,6 +1691,39 @@
         "aftercare": "Clean the vent hose once a year, and the lint screen every load.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull plug from outlet"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "vent_hose",
+            "action": "remove",
+            "caption": "Pull hose off pipe"
+          }
+        ],
+        [
+          {
+            "part": "vent_lint",
+            "action": "clean",
+            "caption": "Clear lint from vent"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "vent_hose",
+            "action": "insert",
+            "caption": "Push hose onto pipe"
+          }
+        ],
+        []
+      ],
       "cause": "a blocked dryer vent",
       "next": "thermal_fuse_or_heater"
     },
@@ -1770,6 +1803,60 @@
         "aftercare": "Keep the vent clean so the new fuse doesn't blow again.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull plug from outlet"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open dryer door"
+          },
+          {
+            "part": "dryer_door",
+            "action": "look",
+            "caption": "Look at door frame"
+          },
+          {
+            "part": "dryer_door",
+            "action": "close",
+            "caption": "Close dryer door"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "power_button",
+            "action": "press",
+            "caption": "Press Power button"
+          },
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to Timed Dry"
+          },
+          {
+            "part": "temperature_button",
+            "action": "press",
+            "caption": "Press Temp for high"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press Start to begin"
+          },
+          {
+            "part": "dryer_drum",
+            "action": "look",
+            "caption": "Check drum for heat"
+          }
+        ]
+      ],
       "cause": "a blown thermal fuse or heating element"
     }
   ],

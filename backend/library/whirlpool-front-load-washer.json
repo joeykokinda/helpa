@@ -1642,6 +1642,28 @@
         "aftercare": "Clean the pump filter every month so the pump doesn't work as hard.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [
+          {
+            "part": "power_cord",
+            "action": "remove",
+            "caption": "Pull out power plug"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Open washer door"
+          },
+          {
+            "part": "washer_door",
+            "action": "look",
+            "caption": "Look inside door rim"
+          }
+        ],
+        []
+      ],
       "cause": "a failed drain pump"
     }
   ],

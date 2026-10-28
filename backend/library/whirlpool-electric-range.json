@@ -1472,6 +1472,85 @@
         "aftercare": "Use flat pans that match the burner size.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [
+          {
+            "part": "knob_right_front",
+            "action": "turn",
+            "caption": "Turn right front knob off"
+          },
+          {
+            "part": "knob_left_front",
+            "action": "turn",
+            "caption": "Turn left front knob off"
+          },
+          {
+            "part": "knob_left_rear",
+            "action": "turn",
+            "caption": "Turn left rear knob off"
+          },
+          {
+            "part": "knob_right_rear",
+            "action": "turn",
+            "caption": "Turn right rear knob off"
+          },
+          {
+            "part": "glass_cooktop",
+            "action": "look",
+            "caption": "Check glass is cool"
+          },
+          {
+            "part": "hot_surface_light",
+            "action": "look",
+            "caption": "Check hot surface light"
+          }
+        ],
+        [
+          {
+            "part": "burner_right_front",
+            "action": "look",
+            "caption": "Check right front burner"
+          },
+          {
+            "part": "burner_left_front",
+            "action": "look",
+            "caption": "Check left front burner"
+          }
+        ],
+        [
+          {
+            "part": "storage_drawer",
+            "action": "open",
+            "caption": "Open storage drawer"
+          },
+          {
+            "part": "storage_drawer",
+            "action": "look",
+            "caption": "Find model number sticker"
+          },
+          {
+            "part": "storage_drawer",
+            "action": "close",
+            "caption": "Close storage drawer"
+          },
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "oven_door",
+            "action": "look",
+            "caption": "Find model number sticker"
+          },
+          {
+            "part": "oven_door",
+            "action": "close",
+            "caption": "Close oven door"
+          }
+        ],
+        []
+      ],
       "cause": "a failed burner element or switch"
     }
   ],

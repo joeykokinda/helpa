@@ -1902,6 +1902,43 @@
         "aftercare": "Run the disposal before starting the dishwasher, and rinse the filter monthly.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "sink_drain_cap",
+            "action": "remove",
+            "caption": "Lift chrome cap off"
+          }
+        ],
+        [
+          {
+            "part": "air_gap_food",
+            "action": "clean",
+            "caption": "Clear food from cap"
+          }
+        ],
+        [
+          {
+            "part": "sink_drain_cap",
+            "action": "insert",
+            "caption": "Push air gap cap on"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open dishwasher door"
+          },
+          {
+            "part": "bottom_of_tub",
+            "action": "look",
+            "caption": "Look at bottom of tub"
+          }
+        ]
+      ],
       "cause": "a blocked air gap or kinked drain hose",
       "next": "drain_pump_failed"
     },
@@ -1975,6 +2012,23 @@
         "aftercare": "Scrape plates and keep the filter clean so bits don't reach the pump.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [],
+        [
+          {
+            "part": "door",
+            "action": "open",
+            "caption": "Open the door"
+          },
+          {
+            "part": "standing_water",
+            "action": "clean",
+            "caption": "Scoop out standing water"
+          }
+        ],
+        [],
+        []
+      ],
       "cause": "a jammed or failed drain pump"
     }
   ],

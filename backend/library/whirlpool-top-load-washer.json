@@ -1658,6 +1658,55 @@
         "aftercare": "Use a mesh bag for socks and small things so they can't reach the pump.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [
+          {
+            "part": "power_cord",
+            "action": "remove",
+            "caption": "Pull out power plug"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Open the washer lid"
+          },
+          {
+            "part": "laundry",
+            "action": "remove",
+            "caption": "Lift clothes from basket"
+          },
+          {
+            "part": "wash_basket",
+            "action": "look",
+            "caption": "Check tub mostly empty"
+          },
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close the washer lid"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Lift the washer lid"
+          },
+          {
+            "part": "model_and_serial_tag",
+            "action": "look",
+            "caption": "Look at model tag"
+          },
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close the washer lid"
+          }
+        ],
+        []
+      ],
       "cause": "a blocked or failed drain pump"
     }
   ],

@@ -1560,6 +1560,45 @@
         "aftercare": "Run cold water before, during and after grinding.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch off"
+          }
+        ],
+        [
+          {
+            "part": "hex_wrench",
+            "action": "insert",
+            "caption": "Insert wrench from below"
+          },
+          {
+            "part": "hex_wrench_turn",
+            "action": "turn",
+            "caption": "Turn wrench around"
+          },
+          {
+            "part": "turntable",
+            "action": "turn",
+            "caption": "Spin plate freely"
+          },
+          {
+            "part": "hex_wrench",
+            "action": "remove",
+            "caption": "Remove wrench below"
+          }
+        ],
+        [
+          {
+            "part": "model_label",
+            "action": "look",
+            "caption": "Look at model label"
+          }
+        ],
+        []
+      ],
       "cause": "a worn-out motor"
     },
     {
@@ -1631,6 +1670,50 @@
         "aftercare": "Press the reset button only after the motor has cooled for 5 minutes.",
         "stop_for_pro": false
       },
+      "rig_beats": [
+        [
+          {
+            "part": "circuit_breaker",
+            "action": "look",
+            "caption": "Look at circuit breaker"
+          },
+          {
+            "part": "circuit_breaker",
+            "action": "open",
+            "caption": "Push breaker fully off"
+          },
+          {
+            "part": "circuit_breaker",
+            "action": "close",
+            "caption": "Push breaker back on"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull power plug out"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "insert",
+            "caption": "Push power plug in"
+          },
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Turn cold faucet on"
+          },
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch on"
+          }
+        ],
+        []
+      ],
       "cause": "a dead switch, outlet or wiring"
     }
   ],
