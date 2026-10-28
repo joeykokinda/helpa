@@ -27,6 +27,10 @@ type libraryProblem struct {
 	Plan           json.RawMessage `json:"plan"`
 	StepAnimations json.RawMessage `json:"step_animations,omitempty"`
 	RigBeats       [][]beat        `json:"rig_beats,omitempty"`
+	// Cause is what this fix rules out when it doesn't work, e.g. "a clogged lint screen".
+	Cause string `json:"cause,omitempty"`
+	// Next is the problem id of the next most likely cause, tried when this fix didn't work.
+	Next string `json:"next,omitempty"`
 }
 
 type libraryEntry struct {
@@ -41,6 +45,8 @@ type libraryEntry struct {
 	Problems        []libraryProblem `json:"problems"`
 	Scene           json.RawMessage  `json:"scene,omitempty"`
 	RigID           string           `json:"rig_id,omitempty"`
+	// Contradicts lists words that mean the person's machine isn't this one ("coil" for a glass-top range).
+	Contradicts []string `json:"contradicts,omitempty"`
 }
 
 type libraryQuery struct {
@@ -154,6 +160,69 @@ func lookupLibrary(query libraryQuery) *libraryEntry {
 		}
 	}
 	return best
+}
+
+// contradiction returns the first word in text that says the person's machine is not this entry's, or "".
+func (entry *libraryEntry) contradiction(text string) string {
+	text = strings.ToLower(text)
+	for _, word := range entry.Contradicts {
+		if containsWords(text, strings.ToLower(word)) {
+			return word
+		}
+	}
+	return ""
+}
+
+// rigContradicted reports whether text says the person's machine isn't the one a built-in model was made for,
+// e.g. "coil burners" against the glass-top range.
+func rigContradicted(rigID, text string) bool {
+	for index := range library {
+		if library[index].RigID == rigID && library[index].contradiction(text) != "" {
+			return true
+		}
+	}
+	return false
+}
+
+// findLibraryFix finds a library fix by its "entry/problem" id.
+func findLibraryFix(id string) (*libraryEntry, *libraryProblem) {
+	entryID, problemID, _ := strings.Cut(id, "/")
+	entry := findLibraryEntry(entryID)
+	if entry == nil {
+		return nil, nil
+	}
+	for index := range entry.Problems {
+		if entry.Problems[index].ID == problemID {
+			return entry, &entry.Problems[index]
+		}
+	}
+	return entry, nil
+}
+
+// nextFix is the next most likely cause once the fixes in ruledOut didn't work: it follows the Next links
+// from the last fix tried, skipping causes already ruled out. Empty when the library has nothing further.
+func nextFix(ruledOut []string) string {
+	if len(ruledOut) == 0 {
+		return ""
+	}
+	entry, problem := findLibraryFix(ruledOut[len(ruledOut)-1])
+	if problem == nil {
+		return ""
+	}
+	// Bounded so a chain that loops back on itself still ends.
+	for range entry.Problems {
+		if problem.Next == "" {
+			return ""
+		}
+		id := entry.ID + "/" + problem.Next
+		if _, problem = findLibraryFix(id); problem == nil {
+			return ""
+		}
+		if !containsString(ruledOut, id) {
+			return id
+		}
+	}
+	return ""
 }
 
 func findLibraryEntry(id string) *libraryEntry {
@@ -487,9 +556,18 @@ func choreographLibrary(ctx context.Context) error {
 			log.Printf("choreograph %s: already done", entry.ID)
 			continue
 		}
+		// Beats made for this same model stay; only fixes added since get choreographed.
+		if entry.RigID != rig.ID {
+			for problemIndex := range entry.Problems {
+				entry.Problems[problemIndex].RigBeats = nil
+			}
+		}
 		entry.RigID = rig.ID
 		var wait sync.WaitGroup
 		for problemIndex := range entry.Problems {
+			if entry.Problems[problemIndex].RigBeats != nil {
+				continue
+			}
 			wait.Add(1)
 			go func() {
 				defer wait.Done()

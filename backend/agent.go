@@ -31,7 +31,10 @@ the floor of the tub"), with photo the index of the photo showing it. With no ph
 ` + simpleStepRules + `
 
 Never invent part numbers or manual URLs. If something is unsafe for a beginner (gas, mains wiring,
-refrigerant), say so in safety and stop at "call a pro".`
+refrigerant), say so in safety and stop at "call a pro", and set stop_for_pro.
+If the person already tried a fix and it didn't work, say in the diagnosis what that ruled out, then plan the next
+most likely cause. End every plan you expect the person to finish themselves with a short test that shows whether
+it worked ("Run a short rinse and check the floor is dry").`
 
 const simpleStepRules = `Steps are for a total beginner, like a busy parent with no tools experience:
 - 3 to 7 steps. Each instruction is one plain action of at most 12 words ("Twist the filter left and lift it out").
@@ -61,7 +64,7 @@ var planSchema = map[string]any{
 	"type":                 "object",
 	"additionalProperties": false,
 	"required": []string{"brand", "model_number", "appliance", "manual_url", "diagnosis", "tools", "replacement_parts",
-		"safety", "steps", "library_id", "library_problem", "pro_visit_cost", "aftercare"},
+		"safety", "steps", "library_id", "library_problem", "pro_visit_cost", "aftercare", "stop_for_pro"},
 	"properties": map[string]any{
 		"brand":             map[string]any{"type": "string"},
 		"model_number":      map[string]any{"type": "string"},
@@ -77,6 +80,8 @@ var planSchema = map[string]any{
 		"pro_visit_cost": map[string]any{"type": "integer", "description": "Typical US cost in dollars of paying a technician for THIS exact fix. " +
 			"0 when people would not normally call anyone (cleaning a lint screen, pressing a reset button)."},
 		"aftercare": map[string]any{"type": "string", "description": "One short tip to stop this happening again, e.g. 'Clean the lint screen after every load.'"},
+		"stop_for_pro": map[string]any{"type": "boolean", "description": "True when the person must not do the repair themselves (gas smell, sparking, " +
+			"refrigerant, mains wiring, airbags): the steps only keep them safe and get a professional."},
 	},
 }
 
@@ -132,7 +137,11 @@ func research(ctx context.Context, photos []string, complaint string, ident iden
 		firstLook, _ := json.Marshal(map[string]any{"appliance": ident.Appliance, "brand": ident.Brand,
 			"model_number": ident.ModelNumber, "confidence": ident.Confidence, "symptom": ident.Symptom})
 		brief += "\nFirst look: " + string(firstLook)
-		if entry := lookupLibrary(libraryQuery{ident.Appliance, ident.Brand, ident.ModelNumber}); entry != nil {
+		entry := lookupLibrary(libraryQuery{ident.Appliance, ident.Brand, ident.ModelNumber})
+		if entry != nil && entry.contradiction(complaint+" "+ident.Appliance) != "" {
+			brief += fmt.Sprintf("\nLibrary match: none that fits. Helpa's library has a %s %s, but the person mentions %q, so their machine is "+
+				"different. Don't call lookup_library; research their kind of machine on the web.", entry.Brand, entry.Appliance, entry.contradiction(complaint+" "+ident.Appliance))
+		} else if entry != nil {
 			emit(event{"type": "library", "brand": entry.Brand, "appliance": entry.Appliance, "model_family": entry.ModelFamily})
 			brief += "\nLibrary match: " + entry.forAgent()
 		} else {

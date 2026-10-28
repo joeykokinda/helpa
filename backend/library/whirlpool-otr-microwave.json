@@ -1642,6 +1642,79 @@
           }
         ]
       ]
+    },
+    {
+      "id": "runs_but_does_not_heat",
+      "symptoms": [
+        "It runs and the plate spins but the food stays cold",
+        "It hums and the light is on but nothing heats"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WMH31017HZ",
+        "appliance": "over-the-range microwave",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/201904/owners-manual-w10918338-reva.pdf",
+        "diagnosis": "If it runs but nothing heats, first rule out a low power setting. If a cup of water still stays cold on full power, the part that makes the heat has failed, and that sits next to a high-voltage charge only a pro should touch.",
+        "tools": [
+          "A microwave-safe cup"
+        ],
+        "replacement_parts": [],
+        "safety": [
+          "Never open the cabinet or the back: a microwave holds a dangerous high-voltage charge even when unplugged.",
+          "If the water stays cold, stop using it and call a pro."
+        ],
+        "steps": [
+          {
+            "instruction": "Close the door firmly until it clicks",
+            "details": [
+              "A door that doesn't latch fully can stop the heating."
+            ],
+            "target_part": "door",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The door is shut and latched."
+          },
+          {
+            "instruction": "Set Cook Power to the highest level",
+            "details": [
+              "Full power is 100 percent; a low level heats very slowly."
+            ],
+            "target_part": "control panel",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "Cook Power shows the highest level."
+          },
+          {
+            "instruction": "Heat one cup of water for a minute",
+            "details": [
+              "Use cold tap water in a microwave-safe cup."
+            ],
+            "target_part": "turntable",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The water is hot."
+          },
+          {
+            "instruction": "Still cold? Unplug it and call a pro",
+            "details": [
+              "Say it runs and spins but won't heat, even on full power."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "A repair visit is booked."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 150,
+        "aftercare": "Don't run it empty; that can wear out the heating part.",
+        "stop_for_pro": true
+      }
     }
   ],
   "scene": {
@@ -2022,5 +2095,8 @@
       }
     ]
   },
-  "rig_id": "microwave_otr"
+  "rig_id": "microwave_otr",
+  "contradicts": [
+    "countertop"
+  ]
 }

@@ -365,7 +365,9 @@
             "caption": "Check main drain hose"
           }
         ]
-      ]
+      ],
+      "cause": "a clogged drain pump filter",
+      "next": "drain_pump_failed"
     },
     {
       "id": "smelly_washer",
@@ -1582,6 +1584,87 @@
           }
         ]
       ]
+    },
+    {
+      "id": "drain_pump_failed",
+      "symptoms": [
+        "Still won't drain with a clean pump filter",
+        "The drain pump hums but no water moves"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFW5720RW",
+        "appliance": "front-load washer",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11735098-reva.pdf",
+        "diagnosis": "With the pump filter clean and the hose loose in the pipe, the drain pump itself has probably failed. Swapping it means opening the cabinet, so it's a job for a pro.",
+        "tools": [],
+        "replacement_parts": [
+          "Drain pump for your model (match it by the model number)"
+        ],
+        "safety": [],
+        "steps": [
+          {
+            "instruction": "Unplug the washer",
+            "details": [],
+            "target_part": "power cord",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "The plug is out."
+          },
+          {
+            "instruction": "Find the model number inside the door rim",
+            "details": [
+              "Open the door and look around the opening."
+            ],
+            "target_part": "model sticker inside the door opening",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "You have a photo of the sticker."
+          },
+          {
+            "instruction": "Call a pro, or order the part for your model",
+            "details": [
+              "Tell them what you already tried, so you don't pay for the same checks.",
+              "A parts store can match the part to your model number."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": ""
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 200,
+        "aftercare": "Clean the pump filter every month so the pump doesn't work as hard.",
+        "stop_for_pro": false
+      },
+      "rig_beats": [
+        [
+          {
+            "part": "power_cord",
+            "action": "remove",
+            "caption": "Pull out power plug"
+          }
+        ],
+        [
+          {
+            "part": "washer_door",
+            "action": "open",
+            "caption": "Open washer door"
+          },
+          {
+            "part": "washer_door",
+            "action": "look",
+            "caption": "Look inside door rim"
+          }
+        ],
+        []
+      ],
+      "cause": "a failed drain pump"
     }
   ],
   "scene": {
@@ -2072,5 +2155,12 @@
       }
     ]
   },
-  "rig_id": "washer_front_load"
+  "rig_id": "washer_front_load",
+  "contradicts": [
+    "top-load",
+    "top loader",
+    "top-loader",
+    "top loading",
+    "agitator"
+  ]
 }

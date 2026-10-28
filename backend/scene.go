@@ -82,7 +82,7 @@ func buildScene(ctx context.Context, photos []string, plan json.RawMessage) (jso
 // showPlan turns a plan into visuals: per-step photo highlights, and the 3D guide once the model track
 // delivers. The model preference is a built-in rig, then a generated model, then a generic scene; if all of
 // them fail the app falls back to text plus photo steps.
-func showPlan(ctx context.Context, photos []string, plan json.RawMessage, models <-chan modelResult, emit func(event)) {
+func showPlan(ctx context.Context, photos []string, plan json.RawMessage, complaint string, models <-chan modelResult, emit func(event)) {
 	var parsed struct {
 		Steps []struct {
 			TargetPart string `json:"target_part"`
@@ -91,8 +91,14 @@ func showPlan(ctx context.Context, photos []string, plan json.RawMessage, models
 		LibraryID      string `json:"library_id"`
 		LibraryProblem string `json:"library_problem"`
 		Appliance      string `json:"appliance"`
+		StopForPro     bool   `json:"stop_for_pro"`
 	}
 	json.Unmarshal(plan, &parsed)
+	// A safety stop (gas smell, sparking) shows no repair animation: the only move is to get out and call.
+	if parsed.StopForPro {
+		emit(event{"type": "model_error", "message": "safety stop: no repair to show"})
+		return
+	}
 	var wait sync.WaitGroup
 	for index, step := range parsed.Steps {
 		if step.Photo < 0 || step.Photo >= len(photos) || strings.TrimSpace(step.TargetPart) == "" {
@@ -127,7 +133,9 @@ func showPlan(ctx context.Context, photos []string, plan json.RawMessage, models
 	rig := model.rig
 	if rig == nil {
 		// The plan can name the appliance better than a vague first look did.
-		rig = matchRig(parsed.Appliance)
+		if candidate := matchRig(parsed.Appliance); candidate != nil && !rigContradicted(candidate.ID, complaint+" "+parsed.Appliance) {
+			rig = candidate
+		}
 	}
 	if rig != nil {
 		stepBeats := cachedRigBeats(parsed.LibraryID, parsed.LibraryProblem, rig.ID, len(parsed.Steps))

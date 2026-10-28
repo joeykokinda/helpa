@@ -9,7 +9,8 @@ import AgentTracks, { lanesFrom, type ProgressRow } from "./components/AgentTrac
 import Capture, { cameraPrompt } from "./components/Capture";
 import CheckMoment, { type CheckState } from "./components/CheckMoment";
 import Confetti from "./components/Confetti";
-import Done from "./components/Done";
+import Done, { needsPro } from "./components/Done";
+import Outcome from "./components/Outcome";
 import MachinePage from "./components/MachinePage";
 import MyHome from "./components/MyHome";
 import Helpa, { type HelpaMood } from "./components/Helpa";
@@ -18,7 +19,7 @@ import Onboarding, { hasOnboarded } from "./components/Onboarding";
 import PartPhoto from "./components/PartPhoto";
 import { rigLoaders } from "./components/rig/registry";
 import { listMachines, saveFix, type Machine } from "./lib/home";
-import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Plan, type Scene } from "./lib/api";
+import { answerQuestion, checkStep, describeSearch, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "./lib/api";
 import { requestMotionPermission } from "./lib/live";
 import { shrinkPhoto, speak, stopSpeaking } from "./lib/media";
 import { tidy } from "./lib/text";
@@ -75,7 +76,7 @@ function iconFor(tool: string): IconName {
   return toolIcons.find(([pattern]) => pattern.test(tool))?.[1] ?? "toolbox";
 }
 
-type Stage = "home" | "machine" | "start" | "working" | "plan" | "step" | "done";
+type Stage = "home" | "machine" | "start" | "working" | "plan" | "step" | "outcome" | "done";
 type Question = { session: string; question: string; choices: string[] };
 
 const noSubscription = () => () => {};
@@ -118,7 +119,9 @@ export default function Home() {
   const [machineId, setMachineId] = useState<string>();
   const [prefill, setPrefill] = useState<{ identity: string; description: string }>();
   const [savedName, setSavedName] = useState("");
-  const runRef = useRef<{ photos: Blob[]; sample?: string }>({ photos: [] });
+  const runRef = useRef<{ photos: Blob[]; sample?: string; description: string; attempts: Attempt[] }>({ photos: [], description: "", attempts: [] });
+  // Fixes already tried this time that didn't work ("Still broken"), shown as what we've ruled out.
+  const [attempts, setAttempts] = useState<Attempt[]>([]);
 
   useEffect(() => {
     listMachines().then((list) => {
@@ -199,7 +202,10 @@ export default function Home() {
         setQuestion(null);
         setPlan(agentEvent.plan);
         setStage("plan");
-        say(agentEvent.plan.diagnosis);
+        {
+          const tried = runRef.current.attempts.map((attempt) => attempt.cause);
+          say(tried.length ? `Okay, so it wasn't ${tried[tried.length - 1]}. ${agentEvent.plan.diagnosis}` : agentEvent.plan.diagnosis);
+        }
         if (agentEvent.plan.safety.length) setTimeout(() => setMood("worried"), 400);
         break;
       case "rig":
@@ -222,11 +228,14 @@ export default function Home() {
     }
   };
 
-  const start = async (photos: Blob[], description: string, sample?: string) => {
+  const start = async (photos: Blob[], description: string, sample?: string, tried: Attempt[] = []) => {
     stopSpeaking();
     setStage("working");
-    startedAt.current = Date.now();
-    runRef.current = { photos, sample };
+    // A follow-up keeps counting from the first try.
+    if (!tried.length) startedAt.current = Date.now();
+    runRef.current = { photos, sample, description, attempts: tried };
+    setAttempts(tried);
+    const followUp = tried.length && plan ? { attempts: tried, brand: plan.brand, model_number: plan.model_number } : undefined;
     setSavedName("");
     setLive(false);
     setRows([{ key: "look", title: photos.length ? "Looking at your photo" : "Understanding the problem", detail: description ? `"${firstSentence(description)}"` : "" }]);
@@ -241,7 +250,7 @@ export default function Home() {
     identified.current = false;
     setSceneFailed(false);
     setPhotoUrls(photos.map((photo) => URL.createObjectURL(photo)));
-    say("Okay, let me take a look!", "thinking");
+    say(tried.length ? "Okay, let's find the next most likely cause." : "Okay, let me take a look!", "thinking");
     let received = 0;
     let finished = false;
     const onEvent = (agentEvent: AgentEvent) => {
@@ -251,7 +260,8 @@ export default function Home() {
     };
     for (let attempt = 0; ; attempt++) {
       try {
-        await streamFix(photos, description, onEvent, sample);
+        // A follow-up isn't the sample's recorded run any more, so it goes to the real pipeline.
+        await streamFix(photos, description, onEvent, followUp ? undefined : sample, followUp);
         break;
       } catch {
         // Retrying is only safe before anything arrived; mid-run it would repeat the work and the questions.
@@ -300,23 +310,43 @@ export default function Home() {
     say(next.instruction, "pointing");
   };
 
+  const finish = () => {
+    if (!plan) return;
+    setStage("done");
+    setFixMinutes(minutesSince(startedAt.current));
+    stopSpeaking();
+    const name = /^(car|truck|suv|vehicle)$/i.test(plan.appliance.trim()) ? "car" : tidy(plan.appliance).toLowerCase();
+    say(needsPro(plan) ? `Good call. Let a pro take it from here. I'll remember your ${name}.` : `You did it! That's fixed. I'll remember your ${name}.`, "celebrate");
+    saveFix(plan, {
+      rig: playableRig ? { id: playableRig.id, recipe: playableRig.recipe } : undefined,
+      photos: runRef.current.photos,
+      sample: Boolean(runRef.current.sample),
+      ruledOut: attempts.map((attempt) => attempt.cause),
+    })
+      .then((machine) => {
+        rememberMachine(machine);
+        setSavedName(name);
+      })
+      .catch(() => {});
+  };
+
   const goToStep = (index: number) => {
     if (!plan) return;
     if (index >= plan.steps.length) {
-      setStage("done");
-      setFixMinutes(minutesSince(startedAt.current));
+      // The last step is a test run: ask whether it worked before celebrating. A hand-off to a pro has nothing to test.
+      if (needsPro(plan)) return finish();
+      setStage("outcome");
       stopSpeaking();
-      const name = /^(car|truck|suv|vehicle)$/i.test(plan.appliance.trim()) ? "car" : tidy(plan.appliance).toLowerCase();
-      say(`You did it! That's fixed. I'll remember your ${name}.`, "celebrate");
-      saveFix(plan, { rig: playableRig ? { id: playableRig.id, recipe: playableRig.recipe } : undefined, photos: runRef.current.photos, sample: Boolean(runRef.current.sample) })
-        .then((machine) => {
-          rememberMachine(machine);
-          setSavedName(name);
-        })
-        .catch(() => {});
+      say("Did that fix it?", "explaining");
       return;
     }
     enterStep(Math.max(0, index));
+  };
+
+  const stillBroken = () => {
+    if (!plan) return;
+    const tried = [...attempts, { id: plan.library_id && plan.library_problem ? `${plan.library_id}/${plan.library_problem}` : "", cause: plan.cause || firstSentence(tidy(plan.diagnosis)).replace(/\.$/, "") }];
+    start(runRef.current.photos, runRef.current.description, runRef.current.sample, tried);
   };
 
   const showCheck = (next: CheckState | null) =>
@@ -443,7 +473,17 @@ export default function Home() {
       />
     );
   else if (stage === "plan" && plan)
-    screen = <PlanScreen plan={plan} mood={mood} speaking={speaking} onStart={() => enterStep(0)} onRestart={restart} onHelp={openTutorial} />;
+    screen = (
+      <PlanScreen
+        plan={plan}
+        ruledOut={attempts.map((attempt) => attempt.cause)}
+        mood={mood}
+        speaking={speaking}
+        onStart={() => enterStep(0)}
+        onRestart={restart}
+        onHelp={openTutorial}
+      />
+    );
   else if (stage === "step" && plan && step && live)
     screen = (
       <LiveGuide
@@ -641,7 +681,20 @@ export default function Home() {
         />
       </section>
     );
-  } else if (stage === "done") screen = <Done plan={plan} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} savedName={savedName} />;
+  } else if (stage === "outcome" && plan)
+    screen = (
+      <Outcome
+        plan={plan}
+        ruledOut={attempts.map((attempt) => attempt.cause)}
+        mood={mood}
+        speaking={speaking}
+        onFixed={finish}
+        onStillBroken={stillBroken}
+        onBack={() => enterStep(plan.steps.length - 1)}
+      />
+    );
+  else if (stage === "done")
+    screen = <Done plan={plan} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} savedName={savedName} ruledOut={attempts.map((attempt) => attempt.cause)} />;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -804,9 +857,9 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
   );
 }
 
-type PlanProps = { plan: Plan; mood: HelpaMood; speaking: boolean; onStart: () => void; onRestart: () => void; onHelp: () => void };
+type PlanProps = { plan: Plan; ruledOut: string[]; mood: HelpaMood; speaking: boolean; onStart: () => void; onRestart: () => void; onHelp: () => void };
 
-function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
+function PlanScreen({ plan, ruledOut, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
   const diagnosis = tidy(plan.diagnosis);
   const headline = diagnosis.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? diagnosis;
   const rest = diagnosis.slice(headline.length).trim();
@@ -844,7 +897,16 @@ function PlanScreen({ plan, mood, speaking, onStart, onRestart, onHelp }: PlanPr
             </ul>
           )}
           <h1 className="title">{capitalize(known(plan.appliance) || "Your appliance")}</h1>
-          <p className="label">What&apos;s going on</p>
+          {ruledOut.length > 0 && (
+            <ul className="ruled-out" aria-label="Already ruled out">
+              {ruledOut.map((cause) => (
+                <li key={cause}>
+                  <Icon name="check" size={14} strokeWidth={3} /> Not {tidy(cause)}
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="label">{ruledOut.length ? "Next most likely" : "What's going on"}</p>
           <p className="diagnosis">{headline}</p>
           {rest && <p className="diagnosis-more">{rest}</p>}
           {(plan.library_id || manualHost) && (

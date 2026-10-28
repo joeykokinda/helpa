@@ -39,7 +39,14 @@ export type Plan = {
   /** Typical cost of a technician for this fix; 0 when nobody would call one. Missing on older plans. */
   pro_visit_cost?: number;
   aftercare?: string;
+  /** On library fixes, the cause this fix rules out if it doesn't work, e.g. "a clogged lint screen". */
+  cause?: string;
+  /** A safety stop (gas smell, sparking): the steps only keep the person safe and get a professional. */
+  stop_for_pro?: boolean;
 };
+
+/** A fix that didn't work, so the next run goes after the next most likely cause. */
+export type Attempt = { id: string; cause: string };
 
 export type ScenePart = {
   id: string;
@@ -87,12 +94,25 @@ export type AgentEvent =
   | { type: "done" };
 
 /** Posts photos and a description to the agent and calls onEvent for every streamed event. */
-export async function streamFix(photos: Blob[], complaint: string, onEvent: (event: AgentEvent) => void, sample?: string) {
+export async function streamFix(
+  photos: Blob[],
+  complaint: string,
+  onEvent: (event: AgentEvent) => void,
+  sample?: string,
+  followUp?: { attempts: Attempt[]; brand: string; model_number: string },
+) {
   const form = new FormData();
   photos.forEach((photo, index) => form.append("photos", photo, `photo-${index}.jpg`));
   form.append("complaint", complaint);
   // A sample id makes the backend replay that sample's recorded run instead of calling the models.
   if (sample) form.append("sample", sample);
+  // "Still broken": what was tried, so the backend goes after the next most likely cause.
+  if (followUp?.attempts.length) {
+    form.append("ruled_out", followUp.attempts.map((attempt) => attempt.id).filter(Boolean).join(","));
+    form.append("tried", followUp.attempts.map((attempt) => attempt.cause).join("; "));
+    form.append("brand", followUp.brand);
+    form.append("model_number", followUp.model_number);
+  }
   const response = await fetch(`${API_URL}/api/fix`, { method: "POST", body: form });
   if (!response.ok || !response.body) {
     throw new Error((await response.text()) || `request failed (${response.status})`);

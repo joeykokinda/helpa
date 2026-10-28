@@ -370,7 +370,9 @@
             "caption": "Spin plate freely"
           }
         ]
-      ]
+      ],
+      "cause": "something jammed in the grinder",
+      "next": "motor_worn_out"
     },
     {
       "id": "will_not_turn_on",
@@ -556,7 +558,9 @@
             "caption": "Switch on and test"
           }
         ]
-      ]
+      ],
+      "cause": "the reset button popped out",
+      "next": "switch_or_wiring"
     },
     {
       "id": "bad_smell_from_sink",
@@ -1484,6 +1488,233 @@
           }
         ]
       ]
+    },
+    {
+      "id": "motor_worn_out",
+      "symptoms": [
+        "It still hums after clearing the jam and pressing reset",
+        "The wrench turns freely but it won't spin"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "If the plate turns freely with the wrench and it still only hums, the motor is likely worn out. Disposals usually last 8 to 15 years, and replacing the whole unit is the normal fix.",
+        "tools": [],
+        "replacement_parts": [
+          "A new disposal the same horsepower as yours (on the label)"
+        ],
+        "safety": [
+          "Never put your hand in the disposal.",
+          "Keep the switch off until it's replaced."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn the wall switch off",
+            "details": [],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "The switch is off."
+          },
+          {
+            "instruction": "Turn the plate with the wrench once more",
+            "details": [
+              "If it turns freely all the way around, the jam is gone."
+            ],
+            "target_part": "jam wrench",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The wrench turns all the way around."
+          },
+          {
+            "instruction": "Find the model label on the bottom",
+            "details": [
+              "Use a flashlight and take a photo."
+            ],
+            "target_part": "model label",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You have a photo of the label."
+          },
+          {
+            "instruction": "Call a plumber, or buy the same size unit",
+            "details": [
+              "Same brand and horsepower makes the swap easy.",
+              "Tell the plumber the reset button and jam wrench didn't help."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": ""
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 250,
+        "aftercare": "Run cold water before, during and after grinding.",
+        "stop_for_pro": false
+      },
+      "rig_beats": [
+        [
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch off"
+          }
+        ],
+        [
+          {
+            "part": "hex_wrench",
+            "action": "insert",
+            "caption": "Insert wrench from below"
+          },
+          {
+            "part": "hex_wrench_turn",
+            "action": "turn",
+            "caption": "Turn wrench around"
+          },
+          {
+            "part": "turntable",
+            "action": "turn",
+            "caption": "Spin plate freely"
+          },
+          {
+            "part": "hex_wrench",
+            "action": "remove",
+            "caption": "Remove wrench below"
+          }
+        ],
+        [
+          {
+            "part": "model_label",
+            "action": "look",
+            "caption": "Look at model label"
+          }
+        ],
+        []
+      ],
+      "cause": "a worn-out motor"
+    },
+    {
+      "id": "switch_or_wiring",
+      "symptoms": [
+        "Still completely silent after pressing reset",
+        "No hum and no sound at all"
+      ],
+      "plan": {
+        "brand": "InSinkErator",
+        "model_number": "Badger 5",
+        "appliance": "garbage disposal",
+        "manual_url": "https://www.insinkerator.com/documents/badger-series-installation-care-use-manual-english-en-us-138440.pdf",
+        "diagnosis": "If the reset button didn't bring it back and it's completely silent, power isn't reaching it: a tripped breaker, a dead outlet or a bad wall switch. The breaker is safe to check; anything past that is an electrician's job.",
+        "tools": [],
+        "replacement_parts": [],
+        "safety": [
+          "Don't open the wall switch or outlet; that's mains wiring."
+        ],
+        "steps": [
+          {
+            "instruction": "Check the breaker panel for a tripped switch",
+            "details": [
+              "A tripped breaker sits in the middle. Push it fully off, then on."
+            ],
+            "target_part": "circuit breaker",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "No breaker is tripped."
+          },
+          {
+            "instruction": "Unplug it and test the outlet with a lamp",
+            "details": [
+              "The outlet is in the cabinet under the sink.",
+              "If the lamp stays off, the outlet has no power."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "You know whether the outlet works."
+          },
+          {
+            "instruction": "Plug back in and test with cold water running",
+            "details": [],
+            "target_part": "wall switch",
+            "photo": -1,
+            "motion": "press",
+            "show_3d": true,
+            "check": "It runs, or it's still silent."
+          },
+          {
+            "instruction": "Still silent? Call an electrician",
+            "details": [
+              "Say the breaker is on and the reset button didn't help.",
+              "Don't open the switch or the outlet yourself."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": ""
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 150,
+        "aftercare": "Press the reset button only after the motor has cooled for 5 minutes.",
+        "stop_for_pro": false
+      },
+      "rig_beats": [
+        [
+          {
+            "part": "circuit_breaker",
+            "action": "look",
+            "caption": "Look at circuit breaker"
+          },
+          {
+            "part": "circuit_breaker",
+            "action": "open",
+            "caption": "Push breaker fully off"
+          },
+          {
+            "part": "circuit_breaker",
+            "action": "close",
+            "caption": "Push breaker back on"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull power plug out"
+          }
+        ],
+        [
+          {
+            "part": "power_plug",
+            "action": "insert",
+            "caption": "Push power plug in"
+          },
+          {
+            "part": "faucet_handle",
+            "action": "open",
+            "caption": "Turn cold faucet on"
+          },
+          {
+            "part": "wall_switch",
+            "action": "press",
+            "caption": "Press wall switch on"
+          }
+        ],
+        []
+      ],
+      "cause": "a dead switch, outlet or wiring"
     }
   ],
   "scene": {

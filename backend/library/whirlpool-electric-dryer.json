@@ -279,7 +279,9 @@
             "caption": "Feel warm air outside"
           }
         ]
-      ]
+      ],
+      "cause": "a clogged lint screen",
+      "next": "vent_blocked"
     },
     {
       "id": "dryer_will_not_start",
@@ -692,7 +694,9 @@
             "caption": "Push screen back in"
           }
         ]
-      ]
+      ],
+      "cause": "the wrong cycle or a tripped breaker",
+      "next": "vent_blocked"
     },
     {
       "id": "dryer_stops_before_clothes_are_dry",
@@ -908,7 +912,9 @@
             "caption": "Press start button"
           }
         ]
-      ]
+      ],
+      "cause": "dirty moisture sensor strips",
+      "next": "vent_blocked"
     },
     {
       "id": "thumping_banging_or_shaking",
@@ -1570,6 +1576,288 @@
           }
         ]
       ]
+    },
+    {
+      "id": "vent_blocked",
+      "symptoms": [
+        "Clothes are still damp even with a clean lint screen",
+        "The outside vent barely blows any air",
+        "The top of the dryer gets very hot"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED5050LW",
+        "appliance": "electric dryer",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
+        "diagnosis": "With a clean lint screen, the next most likely cause is lint packed in the vent hose or the outside flap. The hot, wet air can't get out, so the dryer runs long and hot.",
+        "tools": [
+          "Screwdriver for the hose clamp",
+          "Vent brush or a vacuum hose",
+          "Flashlight"
+        ],
+        "replacement_parts": [
+          "New 4-inch foil or semi-rigid vent hose, only if yours is torn or crushed"
+        ],
+        "safety": [
+          "Unplug the dryer before you pull it out.",
+          "If the vent goes up through the roof or you can't reach it, call a dryer vent cleaning service."
+        ],
+        "steps": [
+          {
+            "instruction": "Unplug the dryer from the wall",
+            "details": [
+              "The plug is behind the dryer, low on the wall."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The plug is out of the outlet."
+          },
+          {
+            "instruction": "Pull the dryer out about two feet",
+            "details": [
+              "Slide it straight out so the hose doesn't tear."
+            ],
+            "target_part": "dryer cabinet",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": false,
+            "check": "There is room to reach behind the dryer."
+          },
+          {
+            "instruction": "Loosen the clamp and pull the hose off",
+            "details": [
+              "The silver hose fits over a round pipe on the back.",
+              "Loosen the clamp with a screwdriver, then twist and pull."
+            ],
+            "target_part": "silver vent hose on the back",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The hose is off the round pipe."
+          },
+          {
+            "instruction": "Pull the lint out of the hose and pipe",
+            "details": [
+              "Reach in by hand, then use a vent brush or a vacuum.",
+              "Clean the round pipe on the dryer's back too."
+            ],
+            "target_part": "lint in the vent",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "No lint inside the hose or the pipe."
+          },
+          {
+            "instruction": "Check the outside vent flap swings open",
+            "details": [
+              "Go outside and find the vent hood on the wall.",
+              "Clear lint, nests or snow so the flap moves freely."
+            ],
+            "target_part": "outside vent flap",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The flap opens and closes freely."
+          },
+          {
+            "instruction": "Push the hose back on and tighten the clamp",
+            "details": [
+              "Slide the dryer back slowly so the hose stays round, not crushed."
+            ],
+            "target_part": "silver vent hose on the back",
+            "photo": -1,
+            "motion": "push_in",
+            "show_3d": true,
+            "check": "The hose is on, clamped and not squashed."
+          },
+          {
+            "instruction": "Plug in, run a short timed dry, feel the vent",
+            "details": [
+              "Run Timed Dry on high for 10 minutes.",
+              "Outside, you should feel strong, warm air."
+            ],
+            "target_part": "outside vent flap",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "Strong warm air comes out of the outside vent."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 150,
+        "aftercare": "Clean the vent hose once a year, and the lint screen every load.",
+        "stop_for_pro": false
+      },
+      "rig_beats": [
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull plug from outlet"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "vent_hose",
+            "action": "remove",
+            "caption": "Pull hose off pipe"
+          }
+        ],
+        [
+          {
+            "part": "vent_lint",
+            "action": "clean",
+            "caption": "Clear lint from vent"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "vent_hose",
+            "action": "insert",
+            "caption": "Push hose onto pipe"
+          }
+        ],
+        []
+      ],
+      "cause": "a blocked dryer vent",
+      "next": "thermal_fuse_or_heater"
+    },
+    {
+      "id": "thermal_fuse_or_heater",
+      "symptoms": [
+        "It tumbles but never gets warm, even with a clean vent",
+        "No heat at all after the vent was blocked"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WED5050LW",
+        "appliance": "electric dryer",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WED5050LW.html",
+        "diagnosis": "If the vent is clear and it still won't heat, a thermal fuse has probably blown (a blocked vent often causes this) or the heating element has burned out. Both sit behind the back panel, so this is a part swap for a pro.",
+        "tools": [],
+        "replacement_parts": [
+          "Thermal fuse for your model (match it by the model number)",
+          "Heating element for your model, if the fuse isn't it"
+        ],
+        "safety": [
+          "The fix means opening the back panel near 240-volt wiring, so leave it to a pro unless you're trained.",
+          "Keep the dryer unplugged until it's fixed."
+        ],
+        "steps": [
+          {
+            "instruction": "Unplug the dryer",
+            "details": [
+              "The plug is behind the dryer, low on the wall."
+            ],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The plug is out of the outlet."
+          },
+          {
+            "instruction": "Find the model number inside the door",
+            "details": [
+              "Open the door and look around the edge of the opening.",
+              "Take a photo of the sticker."
+            ],
+            "target_part": "model sticker on the door frame",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You have a photo of the model sticker."
+          },
+          {
+            "instruction": "Call a pro, or order the part for your model",
+            "details": [
+              "Tell them what you already tried, so you don't pay for the same checks.",
+              "A parts store can match the part to your model number."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": ""
+          },
+          {
+            "instruction": "After the repair, test for heat",
+            "details": [
+              "Run Timed Dry on high for 5 minutes.",
+              "The drum and clothes should feel warm."
+            ],
+            "target_part": "dryer drum",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": "The drum feels warm."
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 200,
+        "aftercare": "Keep the vent clean so the new fuse doesn't blow again.",
+        "stop_for_pro": false
+      },
+      "rig_beats": [
+        [
+          {
+            "part": "power_plug",
+            "action": "remove",
+            "caption": "Pull plug from outlet"
+          }
+        ],
+        [
+          {
+            "part": "dryer_door",
+            "action": "open",
+            "caption": "Open dryer door"
+          },
+          {
+            "part": "dryer_door",
+            "action": "look",
+            "caption": "Look at door frame"
+          },
+          {
+            "part": "dryer_door",
+            "action": "close",
+            "caption": "Close dryer door"
+          }
+        ],
+        [],
+        [
+          {
+            "part": "power_button",
+            "action": "press",
+            "caption": "Press Power button"
+          },
+          {
+            "part": "cycle_knob",
+            "action": "turn",
+            "caption": "Turn knob to Timed Dry"
+          },
+          {
+            "part": "temperature_button",
+            "action": "press",
+            "caption": "Press Temp for high"
+          },
+          {
+            "part": "start_button",
+            "action": "press",
+            "caption": "Press Start to begin"
+          },
+          {
+            "part": "dryer_drum",
+            "action": "look",
+            "caption": "Check drum for heat"
+          }
+        ]
+      ],
+      "cause": "a blown thermal fuse or heating element"
     }
   ],
   "scene": {

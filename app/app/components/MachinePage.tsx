@@ -131,6 +131,7 @@ export default function MachinePage({ machine, onChange, onBack, onFix }: Machin
                   <span className="history-steps">
                     {fix.steps.length} steps{fix.sample ? " · sample" : ""}
                   </span>
+                  {fix.ruledOut?.length ? <span className="history-steps">Ruled out first: {fix.ruledOut.map(tidy).join(", ")}</span> : null}
                   {fix.photos.length > 0 && (
                     <div className="history-photos">
                       {fix.photos.map((photo, index) => (
@@ -181,7 +182,7 @@ function AskHelpa({ machine, onSave, onFix }: { machine: Machine; onSave: (machi
       model: machine.model,
       manual: machine.manualUrl,
       parts: machine.parts,
-      fixes: machine.fixes.slice(0, 5).map((fix) => ({ date: new Date(fix.date).toDateString(), problem: fix.problem, steps: fix.steps })),
+      fixes: machine.fixes.slice(0, 5).map((fix) => ({ date: new Date(fix.date).toDateString(), problem: fix.problem, steps: fix.steps, ruled_out_first: fix.ruledOut ?? [] })),
       care: careFor(machine).map((care) => ({ task: care.label, every: care.every, last_done: machine.care[care.id] ? new Date(machine.care[care.id]).toDateString() : "never" })),
     };
     try {

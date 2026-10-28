@@ -542,7 +542,9 @@
             "caption": "Press and hold Start"
           }
         ]
-      ]
+      ],
+      "cause": "a kinked drain hose or lopsided load",
+      "next": "drain_pump_failed"
     },
     {
       "id": "shaking_banging_walking",
@@ -1587,6 +1589,125 @@
           }
         ]
       ]
+    },
+    {
+      "id": "drain_pump_failed",
+      "symptoms": [
+        "Still full of water after fixing the hose and load",
+        "It hums but no water goes out"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WTW5057LW",
+        "appliance": "top-load washer",
+        "manual_url": "https://www.whirlpool.com/owners-center-pdp.WTW5057LW.html",
+        "diagnosis": "With the hose straight and the load even, the drain pump is probably blocked by a sock or a coin, or has failed. On this washer the pump sits behind the cabinet, so it's a job for a pro.",
+        "tools": [],
+        "replacement_parts": [
+          "Drain pump for your model (match it by the model number)"
+        ],
+        "safety": [],
+        "steps": [
+          {
+            "instruction": "Unplug the washer",
+            "details": [],
+            "target_part": "power plug",
+            "photo": -1,
+            "motion": "pull_out",
+            "show_3d": true,
+            "check": "The plug is out."
+          },
+          {
+            "instruction": "Bail out the water with a bucket",
+            "details": [
+              "Wring the clothes out and set them aside."
+            ],
+            "target_part": "wash basket",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The tub is mostly empty."
+          },
+          {
+            "instruction": "Find the model number under the lid",
+            "details": [
+              "Lift the lid and look at the back edge of the opening."
+            ],
+            "target_part": "model and serial tag",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You have a photo of the tag."
+          },
+          {
+            "instruction": "Call a pro, or order the part for your model",
+            "details": [
+              "Tell them what you already tried, so you don't pay for the same checks.",
+              "A parts store can match the part to your model number."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": ""
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 180,
+        "aftercare": "Use a mesh bag for socks and small things so they can't reach the pump.",
+        "stop_for_pro": false
+      },
+      "rig_beats": [
+        [
+          {
+            "part": "power_cord",
+            "action": "remove",
+            "caption": "Pull out power plug"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Open the washer lid"
+          },
+          {
+            "part": "laundry",
+            "action": "remove",
+            "caption": "Lift clothes from basket"
+          },
+          {
+            "part": "wash_basket",
+            "action": "look",
+            "caption": "Check tub mostly empty"
+          },
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close the washer lid"
+          }
+        ],
+        [
+          {
+            "part": "lid",
+            "action": "open",
+            "caption": "Lift the washer lid"
+          },
+          {
+            "part": "model_and_serial_tag",
+            "action": "look",
+            "caption": "Look at model tag"
+          },
+          {
+            "part": "lid",
+            "action": "close",
+            "caption": "Close the washer lid"
+          }
+        ],
+        []
+      ],
+      "cause": "a blocked or failed drain pump"
     }
   ],
   "scene": {
@@ -2033,5 +2154,11 @@
       }
     ]
   },
-  "rig_id": "washer_top_load"
+  "rig_id": "washer_top_load",
+  "contradicts": [
+    "front-load",
+    "front loader",
+    "front-loader",
+    "front loading"
+  ]
 }

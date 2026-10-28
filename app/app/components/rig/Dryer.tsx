@@ -282,6 +282,7 @@ function InsideDrum() {
 
 function BehindTheDryer() {
   const foil = useMemo(() => foilTexture(), []);
+  const lint = useMemo(() => lintTexture(), []);
   const curve = useMemo(
     () => new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0.12, -front), new THREE.Vector3(0, 0.12, -front - 0.1), new THREE.Vector3(0.05, 0.25, -front - 0.18), new THREE.Vector3(0.12, 0.35, -front - 0.22)]),
     [],
@@ -301,6 +302,17 @@ function BehindTheDryer() {
         <mesh position={[0.12, 0.35, -front - 0.235]}>
           <cylinderGeometry args={[0.065, 0.065, 0.01, 32]} />
           <meshStandardMaterial color="#d0d4d9" metalness={0.6} roughness={0.3} />
+        </mesh>
+      </RigPart>
+      {/* the dryer's exhaust collar, and the lint packed in it that shows once the hose comes off */}
+      <mesh position={[0, 0.12, -front - 0.012]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.052, 0.052, 0.024, 32, 1, true]} />
+        <meshStandardMaterial color="#b9bec4" metalness={0.6} roughness={0.35} side={THREE.DoubleSide} />
+      </mesh>
+      <RigPart id="vent_lint" position={[0, 0.12, -front - 0.02]}>
+        <mesh rotation={[0, Math.PI, 0]}>
+          <circleGeometry args={[0.047, 32]} />
+          <meshStandardMaterial map={lint} transparent alphaTest={0.05} roughness={1} side={THREE.DoubleSide} />
         </mesh>
       </RigPart>
       {/* outlet and plug */}
@@ -401,7 +413,14 @@ const sampleSteps: { instruction: string; beats: Beat[] }[] = [
       { part: "dryer_door", action: "close", caption: "Close the door" },
     ],
   },
-  { instruction: "Check the vent hose", beats: [{ part: "vent_hose", action: "look", caption: "Make sure it isn't crushed" }] },
+  {
+    instruction: "Clean out the vent hose",
+    beats: [
+      { part: "vent_hose", action: "remove", caption: "Pull the hose off the back" },
+      { part: "vent_lint", action: "clean", caption: "Pull the lint out" },
+      { part: "vent_hose", action: "insert", caption: "Push the hose back on" },
+    ],
+  },
   {
     instruction: "Run a short timed dry, feel the vent",
     beats: [

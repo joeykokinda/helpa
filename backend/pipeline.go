@@ -7,6 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -200,14 +202,51 @@ type modelResult struct {
 	generated *generatedRig
 }
 
+// followUp is a fix that didn't work: what was tried, so the next run goes after the next most likely cause.
+type followUp struct {
+	// RuledOut are the library fixes already tried ("entry/problem"), oldest first.
+	RuledOut []string
+	// Tried says what was tried in words, for research when the library has no next cause.
+	Tried              string
+	Brand, ModelNumber string
+}
+
+// readFollowUp reads what a "Still broken" request says was tried. Only real library fix ids are kept, and the
+// free text is capped, since it goes into the model prompt.
+func readFollowUp(request *http.Request) followUp {
+	follow := followUp{Tried: clip(request.FormValue("tried"), 400), Brand: clip(request.FormValue("brand"), 60), ModelNumber: clip(request.FormValue("model_number"), 60)}
+	for _, id := range strings.Split(request.FormValue("ruled_out"), ",") {
+		if _, problem := findLibraryFix(strings.TrimSpace(id)); problem != nil && len(follow.RuledOut) < 10 {
+			follow.RuledOut = append(follow.RuledOut, strings.TrimSpace(id))
+		}
+	}
+	return follow
+}
+
+func clip(text string, limit int) string {
+	runes := []rune(strings.TrimSpace(text))
+	if len(runes) > limit {
+		runes = runes[:limit]
+	}
+	return string(runes)
+}
+
 // runPipeline identifies the appliance fast, then builds the model, spots parts and researches the fix in
 // parallel, asking the user when an answer would change the fix. The plan never waits on the model.
-func runPipeline(requestCtx context.Context, photos []string, complaint string, session *fixSession, emit func(event)) error {
+func runPipeline(requestCtx context.Context, photos []string, complaint string, follow followUp, session *fixSession, emit func(event)) error {
 	// Tracks stop when research fails, so nothing emits after the stream closes.
 	ctx, cancel := context.WithCancel(requestCtx)
 	defer cancel()
-	ident, err := identify(ctx, photos, complaint, true)
-	if err != nil {
+	if follow.Tried != "" {
+		complaint += "\nAlready tried, and it did not fix it: " + follow.Tried + ". Go after the next most likely cause; don't repeat those steps."
+	}
+	var ident identification
+	var err error
+	if next := nextFix(follow.RuledOut); next != "" {
+		// The library knows the next most likely cause, so there's nothing to look at again.
+		entry, _ := findLibraryFix(next)
+		ident = identification{Appliance: entry.Appliance, Brand: follow.Brand, ModelNumber: follow.ModelNumber, Confidence: 1, LibraryFix: next}
+	} else if ident, err = identify(ctx, photos, complaint, true); err != nil {
 		// The first look is a shortcut, not a gate: research can still identify on its own.
 		log.Printf("identify: %v", err)
 	}
@@ -222,7 +261,7 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		tracks.Add(2)
 		go func() {
 			defer tracks.Done()
-			models <- buildModel(ctx, ident, photos, emit)
+			models <- buildModel(ctx, ident, complaint, photos, emit)
 		}()
 		go func() {
 			defer tracks.Done()
@@ -247,7 +286,7 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		startTracks(ident)
 	}
 
-	plan := libraryPlan(ident, emit)
+	plan := libraryPlan(ident, complaint, follow.RuledOut, emit)
 	if plan == nil {
 		plan, err = research(ctx, photos, complaint, ident, session, emit)
 	}
@@ -256,17 +295,61 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		tracks.Wait()
 		return err
 	}
+	plan = markSafetyStop(plan)
 	emit(event{"type": "plan", "plan": plan})
-	showPlan(ctx, photos, plan, models, emit)
+	showPlan(ctx, photos, plan, complaint, models, emit)
 	tracks.Wait()
 	return nil
 }
 
+var urgentWords = []string{"burning", "burnt smell", "smoke", "smoking", "fire", "flames", "melted", "melting", "smell gas", "gas smell", "smells like gas"}
+
+// hazardPattern marks a danger built into the repair itself, not just a job beyond the person. Warnings like
+// "stop if you see sparks" are left out: plans add them to ordinary fixes, and real sparking gets the model's flag.
+var hazardPattern = regexp.MustCompile(`(?i)\b(gas (leak|smell)|smell(s|ed)? (of |like )?gas|carbon monoxide|refrigerant|capacitor|magnetron|high[- ]voltage|dangerous charge|` +
+	`airbags?|live (wire|wiring)|electrocut\w*)\b`)
+
+var proStep = regexp.MustCompile(`(?i)\b(call|contact|hire|book|schedule)\b.*\b(pro|technician|professional|plumber|electrician|mechanic|repair (service|person|shop)|service|gas company|fire department|911)\b`)
+
+// markSafetyStop sets stop_for_pro when a plan's answer is "get a professional" for a safety reason: the safety
+// notes or diagnosis name a hazard to the person and the plan ends with calling a pro. The model's own flag
+// stands; this only makes the stop not depend on the model remembering to set it.
+func markSafetyStop(plan json.RawMessage) json.RawMessage {
+	var parsed map[string]any
+	if json.Unmarshal(plan, &parsed) != nil || parsed["stop_for_pro"] == true {
+		return plan
+	}
+	var text []string
+	if diagnosis, ok := parsed["diagnosis"].(string); ok {
+		text = append(text, diagnosis)
+	}
+	safety, _ := parsed["safety"].([]any)
+	for _, note := range safety {
+		text = append(text, fmt.Sprint(note))
+	}
+	steps, _ := parsed["steps"].([]any)
+	if len(steps) == 0 || !hazardPattern.MatchString(strings.Join(text, " ")) {
+		return plan
+	}
+	// The last instruction itself is the hand-off; "if it's still cold, call a pro" in its details is a fallback.
+	last, _ := steps[len(steps)-1].(map[string]any)
+	if instruction, _ := last["instruction"].(string); !proStep.MatchString(instruction) {
+		return plan
+	}
+	parsed["stop_for_pro"] = true
+	marked, err := json.Marshal(parsed)
+	if err != nil {
+		return plan
+	}
+	return marked
+}
+
 // libraryPlan is the fastest path: when the first look matched a ready library fix outright and asked
-// nothing, that fix is the plan and research is skipped.
-func libraryPlan(ident identification, emit func(event)) json.RawMessage {
+// nothing, that fix is the plan and research is skipped. A fix already tried, or a complaint that says the
+// machine differs from the library's ("coil burners" against a glass top), goes to research instead.
+func libraryPlan(ident identification, complaint string, ruledOut []string, emit func(event)) json.RawMessage {
 	entryID, problemID, found := strings.Cut(ident.LibraryFix, "/")
-	if !found || ident.Question != "" {
+	if !found || ident.Question != "" || containsString(ruledOut, ident.LibraryFix) {
 		return nil
 	}
 	// The first look named the fix; trust it when it is the same kind of machine and no other brand.
@@ -274,12 +357,26 @@ func libraryPlan(ident identification, emit func(event)) json.RawMessage {
 	if entry == nil || normalizeAppliance(entry.Appliance) != normalizeAppliance(ident.Appliance) || (ident.Brand != "" && !strings.EqualFold(entry.Brand, ident.Brand)) {
 		return nil
 	}
+	if word := entry.contradiction(complaint + " " + ident.Appliance + " " + ident.Symptom); word != "" {
+		log.Printf("library: %s doesn't fit, the person mentions %q", entry.ID, word)
+		return nil
+	}
+	// A burning smell or smoke can be a fire starting, so it gets a full look rather than the common fix.
+	for _, word := range urgentWords {
+		if containsWords(strings.ToLower(complaint+" "+ident.Symptom), word) {
+			log.Printf("library: skipping the ready fix, the person mentions %q", word)
+			return nil
+		}
+	}
 	for _, problem := range entry.Problems {
 		var plan map[string]any
 		if problem.ID != problemID || json.Unmarshal(problem.Plan, &plan) != nil {
 			continue
 		}
 		plan["library_id"], plan["library_problem"] = entry.ID, problem.ID
+		if problem.Cause != "" {
+			plan["cause"] = problem.Cause
+		}
 		// The sticker the person showed beats the library's example model number.
 		if ident.ModelNumber != "" {
 			plan["model_number"] = ident.ModelNumber
@@ -306,8 +403,8 @@ func libraryPlan(ident identification, emit func(event)) json.RawMessage {
 
 // buildModel is the model track: a built-in rig when one fits (instant), otherwise an on-demand model.
 // An empty result means the plan step falls back to a generic scene, then to no visual at all.
-func buildModel(ctx context.Context, ident identification, photos []string, emit func(event)) modelResult {
-	if rig := matchRig(ident.Appliance); rig != nil {
+func buildModel(ctx context.Context, ident identification, complaint string, photos []string, emit func(event)) modelResult {
+	if rig := matchRig(ident.Appliance); rig != nil && !rigContradicted(rig.ID, complaint+" "+ident.Appliance) {
 		emitTrack(emit, "model", "done", "Found a 3D model", rig.Name)
 		return modelResult{rig: rig}
 	}

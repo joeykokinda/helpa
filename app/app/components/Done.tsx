@@ -8,7 +8,7 @@ import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import { tidy } from "../lib/text";
 
-type DoneProps = { plan: Plan | null; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void; savedName?: string };
+type DoneProps = { plan: Plan | null; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void; savedName?: string; ruledOut?: string[] };
 
 /** Little stars that pop out from behind Helpa once, like a party popper. */
 function Burst() {
@@ -33,12 +33,15 @@ function Burst() {
 
 const proStep = /\b(call|contact|hire|book|schedule)\b.*\b(pro|technician|professional|plumber|electrician|mechanic|repair (service|person|shop)|service)\b/i;
 
-export default function Done({ plan, minutes, mood, speaking, onRestart, savedName }: DoneProps) {
+/** The plan hands the repair to a professional, so there's nothing for the person to test or celebrate fixing. */
+export const needsPro = (plan: Plan | null) => Boolean(plan?.stop_for_pro || plan?.steps.some((step) => proStep.test(step.instruction)));
+
+export default function Done({ plan, minutes, mood, speaking, onRestart, savedName, ruledOut = [] }: DoneProps) {
   const [shared, setShared] = useState(false);
   // Only claim savings when a technician or shop would really have been paid for this fix.
   // A plan that ends in "call a pro" may still need that visit, so it saved nothing we can claim.
-  const needsPro = plan?.steps.some((step) => proStep.test(step.instruction)) ?? false;
-  const saved = needsPro ? 0 : (plan?.pro_visit_cost ?? 0);
+  const handedOff = needsPro(plan);
+  const saved = handedOff ? 0 : (plan?.pro_visit_cost ?? 0);
   const aftercare = plan?.aftercare ? tidy(plan.aftercare) : "";
   const thing = plan?.appliance ? tidy(plan.appliance).toLowerCase() : "appliance";
   const identity = [plan?.brand, plan?.model_number].filter((value) => value && !/unknown|not visible|n\/a/i.test(value)).join(" ");
@@ -57,20 +60,30 @@ export default function Done({ plan, minutes, mood, speaking, onRestart, savedNa
 
   return (
     <section className="screen done" aria-label="All done">
-      <Confetti originY="22%" />
+      {!handedOff && <Confetti originY="22%" />}
       <div className="screen-body done-body">
         <div className="hero-stage">
           <div className="hero-blob" aria-hidden="true" />
-          <Burst />
+          {!handedOff && <Burst />}
           <motion.div initial={{ y: 30, scale: 0.6 }} animate={{ y: [30, -18, 0], scale: [0.6, 1.08, 1] }} transition={{ duration: 0.7, times: [0, 0.6, 1], ease: "easeOut" }}>
             <Helpa mood={mood} speaking={speaking} size={170} />
           </motion.div>
         </div>
         <motion.div className="done-headline" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
-          <h1 className="display">You fixed it!</h1>
-          <p className="lede">
-            Your {identity && /^(car|truck|suv|vehicle)$/.test(thing) ? identity : [identity, thing].filter(Boolean).join(" ")} is good to go, and you did it yourself.
-          </p>
+          {handedOff ? (
+            <>
+              <h1 className="display">Good call</h1>
+              <p className="lede">This one is a job for a pro, and you already know what to tell them{ruledOut.length ? `: you ruled out ${ruledOut.map(tidy).join(" and ")}` : ""}.</p>
+            </>
+          ) : (
+            <>
+              <h1 className="display">You fixed it!</h1>
+              <p className="lede">
+                Your {identity && /^(car|truck|suv|vehicle)$/.test(thing) ? identity : [identity, thing].filter(Boolean).join(" ")} is good to go, and you did it yourself.
+                {ruledOut.length > 0 && ` You ruled out ${ruledOut.map(tidy).join(" and ")} on the way.`}
+              </p>
+            </>
+          )}
         </motion.div>
 
         {plan && (

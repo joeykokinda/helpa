@@ -458,7 +458,9 @@
             "caption": "Watch circle for glow"
           }
         ]
-      ]
+      ],
+      "cause": "the wrong pan or setting",
+      "next": "burner_element_failed"
     },
     {
       "id": "food_bakes_too_hot_or_cold",
@@ -1398,6 +1400,158 @@
           }
         ]
       ]
+    },
+    {
+      "id": "burner_element_failed",
+      "symptoms": [
+        "The burner stays cold with a good pan on high",
+        "One burner never glows red"
+      ],
+      "plan": {
+        "brand": "Whirlpool",
+        "model_number": "WFES3030RS",
+        "appliance": "freestanding electric range",
+        "manual_url": "https://www.whirlpool.com/content/dam/global/documents/202603/owners-manual-w11617173-revd.pdf",
+        "diagnosis": "If the right pan on high still doesn't heat, the burner's element under the glass or its switch behind the knob has failed. Both mean opening the cooktop, so it's a job for a pro.",
+        "tools": [],
+        "replacement_parts": [
+          "Radiant surface element or burner switch for your model (match it by the model number)"
+        ],
+        "safety": [
+          "Don't use the cooktop if the glass is cracked.",
+          "Opening the cooktop means 240-volt wiring, so leave it to a pro."
+        ],
+        "steps": [
+          {
+            "instruction": "Turn every knob off and let the glass cool",
+            "details": [],
+            "target_part": "right front knob",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "All knobs are off and the glass is cool."
+          },
+          {
+            "instruction": "Try the same pan on another burner",
+            "details": [
+              "If that burner heats it, the pan is fine and the dead burner is the problem."
+            ],
+            "target_part": "right front burner",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "The pan heats on another burner."
+          },
+          {
+            "instruction": "Find the model number on the frame",
+            "details": [
+              "Pull out the bottom drawer or open the oven door; the sticker is on the frame."
+            ],
+            "target_part": "storage drawer",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": true,
+            "check": "You have a photo of the sticker."
+          },
+          {
+            "instruction": "Call a pro, or order the part for your model",
+            "details": [
+              "Tell them what you already tried, so you don't pay for the same checks.",
+              "A parts store can match the part to your model number."
+            ],
+            "target_part": "",
+            "photo": -1,
+            "motion": "none",
+            "show_3d": false,
+            "check": ""
+          }
+        ],
+        "library_id": "",
+        "library_problem": "",
+        "pro_visit_cost": 200,
+        "aftercare": "Use flat pans that match the burner size.",
+        "stop_for_pro": false
+      },
+      "rig_beats": [
+        [
+          {
+            "part": "knob_right_front",
+            "action": "turn",
+            "caption": "Turn right front knob off"
+          },
+          {
+            "part": "knob_left_front",
+            "action": "turn",
+            "caption": "Turn left front knob off"
+          },
+          {
+            "part": "knob_left_rear",
+            "action": "turn",
+            "caption": "Turn left rear knob off"
+          },
+          {
+            "part": "knob_right_rear",
+            "action": "turn",
+            "caption": "Turn right rear knob off"
+          },
+          {
+            "part": "glass_cooktop",
+            "action": "look",
+            "caption": "Check glass is cool"
+          },
+          {
+            "part": "hot_surface_light",
+            "action": "look",
+            "caption": "Check hot surface light"
+          }
+        ],
+        [
+          {
+            "part": "burner_right_front",
+            "action": "look",
+            "caption": "Check right front burner"
+          },
+          {
+            "part": "burner_left_front",
+            "action": "look",
+            "caption": "Check left front burner"
+          }
+        ],
+        [
+          {
+            "part": "storage_drawer",
+            "action": "open",
+            "caption": "Open storage drawer"
+          },
+          {
+            "part": "storage_drawer",
+            "action": "look",
+            "caption": "Find model number sticker"
+          },
+          {
+            "part": "storage_drawer",
+            "action": "close",
+            "caption": "Close storage drawer"
+          },
+          {
+            "part": "oven_door",
+            "action": "open",
+            "caption": "Open oven door"
+          },
+          {
+            "part": "oven_door",
+            "action": "look",
+            "caption": "Find model number sticker"
+          },
+          {
+            "part": "oven_door",
+            "action": "close",
+            "caption": "Close oven door"
+          }
+        ],
+        []
+      ],
+      "cause": "a failed burner element or switch"
     }
   ],
   "scene": {
@@ -1800,5 +1954,14 @@
       }
     ]
   },
-  "rig_id": "range_electric"
+  "rig_id": "range_electric",
+  "contradicts": [
+    "coil",
+    "coils",
+    "gas",
+    "pilot",
+    "igniter",
+    "grate",
+    "grates"
+  ]
 }
