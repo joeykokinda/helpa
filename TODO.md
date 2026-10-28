@@ -42,10 +42,16 @@ Spatially grounded guidance beats conversational AI. **Helpa understands how you
 - [x] Hosted on brach: `scripts/deploy-brach.sh` (Go backend :8095 + standalone Next :3095, user services, linger on).
 - [ ] 🙋 Make it public: `ssh brach 'tailscale funnel --bg --https=443 http://127.0.0.1:3095'` → https://brach.taild3399f.ts.net (blocked for Claude by the permission classifier).
 
-## In progress (round 3)
-- [ ] 🤖 `diagnosis`: library fast path yields when the complaint contradicts it (coil vs glass top); ordered hypotheses with an outcome test and Fixed / Still broken branching; next-hypothesis rig beats (dryer vent); car 3D relevance and a safety stop screen for gas; re-run affected eval cases.
-- [ ] 🤖 `docs`: README for judges, docs/VIDEO.md (shot list, voiceover, 30s X cut), docs/X_POST.md.
+## Round 3 (merged)
+- [x] `diagnosis`: library fast path yields when the complaint contradicts it (coil vs glass top); ordered hypotheses with an outcome test and Fixed / Still broken branching; next-hypothesis rig beats (dryer vent); car 3D relevance and a safety stop screen for gas; re-run affected eval cases.
+- [x] `docs`: README for judges, docs/VIDEO.md (shot list, voiceover, 30s X cut), docs/X_POST.md.
 - [ ] 🙋 Plug the Seeker in (USB) for real-device AR tests; test on an iPhone in Safari.
+
+## Round 4
+- [ ] 🤖 `creative`: Muse Image "draw the issue" on your own photo (creative bonus); record a short video with audio so Helpa hears the noise.
+- [ ] 🤖 `spanish`: Spanish UI, steps and voice (families and grandparents); accessibility pass.
+- [ ] 🙋 Open-weights bonus ($10K): do we have Baseten or Modal credits to run Glimmer / Spark Open for check-my-work?
+- [ ] 🛠 Retake the README My Home screenshot (shows an old WED6150PW model number).
 
 ## Your exact model, not a generic one (the core pitch)
 - [x] 🙋 Inputs: 2015 Toyota Camry; "a normal washer and dryer" (we picked a popular Whirlpool pair).
