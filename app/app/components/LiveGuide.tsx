@@ -298,7 +298,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       const demo = phaseRef.current === "demo";
       const motionNow = beatMotion(beats, stepStart, defs, play.index, play.progress);
       const beat = motionNow?.beat;
-      const focusPart = demo ? beat?.part : watched;
+      // Debris rides on its part, so the lock stays on the step's main part while the lint comes off.
+      const focusPart = demo && beat && defs[beat.part]?.joint.kind !== "debris" ? beat.part : watched;
       const focusTrack = focusPart ? tracksRef.current[focusPart] : undefined;
 
       // Every part's state right now, so a lint screen pulled out in beat one stays out while the lint comes off.
@@ -448,7 +449,6 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     // The machine itself ("dryer") is easy for SAM; a part with a region on the catalog is then looked for in a
     // close, sharper crop of where it sits on the machine, which finds a thin lint screen the whole frame misses.
     const machinePhrases = catalog ? [...new Set([catalog.matches[0], catalog.name.split(/\s+/).pop() ?? ""])].filter(Boolean).slice(0, 2) : [];
-    let machineMisses = 0;
     const regionMisses: Record<string, number> = {};
     const searchFor = (part: string): Box | null => {
       const region = defs[part]?.region;
@@ -470,12 +470,12 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       const moved = grayChange(lastGray, gray) > 5;
       // Only spend a SAM call when there's no fix yet, the picture changed, or the fix is getting old.
       if (track && !moved && now - track.lookedAt < 4000) return;
-      // A part with a region needs the machine first; that's one quick look, then every part lookup is a crop.
+      // A part with a region also asks for the machine ("dryer") in the same request; once SAM has the machine,
+      // every later lookup is a sharp crop of where the part sits on it.
       const machine = tracksRef.current[machinePart];
-      const wantsMachine = !track && defs[part]?.region && machinePhrases.length && machineMisses < 2 && (!machine || now - machine.seenAt > 10000);
-      const lookFor = wantsMachine ? machinePart : part;
+      const machinePhrase = !track && defs[part]?.region && machinePhrases.length && (!machine || now - machine.seenAt > 10000) ? machinePhrases[0] : "";
       lastGray = gray;
-      const area = wantsMachine ? null : searchFor(part);
+      const area = searchFor(part);
       // 960 px keeps small parts (a drain plug, a filter cap) big enough for SAM to see; a crop is sharper still.
       const canvas = area ? cropCanvas(video, area, 960) : frameCanvas(video, 960);
       const offsetAtSend = { ...offsetRef.current };
@@ -485,7 +485,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       const point = tapped ? { x: (track.target.x + track.target.width / 2) * canvas.width, y: (track.target.y + track.target.height / 2) * canvas.height, width: canvas.width, height: canvas.height } : undefined;
       busy = true;
       try {
-        const { sam, phrase } = await locatePart(await canvasBlob(canvas, 0.8), wantsMachine ? machinePhrases : phrasesFor(part), "part", point);
+        const { sam, phrase } = await locatePart(await canvasBlob(canvas, 0.8), machinePhrase && !area ? [...phrasesFor(part).slice(0, 3), machinePhrase] : phrasesFor(part), "part", point);
+        const lookFor = machinePhrase && !area && phrase === machinePhrase ? machinePart : part;
         if (!alive) return;
         const seen = performance.now();
         const drift = { x: offsetRef.current.x - offsetAtSend.x, y: offsetRef.current.y - offsetAtSend.y };
@@ -494,9 +495,8 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         let mask = pickMask(sam ? parseMasks(sam) : [], canvas, recent);
         // A fresh lock never jumps to a different thing across the picture; that's a miss, not a move.
         if (mask && recent && Math.hypot((mask.left + mask.width / 2) / canvas.width - (recent.x + recent.width / 2), (mask.top + mask.height / 2) / canvas.height - (recent.y + recent.height / 2)) > 0.28 * (area ? 1 / area.width : 1)) mask = null;
-        if (wantsMachine) {
-          if (!mask) machineMisses++;
-          else {
+        if (lookFor === machinePart) {
+          if (mask) {
             const cutout = cutOut(canvas, mask);
             const target = { ...cutout.box, x: cutout.box.x + drift.x, y: cutout.box.y + drift.y };
             tracksRef.current[machinePart] = { cutout, target, box: target, seenAt: seen, lockedAt: seen, misses: 0, lookedAt: seen };
@@ -564,6 +564,13 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       watchRef.current.lastCheck = performance.now();
     };
 
+    // The part to find right now. Debris (lint, scraps) rides on its part and SAM can't name it, so a beat about
+    // debris looks for the step's main part instead.
+    const searchPart = () => {
+      const part = beats[playHeadRef.current.index]?.part ?? beats[0].part;
+      return defs[part]?.joint.kind === "debris" ? watched : part;
+    };
+
     // Never stall on a part SAM can't name: after a few seconds without a lock, the person taps it.
     const searchingSince: Record<string, number> = {};
     let asking: string | null = null;
@@ -580,7 +587,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
     };
 
     tapRef.current = async (clientX: number, clientY: number) => {
-      const part = phaseRef.current === "demo" ? (beats[playHeadRef.current.index]?.part ?? beats[0].part) : watched;
+      const part = phaseRef.current === "demo" ? searchPart() : watched;
       const bounds = video.getBoundingClientRect();
       const shown = displayRect(video);
       const tapX = (clientX - bounds.left - shown.left) / shown.width;
@@ -618,7 +625,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
       if (!alive || document.hidden) return;
       const now = performance.now();
       const phaseNow = phaseRef.current;
-      if (phaseNow !== "checking") noteSearch(phaseNow === "demo" ? (beats[playHeadRef.current.index]?.part ?? beats[0].part) : watched, now);
+      if (phaseNow !== "checking") noteSearch(phaseNow === "demo" ? searchPart() : watched, now);
       if (busy || phaseNow === "checking") return;
       if (phaseNow === "turn") {
         const watch = watchRef.current;
@@ -633,8 +640,7 @@ export default function LiveGuide({ plan, stepIndex, rig, mood, speaking, say, o
         locate(watched, now);
         return;
       }
-      const part = beats[playHeadRef.current.index]?.part ?? beats[0].part;
-      locate(part, now);
+      locate(searchPart(), now);
     }, locateEveryMs / 2);
     return () => {
       alive = false;
