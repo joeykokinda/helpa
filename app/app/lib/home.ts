@@ -4,7 +4,8 @@ import { shrinkPhoto } from "./media";
 /** My Home: every machine Helpa has helped with, kept on the phone (IndexedDB), no account. */
 
 /** ruledOut: causes tried first that didn't fix it, e.g. "a clogged lint screen". */
-export type Fix = { date: number; problem: string; steps: string[]; photos: Blob[]; sample: boolean; ruledOut?: string[] };
+/** fixed is false when the plan handed the repair to a pro; older fixes have no flag and were fixed. */
+export type Fix = { date: number; problem: string; steps: string[]; photos: Blob[]; sample: boolean; ruledOut?: string[]; fixed?: boolean };
 export type ChatLine = { role: "you" | "helpa"; text: string; complaint?: string };
 export type Machine = {
   id: string;
@@ -54,9 +55,12 @@ export function isDue(machine: Machine, care: Care, now = Date.now()) {
 
 export type Status = { label: string; tone: "ok" | "repaired" | "due" };
 
-export function statusOf(machine: Machine, now = Date.now()): Status {
+/** Where a machine stands: an open job on it says it best, then care that's due, then its last fix. */
+export function statusOf(machine: Machine, job?: { status: string; label: string }, now = Date.now()): Status {
+  if (job && job.status !== "done") return { label: job.label, tone: "due" };
   if (careFor(machine).some((care) => isDue(machine, care, now))) return { label: "Maintenance due", tone: "due" };
   const last = machine.fixes[0];
+  if (last && last.fixed === false && !job) return { label: "Needs a pro", tone: "due" };
   if (last && now - last.date < 30 * day) return { label: `Repaired ${new Date(last.date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}`, tone: "repaired" };
   return { label: "Healthy", tone: "ok" };
 }
@@ -103,7 +107,7 @@ export const putMachine = (machine: Machine) => run("readwrite", (store) => stor
 /** Saves a finished fix, adding the machine the first time; care the fix covered counts as done today. */
 export async function saveFix(
   plan: Plan,
-  options: { rig?: { id: string; recipe?: unknown }; photos: Blob[]; sample: boolean; ruledOut?: string[] },
+  options: { rig?: { id: string; recipe?: unknown }; photos: Blob[]; sample: boolean; ruledOut?: string[]; fixed?: boolean },
 ): Promise<Machine> {
   const id = machineKey(plan);
   const now = Date.now();
@@ -128,9 +132,9 @@ export async function saveFix(
   machine.manualUrl ||= plan.manual_url;
   machine.parts = [...new Set([...machine.parts, ...plan.replacement_parts])];
   const thumbnails = await Promise.all(options.photos.slice(0, 3).map((photo) => shrinkPhoto(photo, 320).catch(() => photo)));
-  machine.fixes = [{ date: now, problem: plan.library_problem.replace(/_/g, " ") || plan.diagnosis, steps: plan.steps.map((step) => step.instruction), photos: thumbnails, sample: options.sample, ruledOut: options.ruledOut }, ...machine.fixes];
+  machine.fixes = [{ date: now, problem: plan.library_problem.replace(/_/g, " ") || plan.diagnosis, steps: plan.steps.map((step) => step.instruction), photos: thumbnails, sample: options.sample, ruledOut: options.ruledOut, fixed: options.fixed ?? true }, ...machine.fixes];
   const done = [plan.diagnosis, plan.library_problem, ...plan.steps.map((step) => step.instruction)].join(" ");
-  for (const care of careFor(machine)) if (care.matches.test(done)) machine.care[care.id] = now;
+  if (options.fixed !== false) for (const care of careFor(machine)) if (care.matches.test(done)) machine.care[care.id] = now;
   await putMachine(machine);
   return machine;
 }

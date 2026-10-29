@@ -42,6 +42,8 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   const recorderRef = useRef<MediaRecorder | null>(null);
   const [camera, setCamera] = useState<"starting" | "ready" | "failed">("starting");
   const [screen, setScreen] = useState<"camera" | "describe">(prefill ? "describe" : "camera");
+  // Came in through "Tell me": back goes home, not to a camera they never opened.
+  const [toldFirst] = useState(!!prefill);
   const [captureMode, setCaptureMode] = useState<"photo" | "scan" | "model">("photo");
   // The model number Helpa read off the sticker (or a VIN), sent along with the problem.
   const [identity, setIdentity] = useState(prefill?.identity ?? "");
@@ -356,7 +358,11 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
       {screen === "describe" && (
         <motion.section className="screen describe" aria-label="Describe the problem" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease: "easeOut" }}>
           <div className="topbar">
-            {camera === "ready" ? (
+            {toldFirst && onHome ? (
+              <button className="icon-button press" onClick={onHome} aria-label="Back">
+                <Icon name="back" />
+              </button>
+            ) : camera === "ready" ? (
               <button className="icon-button press" onClick={openCamera} aria-label="Back to camera">
                 <Icon name="back" />
               </button>

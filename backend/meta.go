@@ -69,6 +69,16 @@ func (r response) text() string {
 	return strings.Join(parts, "")
 }
 
+// metaClient gives up on a Meta call whose reply hasn't started after a few minutes, so a hung request can't stall
+// a fix; the body itself can stream for as long as it needs.
+var metaClient = &http.Client{Transport: &http.Transport{
+	Proxy:                 http.ProxyFromEnvironment,
+	ResponseHeaderTimeout: 150 * time.Second,
+	IdleConnTimeout:       90 * time.Second,
+	TLSHandshakeTimeout:   15 * time.Second,
+	ForceAttemptHTTP2:     true,
+}}
+
 // postResponses sends a Responses request, retrying dropped connections and 429/5xx replies.
 func postResponses(ctx context.Context, body map[string]any) (*http.Response, error) {
 	payload, err := json.Marshal(body)
@@ -90,7 +100,7 @@ func postResponses(ctx context.Context, body map[string]any) (*http.Response, er
 		}
 		request.Header.Set("Authorization", "Bearer "+metaAPIKey)
 		request.Header.Set("Content-Type", "application/json")
-		reply, err := http.DefaultClient.Do(request)
+		reply, err := metaClient.Do(request)
 		if err != nil {
 			lastErr = err
 			continue

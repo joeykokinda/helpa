@@ -66,6 +66,7 @@ func handleLocate(writer http.ResponseWriter, request *http.Request) {
 		wait.Add(1)
 		go func() {
 			defer wait.Done()
+			defer recoverLog("locate")
 			results[index], failures[index] = segment(request.Context(), photos[0], phrase)
 		}()
 	}

@@ -107,6 +107,7 @@ func showPlan(ctx context.Context, photos []string, plan json.RawMessage, compla
 		wait.Add(1)
 		go func() {
 			defer wait.Done()
+			defer recoverLog("step parts")
 			raw, err := segment(ctx, photos[step.Photo], step.TargetPart)
 			if err != nil {
 				return

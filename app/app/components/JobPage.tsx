@@ -487,6 +487,9 @@ function ProFinder({ job, busy, run }: RunProps) {
     );
   };
 
+  // Coordinates from the phone are only for the search; on screen they're just "you".
+  const nearYou = /^-?\d+\.\d+, -?\d+\.\d+$/.test(location.trim());
+
   const message = () => {
     const free = slots.length ? `\nI'm free ${slots.map((at) => options.find((option) => option.at === at)?.label.toLowerCase()).join(", or ")}.` : "";
     return `Hi! Could you take a look at my ${job.appliance}?\n\n${jobSummary(job)}${free}\n\nThanks!`;
@@ -497,7 +500,22 @@ function ProFinder({ job, busy, run }: RunProps) {
       <h2 className="card-title">
         <Icon name="wrench" size={20} /> Find a pro
       </h2>
-      {typing || (location && job.pros.length > 0) ? (
+      {nearYou && !typing && job.pros.length > 0 ? (
+        <div className="job-near">
+          <span>
+            <Icon name="globe" size={18} /> Near you
+          </span>
+          <button
+            className="text-button press"
+            onClick={() => {
+              setLocation("");
+              setTyping(true);
+            }}
+          >
+            Change
+          </button>
+        </div>
+      ) : typing || (location && job.pros.length > 0) ? (
         <form
           className="job-location"
           onSubmit={(submitEvent) => {
@@ -514,7 +532,7 @@ function ProFinder({ job, busy, run }: RunProps) {
         <>
           <button className="btn btn-primary press" onClick={nearMe} disabled={Boolean(busy) || locating}>
             <Icon name="globe" size={20} />
-            {busy === "pros" ? "Finding the best-reviewed pros…" : locating ? "Finding you…" : location ? `Find pros near ${location}` : "Find pros near me"}
+            {busy === "pros" ? "Finding the best-reviewed pros…" : locating ? "Finding you…" : location && !nearYou ? `Find pros near ${location}` : "Find pros near me"}
           </button>
           <button className="text-button press" onClick={() => setTyping(true)}>
             Type a ZIP code instead
@@ -525,7 +543,7 @@ function ProFinder({ job, busy, run }: RunProps) {
       {job.pros.length > 0 && (
         <>
           <p className="job-muted">When are you free? Helpa adds it to the message.</p>
-          <div className="job-chips">
+          <div className="job-chips job-slots">
             {options.map((option) => (
               <button
                 key={option.at}
@@ -533,7 +551,7 @@ function ProFinder({ job, busy, run }: RunProps) {
                 aria-pressed={slots.includes(option.at)}
                 onClick={() => setSlots((current) => (current.includes(option.at) ? current.filter((at) => at !== option.at) : [...current, option.at].slice(-3)))}
               >
-                {option.label}
+                {option.label.replace(/, \w+ \d+/, "")}
               </button>
             ))}
           </div>
@@ -567,8 +585,8 @@ function ProFinder({ job, busy, run }: RunProps) {
                         Website
                       </a>
                     )}
-                    <button className="btn btn-primary btn-small press" onClick={() => setBooking(pro)}>
-                      Booked
+                    <button className="btn btn-primary btn-small press" onClick={() => setBooking(booking?.name === pro.name ? null : pro)} aria-expanded={booking?.name === pro.name}>
+                      I booked them
                     </button>
                   </div>
                   {booking?.name === pro.name && (

@@ -28,17 +28,31 @@ export default function FixPicker({ onPick }: { onPick: (fix: string, says: stri
   const [failed, setFailed] = useState(false);
   const [open, setOpen] = useState<PickerEntry | null>(null);
 
+  const [attempt, setAttempt] = useState(0);
+
   useEffect(() => {
     let alive = true;
     fetchFixes()
-      .then((list) => alive && setEntries(ordered(list)))
+      .then((list) => {
+        if (!alive) return;
+        setEntries(ordered(list));
+        setFailed(false);
+      })
       .catch(() => alive && setFailed(true));
     return () => {
       alive = false;
     };
-  }, []);
+  }, [attempt]);
 
-  if (failed) return null;
+  if (failed)
+    return (
+      <div className="card picker-failed">
+        <p>I couldn&apos;t load the list just now.</p>
+        <button className="btn btn-secondary btn-small press" onClick={() => setAttempt((count) => count + 1)}>
+          Try again
+        </button>
+      </div>
+    );
   return (
     <>
       <ul className="picker-grid" aria-label="What needs fixing">

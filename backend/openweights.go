@@ -54,7 +54,7 @@ func checkStepOpen(ctx context.Context, photo, prompt string) (json.RawMessage, 
 	}
 	request.Header.Set("Authorization", "Api-Key "+openWeightsKey)
 	request.Header.Set("Content-Type", "application/json")
-	reply, err := http.DefaultClient.Do(request)
+	reply, err := metaClient.Do(request)
 	if err != nil {
 		return nil, err
 	}

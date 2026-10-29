@@ -375,6 +375,8 @@ export default function Home() {
     }
     if (!finished) {
       say(received ? "I lost the connection partway through. Can we try that again?" : "I couldn't reach my workshop. Check your connection and try again?", "worried");
+      // Back to the describe screen with what they told me still there, so trying again is one tap.
+      setPrefill((current) => ({ identity: current?.identity ?? "", description }));
       setStage("start");
     }
   };
@@ -434,6 +436,7 @@ export default function Home() {
       photos: runRef.current.photos,
       sample: Boolean(runRef.current.sample),
       ruledOut: attempts.map((attempt) => attempt.cause),
+      fixed: !needsPro(plan),
     })
       .then((machine) => {
         rememberMachine(machine);
@@ -582,6 +585,7 @@ export default function Home() {
     screen = (
       <MachinePage
         machine={machines.find((machine) => machine.id === machineId) as Machine}
+        jobs={jobs}
         onChange={rememberMachine}
         onBack={() => {
           stopSpeaking();
@@ -1154,7 +1158,7 @@ function PlanScreen({ plan, drawing, onGetPart, storyRig, onOpenStep, ruledOut, 
                 </ul>
                 {onGetPart && (
                   <button className="text-button press get-part" onClick={onGetPart}>
-                    <Icon name="tag" size={16} /> Find the exact part and where to buy it
+                    <Icon name="tag" size={16} /> Find this part for my model
                   </button>
                 )}
               </>

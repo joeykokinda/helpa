@@ -506,6 +506,7 @@ func buildLibrary(ctx context.Context, onlyIDs []string) error {
 		wait.Add(1)
 		go func() {
 			defer wait.Done()
+			defer recoverLog("library entry")
 			if err := buildLibraryEntry(ctx, target); err != nil {
 				log.Printf("library %s: %v", target.ID, err)
 			}
@@ -622,6 +623,7 @@ func buildLibraryEntry(ctx context.Context, target libraryTarget) error {
 		wait.Add(1)
 		go func() {
 			defer wait.Done()
+			defer recoverLog("library animations")
 			animations, err := animateSteps(ctx, partsJSON, partIDs, entry.Problems[index].Plan)
 			if err != nil {
 				logf("animations for %s: %v", entry.Problems[index].ID, err)
@@ -692,6 +694,7 @@ func choreographLibrary(ctx context.Context) error {
 			wait.Add(1)
 			go func() {
 				defer wait.Done()
+				defer recoverLog("library choreography")
 				problem := &entry.Problems[problemIndex]
 				stepBeats, err := choreograph(ctx, rig, problem.Plan)
 				if err != nil {

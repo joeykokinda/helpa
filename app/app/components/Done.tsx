@@ -69,7 +69,7 @@ export default function Done({ plan, drawing, onJob, minutes, mood, speaking, on
           <div className="hero-blob" aria-hidden="true" />
           {!handedOff && <Burst />}
           <motion.div initial={{ y: 30, scale: 0.6 }} animate={{ y: [30, -18, 0], scale: [0.6, 1.08, 1] }} transition={{ duration: 0.7, times: [0, 0.6, 1], ease: "easeOut" }}>
-            <Helpa mood={mood} speaking={speaking} size={170} />
+            <Helpa mood={handedOff ? "explaining" : mood} speaking={speaking} size={170} />
           </motion.div>
         </div>
         <motion.div className="done-headline" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
@@ -125,7 +125,7 @@ export default function Done({ plan, drawing, onJob, minutes, mood, speaking, on
             </span>
             <div>
               <strong>Saved to My Home</strong>
-              <p>I&apos;ll remember your {savedName}, what you fixed, and when it needs care.</p>
+              <p>{handedOff ? <>I&apos;ll remember your {savedName} and keep track of this job until it&apos;s fixed.</> : <>I&apos;ll remember your {savedName}, what you fixed, and when it needs care.</>}</p>
             </div>
           </motion.div>
         )}
@@ -138,7 +138,7 @@ export default function Done({ plan, drawing, onJob, minutes, mood, speaking, on
           </motion.div>
         )}
 
-        {aftercare && (
+        {aftercare && !handedOff && (
           <motion.div className="card tip-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
             <span className="tip-icon" aria-hidden="true">
               <Icon name="heart" size={20} />

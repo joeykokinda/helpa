@@ -208,3 +208,23 @@ export function nextUp(job: Job): string {
       return "In progress";
   }
 }
+
+/** The latest job on a machine (same kind of appliance, and the same model when both know it), open ones first. */
+export function jobFor(machine: { appliance: string; model: string }, jobs: Job[]) {
+  const same = jobs.filter((job) => job.appliance.toLowerCase() === machine.appliance.toLowerCase() && (!job.model || !machine.model || job.model === machine.model));
+  return same.find((job) => job.status !== "done" && job.status !== "fixing") ?? same.find((job) => job.status === "done");
+}
+
+/** A job's state in two or three words, for a machine's status pill. */
+export function jobBadge(job: Job) {
+  const labels: Record<JobStatus, string> = {
+    fixing: "Being fixed",
+    needs_part: "Needs a part",
+    waiting_part: "Part on the way",
+    part_arrived: "Part arrived",
+    needs_pro: "Needs a pro",
+    pro_booked: "Pro booked",
+    done: "Fixed",
+  };
+  return { status: job.status, label: labels[job.status] };
+}

@@ -215,11 +215,14 @@ func startWatcher() {
 	go func() {
 		for {
 			time.Sleep(every)
-			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-			if sent := watchOnce(ctx, time.Now()); sent > 0 {
-				log.Printf("watcher: sent %d notifications", sent)
-			}
-			cancel()
+			func() {
+				defer recoverLog("watcher")
+				ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+				defer cancel()
+				if sent := watchOnce(ctx, time.Now()); sent > 0 {
+					log.Printf("watcher: sent %d notifications", sent)
+				}
+			}()
 		}
 	}()
 }

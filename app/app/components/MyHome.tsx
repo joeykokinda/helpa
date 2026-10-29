@@ -2,12 +2,12 @@
 
 import { motion } from "motion/react";
 import { useState } from "react";
-import { statusOf, type Machine } from "../lib/home";
+import { careFor, isDue, statusOf, type Machine } from "../lib/home";
 import { tidy } from "../lib/text";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import FixPicker from "./FixPicker";
-import { nextUp, type Job } from "../lib/jobs";
+import { jobBadge, jobFor, nextUp, type Job } from "../lib/jobs";
 import { SampleCards, samplePhoto, type Sample } from "./Samples";
 import ThemeToggle from "./ThemeToggle";
 
@@ -65,8 +65,9 @@ export default function MyHome({ machines, jobs, onOpenJob, mood, speaking, onOp
       setLoadingSample(undefined);
     }
   };
-  const due = machines.filter((machine) => statusOf(machine).tone === "due").length;
-  const openJobs = jobs.filter((job) => job.status !== "done");
+  const due = machines.filter((machine) => careFor(machine).some((care) => isDue(machine, care))).length;
+  // A fix still underway lives on its own screens; home lists jobs Helpa is carrying (a part, a pro, a reminder).
+  const openJobs = jobs.filter((job) => job.status !== "done" && job.status !== "fixing");
 
   return (
     <section className="screen home" aria-label="My Home">
@@ -137,7 +138,8 @@ export default function MyHome({ machines, jobs, onOpenJob, mood, speaking, onOp
             </h2>
             <ul className="machine-grid">
               {machines.map((machine, index) => {
-                const status = statusOf(machine);
+                const job = jobFor(machine, jobs);
+                const status = statusOf(machine, job && jobBadge(job));
                 return (
                   <motion.li key={machine.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.04 * index }}>
                     <button className="card machine-card press" onClick={() => onOpen(machine)}>

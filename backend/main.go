@@ -12,8 +12,10 @@ import (
 	"net/http"
 	"net/textproto"
 	"os"
+	"runtime/debug"
 	"strings"
 	"sync"
+	"time"
 )
 
 // Phones shrink photos before upload; this caps a public request at a few full-size ones.
@@ -77,7 +79,21 @@ func main() {
 		address = "127.0.0.1:8095"
 	}
 	log.Printf("helpa listening on %s", address)
-	log.Fatal(http.ListenAndServe(address, withCORS(withLimits(http.DefaultServeMux))))
+	server := &http.Server{
+		Addr:    address,
+		Handler: withCORS(withLimits(http.DefaultServeMux)),
+		// Headers must arrive promptly; there is no write timeout because fix runs stream for minutes.
+		ReadHeaderTimeout: 10 * time.Second,
+		IdleTimeout:       2 * time.Minute,
+	}
+	log.Fatal(server.ListenAndServe())
+}
+
+// recoverLog keeps one failed background task (a model call, a SAM lookup) from taking the whole server down.
+func recoverLog(task string) {
+	if recovered := recover(); recovered != nil {
+		log.Printf("panic in %s: %v\n%s", task, recovered, debug.Stack())
+	}
 }
 
 // withCORS lets the app call the API from its own origin (Vercel or the dev server).
@@ -288,7 +304,7 @@ func handleTranscribe(writer http.ResponseWriter, request *http.Request) {
 	}
 	upstream.Header.Set("Authorization", "Bearer "+metaAPIKey)
 	upstream.Header.Set("Content-Type", form.FormDataContentType())
-	reply, err := http.DefaultClient.Do(upstream)
+	reply, err := metaClient.Do(upstream)
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusBadGateway)
 		return

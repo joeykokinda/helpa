@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { askHelpa, transcribe } from "../lib/api";
 import { careFor, isDue, putMachine, statusOf, type ChatLine, type Machine } from "../lib/home";
+import { jobBadge, jobFor, shortPart, type Job } from "../lib/jobs";
 import { speak, stopSpeaking, toWav } from "../lib/media";
 import { tidy } from "../lib/text";
 import Helpa, { type HelpaMood } from "./Helpa";
@@ -15,6 +16,8 @@ const RigStep = dynamic(() => import("./rig/RigStep"), { ssr: false });
 
 type MachinePageProps = {
   machine: Machine;
+  /** Helpa's jobs, so an open one (a part on its way, a pro to book) shows as this machine's status. */
+  jobs: Job[];
   onChange: (machine: Machine) => void;
   onBack: () => void;
   /** Starts the normal fix flow for this machine, with the problem already written. */
@@ -36,8 +39,9 @@ function PhotoThumb({ photo }: { photo: Blob }) {
 const noBeats = [[]];
 
 /** One machine: its 3D twin, what it is, what was fixed, its care, and a chat with Helpa about it. */
-export default function MachinePage({ machine, onChange, onBack, onFix }: MachinePageProps) {
-  const status = statusOf(machine);
+export default function MachinePage({ machine, jobs, onChange, onBack, onFix }: MachinePageProps) {
+  const job = jobFor(machine, jobs);
+  const status = statusOf(machine, job && jobBadge(job));
   const identity = identityLine(machine);
   const cares = careFor(machine);
   const save = (next: Machine) => {
@@ -75,12 +79,12 @@ export default function MachinePage({ machine, onChange, onBack, onFix }: Machin
           )}
           {machine.parts.length > 0 && (
             <>
-              <p className="label label-spaced">Parts used</p>
+              <p className="label label-spaced">Parts it may need</p>
               <ul className="machine-parts">
                 {machine.parts.map((part) => (
                   <li key={part}>
                     <Icon name="bolt" size={16} />
-                    {tidy(part)}
+                    {shortPart(tidy(part))}
                   </li>
                 ))}
               </ul>
@@ -127,7 +131,10 @@ export default function MachinePage({ machine, onChange, onBack, onFix }: Machin
               {machine.fixes.map((fix) => (
                 <li key={fix.date}>
                   <span className="history-date">{new Date(fix.date).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</span>
-                  <strong>{tidy(fix.problem)}</strong>
+                  <strong>
+                    {capitalize(tidy(fix.problem))}
+                    {fix.fixed === false && <span className="history-tag">Handed to a pro</span>}
+                  </strong>
                   <span className="history-steps">
                     {fix.steps.length} steps{fix.sample ? " · sample" : ""}
                   </span>

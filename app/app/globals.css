@@ -4124,6 +4124,30 @@ span.hands-free-glass {
   flex-wrap: wrap;
   gap: 8px;
 }
+.job-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.job-slots .chip {
+  padding: 0 8px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.job-near {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 0 6px 0 14px;
+  border-radius: 14px;
+  background: var(--surface);
+  font-weight: 700;
+}
+.job-near span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
 .chip-on {
   background: var(--primary) !important;
   color: var(--primary-text) !important;
@@ -4282,4 +4306,69 @@ button.job-buy-row {
   height: 300px;
   min-height: 0;
   border-radius: 0;
+}
+
+/* A past fix that went to a pro, marked in the machine's history. */
+.history-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--warn-soft);
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 700;
+  vertical-align: 2px;
+}
+
+/* 404: Helpa, one line, and the way back. */
+body:has(.not-found) {
+  display: block;
+  background: var(--background);
+}
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 100dvh;
+  padding: 24px 16px;
+  text-align: center;
+}
+.not-found h1 {
+  margin-top: 8px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.not-found p {
+  max-width: 22em;
+  color: var(--secondary);
+  font-size: 17px;
+}
+.not-found-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.not-found-actions .btn {
+  width: auto;
+  padding: 0 22px;
+  text-decoration: none;
+}
+
+/* The fix list couldn't load: say so and offer one tap to retry. */
+.picker-failed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.picker-failed p {
+  color: var(--secondary);
+  font-size: 15px;
+}
+.picker-failed .btn {
+  width: auto;
 }

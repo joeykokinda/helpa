@@ -276,10 +276,15 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		tracks.Add(2)
 		go func() {
 			defer tracks.Done()
-			models <- buildModel(ctx, ident, complaint, photos, emit)
+			// The plan waits on this channel, so it gets exactly one result even if the model track panics.
+			var built modelResult
+			defer func() { models <- built }()
+			defer recoverLog("model track")
+			built = buildModel(ctx, ident, complaint, photos, emit)
 		}()
 		go func() {
 			defer tracks.Done()
+			defer recoverLog("spot parts")
 			spotParts(ctx, photos, ident, emit)
 		}()
 	}
@@ -464,6 +469,7 @@ func spotParts(ctx context.Context, photos []string, ident identification, emit 
 		wait.Add(1)
 		go func() {
 			defer wait.Done()
+			defer recoverLog("segment part")
 			raw, err := segment(ctx, photos[part.Photo], part.Phrase)
 			if err != nil {
 				log.Printf("segment %q: %v", part.Phrase, err)
