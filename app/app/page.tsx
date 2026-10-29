@@ -7,23 +7,22 @@ import "./landing.css";
 
 export const metadata: Metadata = {
   title: "Helpa: fix anything in your home",
-  description: "Snap what's broken. Helpa shows every move on a 3D model of your machine, then on the machine itself through your camera, and handles the part and the pro.",
+  description: "Snap what's broken. Follow every move in 3D. Stuck? Helpa shows the move on your real machine.",
 };
 
 const scenes: Scene[] = story;
 
-const models = [
-  ["Muse Spark 1.3", "works out what's wrong, writes the steps and checks your work from the camera"],
-  ["Muse Wonder 1.0 + web search", "finds your exact model, the right part and where to buy it, and pros near you"],
-  ["SAM 3.1", "finds the part in your camera so the hologram lands on it"],
-  ["Muse Image 1.0", "draws the fix on your own photo"],
-  ["Muse Voice Transcribe", "lets you just say what's wrong, and talk to Helpa hands-free"],
-  ["Muse Spark Open", "the open-weights model, checks each step"],
+const models = ["Muse Spark", "Muse Wonder + web search", "SAM 3.1", "Muse Image", "Muse Voice", "Muse Spark Open (open weights)"];
+
+const points = [
+  ["Needs a part?", "Helpa finds the exact one and tracks it to your door."],
+  ["Needs a pro?", "Helpa finds the best-reviewed one near you and writes the message."],
+  ["16 kinds of home repair", "75 fixes ready in one tap. Anything else, Helpa researches."],
 ];
 
 const proof = [
-  ["49/50", "real problems matched to the right machine"],
-  ["8/8", "dangerous ones (gas, live wiring, airbags) sent to a pro"],
+  ["49/50", "problems matched to the right machine"],
+  ["8/8", "dangerous ones sent to a pro"],
   ["0", "unsafe instructions"],
 ];
 
@@ -45,7 +44,7 @@ export default function Landing() {
             <h1>
               Fix anything in your home. <span>Even if you know nothing.</span>
             </h1>
-            <p className="lp-lede">Snap what&apos;s broken. Helpa shows you every move on a 3D model of your machine. Still stuck? It shows the move right on your machine through your camera, and checks you got it right.</p>
+            <p className="lp-lede">Snap it. Follow the 3D. Stuck? See the move on your real machine.</p>
             <div className="lp-cta">
               <Link href="/app" className="lp-btn lp-btn-primary lp-btn-lg">
                 Try it now
@@ -58,33 +57,24 @@ export default function Landing() {
                 </span>
               </div>
             </div>
-            <p className="lp-fine">Free, no account, no app store.</p>
           </div>
-          <StoryPlayer src="/landing/story.mp4" poster="/landing/story-poster.jpg" scenes={scenes} label="A dryer that won't dry, fixed with Helpa: a photo, the steps in pictures, the move in 3D, the move on the real dryer, and Helpa checking the work" />
+          <StoryPlayer src="/landing/story.mp4" poster="/landing/story-poster.jpg" scenes={scenes} label="A dryer that won't dry, fixed with Helpa: a photo, the steps in 3D, I'm stuck, the move shown on the real dryer, and Helpa checking the work" />
         </section>
 
-        <section className="lp-section lp-split">
-          <div className="lp-split-copy">
-            <h2>Can&apos;t fix it yourself? Helpa still gets it done.</h2>
-            <p>If it needs a part, Helpa finds the exact one for your model, and once you&apos;ve ordered it, watches the delivery and tells you when it lands.</p>
-            <p>If it needs a pro, Helpa finds the best-reviewed ones near you, texts them the times you&apos;re free, and hands them everything it knows so you don&apos;t pay to diagnose it twice.</p>
-          </div>
-          <div className="lp-phone lp-phone-side">
-            <div className="lp-phone-screen">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/landing/job.webp" alt="A dryer job in Helpa: the part is on its way and Helpa is watching the delivery" loading="lazy" />
-            </div>
-          </div>
+        <section className="lp-section lp-points">
+          {points.map(([title, text]) => (
+            <p key={title}>
+              <strong>{title}</strong> {text}
+            </p>
+          ))}
         </section>
 
         <section className="lp-section lp-facts">
           <div>
-            <h2>Built on Meta&apos;s models</h2>
+            <h2>Built on Meta</h2>
             <ul className="lp-models">
-              {models.map(([name, role]) => (
-                <li key={name}>
-                  <strong>{name}</strong> {role}
-                </li>
+              {models.map((name) => (
+                <li key={name}>{name}</li>
               ))}
             </ul>
           </div>
@@ -104,17 +94,9 @@ export default function Landing() {
         <section className="lp-section lp-try">
           <div>
             <h2>Try it in a minute</h2>
-            <ol>
-              <li>
-                Open Helpa, tap <strong>Dryer</strong> under <strong>Or pick it</strong>, then <strong>Spins but no heat</strong>.
-              </li>
-              <li>
-                Tap <strong>Let&apos;s start</strong> and follow the 3D. Then tap <strong>I&apos;m stuck</strong> and <strong>Show me on my dryer</strong> with your camera on any dryer.
-              </li>
-              <li>
-                Tap <strong>Still broken</strong> until Helpa calls for a part, open the job, and order it with tracking number <strong>DEMO</strong>. It arrives in 90 seconds.
-              </li>
-            </ol>
+            <p className="lp-path">
+              <strong>Dryer</strong> → <strong>Spins but no heat</strong> → <strong>Let&apos;s start</strong> → <strong>I&apos;m stuck</strong> → <strong>Show me on my dryer</strong>
+            </p>
             <Link href="/app" className="lp-btn lp-btn-primary lp-btn-lg">
               Try it now
             </Link>

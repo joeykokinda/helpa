@@ -147,13 +147,6 @@ body:has(.lp) {
   border-radius: 12px;
   background: #fff;
 }
-.lp-fine {
-  margin-top: 16px;
-  color: var(--tertiary);
-  font-size: 14px;
-  font-weight: 600;
-}
-
 /* Phone frame */
 .lp-phone {
   position: relative;
@@ -250,26 +243,23 @@ body:has(.lp) {
   font-size: clamp(30px, 3.6vw, 46px);
 }
 
-/* Parts and pros */
-.lp-split {
+/* Parts, pros and coverage: three short lines */
+.lp-points {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  align-items: center;
-  gap: 64px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
 }
-.lp-split-copy p {
-  max-width: 32em;
-  margin-top: 20px;
+.lp-points p {
   color: var(--secondary);
-  font-size: 19px;
-  line-height: 1.55;
+  font-size: 18px;
+  line-height: 1.45;
 }
-.lp-phone-side {
-  padding: 7px;
-  border-radius: 36px;
-}
-.lp-phone-side .lp-phone-screen {
-  border-radius: 30px;
+.lp-points strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--foreground);
+  font-size: 21px;
+  letter-spacing: -0.02em;
 }
 
 /* Models and proof */
@@ -282,18 +272,18 @@ body:has(.lp) {
   font-size: clamp(26px, 2.6vw, 34px);
 }
 .lp-models {
-  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
   list-style: none;
 }
 .lp-models li {
-  padding: 13px 0;
-  border-bottom: 1px solid var(--border);
-  color: var(--secondary);
-  font-size: 16px;
-  line-height: 1.45;
-}
-.lp-models strong {
-  color: var(--foreground);
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 15px;
+  font-weight: 700;
 }
 .lp-proof {
   margin-top: 24px;
@@ -321,28 +311,20 @@ body:has(.lp) {
 }
 
 /* Try it */
+.lp-path {
+  margin: 20px 0 28px;
+  color: var(--secondary);
+  font-size: 18px;
+  line-height: 1.7;
+}
+.lp-path strong {
+  color: var(--foreground);
+}
 .lp-try {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 64px;
-}
-.lp-try ol {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 26px 0 32px;
-  padding-left: 1.3em;
-  color: var(--secondary);
-  font-size: 18px;
-  line-height: 1.5;
-}
-.lp-try li::marker {
-  color: var(--accent);
-  font-weight: 800;
-}
-.lp-try li strong {
-  color: var(--foreground);
 }
 .lp-try-qr {
   display: flex;
@@ -371,7 +353,7 @@ body:has(.lp) {
 
 @media (max-width: 900px) {
   .lp-hero,
-  .lp-split,
+  .lp-points,
   .lp-facts,
   .lp-try {
     grid-template-columns: 1fr;
@@ -383,10 +365,6 @@ body:has(.lp) {
   }
   .lp-story {
     width: min(320px, 100%);
-    margin: 0 auto;
-  }
-  .lp-phone-side {
-    width: min(260px, 100%);
     margin: 0 auto;
   }
   .lp-section {
@@ -407,8 +385,8 @@ body:has(.lp) {
   .lp-btn-lg {
     width: 100%;
   }
-  .lp-split-copy p,
-  .lp-try ol {
+  .lp-points p,
+  .lp-path {
     font-size: 17px;
   }
 }
