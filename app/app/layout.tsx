@@ -11,9 +11,9 @@ export const metadata: Metadata = {
   // Share cards need absolute URLs; set SITE_URL to the public address when deploying.
   metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
   title: "Helpa",
-  description: "Snap what's broken and Helpa shows you the fix, step by step, on a 3D model of your machine.",
-  openGraph: { title: "Helpa: see the fix in 3D", description: "Snap what's broken. Helpa finds your exact machine, shows every move on a 3D model, and checks your work.", siteName: "Helpa" },
-  twitter: { card: "summary_large_image", title: "Helpa: see the fix in 3D" },
+  description: "Fix anything in your home, even if you know nothing. Snap what's broken and Helpa shows every move on a 3D model of your machine, then on the machine itself.",
+  openGraph: { title: "Helpa: fix anything in your home", description: "Snap what's broken. Helpa finds your exact machine, shows every move in 3D and on your camera, checks your work, and handles the part or the pro.", siteName: "Helpa" },
+  twitter: { card: "summary_large_image", title: "Helpa: fix anything in your home" },
   applicationName: "Helpa",
   appleWebApp: { capable: true, title: "Helpa", statusBarStyle: "default" },
   icons: {

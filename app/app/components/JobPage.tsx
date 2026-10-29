@@ -185,10 +185,14 @@ export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }:
         </AnimatePresence>
         {sample && <p className="job-sample">Offline mode: these results are samples, not real stores or businesses.</p>}
 
+        {job.parts.map((item) => (
+          <PartCard key={item.id} job={job} part={item} busy={busy} run={run} />
+        ))}
+
         {unfound.length > 0 && job.status !== "done" && (
           <article className="card job-card">
             <h2 className="card-title">
-              <Icon name="tag" size={20} /> Parts it may need
+              <Icon name="tag" size={20} /> {job.parts.length ? "Other parts it may need" : "Parts it may need"}
             </h2>
             <p className="job-muted">Only if the steps show it&apos;s worn or broken. Helpa finds the exact one for your machine.</p>
             <ul className="job-buy">
@@ -207,9 +211,6 @@ export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }:
           </article>
         )}
 
-        {job.parts.map((item) => (
-          <PartCard key={item.id} job={job} part={item} busy={busy} run={run} />
-        ))}
 
         {(job.status === "needs_pro" || job.pros.length > 0) && job.status !== "pro_booked" && <ProFinder job={job} busy={busy} run={run} />}
 
