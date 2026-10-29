@@ -27,6 +27,7 @@ import { usePrefs } from "../lib/prefs";
 import { useVoiceCommands, type VoiceCommand } from "../lib/voice";
 import HandsFree from "../components/HandsFree";
 import AskStep from "../components/AskStep";
+import StuckSheet, { type StuckChoice } from "../components/StuckSheet";
 import { shrinkPhoto, speak, stopSpeaking } from "../lib/media";
 import { tidy } from "../lib/text";
 import type { Beat } from "../lib/rig/types";
@@ -133,9 +134,11 @@ export default function Home() {
   const [heard, setHeard] = useState("");
   // Ask Helpa mid-step: the sheet, and a question heard hands-free waiting to be asked.
   const [asking, setAsking] = useState(false);
+  // "I'm stuck": the next level of help when the 3D guide wasn't enough.
+  const [stuck, setStuck] = useState(false);
   const [spokenQuestion, setSpokenQuestion] = useState<{ text: string; at: number }>();
   const heardTimer = useRef(0);
-  const [liveCommand, setLiveCommand] = useState<{ command: Exclude<VoiceCommand, "ask">; at: number } | null>(null);
+  const [liveCommand, setLiveCommand] = useState<{ command: Exclude<VoiceCommand, "ask" | "stuck">; at: number } | null>(null);
   // Jobs: every fix carried through to working again (the part, the pro, the reminder), worked on by Helpa's agents.
   const [jobs, setJobs] = useState<Job[]>([]);
   const [jobId, setJobId] = useState<string>();
@@ -524,6 +527,19 @@ export default function Home() {
     setLive(true);
   };
 
+  // Stuck for good: the job goes to the pro finder, with the step they got stuck on in its log.
+  const handToPro = () => {
+    const id = runJob.current;
+    if (!id || !plan || !step) return;
+    stopSpeaking();
+    setJobStatus(id, "needs_pro", `Got stuck on step ${stepIndex + 1} (${tidy(step.instruction)}), so it's going to a pro.`)
+      .then((job) => {
+        rememberJob(job);
+        openJob(job.id);
+      })
+      .catch(() => say("I couldn't open the job just now. Try again?", "worried"));
+  };
+
   // What Helpa knows while you're on a step, for questions about it.
   const stepContext = () =>
     plan && step
@@ -544,6 +560,12 @@ export default function Home() {
     setHeard(words);
     window.clearTimeout(heardTimer.current);
     heardTimer.current = window.setTimeout(() => setHeard(""), 2200);
+    if (command === "stuck") {
+      // On the camera, being stuck means: show me again.
+      if (live) setLiveCommand({ command: "repeat", at: Date.now() });
+      else setStuck(true);
+      return;
+    }
     if (command === "ask") {
       // On the camera there's no room for the sheet, so Helpa just answers out loud.
       if (live)
@@ -732,9 +754,9 @@ export default function Home() {
           <button className="btn-square press" onClick={() => goToStep(stepIndex - 1)} disabled={stepIndex === 0} aria-label="Back">
             <Icon name="back" />
           </button>
-          <button className="btn btn-secondary press" onClick={retake}>
-            <Icon name="camera" size={20} />
-            Check my work
+          <button className="btn btn-secondary press" onClick={() => setStuck(true)}>
+            <Icon name="help" size={20} />
+            I&apos;m stuck
           </button>
           <button className="btn btn-primary press" onClick={() => goToStep(stepIndex + 1)}>
             {lastStep ? "All done" : "Next"}
@@ -820,12 +842,7 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <div className="step-chips">
-                  <button className="ask-chip press" onClick={() => setAsking(true)}>
-                    <Icon name="help" size={17} /> Ask Helpa
-                  </button>
-                  <HandsFree state={voiceState} heard={heard} />
-                </div>
+                <HandsFree state={voiceState} heard={heard} />
                 <h1 className="step-text">{tidy(step.instruction)}</h1>
 
                 {has3d && stepPhoto && (
@@ -839,10 +856,6 @@ export default function Home() {
                   </div>
                 )}
                 {visual && <div className="visual-card">{visual}</div>}
-                <button className="btn btn-secondary press live-open" onClick={openLive}>
-                  <Icon name="live" size={20} />
-                  Show me on my camera
-                </button>
 
                 {step.details?.length > 0 && (
                   <details className="more-help">
@@ -872,6 +885,19 @@ export default function Home() {
           onChange={(changeEvent) => {
             runCheck(changeEvent.target.files?.[0]);
             changeEvent.target.value = "";
+          }}
+        />
+        <StuckSheet
+          open={stuck}
+          thing={/^(car|truck|suv|vehicle)$/i.test(plan.appliance.trim()) ? "car" : tidy(plan.appliance).toLowerCase()}
+          canGetPro={Boolean(currentJob)}
+          onClose={() => setStuck(false)}
+          onChoose={(choice: StuckChoice) => {
+            setStuck(false);
+            if (choice === "live") openLive();
+            else if (choice === "ask") setAsking(true);
+            else if (choice === "check") retake();
+            else handToPro();
           }}
         />
         <AskStep

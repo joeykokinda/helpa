@@ -7,6 +7,6 @@ export const story: Scene[] = [
   { at: 10.5, caption: "Helpa finds your exact model." },
   { at: 13.8, caption: "Here's the fix, step by step." },
   { at: 18.4, caption: "Every move, in 3D." },
-  { at: 22.8, caption: "Then right on your dryer." },
+  { at: 22.8, caption: "Still stuck? See it on your dryer." },
   { at: 28, caption: "Fixed." },
 ];

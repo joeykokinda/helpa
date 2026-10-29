@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 /** What you can say while your hands are busy. */
-export type VoiceCommand = "next" | "back" | "repeat" | "show" | "check" | "ask";
+export type VoiceCommand = "next" | "back" | "repeat" | "show" | "check" | "ask" | "stuck";
 
 // Whole words only, so "next" inside a longer sentence still counts but "nextdoor" doesn't. Order matters:
 // "show me again" is a repeat, not a show.
 const commandWords: [VoiceCommand, RegExp][] = [
+  ["stuck", /\b(i'?m stuck|stuck|help me|i'?m lost|i don'?t get it)\b/i],
   ["repeat", /\b(repeat|again|say that again|what was that|pardon|come again)\b/i],
   ["back", /\b(back|go back|previous|undo)\b/i],
   ["show", /\b(show me|show|camera|hologram)\b/i],

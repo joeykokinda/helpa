@@ -17,8 +17,8 @@ itself is at https://brach.taild3399f.ts.net/app on any phone (Android Chrome or
 
 1. Open `/app`, and under **Or pick it** tap **Dryer**, then **Spins but no heat**. The plan shows every step as
    a picture drawn from the 3D model.
-2. Tap **Let's start** and watch the move in 3D. Point the camera at any dryer and tap **Show me on my camera**
-   for the AR hologram.
+2. Tap **Let's start** and watch the move in 3D. Then tap **I'm stuck** and **Show me on my dryer**, with the
+   camera on any dryer, for the AR hologram on the real machine.
 3. Tap **Still broken** until Helpa calls for a part, then **Find a pro near me** to open the job. Find the thermal
    fuse, tap **I ordered it** and type the tracking number **DEMO**: the order plays through shipped, out for
    delivery and delivered in 90 seconds (with a push notification if you turned them on).
@@ -54,7 +54,9 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
   free. Book it, add it to your calendar, and get a reminder the day before. Fixed jobs get a check-up reminder.
 - **The plan in pictures.** Before you start, every step is drawn as a picture from the 3D model of your machine,
   the part in orange and the move on it, like a page of assembly instructions. Tap one to jump to that step.
-- **Ask Helpa mid-step.** Stuck? "Ask Helpa" on any step answers about your machine and that exact step, out loud.
+- **I'm stuck.** The 3D guide leads. If it isn't enough, "I'm stuck" offers the next level of help: the move shown
+  on your own machine through the camera (AR), Ask Helpa (answers about your machine and that exact step, out
+  loud), a photo check of what you did, or handing the job to a pro.
 - **Hands-free.** Say "next", "back", "repeat", "show me" or "check" while you work, or just ask a question
   ("which way does it turn?"); Helpa ignores its own voice.
 - **Your exact machine.** Snap the model sticker or VIN, or just say what's wrong. Helpa reads the identity
@@ -63,7 +65,7 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
 - **A 3D twin with real joints.** Doors hinge, filters twist then lift, lint screens slide, drain plugs unscrew.
   Each step plays as beats on the model, with effects for what actually happens: air choking at a clogged lint
   screen, oil streaming into the pan, standing water draining.
-- **Live Guide (AR).** "Show me on my camera" finds the part on your live camera, locks onto it, and plays the move
+- **Live Guide (AR).** "I'm stuck → Show me on my dryer" finds the part on your live camera, locks onto it, and plays the move
   as a frosted-glass hologram of your own part with an orange path for the move, the 3D twin in the corner playing the
   same beat on the same clock. The picture fills the screen on a phone held upright.
 - **Your turn.** After the demo, Helpa watches the real part and answers **COMPLETED** (moves on by itself),

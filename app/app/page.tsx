@@ -45,7 +45,7 @@ export default function Landing() {
             <h1>
               Fix anything in your home. <span>Even if you know nothing.</span>
             </h1>
-            <p className="lp-lede">Snap what&apos;s broken. Helpa shows you every move on a 3D model of your machine, then on the machine itself through your camera, and checks you got it right.</p>
+            <p className="lp-lede">Snap what&apos;s broken. Helpa shows you every move on a 3D model of your machine. Still stuck? It shows the move right on your machine through your camera, and checks you got it right.</p>
             <div className="lp-cta">
               <Link href="/app" className="lp-btn lp-btn-primary lp-btn-lg">
                 Try it now
@@ -109,7 +109,7 @@ export default function Landing() {
                 Open Helpa, tap <strong>Dryer</strong> under <strong>Or pick it</strong>, then <strong>Spins but no heat</strong>.
               </li>
               <li>
-                Tap <strong>Let&apos;s start</strong>. Point your camera at any dryer and tap <strong>Show me on my camera</strong>.
+                Tap <strong>Let&apos;s start</strong> and follow the 3D. Then tap <strong>I&apos;m stuck</strong> and <strong>Show me on my dryer</strong> with your camera on any dryer.
               </li>
               <li>
                 Tap <strong>Still broken</strong> until Helpa calls for a part, open the job, and order it with tracking number <strong>DEMO</strong>. It arrives in 90 seconds.

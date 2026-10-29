@@ -62,6 +62,7 @@ Snap the model sticker or describe the problem → Helpa identifies the exact ma
 
 ## Decisions to keep
 
+- The 3D guide leads every step; AR is the "I'm stuck" rescue (I'm stuck → Show me on my machine / Ask Helpa / Check what I did / Hand it to a pro). Saying "I'm stuck" or "help me" opens the same menu.
 - Host on brach, never Railway. Light mode default, holograms only inside the AR camera view. No automatic flashlight. The user's camera zoom is theirs; Helpa crops internally. Savings only when honest (none when a step says call a pro). No x402. Don't name a competitor chatbot in the video. Keep the house mascot, talking less.
 
 See `TODO.md` for the full checklist.

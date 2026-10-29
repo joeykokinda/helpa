@@ -2912,9 +2912,6 @@ a:focus-visible {
 .live-actions .btn-square {
   color: #ffffff;
 }
-.live-open {
-  width: 100%;
-}
 @media (prefers-reduced-motion: reduce) {
   .live-helpa {
     transition: opacity 0.2s ease;
@@ -4373,27 +4370,7 @@ body:has(.not-found) {
   width: auto;
 }
 
-/* Ask Helpa mid-step: a chip by Hands-free, and a sheet that rises over the step. */
-.step-chips {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-.ask-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 36px;
-  padding: 0 14px 0 11px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
+/* Ask Helpa mid-step: a sheet that rises over the step. */
 .ask-backdrop {
   position: absolute;
   inset: 0;
@@ -4487,4 +4464,60 @@ body:has(.not-found) {
 }
 .ask-send:disabled {
   opacity: 0.45;
+}
+
+/* "I'm stuck": the next level of help, the move on your own machine first. */
+.stuck-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+.stuck-choice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 14px 14px 12px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--surface-2);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+}
+.stuck-choice > span:nth-child(2) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.stuck-choice strong {
+  font-size: 17px;
+}
+.stuck-choice > span:nth-child(2) > span {
+  color: var(--secondary);
+  font-size: 14px;
+  line-height: 1.35;
+}
+.stuck-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--accent);
+}
+.stuck-choice-main {
+  background: var(--primary);
+  color: var(--primary-text);
+}
+.stuck-choice-main > span:nth-child(2) > span {
+  color: color-mix(in srgb, var(--primary-text) 70%, transparent);
+}
+.stuck-choice-main .stuck-icon {
+  background: var(--accent);
+  color: #fff;
 }
