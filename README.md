@@ -34,6 +34,13 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
 - **Circle it.** Draw on your own photo with a finger to show exactly where the problem is; the marked photo goes to
   Muse Spark. **Muse Image** then redraws your photo as a repair diagram, the part circled and the move drawn on,
   shown with the plan and used as your share card when it's fixed.
+- **Jobs: from broken to fixed, on autopilot.** Every fix is a job with Helpa's next step on top. Needs a part?
+  **Muse Wonder** searches the web for the exact part number for your model and where to buy it (only pages it
+  actually found). Tap "I ordered it" and a background agent has **Muse Spark** check the tracking every few hours,
+  then pushes a notification when it ships and when it arrives; tapping it opens the install guide for that part.
+  Needs a pro? Muse Wonder finds the best-reviewed local pros for the right trade, and you call or text them with a
+  message Helpa wrote: your machine, the likely cause, what's already ruled out, part numbers and the times you're
+  free. Book it, add it to your calendar, and get a reminder the day before. Fixed jobs get a check-up reminder.
 - **Hands-free.** Say "next", "back", "repeat", "show me" or "check" while you work; Helpa ignores its own voice.
 - **Your exact machine.** Snap the model sticker or VIN, or just say what's wrong. Helpa reads the identity
   ("Whirlpool WED5050LW", "2015 Toyota Camry 2.5L"), pulls that model's manual and parts list, and asks a tap-to-answer

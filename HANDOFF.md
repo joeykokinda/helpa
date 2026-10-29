@@ -42,10 +42,12 @@ Snap the model sticker or describe the problem → Helpa identifies the exact ma
   - Kill servers by port (`kill $(lsof -t -iTCP:3000 -sTCP:LISTEN)`), never `pkill -f` (it kills its own shell).
   - The old trycloudflare laptop link is dead; brach is the only live link now.
 
+| Jobs (Oct 29) | Every plan is a job (server, per anonymous device id, `HELPA_DATA` folder, default `./data`). Part finder and pro finder are Muse Wonder + `web_search` agents with strict submit schemas (no invented links or phones). The watcher (`watcher.go`) runs every 10 min, has Muse Spark check tracking, and sends Web Push (RFC 8291/8292 on the standard library; VAPID key saved in the data folder; set `HELPA_PUSH_CONTACT=mailto:you@...`). Replay mode: finders return labelled samples from `fixtures/parts.json` and `fixtures/pros.json`, and a delivery plays through in 90 s. Calling a pro is one tap (tel:/sms: with the summary), not an AI phone call. |
+
 ## What's next, in order
 
 1. **Merge `round-4` into `main` and deploy** (`./scripts/deploy-brach.sh`). Nothing in round 4 has run against the live Meta API yet.
-2. **Live-test the new Meta paths with the real key:** `/api/illustrate` (Muse Image via the Responses API, `input_image` reference, reads the `image_generation_call` result) and, with Baseten credits, `BASETEN_API_KEY=... ` for Muse Spark Open checks (`HELPA_OPEN_WEIGHTS_URL` / `HELPA_OPEN_WEIGHTS_MODEL` override the endpoint and model). Both fail soft.
+2. **Live-test the new Meta paths with the real key** (allow `api.meta.ai` in the environment network settings and add `META_API_KEY`): the part finder and pro finder on a real job, the tracking check on a real tracking number, a push to a real phone (add to home screen first on iPhone), plus `/api/illustrate` (Muse Image via the Responses API, `input_image` reference, reads the `image_generation_call` result) and, with Baseten credits, `BASETEN_API_KEY=... ` for Muse Spark Open checks (`HELPA_OPEN_WEIGHTS_URL` / `HELPA_OPEN_WEIGHTS_MODEL` override the endpoint and model). Both fail soft.
 3. **Real-phone test of Live Guide** (still the biggest unknown): the new full-bleed camera, frosted hologram on a white dryer, hands-free on iPhone Safari (`webkitSpeechRecognition`) and Android Chrome.
 4. **Video and X post:** show pick-it (toilet keeps running in one tap), circle-it, the Muse Image drawing, hands-free "next" with wet hands, and the AR lint screen. Update `docs/VIDEO.md` shot list.
 5. **Spanish is parked.** 2,000 library strings were translated but not wired in; restart from scratch if wanted.
