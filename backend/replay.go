@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -23,6 +24,15 @@ var replayPause = map[string]time.Duration{
 	"step_parts": 200 * time.Millisecond, "status": 300 * time.Millisecond,
 	"identify": 2500 * time.Millisecond, "track": 300 * time.Millisecond, "question": 600 * time.Millisecond,
 	"rig": 1200 * time.Millisecond, "model_error": 1500 * time.Millisecond,
+}
+
+// replayPace stretches the replay's pauses (HELPA_REPLAY_PACE=10 plays ten times slower), for filming the app
+// frame by frame where the browser's clock runs slower than the wall clock.
+func replayPace() float64 {
+	if pace, err := strconv.ParseFloat(os.Getenv("HELPA_REPLAY_PACE"), 64); err == nil && pace > 0 {
+		return pace
+	}
+	return 1
 }
 
 func replayFixture(complaint string) (string, error) {
@@ -87,7 +97,7 @@ func replayStream(request *http.Request, recording io.Reader, session *fixSessio
 		select {
 		case <-request.Context().Done():
 			return
-		case <-time.After(replayPause[fmt.Sprint(recorded["type"])]):
+		case <-time.After(time.Duration(float64(replayPause[fmt.Sprint(recorded["type"])]) * replayPace())):
 		}
 		if recorded["type"] == "question" {
 			// Recorded questions wait for a real answer, so the question UI can be tested for free.
