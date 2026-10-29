@@ -436,19 +436,53 @@ function stars(rating: number) {
   return rating > 0 ? `${rating.toFixed(1)} ★` : "";
 }
 
+const locationKey = "helpa-location";
+
+function savedLocation() {
+  try {
+    return localStorage.getItem(locationKey) ?? "";
+  } catch {
+    return "";
+  }
+}
+
 function ProFinder({ job, busy, run }: RunProps) {
-  const [location, setLocation] = useState(job.location ?? "");
+  const [location, setLocation] = useState(() => job.location ?? savedLocation());
+  // Typing a ZIP is the fallback: first Helpa asks the phone where you are, only when you need a pro.
+  const [typing, setTyping] = useState(false);
+  const [locating, setLocating] = useState(false);
   const [slots, setSlots] = useState<number[]>([]);
   const [booking, setBooking] = useState<JobPro | null>(null);
   const [bookAt, setBookAt] = useState("");
   const options = timeSlots().slice(0, 6);
 
-  const useMyLocation = () =>
-    navigator.geolocation?.getCurrentPosition(
-      (position) => setLocation(`${position.coords.latitude.toFixed(3)}, ${position.coords.longitude.toFixed(3)}`),
-      () => undefined,
-      { timeout: 8000 },
+  const search = (where: string) => {
+    try {
+      localStorage.setItem(locationKey, where);
+    } catch {
+      // private mode: asked again next time
+    }
+    run("pros", () => findPros(job.id, where));
+  };
+
+  const nearMe = () => {
+    if (location.trim()) return search(location.trim());
+    if (!navigator.geolocation) return setTyping(true);
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocating(false);
+        const where = `${position.coords.latitude.toFixed(3)}, ${position.coords.longitude.toFixed(3)}`;
+        setLocation(where);
+        search(where);
+      },
+      () => {
+        setLocating(false);
+        setTyping(true);
+      },
+      { timeout: 10000, maximumAge: 3600_000 },
     );
+  };
 
   const message = () => {
     const free = slots.length ? `\nI'm free ${slots.map((at) => options.find((option) => option.at === at)?.label.toLowerCase()).join(", or ")}.` : "";
@@ -460,21 +494,30 @@ function ProFinder({ job, busy, run }: RunProps) {
       <h2 className="card-title">
         <Icon name="wrench" size={20} /> Find a pro
       </h2>
-      <form
-        className="job-location"
-        onSubmit={(submitEvent) => {
-          submitEvent.preventDefault();
-          if (location.trim()) run("pros", () => findPros(job.id, location.trim()));
-        }}
-      >
-        <input value={location} onChange={(changeEvent) => setLocation(changeEvent.target.value)} placeholder="ZIP code or town" aria-label="Your ZIP code or town" maxLength={80} />
-        <button className="icon-button press" type="button" onClick={useMyLocation} aria-label="Use my location">
-          <Icon name="globe" size={20} />
-        </button>
-        <button className="btn btn-primary btn-small press" type="submit" disabled={!location.trim() || Boolean(busy)}>
-          {busy === "pros" ? "Searching…" : job.pros.length ? "Search again" : "Find pros"}
-        </button>
-      </form>
+      {typing || (location && job.pros.length > 0) ? (
+        <form
+          className="job-location"
+          onSubmit={(submitEvent) => {
+            submitEvent.preventDefault();
+            if (location.trim()) search(location.trim());
+          }}
+        >
+          <input value={location} onChange={(changeEvent) => setLocation(changeEvent.target.value)} placeholder="ZIP code or town" aria-label="Your ZIP code or town" maxLength={80} autoFocus={typing} />
+          <button className="btn btn-primary btn-small press" type="submit" disabled={!location.trim() || Boolean(busy)}>
+            {busy === "pros" ? "Searching…" : job.pros.length ? "Search again" : "Find pros"}
+          </button>
+        </form>
+      ) : (
+        <>
+          <button className="btn btn-primary press" onClick={nearMe} disabled={Boolean(busy) || locating}>
+            <Icon name="globe" size={20} />
+            {busy === "pros" ? "Finding the best-reviewed pros…" : locating ? "Finding you…" : location ? `Find pros near ${location}` : "Find pros near me"}
+          </button>
+          <button className="text-button press" onClick={() => setTyping(true)}>
+            Type a ZIP code instead
+          </button>
+        </>
+      )}
 
       {job.pros.length > 0 && (
         <>

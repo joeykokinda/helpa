@@ -91,7 +91,7 @@ export default function MyHome({ machines, jobs, onOpenJob, mood, speaking, onOp
               <Icon name="camera" size={26} />
             </span>
             <strong>Show me</strong>
-            <span>Snap photos of the problem</span>
+            <span>Snap or scan it with your camera</span>
           </button>
           <button className="start-action press" onClick={onTell}>
             <span className="start-action-icon" aria-hidden="true">
