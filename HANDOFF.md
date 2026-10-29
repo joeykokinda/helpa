@@ -44,6 +44,8 @@ Snap the model sticker or describe the problem → Helpa identifies the exact ma
 
 | Jobs (Oct 29) | Every plan is a job (server, per anonymous device id, `HELPA_DATA` folder, default `./data`). Part finder and pro finder are Muse Wonder + `web_search` agents with strict submit schemas (no invented links or phones). The watcher (`watcher.go`) runs every 10 min, has Muse Spark check tracking, and sends Web Push (RFC 8291/8292 on the standard library; VAPID key saved in the data folder; set `HELPA_PUSH_CONTACT=mailto:you@...`). Replay mode: finders return labelled samples from `fixtures/parts.json` and `fixtures/pros.json`, and a delivery plays through in 90 s. Calling a pro is one tap (tel:/sms: with the summary), not an AI phone call. |
 
+| Landing (Oct 29) | `/` is now the landing page (`app/app/page.tsx`, `landing.css`, assets in `public/landing/` taken from the real app with headless Chromium and a fake camera); the app moved to `/app` (manifest `start_url`, service worker and push links updated). QR codes point at `<origin>/app`. Plan screen draws every step as a picture from the 3D model (`Storyboard.tsx`). Tracking number `DEMO` plays a delivery through in 90 s on the live server too, so judges can see the part loop; the watcher now runs every 15 s (model calls are still gated to every few hours per part). |
+
 ## What's next, in order
 
 1. **Merge `round-4` into `main` and deploy** (`./scripts/deploy-brach.sh`). Nothing in round 4 has run against the live Meta API yet.

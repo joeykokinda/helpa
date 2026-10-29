@@ -2,7 +2,7 @@
 // opens the right job when one is tapped.
 
 self.addEventListener("push", (event) => {
-  let message = { title: "Helpa", body: "", url: "/" };
+  let message = { title: "Helpa", body: "", url: "/app" };
   try {
     message = { ...message, ...event.data.json() };
   } catch {
@@ -20,7 +20,7 @@ self.addEventListener("push", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const url = new URL(event.notification.data?.url || "/", self.location.origin).href;
+  const url = new URL(event.notification.data?.url || "/app", self.location.origin).href;
   event.waitUntil(
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((windows) => {
       for (const client of windows) {

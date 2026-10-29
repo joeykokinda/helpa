@@ -97,7 +97,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }:
   if (job.status === "part_arrived" && part)
     next = {
       title: "Your part is here",
-      detail: `Helpa walks you through putting the new ${part.name.toLowerCase()} in, step by step.`,
+      detail: `Helpa walks you through putting the new ${shortPart(part.name).toLowerCase()} in, step by step.`,
       action: (
         <button className="btn btn-light press" onClick={() => onInstall(job, part)}>
           <Icon name="wrench" size={20} /> Install it now
@@ -116,7 +116,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }:
         ),
     };
   else if (job.status === "needs_part" && part)
-    next = { title: `Order the ${part.name.toLowerCase()}`, detail: "Tap a store below, then come back and tap “I ordered it”. Helpa takes it from there." };
+    next = { title: `Order the ${shortPart(part.name).toLowerCase()}`, detail: "Tap a store below, then come back and tap “I ordered it”. Helpa takes it from there." };
   else if (job.status === "needs_pro")
     next = job.pros.length
       ? { title: "Call one of these pros", detail: "They're the best reviewed near you. Your message already says what's wrong and what you tried." }
@@ -164,7 +164,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }:
         <div className="job-head">
           <span className={`status-pill job-status job-status-${job.status}`}>{statusLabel[job.status]}</span>
           <h1 className="title">{job.title}</h1>
-          <p className="job-machine">{machine}</p>
+          {(job.brand || job.model) && <p className="job-machine">{machine}</p>}
         </div>
 
         <motion.article key={job.status + next.title} className="job-next" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
@@ -357,7 +357,7 @@ function PartCard({ job, part, busy, run }: RunProps & { part: JobPart }) {
   return (
     <article className="card job-card">
       <h2 className="card-title">
-        <Icon name="tag" size={20} /> {part.name}
+        <Icon name="tag" size={20} /> {shortPart(part.name)}
       </h2>
       {part.part_number && (
         <p className="job-part-number">
@@ -399,6 +399,9 @@ function PartCard({ job, part, busy, run }: RunProps & { part: JobPart }) {
                 Tracking number (if you have it)
                 <input value={tracking} onChange={(changeEvent) => setTracking(changeEvent.target.value)} placeholder="From the shipping email" maxLength={40} inputMode="text" autoCapitalize="characters" />
               </label>
+              <button type="button" className="job-demo-link" onClick={() => setTracking("DEMO")}>
+                Just trying Helpa? Use DEMO and watch it arrive in 90 seconds
+              </button>
               <button className="btn btn-primary press" type="submit" disabled={busy === "order"}>
                 {busy === "order" ? "Saving…" : "Save. Helpa will watch it"}
               </button>

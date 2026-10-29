@@ -112,10 +112,10 @@ export function shortPart(name: string) {
 /** What a pro needs to know before they come, so you aren't charged to diagnose it twice. */
 export function jobSummary(job: Job) {
   const machine = [job.brand, job.model, job.appliance].filter(Boolean).join(" ");
-  const lines = [`${machine}: ${job.title}`];
+  const lines = [`${machine.charAt(0).toUpperCase()}${machine.slice(1)}: ${job.title}`];
   if (job.diagnosis) lines.push(`Likely cause: ${job.diagnosis}`);
   if (job.ruled_out.length) lines.push(`Already ruled out: ${job.ruled_out.join("; ")}`);
-  for (const part of job.parts) if (part.part_number) lines.push(`Part: ${part.name} (${part.part_number})`);
+  for (const part of job.parts) if (part.part_number) lines.push(`Part: ${shortPart(part.name)} (${part.part_number})`);
   return lines.join("\n");
 }
 
@@ -191,7 +191,7 @@ export function nextUp(job: Job): string {
   const part = job.parts.find((candidate) => candidate.status !== "delivered") ?? job.parts[0];
   switch (job.status) {
     case "needs_part":
-      return part ? `Order the ${part.name.toLowerCase()}` : `Find the ${job.parts_needed[0] ?? "part"}`;
+      return part ? `Order the ${shortPart(part.name).toLowerCase()}` : `Find the ${job.parts_needed[0] ?? "part"}`;
     case "waiting_part":
       return part?.status === "out_for_delivery" ? "Part arriving today" : part?.eta ? `Part arriving ${part.eta}` : "Part on its way";
     case "part_arrived":

@@ -10,10 +10,21 @@ it right. Simple enough for anyone: big buttons, every step read aloud, and "nex
 Built solo for the Meta Global AI Developer Hackathon (Oct 27 to Nov 4, 2026). Everything in this repo was written
 during the hackathon.
 
-**Try it:** https://brach.taild3399f.ts.net on any phone (Android Chrome or iPhone Safari). Tap a tile under
-**Or pick it** (toilet, sink, fridge, smoke alarm...) for a ready fix in a second. Nothing broken? **Watch a fix**
-on the first screen (gritty dishes, clothes still wet, disposal hums, washer won't drain, Camry oil
-change) for the full flow in about 30 seconds. Add it to your home screen to use it like an app.
+**Try it:** https://brach.taild3399f.ts.net is the landing page (QR code, screenshots, a 3D-to-AR clip); the app
+itself is at https://brach.taild3399f.ts.net/app on any phone (Android Chrome or iPhone Safari). No account.
+
+### Test it in 60 seconds
+
+1. Open `/app`, and under **Or pick it** tap **Dryer**, then **Spins but no heat**. The plan shows every step as
+   a picture drawn from the 3D model.
+2. Tap **Let's start** and watch the move in 3D. Point the camera at any dryer and tap **Show me on my camera**
+   for the AR hologram.
+3. Tap **Still broken** until Helpa calls for a part, then **Find a pro near me** to open the job. Find the thermal
+   fuse, tap **I ordered it** and type the tracking number **DEMO**: the order plays through shipped, out for
+   delivery and delivered in 90 seconds (with a push notification if you turned them on).
+
+Nothing broken? **Watch a fix** on the first screen replays recorded real runs (gritty dishes, clothes still wet,
+disposal hums, washer won't drain, Camry oil change). Add it to your home screen to use it like an app.
 
 | My Home | The plan | 3D step | Done |
 |---|---|---|---|

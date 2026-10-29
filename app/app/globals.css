@@ -4040,6 +4040,17 @@ span.hands-free-glass {
   color: var(--foreground);
   font-size: 16px;
 }
+.job-demo-link {
+  align-self: flex-start;
+  border: 0;
+  background: none;
+  color: var(--accent-strong);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
 .job-location {
   display: flex;
   gap: 8px;

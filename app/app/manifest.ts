@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Helpa",
     short_name: "Helpa",
     description: "Snap what's broken and Helpa shows you the fix, step by step, on a 3D model.",
-    start_url: "/",
+    start_url: "/app",
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#ffffff",

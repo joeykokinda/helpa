@@ -55,6 +55,11 @@ func replayTracking(part jobPart, now time.Time) (string, string, string) {
 	return "ordered", "", ""
 }
 
+// demoTracking is the tracking number to type when just trying Helpa: the order plays through like in replay mode.
+func demoTracking(tracking string) bool {
+	return strings.EqualFold(strings.TrimSpace(tracking), "demo")
+}
+
 type notice struct{ title, body, path string }
 
 // watchOnce makes one pass over every device; it returns how many notifications it sent.
@@ -76,7 +81,7 @@ func watchOnce(ctx context.Context, now time.Time) int {
 					if part.Status == "found" || part.Status == "delivered" {
 						continue
 					}
-					if replayDir != "" {
+					if replayDir != "" || demoTracking(part.Tracking) {
 						if status, eta, note := replayTracking(*part, now); trackingOrder[status] > trackingOrder[part.Status] {
 							notices = append(notices, advancePart(item, part, status, eta, note)...)
 						}
@@ -92,7 +97,7 @@ func watchOnce(ctx context.Context, now time.Time) int {
 					// No tracking number: a gentle nudge five days after ordering.
 					if part.Tracking == "" && !part.Notified && now.Sub(time.UnixMilli(part.OrderedAt)) > 5*24*time.Hour {
 						part.Notified = true
-						notices = append(notices, notice{"Did your part arrive?", fmt.Sprintf("The %s should be there by now. Tap when it's in.", part.Name), "/?job=" + item.ID})
+						notices = append(notices, notice{"Did your part arrive?", fmt.Sprintf("The %s should be there by now. Tap when it's in.", part.Name), "/app?job=" + item.ID})
 					}
 				}
 				for index := range item.FollowUps {
@@ -100,14 +105,14 @@ func watchOnce(ctx context.Context, now time.Time) int {
 					if !followUp.Done && !followUp.Notified && now.UnixMilli() >= followUp.Due {
 						followUp.Notified = true
 						item.note("reminder", "Reminder: "+followUp.Label)
-						notices = append(notices, notice{"Time for a quick check", fmt.Sprintf("%s (%s)", followUp.Label, item.Appliance), "/?job=" + item.ID})
+						notices = append(notices, notice{"Time for a quick check", fmt.Sprintf("%s (%s)", followUp.Label, item.Appliance), "/app?job=" + item.ID})
 					}
 				}
 				if appointment := item.Appointment; appointment != nil && !appointment.Notified {
 					until := time.UnixMilli(appointment.At).Sub(now)
 					if until > 0 && until < 24*time.Hour {
 						appointment.Notified = true
-						notices = append(notices, notice{"Pro visit tomorrow", fmt.Sprintf("%s comes %s. Your job summary is ready to show them.", appointment.Pro, time.UnixMilli(appointment.At).Format("Mon 3:04 PM")), "/?job=" + item.ID})
+						notices = append(notices, notice{"Pro visit tomorrow", fmt.Sprintf("%s comes %s. Your job summary is ready to show them.", appointment.Pro, time.UnixMilli(appointment.At).Format("Mon 3:04 PM")), "/app?job=" + item.ID})
 					}
 				}
 			}
@@ -142,7 +147,7 @@ func watchOnce(ctx context.Context, now time.Time) int {
 				if status == "problem" {
 					current.LastNote = note
 					item.note("note", "Delivery problem: "+note)
-					notices = append(notices, notice{"Problem with your part's delivery", note, "/?job=" + item.ID})
+					notices = append(notices, notice{"Problem with your part's delivery", note, "/app?job=" + item.ID})
 				} else if trackingOrder[status] > trackingOrder[current.Status] {
 					notices = append(notices, advancePart(item, current, status, eta, note)...)
 				} else if note != "" {
@@ -175,14 +180,14 @@ func advancePart(item *job, part *jobPart, status, eta, note string) []notice {
 	switch status {
 	case "shipped":
 		item.note("part_shipped", fmt.Sprintf("The %s shipped. %s", part.Name, note))
-		return []notice{{"Your part shipped", fmt.Sprintf("The %s is on its way%s.", part.Name, etaSuffix(part.ETA)), "/?job=" + item.ID}}
+		return []notice{{"Your part shipped", fmt.Sprintf("The %s is on its way%s.", part.Name, etaSuffix(part.ETA)), "/app?job=" + item.ID}}
 	case "out_for_delivery":
 		item.note("part_shipped", fmt.Sprintf("The %s is out for delivery.", part.Name))
-		return []notice{{"Arriving today", fmt.Sprintf("Your %s is out for delivery.", part.Name), "/?job=" + item.ID}}
+		return []notice{{"Arriving today", fmt.Sprintf("Your %s is out for delivery.", part.Name), "/app?job=" + item.ID}}
 	case "delivered":
 		item.Status = "part_arrived"
 		item.note("part_arrived", fmt.Sprintf("The %s arrived. Ready to install.", part.Name))
-		return []notice{{"Your part arrived!", fmt.Sprintf("The %s is here. Tap and Helpa walks you through putting it in.", part.Name), "/?job=" + item.ID + "&install=" + part.ID}}
+		return []notice{{"Your part arrived!", fmt.Sprintf("The %s is here. Tap and Helpa walks you through putting it in.", part.Name), "/app?job=" + item.ID + "&install=" + part.ID}}
 	}
 	return nil
 }
@@ -205,10 +210,8 @@ func firstNonEmpty(values ...string) string {
 
 // startWatcher runs the watcher for the life of the server.
 func startWatcher() {
-	every := 10 * time.Minute
-	if replayDir != "" {
-		every = 15 * time.Second
-	}
+	// Each pass is cheap (tracking checks wait hours between calls), so it runs often enough for a demo order to move.
+	every := 15 * time.Second
 	go func() {
 		for {
 			time.Sleep(every)
