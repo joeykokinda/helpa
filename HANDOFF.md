@@ -46,6 +46,10 @@ Snap the model sticker or describe the problem → Helpa identifies the exact ma
 
 | Landing (Oct 29) | `/` is now the landing page (`app/app/page.tsx`, `landing.css`, assets in `public/landing/` taken from the real app with headless Chromium and a fake camera); the app moved to `/app` (manifest `start_url`, service worker and push links updated). QR codes point at `<origin>/app`. Plan screen draws every step as a picture from the 3D model (`Storyboard.tsx`). Tracking number `DEMO` plays a delivery through in 90 s on the live server too, so judges can see the part loop; the watcher now runs every 15 s (model calls are still gated to every few hours per part). |
 
+| Polish (Oct 29, late) | Landing is a lean story page: the hero plays `public/landing/story.mp4`, filmed from the real app frame by frame on a fake clock (scripts in the session scratch, see "Filming" below), with a caption per moment. Share card redone in the new look. Ask Helpa mid-step (chip next to Hands-free; spoken questions go to Helpa). Machines show their open job's state instead of "Repaired"; fixes handed to a pro are marked; the needs-a-pro ending doesn't celebrate; Tell me's back goes home; failed runs keep what you typed; the fix list has Try again; pro finder says "Near you"; branded 404. Backend: server header timeout, Meta client with a response-header timeout, panic recovery in every background goroutine. |
+
+**Filming the story video:** run the replay backend with `HELPA_REPLAY_PACE=2.5` and only `dryer.sse` in the replay folder, a production Next server, and a Playwright script that installs the fake clock, wraps `requestAnimationFrame` so callbacks get `performance.now()`, drives CSS animations from the same clock, and screenshots each 33 ms tick; ffmpeg joins the frames at 30 fps.
+
 ## What's next, in order
 
 1. **Merge `round-4` into `main` and deploy** (`./scripts/deploy-brach.sh`). Nothing in round 4 has run against the live Meta API yet.

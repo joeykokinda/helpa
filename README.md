@@ -40,7 +40,7 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
 ## What it does
 
 - **Show it, tell it, or pick it.** The first screen is three ways in: the camera, your voice, or a tile for every
-  thing Helpa knows (16 things, 90 ready fixes, from a running toilet to a chirping smoke alarm). Picking a problem
+  thing Helpa knows (16 things, 75 ready fixes, from a running toilet to a chirping smoke alarm). Picking a problem
   goes straight to its fix, no typing and no photo.
 - **Circle it.** Draw on your own photo with a finger to show exactly where the problem is; the marked photo goes to
   Muse Spark. **Muse Image** then redraws your photo as a repair diagram, the part circled and the move drawn on,
@@ -52,7 +52,11 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
   Needs a pro? Muse Wonder finds the best-reviewed local pros for the right trade, and you call or text them with a
   message Helpa wrote: your machine, the likely cause, what's already ruled out, part numbers and the times you're
   free. Book it, add it to your calendar, and get a reminder the day before. Fixed jobs get a check-up reminder.
-- **Hands-free.** Say "next", "back", "repeat", "show me" or "check" while you work; Helpa ignores its own voice.
+- **The plan in pictures.** Before you start, every step is drawn as a picture from the 3D model of your machine,
+  the part in orange and the move on it, like a page of assembly instructions. Tap one to jump to that step.
+- **Ask Helpa mid-step.** Stuck? "Ask Helpa" on any step answers about your machine and that exact step, out loud.
+- **Hands-free.** Say "next", "back", "repeat", "show me" or "check" while you work, or just ask a question
+  ("which way does it turn?"); Helpa ignores its own voice.
 - **Your exact machine.** Snap the model sticker or VIN, or just say what's wrong. Helpa reads the identity
   ("Whirlpool WED5050LW", "2015 Toyota Camry 2.5L"), pulls that model's manual and parts list, and asks a tap-to-answer
   question when it needs one.
