@@ -97,3 +97,18 @@ func TestJobsNeedADevice(t *testing.T) {
 		t.Errorf("no device id: %d", recorder.Code)
 	}
 }
+
+func TestShortPart(t *testing.T) {
+	cases := map[string]string{
+		"Thermal fuse for your model (match it by the model number)":                "Thermal fuse",
+		"New 4-inch foil or semi-rigid vent hose, only if yours is torn or crushed": "4-inch foil or semi-rigid vent hose",
+		"Heating element for your model, if the fuse isn't it":                      "Heating element",
+		"Universal 2-inch toilet flapper (only if yours is warped)":                 "Universal 2-inch toilet flapper",
+		"Drain pump": "Drain pump",
+	}
+	for input, want := range cases {
+		if got := shortPart(input); got != want {
+			t.Errorf("shortPart(%q) = %q, want %q", input, got, want)
+		}
+	}
+}

@@ -8,7 +8,7 @@ import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import { tidy } from "../lib/text";
 
-type DoneProps = { plan: Plan | null; /** Muse Image's drawing of the fix on their photo, for the share card. */ drawing?: string; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void; savedName?: string; ruledOut?: string[] };
+type DoneProps = { plan: Plan | null; /** Muse Image's drawing of the fix on their photo, for the share card. */ drawing?: string; /** Opens this fix's job: the pro finder, the part, the reminder. */ onJob?: () => void; minutes: number; mood: HelpaMood; speaking: boolean; onRestart: () => void; savedName?: string; ruledOut?: string[] };
 
 /** Little stars that pop out from behind Helpa once, like a party popper. */
 function Burst() {
@@ -36,7 +36,7 @@ const proStep = /\b(call|contact|hire|book|schedule)\b.*\b(pro|technician|profes
 /** The plan hands the repair to a professional, so there's nothing for the person to test or celebrate fixing. */
 export const needsPro = (plan: Plan | null) => Boolean(plan?.stop_for_pro || plan?.steps.some((step) => proStep.test(step.instruction)));
 
-export default function Done({ plan, drawing, minutes, mood, speaking, onRestart, savedName, ruledOut = [] }: DoneProps) {
+export default function Done({ plan, drawing, onJob, minutes, mood, speaking, onRestart, savedName, ruledOut = [] }: DoneProps) {
   const [shared, setShared] = useState(false);
   // Only claim savings when a technician or shop would really have been paid for this fix.
   // A plan that ends in "call a pro" may still need that visit, so it saved nothing we can claim.
@@ -150,15 +150,28 @@ export default function Done({ plan, drawing, minutes, mood, speaking, onRestart
           </motion.div>
         )}
       </div>
-      <div className="bottom-bar bottom-bar-pair">
-        <button className="btn btn-secondary press" onClick={share}>
-          <Icon name={shared ? "check" : "share"} size={20} />
-          {shared ? "Shared" : "Share"}
-        </button>
-        <button className="btn btn-primary press" onClick={onRestart}>
-          {savedName ? "Go to My Home" : "Fix another"}
-        </button>
-      </div>
+      {handedOff && onJob ? (
+        // A job for a pro: Helpa finds the best-reviewed one near you and writes the message.
+        <div className="bottom-bar bottom-bar-pair">
+          <button className="btn btn-secondary press" onClick={onRestart}>
+            Later
+          </button>
+          <button className="btn btn-primary press" onClick={onJob}>
+            <Icon name="wrench" size={20} />
+            Find a pro near me
+          </button>
+        </div>
+      ) : (
+        <div className="bottom-bar bottom-bar-pair">
+          <button className="btn btn-secondary press" onClick={share}>
+            <Icon name={shared ? "check" : "share"} size={20} />
+            {shared ? "Shared" : "Share"}
+          </button>
+          <button className="btn btn-primary press" onClick={onRestart}>
+            {savedName ? "Go to My Home" : "Fix another"}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

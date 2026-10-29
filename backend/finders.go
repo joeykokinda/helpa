@@ -114,6 +114,18 @@ func keepLinks(options []buyOption) []buyOption {
 	return kept
 }
 
+// shortPart turns a plan's wording ("Thermal fuse for your model (match it by the model number)") into the part's
+// name ("Thermal fuse") for cards, notifications and the search.
+func shortPart(name string) string {
+	short := name
+	for _, cut := range []string{" (", ", only if", ", if ", " only if", " for your", ", the same", " if "} {
+		if index := strings.Index(strings.ToLower(short), cut); index > 3 {
+			short = short[:index]
+		}
+	}
+	return strings.TrimSpace(strings.TrimPrefix(strings.TrimPrefix(short, "New "), "A new "))
+}
+
 func handleFindParts(writer http.ResponseWriter, request *http.Request) {
 	device, ok := deviceOf(writer, request)
 	if !ok {
@@ -136,7 +148,7 @@ func handleFindParts(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, "no such job", http.StatusNotFound)
 		return
 	}
-	partName := clip(body.Part, 120)
+	partName := shortPart(clip(body.Part, 120))
 	if partName == "" && len(current.PartsNeeded) > 0 {
 		partName = current.PartsNeeded[0]
 	}
@@ -155,7 +167,10 @@ func handleFindParts(writer http.ResponseWriter, request *http.Request) {
 			return
 		}
 		// Searches and tokens are counted against the daily budget as the replies come in.
-		found, _, err = findPart(request.Context(), current, partName)
+		found, _, err = findPart(request.Context(), current, clip(body.Part, 120))
+		if found.Name == "" {
+			found.Name = partName
+		}
 	}
 	if err != nil {
 		log.Printf("find part: %v", err)

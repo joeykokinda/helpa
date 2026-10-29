@@ -7,11 +7,15 @@ import { tidy } from "../lib/text";
 import Helpa, { type HelpaMood } from "./Helpa";
 import Icon from "./Icons";
 import FixPicker from "./FixPicker";
+import { nextUp, type Job } from "../lib/jobs";
 import { SampleCards, samplePhoto, type Sample } from "./Samples";
 import ThemeToggle from "./ThemeToggle";
 
 type MyHomeProps = {
   machines: Machine[];
+  /** Jobs still in motion (a part on order, a pro to book) show first. */
+  jobs: Job[];
+  onOpenJob: (job: Job) => void;
   mood: HelpaMood;
   speaking: boolean;
   onOpen: (machine: Machine) => void;
@@ -51,7 +55,7 @@ export function MachineThumb({ machine }: { machine: Machine }) {
 }
 
 /** The first screen: show it, tell it, or pick it from the list; then the machines Helpa remembers. */
-export default function MyHome({ machines, mood, speaking, onOpen, onFix, onTell, onPickFix, onSample, onHelp }: MyHomeProps) {
+export default function MyHome({ machines, jobs, onOpenJob, mood, speaking, onOpen, onFix, onTell, onPickFix, onSample, onHelp }: MyHomeProps) {
   const [loadingSample, setLoadingSample] = useState<string>();
   const trySample = async (sample: Sample) => {
     setLoadingSample(sample.id);
@@ -62,6 +66,7 @@ export default function MyHome({ machines, mood, speaking, onOpen, onFix, onTell
     }
   };
   const due = machines.filter((machine) => statusOf(machine).tone === "due").length;
+  const openJobs = jobs.filter((job) => job.status !== "done");
 
   return (
     <section className="screen home" aria-label="My Home">
@@ -97,6 +102,29 @@ export default function MyHome({ machines, mood, speaking, onOpen, onFix, onTell
           </button>
         </div>
 
+
+        {openJobs.length > 0 && (
+          <section className="home-section" aria-labelledby="jobs-heading">
+            <h2 id="jobs-heading" className="section-title">
+              Open jobs
+              <span className="section-count">Helpa is on {openJobs.length === 1 ? "it" : `all ${openJobs.length}`}</span>
+            </h2>
+            <ul className="job-list">
+              {openJobs.map((job) => (
+                <li key={job.id}>
+                  <button className={`job-row press job-row-${job.status}`} onClick={() => onOpenJob(job)}>
+                    <span className="job-row-dot" aria-hidden="true" />
+                    <span className="job-row-text">
+                      <strong>{job.title}</strong>
+                      <span>{nextUp(job)}</span>
+                    </span>
+                    <Icon name="next" size={18} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {machines.length > 0 && (
           <section className="home-section" aria-labelledby="home-heading">

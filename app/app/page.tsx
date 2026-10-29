@@ -13,6 +13,8 @@ import Done, { needsPro } from "./components/Done";
 import Outcome from "./components/Outcome";
 import MachinePage from "./components/MachinePage";
 import MyHome from "./components/MyHome";
+import JobPage from "./components/JobPage";
+import { addFollowUp, createJob, listJobs, setJobStatus, type Job, type JobPart } from "./lib/jobs";
 import Helpa, { type HelpaMood } from "./components/Helpa";
 import Icon, { type IconName } from "./components/Icons";
 import Onboarding, { hasOnboarded } from "./components/Onboarding";
@@ -79,7 +81,7 @@ function iconFor(tool: string): IconName {
   return toolIcons.find(([pattern]) => pattern.test(tool))?.[1] ?? "toolbox";
 }
 
-type Stage = "home" | "machine" | "start" | "working" | "plan" | "step" | "outcome" | "done";
+type Stage = "home" | "machine" | "job" | "start" | "working" | "plan" | "step" | "outcome" | "done";
 type Question = { session: string; question: string; choices: string[] };
 
 const noSubscription = () => () => {};
@@ -129,6 +131,17 @@ export default function Home() {
   const [heard, setHeard] = useState("");
   const heardTimer = useRef(0);
   const [liveCommand, setLiveCommand] = useState<{ command: VoiceCommand; at: number } | null>(null);
+  // Jobs: every fix carried through to working again (the part, the pro, the reminder), worked on by Helpa's agents.
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobId, setJobId] = useState<string>();
+  const runJob = useRef<string | undefined>(undefined);
+  // The same id as state, for the screens to show "find a pro" / "get the part" (refs can't be read while rendering).
+  const [currentJob, setCurrentJob] = useState<string>();
+  const trackRunJob = (id: string | undefined) => {
+    runJob.current = id;
+    setCurrentJob(id);
+  };
+  const rememberJob = (job: Job) => setJobs((current) => [job, ...current.filter((other) => other.id !== job.id)]);
   // Muse Image's drawing of the fix on the person's own photo: requested once the plan is known.
   const [drawing, setDrawing] = useState<{ state: "drawing" | "ready"; url?: string } | null>(null);
   const drawingRun = useRef(0);
@@ -140,7 +153,28 @@ export default function Home() {
       setMachines(list);
       setHomeLoaded(true);
     });
+    listJobs()
+      .then((list) => {
+        setJobs(list);
+        // A tapped notification opens its job (?job=...).
+        const opened = new URLSearchParams(window.location.search).get("job");
+        if (opened && list.some((job) => job.id === opened)) {
+          setJobId(opened);
+          setStage("job");
+          window.history.replaceState(null, "", "/");
+        }
+      })
+      .catch(() => {});
   }, []);
+
+  // While a job or home is on screen, pick up what Helpa's agents did in the background (a part shipped, arrived).
+  useEffect(() => {
+    if (stage !== "job" && stage !== "home") return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) listJobs().then(setJobs).catch(() => {});
+    }, 15000);
+    return () => window.clearInterval(timer);
+  }, [stage]);
 
   const rememberMachine = (machine: Machine) => setMachines((current) => [machine, ...current.filter((other) => other.id !== machine.id)]);
 
@@ -219,6 +253,7 @@ export default function Home() {
         }
         if (agentEvent.plan.safety.length) setTimeout(() => setMood("worried"), 400);
         drawFix(agentEvent.plan);
+        trackJob(agentEvent.plan);
         break;
       case "rig":
         setRig({ id: agentEvent.rig, stepBeats: agentEvent.step_beats, recipe: agentEvent.recipe, catalog: agentEvent.catalog });
@@ -255,12 +290,50 @@ export default function Home() {
     });
   };
 
+  /** Every plan is a job: a new one for a new problem, a note on the same job when the first fix didn't work. */
+  const trackJob = (fixPlan: Plan) => {
+    const ruledOut = runRef.current.attempts.map((attempt) => attempt.cause);
+    const proNeeded = needsPro(fixPlan);
+    if (runJob.current) {
+      const id = runJob.current;
+      // A follow-up after "Still broken", or the install guide for a part that arrived.
+      const note = ruledOut.length ? `Ruled out ${ruledOut[ruledOut.length - 1]}. Next most likely: ${firstSentence(tidy(fixPlan.diagnosis))}` : `Install guide ready: ${fixPlan.steps.length} steps.`;
+      setJobStatus(id, proNeeded ? "needs_pro" : "", note, { diagnosis: fixPlan.diagnosis, partsNeeded: fixPlan.replacement_parts, ruledOut })
+        .then(rememberJob)
+        .catch(() => {});
+      return;
+    }
+    const title = capitalize(firstSentence(tidy(runRef.current.description || fixPlan.diagnosis)).replace(/\.$/, "")).slice(0, 90);
+    createJob(fixPlan, { title, ruledOut, status: proNeeded ? "needs_pro" : "fixing" })
+      .then((job) => {
+        trackRunJob(job.id);
+        rememberJob(job);
+      })
+      .catch(() => {});
+  };
+
+  const openJob = (id?: string) => {
+    if (!id) return;
+    stopSpeaking();
+    setJobId(id);
+    setStage("job");
+  };
+
+  /** The part arrived: Helpa researches how to put it in on this exact machine and walks through it. */
+  const installPart = (job: Job, part: JobPart) => {
+    const number = part.part_number ? ` (part number ${part.part_number})` : "";
+    const machine = [job.brand, job.model, job.appliance].filter(Boolean).join(" ");
+    start([], `My new ${part.name}${number} arrived. Show me how to install it on my ${machine}. The problem was: ${job.title}. ${job.diagnosis}`);
+    trackRunJob(job.id);
+  };
+
   const start = async (photos: Blob[], description: string, sample?: string, tried: Attempt[] = [], fix?: string) => {
     stopSpeaking();
     setStage("working");
     // A follow-up keeps counting from the first try.
     if (!tried.length) startedAt.current = Date.now();
     runRef.current = { photos, sample, description, attempts: tried, fix };
+    if (!tried.length) trackRunJob(undefined);
     drawingRun.current++;
     setDrawing(null);
     setAttempts(tried);
@@ -346,6 +419,15 @@ export default function Home() {
     stopSpeaking();
     const name = /^(car|truck|suv|vehicle)$/i.test(plan.appliance.trim()) ? "car" : tidy(plan.appliance).toLowerCase();
     say(needsPro(plan) ? `Good call. Let a pro take it from here. I'll remember your ${name}.` : `You did it! That's fixed. I'll remember your ${name}.`, "celebrate");
+    // Close the job, or hand it to the pro finder; a fixed job gets a check-up reminder in three months.
+    if (runJob.current) {
+      const id = runJob.current;
+      const handedOff = needsPro(plan);
+      setJobStatus(id, handedOff ? "needs_pro" : "done", handedOff ? "Helpa says this one needs a pro." : `Fixed it: ${tidy(plan.cause || firstSentence(plan.diagnosis))}.`)
+        .then((job) => (handedOff ? job : addFollowUp(id, `Check the ${tidy(plan.appliance).toLowerCase()} is still working well`, Date.now() + 90 * 86_400_000)))
+        .then(rememberJob)
+        .catch(() => {});
+    }
     saveFix(plan, {
       rig: playableRig ? { id: playableRig.id, recipe: playableRig.recipe } : undefined,
       photos: runRef.current.photos,
@@ -457,6 +539,8 @@ export default function Home() {
     screen = (
       <MyHome
         machines={machines}
+        jobs={jobs}
+        onOpenJob={(job) => openJob(job.id)}
         mood={mood}
         speaking={speaking}
         onOpen={(machine) => {
@@ -478,6 +562,19 @@ export default function Home() {
         onPickFix={(fix, says) => start([], says, undefined, [], fix)}
         onSample={(photo, sample) => start([photo], sample.complaint, sample.id)}
         onHelp={openTutorial}
+      />
+    );
+  else if (stage === "job" && jobs.some((job) => job.id === jobId))
+    screen = (
+      <JobPage
+        job={jobs.find((job) => job.id === jobId) as Job}
+        onChange={rememberJob}
+        onBack={() => setStage("home")}
+        onInstall={installPart}
+        onDeleted={(id) => {
+          setJobs((current) => current.filter((job) => job.id !== id));
+          setStage("home");
+        }}
       />
     );
   else if (stage === "machine" && machines.some((machine) => machine.id === machineId))
@@ -533,6 +630,7 @@ export default function Home() {
       <PlanScreen
         plan={plan}
         drawing={drawing}
+        onGetPart={currentJob ? () => openJob(currentJob) : undefined}
         ruledOut={attempts.map((attempt) => attempt.cause)}
         mood={mood}
         speaking={speaking}
@@ -747,7 +845,7 @@ export default function Home() {
       />
     );
   else if (stage === "done")
-    screen = <Done plan={plan} drawing={drawing?.url} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} savedName={savedName} ruledOut={attempts.map((attempt) => attempt.cause)} />;
+    screen = <Done plan={plan} drawing={drawing?.url} onJob={currentJob ? () => openJob(currentJob) : undefined} minutes={fixMinutes} mood={mood} speaking={speaking} onRestart={restart} savedName={savedName} ruledOut={attempts.map((attempt) => attempt.cause)} />;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -913,6 +1011,8 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
 type PlanProps = {
   plan: Plan;
   drawing: { state: "drawing" | "ready"; url?: string } | null;
+  /** Opens the job, where Helpa finds the exact part and where to buy it. */
+  onGetPart?: () => void;
   ruledOut: string[];
   mood: HelpaMood;
   speaking: boolean;
@@ -921,7 +1021,7 @@ type PlanProps = {
   onHelp: () => void;
 };
 
-function PlanScreen({ plan, drawing, ruledOut, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
+function PlanScreen({ plan, drawing, onGetPart, ruledOut, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
   const diagnosis = tidy(plan.diagnosis);
   const headline = diagnosis.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? diagnosis;
   const rest = diagnosis.slice(headline.length).trim();
@@ -1046,6 +1146,11 @@ function PlanScreen({ plan, drawing, ruledOut, mood, speaking, onStart, onRestar
                     </li>
                   ))}
                 </ul>
+                {onGetPart && (
+                  <button className="text-button press get-part" onClick={onGetPart}>
+                    <Icon name="tag" size={16} /> Find the exact part and where to buy it
+                  </button>
+                )}
               </>
             )}
           </motion.article>

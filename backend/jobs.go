@@ -327,13 +327,32 @@ func registerJobRoutes() {
 		if !ok {
 			return
 		}
-		var body struct{ Status, Note string }
+		var body struct {
+			Status, Note string
+			// What a later plan says ("Still broken" led to the next cause): its diagnosis, the parts it may
+			// need, and what's been ruled out on the way.
+			Diagnosis             string
+			PartsNeeded, RuledOut []string
+		}
 		if !readBody(writer, request, &body) {
 			return
 		}
 		item, err := jobs.updateJob(device, request.PathValue("id"), func(item *job) error {
 			if body.Status != "" && slices.Contains(jobStatuses, body.Status) {
 				item.Status = body.Status
+			}
+			if diagnosis := clip(body.Diagnosis, 600); diagnosis != "" {
+				item.Diagnosis = diagnosis
+			}
+			for _, cause := range clipAll(body.RuledOut, 8, 160) {
+				if !slices.Contains(item.RuledOut, cause) {
+					item.RuledOut = append(item.RuledOut, cause)
+				}
+			}
+			for _, part := range clipAll(body.PartsNeeded, 6, 120) {
+				if !slices.Contains(item.PartsNeeded, part) && len(item.PartsNeeded) < 6 {
+					item.PartsNeeded = append(item.PartsNeeded, part)
+				}
 			}
 			kind := "note"
 			if body.Status == "done" {
