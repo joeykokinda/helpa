@@ -1,0 +1,8 @@
+{
+  "trade": "appliance repair",
+  "pros": [
+    {"name": "Sample Appliance Repair (offline demo)", "trade": "appliance repair", "rating": 4.9, "reviews": 412, "phone": "(555) 010-0142", "website": "https://example.com", "address": "Main St", "why": "Sample result: in offline mode Helpa shows made-up pros so the flow can be tried.", "hours": "Mon-Sat 8am-6pm"},
+    {"name": "Sample Home Services (offline demo)", "trade": "appliance repair", "rating": 4.7, "reviews": 188, "phone": "(555) 010-0177", "website": "https://example.com", "address": "Oak Ave", "why": "Sample result: same-day visits mentioned in reviews.", "hours": "Every day 7am-8pm"},
+    {"name": "Sample Fix-It Co. (offline demo)", "trade": "appliance repair", "rating": 4.6, "reviews": 95, "phone": "(555) 010-0123", "website": "https://example.com", "address": "Elm Rd", "why": "Sample result: factory-authorized for Whirlpool.", "hours": "Mon-Fri 9am-5pm"}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Dryer thermal fuse",
+  "part_number": "3392519",
+  "fits": "Fits most Whirlpool, Maytag and Kenmore electric dryers from 1990 on; match the number printed on your old fuse.",
+  "confidence": "medium",
+  "buy": [
+    {"store": "RepairClinic", "url": "https://www.repairclinic.com/Search?query=3392519", "price": "$12.49", "in_stock": true},
+    {"store": "PartSelect", "url": "https://www.partselect.com/Models/3392519/", "price": "$11.95", "in_stock": true},
+    {"store": "Amazon", "url": "https://www.amazon.com/s?k=3392519+thermal+fuse", "price": "$8.99", "in_stock": true}
+  ]
+}

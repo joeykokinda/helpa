@@ -67,6 +67,8 @@ func main() {
 		json.NewEncoder(writer).Encode(pickerEntries())
 	})
 	http.HandleFunc("GET /api/health", handleHealth)
+	registerJobRoutes()
+	startWatcher()
 	address := os.Getenv("ADDR")
 	if replayDir != "" && address == "" {
 		address = "127.0.0.1:8096"
@@ -82,7 +84,7 @@ func main() {
 func withCORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		writer.Header().Set("Access-Control-Allow-Origin", "*")
-		writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Helpa-Device")
 		writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 		if request.Method == http.MethodOptions {
 			writer.WriteHeader(http.StatusNoContent)

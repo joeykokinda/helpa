@@ -30,6 +30,7 @@ var routeLimits = map[string]routeLimit{
 	"/api/answer":     {perMinute: 60, burst: 20},
 	"/api/ask":        {perMinute: 10, burst: 4},
 	"/api/illustrate": {perMinute: 4, burst: 2},
+	"/api/jobs/find":  {perMinute: 3, burst: 2},
 }
 
 var defaultLimit = routeLimit{perMinute: 120, burst: 30}
@@ -101,6 +102,10 @@ func withLimits(next http.Handler) http.Handler {
 			return
 		}
 		route := request.URL.Path
+		// The finders (part, pro) run a web-searching agent each, so they share one tight limit whatever the job.
+		if strings.HasPrefix(route, "/api/jobs/") && strings.HasSuffix(route, "/find") {
+			route = "/api/jobs/find"
+		}
 		limit, found := routeLimits[route]
 		if !found {
 			limit = defaultLimit
