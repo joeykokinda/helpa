@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /** What you can say while your hands are busy. */
-export type VoiceCommand = "next" | "back" | "repeat" | "show" | "check";
+export type VoiceCommand = "next" | "back" | "repeat" | "show" | "check" | "ask";
 
 // Whole words only, so "next" inside a longer sentence still counts but "nextdoor" doesn't. Order matters:
 // "show me again" is a repeat, not a show.
@@ -14,6 +14,10 @@ const commandWords: [VoiceCommand, RegExp][] = [
   ["check", /\b(check|check it|check my work|did i do it)\b/i],
   ["next", /\b(next|done|okay|ok|got it|finished|continue|ready)\b/i],
 ];
+
+// A question for Helpa ("which way does it turn?") rather than a command, even if it says "next" or "show".
+const question = /^\s*(hey\s+)?(helpa\W+)?(what|what's|how|why|which|where|when|who|can|could|should|would|is|are|do|does|did|will|wait)\b/i;
+export const isQuestion = (text: string) => question.test(text) || text.trim().endsWith("?");
 
 export function commandFrom(text: string): VoiceCommand | null {
   return commandWords.find(([, pattern]) => pattern.test(text))?.[0] ?? null;
@@ -73,6 +77,14 @@ export function useVoiceCommands(enabled: boolean, muted: boolean, onCommand: (c
       if (performance.now() < mutedUntilRef.current) return;
       for (let index = resultEvent.resultIndex; index < resultEvent.results.length; index++) {
         const heard = resultEvent.results[index][0]?.transcript ?? "";
+        // A question waits for the whole sentence, then goes to Helpa instead of driving the steps.
+        if (isQuestion(heard)) {
+          if (resultEvent.results[index].isFinal && heard.trim().split(/\s+/).length >= 3) {
+            lastFired = performance.now();
+            onCommandRef.current("ask", heard.trim());
+          }
+          continue;
+        }
         const command = commandFrom(heard);
         // Interim results make it feel instant; the gap stops one word firing twice as it firms up.
         if (command && performance.now() - lastFired > 1500) {

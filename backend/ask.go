@@ -12,6 +12,7 @@ const maxAskBytes = 64 << 10
 const askInstructions = `You are Helpa, a friendly home repair helper. The person is asking a follow-up question about one
 machine in their home. You get what you know about it: its identity, past fixes, and the chat so far.
 Answer in at most 3 short, plain sentences for a total beginner, grounded in that machine and its history.
+When you're told the step they're on right now (current_step), answer about doing that step, hands on the machine.
 Never invent part numbers, prices or manual URLs; say you are not sure instead.
 If something is unsafe for a beginner (gas, mains wiring, refrigerant, anything sparking or burning), say so and
 tell them to call a pro.
@@ -53,6 +54,13 @@ func handleAsk(writer http.ResponseWriter, request *http.Request) {
 	}
 	writer.Header().Set("Content-Type", "application/json")
 	if replayDir != "" {
+		var during struct {
+			CurrentStep string `json:"current_step"`
+		}
+		if json.Unmarshal(body.Machine, &during) == nil && during.CurrentStep != "" {
+			json.NewEncoder(writer).Encode(map[string]any{"answer": "Go gently on this one: " + strings.ToLower(strings.TrimSuffix(during.CurrentStep, ".")) + ". If it feels stuck, don't force it; tell me what you see and I'll help.", "start_fix": false, "complaint": ""})
+			return
+		}
 		json.NewEncoder(writer).Encode(map[string]any{"answer": "Clean the lint screen before every load, and check the outside vent flap opens when it runs. If clothes still come out damp, I can walk you through cleaning the vent.", "start_fix": false, "complaint": ""})
 		return
 	}

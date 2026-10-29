@@ -4372,3 +4372,119 @@ body:has(.not-found) {
 .picker-failed .btn {
   width: auto;
 }
+
+/* Ask Helpa mid-step: a chip by Hands-free, and a sheet that rises over the step. */
+.step-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.ask-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 14px 0 11px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ask-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  background: rgb(14 14 15 / 0.32);
+}
+.ask-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 72%;
+  padding: 14px 16px calc(16px + env(safe-area-inset-bottom));
+  border-radius: 28px 28px 0 0;
+  background: var(--background);
+  box-shadow: var(--shadow-lg);
+}
+.ask-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 19px;
+}
+.ask-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 60px;
+  overflow-y: auto;
+}
+.ask-empty {
+  color: var(--secondary);
+  font-size: 16px;
+}
+.ask-line {
+  max-width: 86%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.ask-you {
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+  background: var(--primary);
+  color: var(--primary-text);
+}
+.ask-helpa {
+  align-self: flex-start;
+  border-bottom-left-radius: 6px;
+  background: var(--surface-2);
+}
+.ask-typing {
+  color: var(--secondary);
+}
+.ask-starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ask-form {
+  display: flex;
+  gap: 8px;
+}
+.ask-form input {
+  flex: 1;
+  min-width: 0;
+  min-height: 50px;
+  padding: 0 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--foreground);
+  font-size: 16px;
+}
+.ask-send {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+.ask-send:disabled {
+  opacity: 0.45;
+}

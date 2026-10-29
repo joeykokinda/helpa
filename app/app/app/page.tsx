@@ -21,11 +21,12 @@ import Onboarding, { hasOnboarded } from "../components/Onboarding";
 import PartPhoto from "../components/PartPhoto";
 import { rigLoaders } from "../components/rig/registry";
 import { listMachines, saveFix, type Machine } from "../lib/home";
-import { answerQuestion, checkStep, describeSearch, illustrateStep, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "../lib/api";
+import { answerQuestion, askHelpa, checkStep, describeSearch, illustrateStep, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "../lib/api";
 import { requestMotionPermission } from "../lib/live";
 import { usePrefs } from "../lib/prefs";
 import { useVoiceCommands, type VoiceCommand } from "../lib/voice";
 import HandsFree from "../components/HandsFree";
+import AskStep from "../components/AskStep";
 import { shrinkPhoto, speak, stopSpeaking } from "../lib/media";
 import { tidy } from "../lib/text";
 import type { Beat } from "../lib/rig/types";
@@ -130,8 +131,11 @@ export default function Home() {
   // Hands-free: spoken commands drive the steps while your hands are busy.
   const { handsFree } = usePrefs();
   const [heard, setHeard] = useState("");
+  // Ask Helpa mid-step: the sheet, and a question heard hands-free waiting to be asked.
+  const [asking, setAsking] = useState(false);
+  const [spokenQuestion, setSpokenQuestion] = useState<{ text: string; at: number }>();
   const heardTimer = useRef(0);
-  const [liveCommand, setLiveCommand] = useState<{ command: VoiceCommand; at: number } | null>(null);
+  const [liveCommand, setLiveCommand] = useState<{ command: Exclude<VoiceCommand, "ask">; at: number } | null>(null);
   // Jobs: every fix carried through to working again (the part, the pro, the reminder), worked on by Helpa's agents.
   const [jobs, setJobs] = useState<Job[]>([]);
   const [jobId, setJobId] = useState<string>();
@@ -520,10 +524,38 @@ export default function Home() {
     setLive(true);
   };
 
+  // What Helpa knows while you're on a step, for questions about it.
+  const stepContext = () =>
+    plan && step
+      ? {
+          appliance: plan.appliance,
+          brand: plan.brand,
+          model: plan.model_number,
+          diagnosis: plan.diagnosis,
+          step_number: stepIndex + 1,
+          current_step: step.instruction,
+          current_step_help: step.details ?? [],
+          part: step.target_part ?? "",
+          all_steps: plan.steps.map((planStep) => planStep.instruction),
+        }
+      : {};
+
   const voiceState = useVoiceCommands(handsFree && stage === "step", speaking, (command, words) => {
     setHeard(words);
     window.clearTimeout(heardTimer.current);
     heardTimer.current = window.setTimeout(() => setHeard(""), 2200);
+    if (command === "ask") {
+      // On the camera there's no room for the sheet, so Helpa just answers out loud.
+      if (live)
+        askHelpa(stepContext(), [], words)
+          .then((reply) => say(reply.answer, "explaining"))
+          .catch(() => say("I didn't catch an answer for that. Ask me again?", "worried"));
+      else {
+        setAsking(true);
+        setSpokenQuestion({ text: words, at: Date.now() });
+      }
+      return;
+    }
     // On the camera, the Live Guide acts on it (show again, check now); on the step page, the page does.
     if (live) return setLiveCommand({ command, at: Date.now() });
     if (!plan || !step) return;
@@ -788,7 +820,12 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <HandsFree state={voiceState} heard={heard} />
+                <div className="step-chips">
+                  <button className="ask-chip press" onClick={() => setAsking(true)}>
+                    <Icon name="help" size={17} /> Ask Helpa
+                  </button>
+                  <HandsFree state={voiceState} heard={heard} />
+                </div>
                 <h1 className="step-text">{tidy(step.instruction)}</h1>
 
                 {has3d && stepPhoto && (
@@ -836,6 +873,14 @@ export default function Home() {
             runCheck(changeEvent.target.files?.[0]);
             changeEvent.target.value = "";
           }}
+        />
+        <AskStep
+          key={stepIndex}
+          open={asking}
+          spoken={spokenQuestion}
+          onClose={() => setAsking(false)}
+          onAnswer={(answer) => say(answer, "explaining")}
+          context={stepContext()}
         />
       </section>
     );
