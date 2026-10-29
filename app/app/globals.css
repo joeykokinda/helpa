@@ -4179,3 +4179,96 @@ button.job-buy-row {
   text-align: left;
   cursor: pointer;
 }
+
+/* The plan as pictures: each step drawn from the 3D model, like a page of assembly instructions. */
+.storyboard {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  list-style: none;
+}
+.story-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 0 0 10px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+}
+.story-picture {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: #f4efe6;
+}
+.story-picture img,
+.story-pending,
+.story-none {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.story-none {
+  display: grid;
+  place-items: center;
+  color: #8b8378;
+}
+.story-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #0e0e0f;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.story-label {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  max-width: calc(100% - 16px);
+  overflow: hidden;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0e0e0f;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+}
+.story-text {
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.storyboard-stage {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 400px;
+  height: 300px;
+  pointer-events: none;
+}
+.storyboard-stage .scene-3d {
+  width: 400px;
+  height: 300px;
+  min-height: 0;
+  border-radius: 0;
+}

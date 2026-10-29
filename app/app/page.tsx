@@ -32,6 +32,7 @@ import type { Beat } from "./lib/rig/types";
 
 const RigStep = dynamic(() => import("./components/rig/RigStep"), { ssr: false });
 const LiveGuide = dynamic(() => import("./components/LiveGuide"), { ssr: false });
+const Storyboard = dynamic(() => import("./components/Storyboard"), { ssr: false });
 const Scene3D = dynamic(() => import("./components/Scene3D"), {
   ssr: false,
   loading: () => <SceneSkeleton text="Building your 3D model" />,
@@ -631,6 +632,8 @@ export default function Home() {
         plan={plan}
         drawing={drawing}
         onGetPart={currentJob ? () => openJob(currentJob) : undefined}
+        storyRig={playableRig}
+        onOpenStep={enterStep}
         ruledOut={attempts.map((attempt) => attempt.cause)}
         mood={mood}
         speaking={speaking}
@@ -1013,6 +1016,9 @@ type PlanProps = {
   drawing: { state: "drawing" | "ready"; url?: string } | null;
   /** Opens the job, where Helpa finds the exact part and where to buy it. */
   onGetPart?: () => void;
+  /** The 3D model and its beats, when there is one: the steps are drawn as pictures from it. */
+  storyRig: { id: string; stepBeats: Beat[][]; recipe?: unknown } | null;
+  onOpenStep: (index: number) => void;
   ruledOut: string[];
   mood: HelpaMood;
   speaking: boolean;
@@ -1021,7 +1027,7 @@ type PlanProps = {
   onHelp: () => void;
 };
 
-function PlanScreen({ plan, drawing, onGetPart, ruledOut, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
+function PlanScreen({ plan, drawing, onGetPart, storyRig, onOpenStep, ruledOut, mood, speaking, onStart, onRestart, onHelp }: PlanProps) {
   const diagnosis = tidy(plan.diagnosis);
   const headline = diagnosis.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? diagnosis;
   const rest = diagnosis.slice(headline.length).trim();
@@ -1160,14 +1166,19 @@ function PlanScreen({ plan, drawing, onGetPart, ruledOut, mood, speaking, onStar
           <h2 className="card-title">
             {plan.steps.length} simple steps
           </h2>
-          <ol className="step-list">
-            {plan.steps.map((planStep, index) => (
-              <li key={index}>
-                <span className="step-number">{index + 1}</span>
-                <span>{firstSentence(tidy(planStep.instruction))}</span>
-              </li>
-            ))}
-          </ol>
+          {storyRig ? (
+            // Every step as a picture from the 3D model of their machine; tap one to start there.
+            <Storyboard rig={storyRig} steps={plan.steps} onOpen={onOpenStep} />
+          ) : (
+            <ol className="step-list">
+              {plan.steps.map((planStep, index) => (
+                <li key={index}>
+                  <span className="step-number">{index + 1}</span>
+                  <span>{firstSentence(tidy(planStep.instruction))}</span>
+                </li>
+              ))}
+            </ol>
+          )}
         </motion.article>
       </div>
       <div className="bottom-bar">

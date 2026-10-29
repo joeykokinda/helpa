@@ -48,7 +48,10 @@ function amountsAt(start: RigState, beats: Beat[], defs: Record<string, RigPartD
   return state;
 }
 
-function Timeline({ beats, defs, start, slow, clockStartRef, amountsRef, focusRef, playRef, onBeat }: { beats: Beat[]; defs: Record<string, RigPartDef>; start: RigState; slow: boolean; clockStartRef: RefObject<number>; amountsRef: RefObject<RigState>; focusRef: RefObject<string | null>; playRef: RefObject<PlayHead>; onBeat: (index: number) => void }) {
+/** A frozen moment for a still picture: which beat, and how far through its move. */
+export type StillMoment = { beat: number; progress: number };
+
+function Timeline({ beats, defs, start, slow, still, clockStartRef, amountsRef, focusRef, playRef, onBeat }: { beats: Beat[]; defs: Record<string, RigPartDef>; start: RigState; slow: boolean; still?: StillMoment; clockStartRef: RefObject<number>; amountsRef: RefObject<RigState>; focusRef: RefObject<string | null>; playRef: RefObject<PlayHead>; onBeat: (index: number) => void }) {
   const lastIndexRef = useRef(-1);
   useFrame(({ clock }) => {
     if (!beats.length) {
@@ -56,7 +59,9 @@ function Timeline({ beats, defs, start, slow, clockStartRef, amountsRef, focusRe
       focusRef.current = null;
       return;
     }
-    const play = timelineAt(clock.elapsedTime - clockStartRef.current, beats.length, slow);
+    const play = still
+      ? { index: Math.min(still.beat, beats.length - 1), within: timing.lead + still.progress * timing.move, progress: still.progress }
+      : timelineAt(clock.elapsedTime - clockStartRef.current, beats.length, slow);
     playRef.current = play;
     amountsRef.current = amountsAt(start, beats, defs, play.index, play.progress);
     focusRef.current = beats[play.index].part;
@@ -177,6 +182,21 @@ function PinTracker({ beat, def, nodes, pinRef, leaderRef, dotRef }: { beat?: Be
   return null;
 }
 
+/** Once the frozen moment has settled (camera placed, shadows drawn), hands the picture back as an image. */
+function StillCapture({ onStill }: { onStill: (image: string) => void }) {
+  const { gl } = useThree();
+  const frames = useRef(0);
+  const done = useRef(false);
+  useFrame(() => {
+    frames.current++;
+    if (frames.current < 20 || done.current) return;
+    done.current = true;
+    // After this frame has been drawn.
+    requestAnimationFrame(() => onStill(gl.domElement.toDataURL("image/jpeg", 0.86)));
+  });
+  return null;
+}
+
 function StartClock({ clockStartRef, restartKey }: { clockStartRef: RefObject<number>; restartKey: string }) {
   const { clock } = useThree();
   useEffect(() => {
@@ -208,10 +228,13 @@ type RigSceneProps = {
   playHeadRef?: RefObject<PlayHead>;
   /** The camera-mode look: no paper or floor, so the model floats as a hologram over the live picture. */
   holo?: boolean;
+  /** Renders one frozen moment and hands it back as a picture (the plan's storyboard), with no controls. */
+  still?: StillMoment;
+  onStill?: (image: string) => void;
 };
 
 /** The appliance model playing one step: each beat moves a real part, with a guide, an arrow, a caption and a following camera. */
-export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHeadRef, holo }: RigSceneProps) {
+export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHeadRef, holo, still, onStill }: RigSceneProps) {
   const defs = useMemo(() => Object.fromEntries(catalog.parts.map((part) => [part.id, part])), [catalog]);
   const beats = useMemo(() => stepBeats[stepIndex] ?? [], [stepBeats, stepIndex]);
   const start = useMemo(() => applyBeats(restState(catalog), stepBeats.slice(0, stepIndex).flat()), [catalog, stepBeats, stepIndex]);
@@ -237,10 +260,18 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
 
   return (
     <div className={holo ? "scene-3d rig-scene rig-scene-holo" : "scene-3d rig-scene"} data-beat-seconds={beatSeconds * (slow ? slowFactor : 1)}>
-      <Canvas orthographic camera={{ position: [1.6, 1.4, 2.2], zoom: 220, near: 0.01, far: 12 }} dpr={holo ? [1, 1.25] : [1, 2]} shadows={holo ? false : "variance"} flat>
+      <Canvas
+        orthographic
+        camera={{ position: [1.6, 1.4, 2.2], zoom: 220, near: 0.01, far: 12 }}
+        dpr={holo ? [1, 1.25] : still ? 1.5 : [1, 2]}
+        shadows={holo ? false : "variance"}
+        gl={still ? { preserveDrawingBuffer: true } : undefined}
+        flat
+      >
         <RigProvider value={runtime}>
           <StartClock clockStartRef={clockStartRef} restartKey={`${stepIndex}-${replays}-${slow}`} />
-          <Timeline beats={beats} defs={defs} start={start} slow={slow} clockStartRef={clockStartRef} amountsRef={amountsRef} focusRef={focusRef} playRef={playRef} onBeat={setBeatIndex} />
+          {still && onStill && <StillCapture onStill={onStill} />}
+          <Timeline beats={beats} defs={defs} start={start} slow={slow} still={still} clockStartRef={clockStartRef} amountsRef={amountsRef} focusRef={focusRef} playRef={playRef} onBeat={setBeatIndex} />
           <hemisphereLight args={["#fffdf8", "#b9a990", 2.2]} />
           <directionalLight
             position={[-1.3, 3.0, 1.65]}
@@ -279,7 +310,7 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
           />
         </RigProvider>
       </Canvas>
-      {beat && (
+      {beat && !still && (
         <>
           <svg className="scene-pin-leader" aria-hidden="true">
             <line ref={leaderRef} />
@@ -290,15 +321,15 @@ export default function RigScene({ catalog, Model, stepBeats, stepIndex, playHea
           </div>
         </>
       )}
-      <div className="scene-controls">
+      {!still && <div className="scene-controls">
         <button type="button" className="scene-control" onClick={() => setReplays((count) => count + 1)} aria-label="Replay">
           ↺
         </button>
         <button type="button" className="scene-control" aria-pressed={slow} onClick={() => setSlow((current) => !current)}>
           {slow ? "1x" : "Slow"}
         </button>
-      </div>
-      {beats.length > 0 && (
+      </div>}
+      {beats.length > 0 && !still && (
         <div className="rig-beats">
           {beats.length > 1 && (
             <div className="rig-beat-dots" aria-hidden="true">
