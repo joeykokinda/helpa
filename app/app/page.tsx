@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Helpa, { type HelpaMood } from "./components/Helpa";
 import QrCode from "./components/landing/QrCode";
 import StoryPlayer, { type Scene } from "./components/landing/StoryPlayer";
 import { story } from "./components/landing/story";
@@ -14,16 +15,34 @@ const scenes: Scene[] = story;
 
 const models = ["Muse Spark", "Muse Wonder + web search", "SAM 3.1", "Muse Image", "Muse Voice", "Muse Spark Open (open weights)"];
 
-const points = [
-  ["Needs a part?", "Helpa finds the exact one and tracks it to your door."],
-  ["Needs a pro?", "Helpa finds the best-reviewed one near you and writes the message."],
-  ["16 kinds of home repair", "75 fixes ready in one tap. Anything else, Helpa researches."],
-];
-
-const proof = [
-  ["49/50", "problems matched to the right machine"],
-  ["8/8", "dangerous ones sent to a pro"],
-  ["0", "unsafe instructions"],
+const levels: { title: string; mood: HelpaMood; lines: string[] }[] = [
+  {
+    title: "You fix it, with Helpa",
+    mood: "pointing",
+    lines: [
+      "Snap it or say it. Helpa finds your exact machine and what's wrong.",
+      "Every step plays in 3D, read out loud. Hands busy? Just say \u201cnext.\u201d",
+      "Stuck? Helpa shows the move on your real machine through the camera, with arrows, answers your questions, and checks your work.",
+    ],
+  },
+  {
+    title: "Needs a part?",
+    mood: "found",
+    lines: [
+      "Finds the exact part for your model and the stores that have it, with prices. One tap to buy.",
+      "Watches the delivery and pings you when it lands.",
+      "Then walks you through putting it in.",
+    ],
+  },
+  {
+    title: "Needs a pro?",
+    mood: "celebrate",
+    lines: [
+      "Finds the best-reviewed pros near you for the right trade.",
+      "Writes the message: your machine, what's wrong, what you've ruled out, the times you're free. One tap to text or call.",
+      "Puts the visit on your calendar, reminds you the day before, and keeps the whole job in one place.",
+    ],
+  },
 ];
 
 export default function Landing() {
@@ -64,13 +83,28 @@ export default function Landing() {
           <StoryPlayer src="/landing/story.mp4" poster="/landing/story-poster.jpg" scenes={scenes} label="A dryer that won't dry, fixed with Helpa: a photo, the steps in 3D, I'm stuck, the move shown on the real dryer, and Helpa checking the work" />
         </section>
 
-        <section className="lp-section lp-points">
-          {points.map(([title, text]) => (
-            <article key={title} className="lp-card">
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
+        <section className="lp-section">
+          <div className="lp-heading">
+            <p className="lp-kicker">How it works</p>
+            <h2>Whatever it takes, Helpa gets it fixed.</h2>
+            <p>Washers, dryers, dishwashers, fridges, sinks, toilets, furnaces, outlets, your car&apos;s oil and more.</p>
+          </div>
+          <ol className="lp-levels">
+            {levels.map((level, index) => (
+              <li key={level.title} className="lp-level">
+                <div className="lp-level-head">
+                  <span className="lp-level-number">{index + 1}</span>
+                  <Helpa mood={level.mood} size={72} />
+                </div>
+                <h3>{level.title}</h3>
+                <ul>
+                  {level.lines.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <section className="lp-band">
@@ -82,18 +116,6 @@ export default function Landing() {
               ))}
             </ul>
           </div>
-        </section>
-
-        <section className="lp-section">
-          <h2>Tested on 50 real problems</h2>
-          <ul className="lp-proof">
-            {proof.map(([value, label]) => (
-              <li key={label}>
-                <strong>{value}</strong>
-                <span>{label}</span>
-              </li>
-            ))}
-          </ul>
         </section>
 
         <section className="lp-section lp-try">

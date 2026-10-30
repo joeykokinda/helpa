@@ -346,27 +346,80 @@ body:has(.lp) {
   font-size: clamp(30px, 3.6vw, 46px);
 }
 
-/* Parts, pros and coverage: three cards */
-.lp-points {
+/* How it works: three levels of help, each with Helpa */
+.lp-heading {
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+.lp-heading h2 {
+  margin-top: 12px;
+}
+.lp-heading > p:not(.lp-kicker) {
+  margin-top: 14px;
+  color: var(--secondary);
+  font-size: 19px;
+  line-height: 1.5;
+}
+.lp-kicker {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lp-levels {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+  list-style: none;
 }
-.lp-card {
-  padding: 28px 26px 30px;
-  border-radius: 28px;
+.lp-level {
+  display: flex;
+  flex-direction: column;
+  padding: 26px 26px 30px;
+  border-radius: 30px;
   background: var(--surface-2);
 }
-.lp-card h3 {
-  font-size: 23px;
+.lp-level:first-child {
+  background:
+    radial-gradient(circle at 85% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 55%),
+    var(--surface-2);
+}
+.lp-level-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lp-level-number {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 18px;
+  font-weight: 800;
+}
+.lp-level h3 {
+  margin-top: 14px;
+  font-size: 25px;
   font-weight: 800;
   letter-spacing: -0.03em;
+  line-height: 1.1;
 }
-.lp-card p {
-  margin-top: 8px;
+.lp-level ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+  padding-left: 18px;
   color: var(--secondary);
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.45;
+}
+.lp-level li::marker {
+  color: var(--accent);
 }
 
 /* Built on Meta: the one dark band */
@@ -397,35 +450,6 @@ body:has(.lp) {
 }
 .lp-models li:first-child {
   background: var(--accent);
-}
-
-/* Proof: three big numbers */
-.lp-proof {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 28px;
-  list-style: none;
-}
-.lp-proof li {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 28px 26px;
-  border: 1.5px solid var(--border);
-  border-radius: 28px;
-}
-.lp-proof strong {
-  font-size: clamp(44px, 5vw, 64px);
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 1;
-}
-.lp-proof span {
-  color: var(--secondary);
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.35;
 }
 
 /* Try it */
@@ -474,12 +498,12 @@ main + .lp-footer {
 
 @media (max-width: 900px) {
   .lp-hero,
-  .lp-points,
+  .lp-levels,
   .lp-try {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .lp-points {
+  .lp-levels {
     gap: 12px;
   }
   .lp-hero {
@@ -535,9 +559,6 @@ main + .lp-footer {
     max-width: 210px;
     margin-left: 26px;
     font-size: 15px;
-  }
-  .lp-proof {
-    grid-template-columns: 1fr;
   }
   .lp-band {
     margin: 0;
