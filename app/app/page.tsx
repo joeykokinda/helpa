@@ -41,6 +41,9 @@ export default function Landing() {
       <main>
         <section className="lp-hero">
           <div className="lp-hero-copy">
+            <p className="lp-eyebrow">
+              <span className="lp-pulse" aria-hidden="true" /> Your home repair helper
+            </p>
             <h1>
               Fix anything in your home. <span>Even if you know nothing.</span>
             </h1>
@@ -63,14 +66,15 @@ export default function Landing() {
 
         <section className="lp-section lp-points">
           {points.map(([title, text]) => (
-            <p key={title}>
-              <strong>{title}</strong> {text}
-            </p>
+            <article key={title} className="lp-card">
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
           ))}
         </section>
 
-        <section className="lp-section lp-facts">
-          <div>
+        <section className="lp-band">
+          <div className="lp-band-inner">
             <h2>Built on Meta</h2>
             <ul className="lp-models">
               {models.map((name) => (
@@ -78,17 +82,18 @@ export default function Landing() {
               ))}
             </ul>
           </div>
-          <div>
-            <h2>Tested on 50 real problems</h2>
-            <ul className="lp-proof">
-              {proof.map(([value, label]) => (
-                <li key={label}>
-                  <strong>{value}</strong>
-                  <span>{label}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        </section>
+
+        <section className="lp-section">
+          <h2>Tested on 50 real problems</h2>
+          <ul className="lp-proof">
+            {proof.map(([value, label]) => (
+              <li key={label}>
+                <strong>{value}</strong>
+                <span>{label}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className="lp-section lp-try">
