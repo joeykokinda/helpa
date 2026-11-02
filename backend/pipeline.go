@@ -255,12 +255,7 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		ident = identification{Appliance: entry.Appliance, Brand: follow.Brand, ModelNumber: follow.ModelNumber, Confidence: 1, LibraryFix: next}
 	} else if follow.Direct != "" && len(follow.RuledOut) == 0 {
 		// Picked from the app's list of common problems: the fix is known, so there's nothing to look at.
-		entry, problem := findLibraryFix(follow.Direct)
-		// No brand: picking from the list says nothing about whose machine it is.
-		ident = identification{Appliance: entry.Appliance, Confidence: 1, LibraryFix: follow.Direct}
-		if len(problem.Symptoms) > 0 {
-			ident.Symptom = problem.Symptoms[0]
-		}
+		ident = pickedIdentity(follow.Direct)
 	} else if ident, err = identify(ctx, photos, complaint, true); err != nil {
 		// The first look is a shortcut, not a gate: research can still identify on its own.
 		log.Printf("identify: %v", err)
@@ -368,6 +363,20 @@ func markSafetyStop(plan json.RawMessage) json.RawMessage {
 		return plan
 	}
 	return marked
+}
+
+// pickedIdentity is a fix picked from the app's list. No brand: picking says nothing about whose machine it
+// is, except the car fix, which is written for one car, so picking it is picking that car.
+func pickedIdentity(id string) identification {
+	entry, problem := findLibraryFix(id)
+	ident := identification{Appliance: entry.Appliance, Confidence: 1, LibraryFix: id}
+	if normalizeAppliance(entry.Appliance) == "car" && len(entry.ModelNumbers) > 0 {
+		ident.Brand, ident.ModelNumber = entry.Brand, entry.ModelNumbers[0]
+	}
+	if len(problem.Symptoms) > 0 {
+		ident.Symptom = problem.Symptoms[0]
+	}
+	return ident
 }
 
 // libraryPlan is the fastest path: when the first look matched a ready library fix outright and asked

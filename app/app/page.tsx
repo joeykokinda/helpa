@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const scenes: Scene[] = story;
 
-const models = ["Muse Spark", "Muse Wonder + web search", "SAM 3.1", "Muse Image", "Muse Voice", "Muse Spark Open (open weights)"];
+const models = ["Muse Spark", "Muse Wonder + web search", "SAM 3.1", "Muse Image", "Muse Voice"];
 
 const levels: { title: string; mood: HelpaMood; lines: string[] }[] = [
   {

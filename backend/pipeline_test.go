@@ -219,3 +219,12 @@ func TestMatchRigWholeWords(test *testing.T) {
 		test.Fatal("whole-word phrases should match")
 	}
 }
+
+func TestPickedIdentity(t *testing.T) {
+	if car := pickedIdentity("car-oil-change/engine_oil_due_for_change"); car.Brand != "Toyota" || car.ModelNumber == "" {
+		t.Errorf("picked car fix should name the car, got %q %q", car.Brand, car.ModelNumber)
+	}
+	if disposal := pickedIdentity("garbage-disposal/jammed_and_humming"); disposal.Brand != "" || disposal.ModelNumber != "" {
+		t.Errorf("picked disposal fix shouldn't name a brand, got %q %q", disposal.Brand, disposal.ModelNumber)
+	}
+}

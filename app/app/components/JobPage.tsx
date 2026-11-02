@@ -107,7 +107,9 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
         onChange(result.job);
       } else onChange(result);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Something went wrong. Try again?");
+      const message = reason instanceof Error ? reason.message : "Something went wrong. Try again?";
+      setError(message);
+      setTimeout(() => setError((current) => (current === message ? "" : current)), 6000);
     } finally {
       setBusy(undefined);
     }
@@ -209,7 +211,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
 
         <AnimatePresence>
           {error && (
-            <motion.p className="job-error" role="alert" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.p className="job-error" role="alert" onClick={() => setError("")} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}>
               {error}
             </motion.p>
           )}

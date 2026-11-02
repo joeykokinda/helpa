@@ -99,7 +99,8 @@ export function createJob(plan: Plan, options: { title: string; ruledOut: string
     diagnosis: plan.diagnosis,
     status: options.status,
     ruledOut: options.ruledOut,
-    tried: plan.steps.map((step) => step.instruction),
+    // Nothing is tried yet; causes the user tested and ruled out carry what they did.
+    tried: [],
     partsNeeded: plan.replacement_parts,
   });
 }
@@ -135,7 +136,7 @@ export function jobSummary(job: Job) {
   const machine = [job.brand, job.model, job.appliance].filter(Boolean).join(" ");
   const lines = [`${machine.charAt(0).toUpperCase()}${machine.slice(1)}: ${job.title}`];
   if (job.diagnosis) lines.push(`Likely cause: ${job.diagnosis}`);
-  if (job.ruled_out.length) lines.push(`Already ruled out: ${job.ruled_out.join("; ")}`);
+  if (job.ruled_out.length) lines.push(`Already tried, didn't fix it: ${job.ruled_out.join("; ")}`);
   for (const part of job.parts) if (part.part_number) lines.push(`Part: ${shortPart(part.name)} (${part.part_number})`);
   return lines.join("\n");
 }
