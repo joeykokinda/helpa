@@ -49,7 +49,7 @@ export default function StoryPlayer({ src, poster, scenes, label }: { src: strin
           <Icon name="cube" size={20} /> Every move in 3D
         </div>
         <div className="lp-float lp-float-b" aria-hidden="true">
-          <Icon name="live" size={20} /> On your real machine
+          <Icon name="camera" size={20} /> Checks your work
         </div>
         <div className="lp-helpa">
           <AnimatePresence mode="wait">
