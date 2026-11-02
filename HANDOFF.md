@@ -58,11 +58,12 @@ Snap the model sticker or describe the problem → Helpa identifies the exact ma
 4. **Video and X post:** show pick-it (toilet keeps running in one tap), circle-it, the Muse Image drawing, hands-free "next" with wet hands, and the AR lint screen. Update `docs/VIDEO.md` shot list.
 5. **Spanish is parked.** 2,000 library strings were translated but not wired in; restart from scratch if wanted.
 6. Polish: retake README screenshots (new look), real AR clips, the smoke alarm overview camera looks at the ceiling from above (steps are fine).
-7. Unverified car facts: filter element 04152-YZZA1 vs YZZA6; 4.6 vs 4.8 qt.
 
 ## Decisions to keep
 
-- The 3D guide leads every step; AR is the "I'm stuck" rescue (I'm stuck → Show me on my machine / Ask Helpa / Check what I did / Hand it to a pro). Saying "I'm stuck" or "help me" opens the same menu.
+- The 3D guide leads every step. "I'm stuck" offers Ask Helpa / Check what I did (photo) / Hand it to a pro. The AR Live Guide was pulled from the app on Nov 1 after a real-phone test (glitches on a real camera); its code stays behind `/livepreview`.
+- Picking a problem from the list asks for a photo first, so the fix is for the exact model; "No photo? Show the general fix" is the fallback.
+- Camry facts verified: 4.6 US qt of 0W-20 with the filter (4.4 is liters), filter 04152-YZZA1.
 - Host on brach, never Railway. Light mode default, holograms only inside the AR camera view. No automatic flashlight. The user's camera zoom is theirs; Helpa crops internally. Savings only when honest (none when a step says call a pro). No x402. Don't name a competitor chatbot in the video. Keep the house mascot, talking less.
 
 See `TODO.md` for the full checklist.
