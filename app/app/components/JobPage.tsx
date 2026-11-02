@@ -77,6 +77,7 @@ const whenFull = (time: number) => new Date(time).toLocaleString(undefined, { we
 /** One job, start to finish: Helpa's next step on top, then the part, the pro, reminders, and everything that happened. */
 export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDeleted }: JobPageProps) {
   const [busy, setBusy] = useState<string>();
+  const [demoBuying, setDemoBuying] = useState(false);
   const [error, setError] = useState("");
   const [sample, setSample] = useState(false);
   const [notify, setNotify] = useState<"on" | "off" | "denied" | "unsupported">(() => (notificationsOn() ? "on" : "off"));
@@ -122,7 +123,9 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
 
   // The one thing to do now, as a big card: the autopilot for people who just want it fixed.
   let next: { title: string; detail: string; action?: ReactNode } = { title: statusLabel[job.status], detail: "" };
-  if (job.status === "part_arrived" && part)
+  // While a demo order plays on the part card, the big card waits for it to land.
+  if (demoBuying) next = { title: "Your part is on its way", detail: "Helpa is watching the delivery for you." };
+  else if (job.status === "part_arrived" && part)
     next = {
       title: "Your part is here",
       detail: `Helpa walks you through putting the new ${shortPart(part.name).toLowerCase()} in, step by step.`,
@@ -217,7 +220,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
         {(job.contact || job.appointment) && job.status !== "done" && <ProSaid job={job} busy={busy} run={run} onFix={onFix} />}
 
         {job.parts.map((item) => (
-          <PartCard key={item.id} job={job} part={item} busy={busy} run={run} onInstall={onInstall} />
+          <PartCard key={item.id} job={job} part={item} busy={busy} run={run} onInstall={onInstall} onDemo={setDemoBuying} />
         ))}
 
         {job.status !== "done" && (job.fair_price || job.pros.length > 0 || job.parts.length > 0) && <FairPriceCard job={job} busy={busy} run={run} />}
@@ -383,7 +386,7 @@ const deliverySteps: [JobPart["status"], string][] = [
   ["delivered", "Arrived"],
 ];
 
-function PartCard({ job, part, busy, run, onInstall }: RunProps & { part: JobPart; onInstall: (job: Job, part: JobPart) => void }) {
+function PartCard({ job, part, busy, run, onInstall, onDemo }: RunProps & { part: JobPart; onInstall: (job: Job, part: JobPart) => void; onDemo: (moving: boolean) => void }) {
   const [ordering, setOrdering] = useState(false);
   const [store, setStore] = useState(part.buy[0]?.store ?? "");
   const [tracking, setTracking] = useState("");
@@ -392,14 +395,19 @@ function PartCard({ job, part, busy, run, onInstall }: RunProps & { part: JobPar
   const buyDemo = (from: string) =>
     run("buy", async () => {
       setDemoStep(0);
-      const [result] = await Promise.all([markOrdered(job.id, part.id, { store: from, demo: true }), wait(1200)]);
-      for (const step of [1, 2, 3]) {
-        await wait(1300);
-        setDemoStep(step);
+      onDemo(true);
+      try {
+        const [result] = await Promise.all([markOrdered(job.id, part.id, { store: from, demo: true }), wait(1200)]);
+        for (const step of [1, 2, 3]) {
+          await wait(1300);
+          setDemoStep(step);
+        }
+        await wait(600);
+        return result;
+      } finally {
+        setDemoStep(-1);
+        onDemo(false);
       }
-      await wait(600);
-      setDemoStep(-1);
-      return result;
     });
   const reached = demoStep >= 0 ? demoStep : deliverySteps.findIndex(([status]) => status === part.status);
   const arrived = demoStep < 0 && part.status === "delivered" && job.status === "part_arrived";
