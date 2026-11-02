@@ -780,7 +780,8 @@ function ProFinder({ job, busy, run }: RunProps) {
         setLocating(false);
         setTyping(true);
       },
-      { timeout: 10000, maximumAge: 3600_000 },
+      // A cold first fix can take a while indoors; 10 s sent first-time users to the ZIP box.
+      { timeout: 25000, maximumAge: 3600_000 },
     );
   };
 

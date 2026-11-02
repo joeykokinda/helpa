@@ -143,7 +143,8 @@ export function unfoundParts(job: Job) {
 export function jobSummary(job: Job) {
   const machine = [job.brand, job.model, job.appliance].filter(Boolean).join(" ");
   const lines = [`${machine.charAt(0).toUpperCase()}${machine.slice(1)}: ${job.title}`];
-  if (job.diagnosis) lines.push(`Likely cause: ${job.diagnosis}`);
+  // The cause only; the rest of a diagnosis is advice for the owner ("so this is a part swap for a pro").
+  if (job.diagnosis) lines.push(`Likely cause: ${job.diagnosis.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? job.diagnosis}`);
   if (job.ruled_out.length) lines.push(`Already tried, didn't fix it: ${job.ruled_out.join("; ")}`);
   for (const part of job.parts) if (part.part_number) lines.push(`Part: ${shortPart(part.name)} (${part.part_number})`);
   return lines.join("\n");
@@ -155,7 +156,7 @@ export const priceRange = (low: number, high: number) => (low > 0 && low !== hig
 export function proMessage(job: Job, free: string[]) {
   const lines = [`Hi! Could you help with my ${job.appliance}?`, "", jobSummary(job)];
   if (job.tried.length) lines.push(`Already tried: ${job.tried.slice(0, 4).join("; ")}`);
-  for (const name of unfoundParts(job)) lines.push(`Part it may need: ${name}`);
+  for (const name of unfoundParts(job)) lines.push(`Part it may need: ${shortPart(name)}`);
   lines.push("I can send photos.");
   if (free.length) lines.push(`I'm free ${free.map((label) => label.toLowerCase()).join(", or ")}.`);
   if (job.fair_price && job.fair_price.high > 0) lines.push(`Helpa says a fair price for this is ${priceRange(job.fair_price.low, job.fair_price.high)}. Could you confirm your price before coming?`);
