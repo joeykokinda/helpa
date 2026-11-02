@@ -1,27 +1,36 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { transcribe } from "../lib/api";
 import {
   addFollowUp,
   bookPro,
   calendarFile,
+  checkFairPrice,
   deleteJob,
   enableNotifications,
   findPart,
   findPros,
   finishFollowUp,
   jobSummary,
+  listJobs,
   markContacted,
   markOrdered,
   notificationsOn,
+  priceRange,
+  proMessage,
+  reachOut,
   setJobStatus,
   shortPart,
+  tellProSaid,
   timeSlots,
   type Job,
   type JobPart,
   type JobPro,
+  type ProUpdate,
 } from "../lib/jobs";
+import { toWav } from "../lib/media";
 import Icon, { type IconName } from "./Icons";
 
 type JobPageProps = {
@@ -30,8 +39,12 @@ type JobPageProps = {
   onBack: () => void;
   /** Walks the person through putting the new part in. */
   onInstall: (job: Job, part: JobPart) => void;
+  /** Starts a fix with Helpa from what the pro said, when it's something you can do yourself. */
+  onFix: (job: Job, complaint: string) => void;
   onDeleted: (id: string) => void;
 };
+
+const wait = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 const statusLabel: Record<Job["status"], string> = {
   fixing: "In progress",
@@ -62,11 +75,26 @@ const when = (time: number) => new Date(time).toLocaleDateString(undefined, { mo
 const whenFull = (time: number) => new Date(time).toLocaleString(undefined, { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 
 /** One job, start to finish: Helpa's next step on top, then the part, the pro, reminders, and everything that happened. */
-export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }: JobPageProps) {
+export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDeleted }: JobPageProps) {
   const [busy, setBusy] = useState<string>();
   const [error, setError] = useState("");
   const [sample, setSample] = useState(false);
   const [notify, setNotify] = useState<"on" | "off" | "denied" | "unsupported">(() => (notificationsOn() ? "on" : "off"));
+
+  // A typed DEMO order moves on the server's clock; poll while it's on the way so the card moves without a reload.
+  const moving = job.parts.some((item) => item.tracking?.toUpperCase() === "DEMO" && item.status !== "found" && item.status !== "delivered");
+  const onChangeRef = useRef(onChange);
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  });
+  useEffect(() => {
+    if (!moving) return;
+    const timer = window.setInterval(async () => {
+      const fresh = (await listJobs().catch(() => [])).find((candidate) => candidate.id === job.id);
+      if (fresh) onChangeRef.current(fresh);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [moving, job.id]);
 
   const run = async (label: string, work: () => Promise<Job | { job: Job; sample: boolean }>) => {
     setBusy(label);
@@ -185,9 +213,14 @@ export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }:
         </AnimatePresence>
         {sample && <p className="job-sample">Offline mode: these results are samples, not real stores or businesses.</p>}
 
+        {job.contact && job.status !== "done" && <ProThread job={job} busy={busy} run={run} />}
+        {(job.contact || job.appointment) && job.status !== "done" && <ProSaid job={job} busy={busy} run={run} onFix={onFix} />}
+
         {job.parts.map((item) => (
-          <PartCard key={item.id} job={job} part={item} busy={busy} run={run} />
+          <PartCard key={item.id} job={job} part={item} busy={busy} run={run} onInstall={onInstall} />
         ))}
+
+        {job.status !== "done" && (job.fair_price || job.pros.length > 0 || job.parts.length > 0) && <FairPriceCard job={job} busy={busy} run={run} />}
 
         {unfound.length > 0 && job.status !== "done" && (
           <article className="card job-card">
@@ -341,7 +374,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onDeleted }:
   );
 }
 
-type RunProps = { job: Job; busy?: string; run: (label: string, work: () => Promise<Job | { job: Job; sample: boolean }>) => void };
+type RunProps = { job: Job; busy?: string; run: (label: string, work: () => Promise<Job | { job: Job; sample: boolean }>) => Promise<void> };
 
 const deliverySteps: [JobPart["status"], string][] = [
   ["ordered", "Ordered"],
@@ -350,11 +383,26 @@ const deliverySteps: [JobPart["status"], string][] = [
   ["delivered", "Arrived"],
 ];
 
-function PartCard({ job, part, busy, run }: RunProps & { part: JobPart }) {
+function PartCard({ job, part, busy, run, onInstall }: RunProps & { part: JobPart; onInstall: (job: Job, part: JobPart) => void }) {
   const [ordering, setOrdering] = useState(false);
   const [store, setStore] = useState(part.buy[0]?.store ?? "");
   const [tracking, setTracking] = useState("");
-  const reached = deliverySteps.findIndex(([status]) => status === part.status);
+  // Buy it (demo): nothing is bought; the delivery plays through in about five seconds, then the part is here.
+  const [demoStep, setDemoStep] = useState(-1);
+  const buyDemo = (from: string) =>
+    run("buy", async () => {
+      setDemoStep(0);
+      const [result] = await Promise.all([markOrdered(job.id, part.id, { store: from, demo: true }), wait(1200)]);
+      for (const step of [1, 2, 3]) {
+        await wait(1300);
+        setDemoStep(step);
+      }
+      await wait(600);
+      setDemoStep(-1);
+      return result;
+    });
+  const reached = demoStep >= 0 ? demoStep : deliverySteps.findIndex(([status]) => status === part.status);
+  const arrived = demoStep < 0 && part.status === "delivered" && job.status === "part_arrived";
   return (
     <article className="card job-card">
       <h2 className="card-title">
@@ -368,7 +416,7 @@ function PartCard({ job, part, busy, run }: RunProps & { part: JobPart }) {
       )}
       {part.fits && <p className="job-muted">{part.fits}</p>}
 
-      {part.status === "found" ? (
+      {part.status === "found" && demoStep < 0 ? (
         <>
           <ul className="job-buy">
             {part.buy.map((option) => (
@@ -384,6 +432,10 @@ function PartCard({ job, part, busy, run }: RunProps & { part: JobPart }) {
               </li>
             ))}
           </ul>
+          <button className="btn btn-primary press" onClick={() => buyDemo(store || part.buy[0]?.store || "the store")} disabled={Boolean(busy)}>
+            <Icon name="tag" size={20} /> Buy it{store ? ` from ${store}` : ""} (demo)
+          </button>
+          <p className="job-demo-note">Demo: nothing is bought. Real checkout and auto-ordering can be connected later (store APIs).</p>
           {ordering ? (
             <form
               className="job-form"
@@ -408,8 +460,8 @@ function PartCard({ job, part, busy, run }: RunProps & { part: JobPart }) {
               </button>
             </form>
           ) : (
-            <button className="btn btn-primary press" onClick={() => setOrdering(true)}>
-              <Icon name="check" size={20} /> I ordered it
+            <button className="text-button press" onClick={() => setOrdering(true)}>
+              I ordered it myself
             </button>
           )}
         </>
@@ -431,6 +483,227 @@ function PartCard({ job, part, busy, run }: RunProps & { part: JobPart }) {
           )}
           {part.store && <p className="job-muted">From {part.store}{part.tracking ? `, tracking ${part.tracking}` : ""}</p>}
         </>
+      )}
+      <AnimatePresence>
+        {arrived && (
+          <motion.div className="job-arrived" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", stiffness: 320, damping: 22 }}>
+            <p className="job-arrived-title">
+              <Icon name="check" size={20} strokeWidth={3} /> Your part is here
+            </p>
+            <p>Helpa walks you through putting the new {shortPart(part.name).toLowerCase()} in, step by step on the 3D model.</p>
+            <button className="btn btn-primary press" onClick={() => onInstall(job, part)}>
+              <Icon name="wrench" size={20} /> Install it now
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </article>
+  );
+}
+
+function FairPriceCard({ job, busy, run }: RunProps) {
+  const fair = job.fair_price;
+  if (!fair)
+    return (
+      <article className="card job-card">
+        <h2 className="card-title">
+          <Icon name="shield" size={20} /> Fair price
+        </h2>
+        <p className="job-muted">Helpa checks what this repair usually costs near you, so nobody overcharges you.</p>
+        <button className="btn btn-secondary press" onClick={() => run("fair", () => checkFairPrice(job.id, job.location ?? ""))} disabled={Boolean(busy)}>
+          {busy === "fair" ? "Checking prices…" : "What should this cost?"}
+        </button>
+      </article>
+    );
+  return (
+    <article className="card job-card job-fair">
+      <h2 className="card-title">
+        <Icon name="shield" size={20} /> Fair price
+      </h2>
+      {fair.high > 0 ? <p className="job-fair-range">{priceRange(fair.low, fair.high)}</p> : null}
+      <p>{fair.summary}</p>
+      {fair.includes && <p className="job-muted">Covers {fair.includes}.</p>}
+      {fair.service_call && <p className="job-muted">Service call: {fair.service_call}.</p>}
+      {fair.red_flags.length > 0 && (
+        <ul className="job-flags">
+          {fair.red_flags.map((flag) => (
+            <li key={flag}>{flag}</li>
+          ))}
+        </ul>
+      )}
+      {fair.sources.length > 0 && <p className="job-sources">From {fair.sources.join(", ")}{fair.sample ? " (sample)" : ""}</p>}
+    </article>
+  );
+}
+
+/** The demo conversation with a shop: Helpa's message, then the shop's (generated) reply with a quote and a time. */
+function ProThread({ job, busy, run }: RunProps) {
+  const contact = job.contact!;
+  // The reply shows after a short "typing" beat, like a real text coming in.
+  const [typing, setTyping] = useState(() => Date.now() - contact.sent_at < 15_000);
+  const [priceNote, setPriceNote] = useState(false);
+  useEffect(() => {
+    if (!typing) return;
+    const timer = window.setTimeout(() => setTyping(false), 2200);
+    return () => clearTimeout(timer);
+  }, [typing]);
+  const fair = job.fair_price;
+  const quoted = contact.quote_high || contact.quote_low;
+  const high = fair && fair.high > 0 && quoted > fair.high;
+  const booked = job.appointment?.pro === contact.pro;
+  return (
+    <article className="card job-card">
+      <h2 className="card-title">
+        <Icon name="send" size={20} /> {contact.pro}
+      </h2>
+      <div className="job-thread">
+        <p className="job-bubble job-bubble-you">{contact.message}</p>
+        <p className="job-delivered">Sent by Helpa{contact.demo ? " (demo)" : ""}</p>
+        {typing ? (
+          <p className="job-bubble job-bubble-them job-typing" aria-label={`${contact.pro} is typing`}>
+            <span />
+            <span />
+            <span />
+          </p>
+        ) : (
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+            <p className="job-bubble job-bubble-them">{contact.reply}</p>
+            {contact.demo && <p className="job-demo-note">Demo reply: calling or texting for you can be connected later (phone service + your permission).</p>}
+            {quoted > 0 && (
+              <p className={`job-quote ${high ? "job-quote-high" : ""}`}>
+                Quote {priceRange(contact.quote_low, contact.quote_high)}
+                {fair && fair.high > 0 ? (high ? ` · above the fair ${priceRange(fair.low, fair.high)}` : ` · within the fair ${priceRange(fair.low, fair.high)}`) : ""}
+              </p>
+            )}
+            {priceNote && (
+              <p className="job-muted">
+                {high
+                  ? `That's more than this repair usually costs (${priceRange(fair!.low, fair!.high)}). Ask what's included, and whether a cheaper part was ruled out first.`
+                  : fair && fair.high > 0
+                    ? `That's a fair price for this repair (usually ${priceRange(fair.low, fair.high)}).`
+                    : "Helpa hasn't checked a fair price yet. Tap “What should this cost?” below."}
+              </p>
+            )}
+            {!booked && (
+              <div className="job-actions">
+                <button className="btn btn-primary btn-small press" onClick={() => run("book", () => bookPro(job.id, { name: contact.pro, phone: contact.phone ?? "" } as JobPro, contact.slot_at))} disabled={Boolean(busy)}>
+                  Accept {contact.slot_label.toLowerCase()}
+                </button>
+                <button className="btn btn-secondary btn-small press" onClick={() => setPriceNote(true)}>
+                  Ask about the price
+                </button>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </div>
+    </article>
+  );
+}
+
+/** "What did the pro say?": typed or spoken, Helpa turns it into the job's new diagnosis, parts, price and next step. */
+function ProSaid({ job, busy, run, onFix }: RunProps & { onFix: (job: Job, complaint: string) => void }) {
+  const [text, setText] = useState("");
+  const [result, setResult] = useState<{ update: ProUpdate; aboveFair: boolean } | null>(null);
+  const [recording, setRecording] = useState(false);
+  const [heardError, setHeardError] = useState("");
+  const recorderRef = useRef<MediaRecorder | null>(null);
+
+  const send = (said: string) =>
+    run("said", async () => {
+      const reply = await tellProSaid(job.id, said);
+      setResult({ update: reply.update, aboveFair: reply.above_fair });
+      setText("");
+      return reply.job;
+    });
+
+  const toggleTalk = async () => {
+    if (recording) {
+      recorderRef.current?.stop();
+      setRecording(false);
+      return;
+    }
+    setHeardError("");
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const chunks: Blob[] = [];
+      const recorder = new MediaRecorder(stream);
+      recorder.ondataavailable = (dataEvent) => chunks.push(dataEvent.data);
+      recorder.onstop = async () => {
+        stream.getTracks().forEach((track) => track.stop());
+        try {
+          const heard = await transcribe(await toWav(new Blob(chunks, { type: recorder.mimeType })));
+          if (heard.trim()) setText(heard.trim());
+        } catch {
+          setHeardError("I couldn't hear that, try again or type it.");
+        }
+      };
+      recorderRef.current = recorder;
+      recorder.start();
+      setRecording(true);
+    } catch {
+      setHeardError("I need the microphone to hear you. You can type instead.");
+    }
+  };
+
+  const update = result?.update;
+  const fair = job.fair_price;
+  const newPart = update?.parts.find((part) => part.name);
+  const partLabel = newPart ? `${newPart.name}${newPart.part_number ? ` (part number ${newPart.part_number})` : ""}` : "";
+  const alreadyFound = newPart && job.parts.some((part) => part.name.toLowerCase().startsWith(newPart.name.toLowerCase()));
+  return (
+    <article className="card job-card">
+      <h2 className="card-title">
+        <Icon name="ear" size={20} /> What did the pro say?
+      </h2>
+      <p className="job-muted">Tell Helpa in your own words. It updates the job: what&apos;s wrong, the part, the price.</p>
+      <form
+        className="job-said"
+        onSubmit={(submitEvent) => {
+          submitEvent.preventDefault();
+          if (text.trim()) send(text.trim());
+        }}
+      >
+        <textarea value={text} onChange={(changeEvent) => setText(changeEvent.target.value)} placeholder="e.g. It's the thermal fuse, part 279973, $140" aria-label="What the pro said" rows={2} maxLength={1200} />
+        <div className="job-actions">
+          <button type="button" className={`btn btn-secondary btn-small press ${recording ? "job-mic-live" : ""}`} onClick={toggleTalk} aria-pressed={recording}>
+            <Icon name="mic" size={18} /> {recording ? "Stop" : "Say it"}
+          </button>
+          <button type="submit" className="btn btn-primary btn-small press" disabled={!text.trim() || Boolean(busy)}>
+            {busy === "said" ? "Updating…" : "Update the job"}
+          </button>
+        </div>
+      </form>
+      {heardError && <p className="job-muted">{heardError}</p>}
+      {update && (
+        <motion.div className="job-said-result" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+          {update.diagnosis && <p className="job-strong">{update.diagnosis}</p>}
+          {newPart && (
+            <p>
+              Part: <strong>{newPart.name}</strong>
+              {newPart.part_number && <> #{newPart.part_number}</>}
+            </p>
+          )}
+          {update.quoted_price > 0 && (
+            <p className={`job-quote ${result?.aboveFair ? "job-quote-high" : ""}`}>
+              Quoted ${update.quoted_price}
+              {fair && fair.high > 0 ? (result?.aboveFair ? ` · above the fair ${priceRange(fair.low, fair.high)}, ask why` : ` · fair (usually ${priceRange(fair.low, fair.high)})`) : ""}
+            </p>
+          )}
+          <p className="job-muted">{update.next_step}</p>
+          <div className="job-actions">
+            {newPart && !alreadyFound && (
+              <button className="btn btn-primary btn-small press" onClick={() => run(`part-${partLabel}`, () => findPart(job.id, partLabel))} disabled={Boolean(busy)}>
+                <Icon name="tag" size={18} /> {busy === `part-${partLabel}` ? "Searching stores…" : "Find this part"}
+              </button>
+            )}
+            {(update.status === "diy" || update.status === "needs_part") && (
+              <button className="btn btn-secondary btn-small press" onClick={() => onFix(job, `${update.diagnosis} ${partLabel ? `I need to replace the ${partLabel}.` : ""} Show me how to do it on my ${[job.brand, job.model, job.appliance].filter(Boolean).join(" ")}.`)}>
+                <Icon name="cube" size={18} /> Show me how
+              </button>
+            )}
+          </div>
+        </motion.div>
       )}
     </article>
   );
@@ -466,7 +739,10 @@ function ProFinder({ job, busy, run }: RunProps) {
     } catch {
       // private mode: asked again next time
     }
-    run("pros", () => findPros(job.id, where));
+    // The pros first, then what the job should cost, so the message can say it and a quote can be checked.
+    run("pros", () => findPros(job.id, where)).then(() => {
+      if (!job.fair_price) run("fair", () => checkFairPrice(job.id, where));
+    });
   };
 
   const nearMe = () => {
@@ -491,10 +767,9 @@ function ProFinder({ job, busy, run }: RunProps) {
   // Coordinates from the phone are only for the search; on screen they're just "you".
   const nearYou = /^-?\d+\.\d+, -?\d+\.\d+$/.test(location.trim());
 
-  const message = () => {
-    const free = slots.length ? `\nI'm free ${slots.map((at) => options.find((option) => option.at === at)?.label.toLowerCase()).join(", or ")}.` : "";
-    return `Hi! Could you take a look at my ${job.appliance}?\n\n${jobSummary(job)}${free}\n\nThanks!`;
-  };
+  const [contacting, setContacting] = useState<JobPro | null>(null);
+  // The times offered: what the person picked, or the next two if they didn't.
+  const freeSlots = (slots.length ? options.filter((option) => slots.includes(option.at)) : options.slice(0, 2)).map((option) => ({ label: option.label.replace(/, \w+ \d+/, ""), at: option.at }));
 
   return (
     <article className="card job-card">
@@ -558,7 +833,6 @@ function ProFinder({ job, busy, run }: RunProps) {
           </div>
           <ul className="job-pros">
             {job.pros.map((pro) => {
-              const digits = pro.phone.replace(/[^\d+]/g, "");
               return (
                 <li key={pro.name} className="job-pro">
                   <div className="job-pro-head">
@@ -571,22 +845,15 @@ function ProFinder({ job, busy, run }: RunProps) {
                   {pro.why && <p className="job-muted">{pro.why}</p>}
                   {pro.hours && <p className="job-muted">{pro.hours}</p>}
                   <div className="job-actions">
-                    {digits && (
-                      <a className="btn btn-secondary btn-small press" href={`tel:${digits}`} onClick={() => run("contact", () => markContacted(job.id, pro.name))}>
-                        Call
-                      </a>
-                    )}
-                    {digits && (
-                      <a className="btn btn-secondary btn-small press" href={`sms:${digits}?&body=${encodeURIComponent(message())}`} onClick={() => run("contact", () => markContacted(job.id, pro.name))}>
-                        Text
-                      </a>
-                    )}
+                    <button className="btn btn-primary btn-small press" onClick={() => setContacting(pro)}>
+                      Contact
+                    </button>
                     {pro.website && (
                       <a className="btn btn-secondary btn-small press" href={pro.website} target="_blank" rel="noreferrer">
                         Website
                       </a>
                     )}
-                    <button className="btn btn-primary btn-small press" onClick={() => setBooking(booking?.name === pro.name ? null : pro)} aria-expanded={booking?.name === pro.name}>
+                    <button className="btn btn-secondary btn-small press" onClick={() => setBooking(booking?.name === pro.name ? null : pro)} aria-expanded={booking?.name === pro.name}>
                       I booked them
                     </button>
                   </div>
@@ -614,6 +881,51 @@ function ProFinder({ job, busy, run }: RunProps) {
           </ul>
         </>
       )}
+      <AnimatePresence>{contacting && <ContactSheet job={job} pro={contacting} slots={freeSlots} busy={busy} run={run} onClose={() => setContacting(null)} />}</AnimatePresence>
     </article>
+  );
+}
+
+/** Contact a pro: the exact message, editable; text or call from your own phone, or let Helpa reach out (demo). */
+function ContactSheet({ job, pro, slots, busy, run, onClose }: RunProps & { pro: JobPro; slots: { label: string; at: number }[]; onClose: () => void }) {
+  const [message, setMessage] = useState(() => proMessage(job, slots.map((slot) => slot.label)));
+  const [allowed, setAllowed] = useState(false);
+  const digits = pro.phone.replace(/[^\d+]/g, "");
+  const contacted = () => run("contact", () => markContacted(job.id, pro.name));
+  return (
+    <>
+      <motion.div className="job-sheet-scrim" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+      <motion.div className="job-sheet" role="dialog" aria-label={`Contact ${pro.name}`} initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 32 }}>
+        <div className="sheet-head">
+          <div>
+            <p className="card-title">Contact {pro.name}</p>
+            <p className="sheet-sub">This is exactly what they get. Change anything.</p>
+          </div>
+          <button className="icon-button press" onClick={onClose} aria-label="Close">
+            <Icon name="close" />
+          </button>
+        </div>
+        <textarea className="job-message" value={message} onChange={(changeEvent) => setMessage(changeEvent.target.value)} aria-label="Message to the pro" rows={9} maxLength={1500} />
+        {digits && (
+          <div className="job-actions">
+            <a className="btn btn-secondary btn-small press" href={`sms:${digits}?&body=${encodeURIComponent(message)}`} onClick={contacted}>
+              <Icon name="send" size={18} /> Text from my phone
+            </a>
+            <a className="btn btn-secondary btn-small press" href={`tel:${digits}`} onClick={contacted}>
+              <Icon name="speaker" size={18} /> Call
+            </a>
+          </div>
+        )}
+        {digits && <p className="job-muted">Calling? Read them the message above.</p>}
+        <label className="job-permission">
+          <input type="checkbox" checked={allowed} onChange={(changeEvent) => setAllowed(changeEvent.target.checked)} />
+          Helpa may contact this business for me
+        </label>
+        <button className="btn btn-primary press" disabled={!allowed || !message.trim() || Boolean(busy)} onClick={() => run("reach", () => reachOut(job.id, pro.name, message, slots)).then(onClose)}>
+          <Icon name="sparkle" size={20} /> {busy === "reach" ? "Sending…" : "Let Helpa reach out (demo)"}
+        </button>
+        <p className="job-demo-note">Demo: Helpa shows a sample reply. Calling or texting for you can be connected later (phone service + your permission).</p>
+      </motion.div>
+    </>
   );
 }

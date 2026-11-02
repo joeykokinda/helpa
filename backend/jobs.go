@@ -410,7 +410,11 @@ func registerJobRoutes() {
 		if !ok {
 			return
 		}
-		var body struct{ Store, OrderURL, Carrier, Tracking, ETA string }
+		var body struct {
+			Store, OrderURL, Carrier, Tracking, ETA string
+			// Demo is "Buy it (demo)": nothing is bought; the app animates the delivery and the part lands as delivered.
+			Demo bool
+		}
 		if !readBody(writer, request, &body) {
 			return
 		}
@@ -426,6 +430,14 @@ func registerJobRoutes() {
 			where := part.Store
 			if where == "" {
 				where = "the store"
+			}
+			if body.Demo {
+				part.Tracking = ""
+				item.note("part_ordered", fmt.Sprintf("Ordered the %s from %s (demo, nothing was bought).", part.Name, where))
+				for _, status := range []string{"shipped", "out_for_delivery", "delivered"} {
+					advancePart(item, part, status, "Today", "")
+				}
+				return nil
 			}
 			item.note("part_ordered", fmt.Sprintf("Ordered the %s from %s. Helpa is watching the delivery.", part.Name, where))
 			return nil

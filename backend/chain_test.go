@@ -57,6 +57,15 @@ func TestProChain(t *testing.T) {
 	if item["status"] != "needs_part" || item["parts_needed"].([]any)[0] != "Thermal fuse (part number 279973)" || said["above_fair"] != false {
 		t.Fatalf("pro said: %v", said)
 	}
+
+	// Buy it (demo): nothing bought, the part lands as delivered so the install guide can start.
+	found := call("/api/jobs/"+id+"/parts/find", map[string]any{"part": "Thermal fuse (part number 279973)"}, 200)
+	parts := found["job"].(map[string]any)["parts"].([]any)
+	partID := parts[len(parts)-1].(map[string]any)["id"].(string)
+	bought := call("/api/jobs/"+id+"/parts/"+partID+"/ordered", map[string]any{"store": "RepairClinic", "demo": true}, 200)
+	if bought["status"] != "part_arrived" {
+		t.Fatalf("demo buy: %v", bought["status"])
+	}
 }
 
 func TestCleanPriceNeedsSources(t *testing.T) {

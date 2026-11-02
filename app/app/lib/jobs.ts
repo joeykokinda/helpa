@@ -22,6 +22,21 @@ export type JobPart = {
 };
 export type JobPro = { name: string; trade: string; rating: number; reviews: number; phone: string; website: string; address: string; why: string; hours: string; contacted?: number };
 export type JobFollowUp = { id: string; label: string; due: number; done: boolean };
+export type FairPrice = { summary: string; low: number; high: number; service_call: string; includes: string; red_flags: string[]; sources: string[]; sample?: boolean };
+export type ProContact = {
+  pro: string;
+  phone?: string;
+  message: string;
+  sent_at: number;
+  reply: string;
+  quote_low: number;
+  quote_high: number;
+  slot_label: string;
+  slot_at: number;
+  question: string;
+  demo: boolean;
+};
+export type ProUpdate = { diagnosis: string; parts: { name: string; part_number: string }[]; quoted_price: number; status: "fixed" | "needs_part" | "pro_returning" | "diy"; next_step: string };
 export type JobStatus = "fixing" | "needs_part" | "waiting_part" | "part_arrived" | "needs_pro" | "pro_booked" | "done";
 export type Job = {
   id: string;
@@ -38,6 +53,8 @@ export type Job = {
   pros: JobPro[];
   location?: string;
   appointment?: { pro: string; phone?: string; at: number };
+  fair_price?: FairPrice;
+  contact?: ProContact;
   follow_ups: JobFollowUp[];
   log: JobLog[];
   created_at: number;
@@ -92,11 +109,15 @@ export const setJobStatus = (id: string, status: JobStatus | "", note = "", upda
 export const addFollowUp = (id: string, label: string, due: number) => call<Job>("POST", `/${id}/follow-ups`, { label, due });
 export const finishFollowUp = (id: string, followUp: string) => call<Job>("POST", `/${id}/follow-ups`, { done: followUp });
 export const findPart = (id: string, part: string) => call<{ job: Job; sample: boolean }>("POST", `/${id}/parts/find`, { part });
-export const markOrdered = (id: string, part: string, order: { store: string; tracking: string; carrier?: string; orderURL?: string }) =>
+export const markOrdered = (id: string, part: string, order: { store: string; tracking?: string; carrier?: string; orderURL?: string; demo?: boolean }) =>
   call<Job>("POST", `/${id}/parts/${part}/ordered`, order);
 export const findPros = (id: string, location: string) => call<{ job: Job; sample: boolean }>("POST", `/${id}/pros/find`, { location });
 export const markContacted = (id: string, pro: string) => call<Job>("POST", `/${id}/appointment`, { contacted: pro });
 export const bookPro = (id: string, pro: JobPro, at: number) => call<Job>("POST", `/${id}/appointment`, { pro: pro.name, phone: pro.phone, at });
+export const checkFairPrice = (id: string, location = "") => call<Job>("POST", `/${id}/fair-price`, { location });
+export const reachOut = (id: string, pro: string, message: string, slots: { label: string; at: number }[]) =>
+  call<Job>("POST", `/${id}/reach-out`, { pro, message, permission: true, slots });
+export const tellProSaid = (id: string, text: string) => call<{ job: Job; update: ProUpdate; above_fair: boolean }>("POST", `/${id}/pro-said`, { text });
 export const deleteJob = (id: string) => call<Job>("POST", `/${id}/delete`, {});
 
 /** A plan's wording ("Thermal fuse for your model (match it...)") as the part's name ("Thermal fuse"); same rule as the backend. */
@@ -116,6 +137,20 @@ export function jobSummary(job: Job) {
   if (job.diagnosis) lines.push(`Likely cause: ${job.diagnosis}`);
   if (job.ruled_out.length) lines.push(`Already ruled out: ${job.ruled_out.join("; ")}`);
   for (const part of job.parts) if (part.part_number) lines.push(`Part: ${shortPart(part.name)} (${part.part_number})`);
+  return lines.join("\n");
+}
+
+export const priceRange = (low: number, high: number) => (low > 0 && low !== high ? `$${low} to $${high}` : `$${high || low}`);
+
+/** The message Helpa sends a pro: the machine, what's wrong, what was tried, the part, when you're free, a fair price. */
+export function proMessage(job: Job, free: string[]) {
+  const lines = [`Hi! Could you help with my ${job.appliance}?`, "", jobSummary(job)];
+  if (job.tried.length) lines.push(`Already tried: ${job.tried.slice(0, 4).join("; ")}`);
+  for (const name of job.parts_needed) if (!job.parts.some((part) => part.name.toLowerCase() === shortPart(name).toLowerCase())) lines.push(`Part it may need: ${name}`);
+  lines.push("I can send photos.");
+  if (free.length) lines.push(`I'm free ${free.map((label) => label.toLowerCase()).join(", or ")}.`);
+  if (job.fair_price && job.fair_price.high > 0) lines.push(`Helpa says a fair price for this is ${priceRange(job.fair_price.low, job.fair_price.high)}. Could you confirm your price before coming?`);
+  lines.push("", "Thanks!");
   return lines.join("\n");
 }
 

@@ -629,6 +629,10 @@ export default function Home() {
         onChange={rememberJob}
         onBack={() => setStage("home")}
         onInstall={installPart}
+        onFix={(job, complaint) => {
+          start([], complaint);
+          trackRunJob(job.id);
+        }}
         onDeleted={(id) => {
           setJobs((current) => current.filter((job) => job.id !== id));
           setStage("home");
