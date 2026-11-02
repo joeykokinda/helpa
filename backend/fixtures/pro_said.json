@@ -1,0 +1,7 @@
+{
+  "diagnosis": "The thermal fuse blew because the vent was partly blocked; the vent is clear now.",
+  "parts": [{"name": "Thermal fuse", "part_number": "279973"}],
+  "quoted_price": 140,
+  "status": "needs_part",
+  "next_step": "Order the thermal fuse (279973). It's a 15-minute swap you can do yourself, and Helpa shows you how."
+}

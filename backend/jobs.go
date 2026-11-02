@@ -97,6 +97,8 @@ type job struct {
 	Pros        []jobPro        `json:"pros"`
 	Location    string          `json:"location,omitempty"`
 	Appointment *jobAppointment `json:"appointment,omitempty"`
+	FairPrice   *fairPrice      `json:"fair_price,omitempty"`
+	Contact     *proContact     `json:"contact,omitempty"`
 	FollowUps   []jobFollowUp   `json:"follow_ups"`
 	Log         []jobLog        `json:"log"`
 	CreatedAt   int64           `json:"created_at"`
@@ -480,6 +482,9 @@ func registerJobRoutes() {
 
 	http.HandleFunc("POST /api/jobs/{id}/parts/find", handleFindParts)
 	http.HandleFunc("POST /api/jobs/{id}/pros/find", handleFindPros)
+	http.HandleFunc("POST /api/jobs/{id}/fair-price", handleFairPrice)
+	http.HandleFunc("POST /api/jobs/{id}/reach-out", handleReachOut)
+	http.HandleFunc("POST /api/jobs/{id}/pro-said", handleProSaid)
 	http.HandleFunc("GET /api/push/key", handlePushKey)
 	http.HandleFunc("POST /api/push/subscribe", handlePushSubscribe)
 }
