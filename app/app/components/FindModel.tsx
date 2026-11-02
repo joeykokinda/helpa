@@ -100,6 +100,7 @@ export default function FindModel({ videoRef, trackRef, say, onUse }: FindModelP
     let alive = true;
     let busy = false;
     let hits = 0;
+    let misses = 0;
     let lastRead = 0;
     const timer = window.setInterval(async () => {
       const video = videoRef.current;
@@ -111,39 +112,47 @@ export default function FindModel({ videoRef, trackRef, say, onUse }: FindModelP
         if (!alive) return;
         const masks = sam ? parseMasks(sam) : [];
         const mask = pickMask(masks, frame, boxRef.current?.box ?? null);
-        if (!mask) {
-          hits = 0;
-          return;
-        }
-        const toBox = (found: typeof mask) => ({ x: found.left / frame.width, y: found.top / frame.height, width: found.width / frame.width, height: found.height / frame.height });
-        const box = toBox(mask);
+        const toBox = (found: NonNullable<typeof mask>) => ({ x: found.left / frame.width, y: found.top / frame.height, width: found.width / frame.width, height: found.height / frame.height });
         const now = performance.now();
-        boxRef.current = { box, at: now, lockedAt: boxRef.current && now - boxRef.current.at < 3500 ? boxRef.current.lockedAt : now };
-        hits++;
-        if (hits < 2 || now - lastRead < 3000) return;
+        let boxes: Box[];
+        if (mask) {
+          misses = 0;
+          boxRef.current = { box: toBox(mask), at: now, lockedAt: boxRef.current && now - boxRef.current.at < 3500 ? boxRef.current.lockedAt : now };
+          hits++;
+          if (hits < 2 || now - lastRead < 3000) return;
+          // A warning sticker often sits next to the model sticker, so read the biggest few labels SAM saw.
+          boxes = [mask, ...masks.filter((other) => other !== mask).sort((a, b) => b.width * b.height - a.width * a.height)].slice(0, 3).map(toBox);
+        } else {
+          hits = 0;
+          // SAM doesn't always call a sticker a sticker (plain labels, close-ups), so after a few misses read
+          // the middle of the picture directly.
+          if (++misses < 3 || now - lastRead < 5000) return;
+          boxes = [{ x: 0.1, y: 0.1, width: 0.8, height: 0.8 }];
+        }
         lastRead = now;
         setState("reading");
-        sayRef.current("Found it! Hold still while I read it.", "searching", false);
-        // Helpa's zoom: one full-resolution still, cropped to each label SAM saw (a warning sticker often sits
-        // next to the model sticker) and enlarged for Muse; the first one with a model number wins.
+        sayRef.current(mask ? "Found it! Hold still while I read it." : "Hold still while I read it.", "searching", false);
+        // Helpa's zoom: one full-resolution still, cropped to each candidate and enlarged for Muse; the first one
+        // with a model number wins.
         const still = await fullResolutionStill(video, trackRef.current);
-        const candidates = [mask, ...masks.filter((other) => other !== mask).sort((a, b) => b.width * b.height - a.width * a.height)].slice(0, 3);
-        const crops = await Promise.all(candidates.map((candidate) => canvasBlob(cropAndEnlarge(still, toBox(candidate)), 0.9)));
+        const crops = await Promise.all(boxes.map((box) => canvasBlob(cropAndEnlarge(still, box), 0.9)));
         setZoomUrl(URL.createObjectURL(crops[0]));
         const results = await Promise.all(crops.map((crop) => readLabel(crop).catch(() => null)));
         if (!alive) return;
         const winner = results.findIndex((result) => result?.found && (result.model_number || result.vin));
         const result = winner >= 0 ? results[winner] : null;
         if (result) {
-          boxRef.current = { box: toBox(candidates[winner]), at: performance.now(), lockedAt: performance.now() };
+          boxRef.current = { box: boxes[winner], at: performance.now(), lockedAt: performance.now() };
           setZoomUrl(URL.createObjectURL(crops[winner]));
           setReading(result);
           setState("read");
           sayRef.current(`Got it! ${identityText(result)}.`, "found");
-        } else {
+        } else if (mask) {
           setState("unreadable");
           sayRef.current("I can see it but can't read it yet. Move a little closer.", "worried", false);
           setTimeout(() => alive && setState("looking"), 2500);
+        } else {
+          setState("looking");
         }
       } catch {
         if (alive) setState("looking");

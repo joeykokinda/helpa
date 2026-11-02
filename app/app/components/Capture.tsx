@@ -327,7 +327,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               </button>
             </div>
           )}
-          {photos.length === 0 && !scanning && <SampleSheetButton onPick={trySample} />}
+          {photos.length === 0 && !scanning && captureMode !== "model" && <SampleSheetButton onPick={trySample} />}
           <div className="mode-switch" role="radiogroup" aria-label="Capture mode">
             {(["photo", "scan", "model"] as const).map((option) => (
               <button key={option} role="radio" aria-checked={captureMode === option} className="press" onClick={() => setCaptureMode(option)} disabled={scanning}>
