@@ -24,7 +24,7 @@ type MyHomeProps = {
   /** Tell me: talk or type it. */
   onTell: () => void;
   /** A problem picked from the list, straight to its ready fix. */
-  onPickFix: (fix: string, says: string) => void;
+  onPickFix: (fix: string, says: string, category: string) => void;
   onSample: (photo: Blob, sample: Sample) => void;
   onHelp: () => void;
 };
@@ -159,7 +159,7 @@ export default function MyHome({ machines, jobs, onOpenJob, mood, speaking, onOp
           <h2 id="pick-heading" className="section-title">
             Or pick it
           </h2>
-          <FixPicker onPick={(fix, says) => onPickFix(fix, says)} />
+          <FixPicker onPick={onPickFix} />
         </section>
 
         <section className="home-section sample-block" aria-labelledby="sample-heading">

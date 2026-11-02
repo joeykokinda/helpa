@@ -14,8 +14,9 @@ itself is at https://brach.taild3399f.ts.net/app on any phone (Android Chrome or
 
 ### Test it in 60 seconds
 
-1. Open `/app`, and under **Or pick it** tap **Dryer**, then **Spins but no heat**. The plan shows every step as
-   a picture drawn from the 3D model.
+1. Open `/app`, and under **Or pick it** tap **Dryer**, then **Spins but no heat**. Helpa asks for a photo of your
+   dryer or its sticker so the fix is for your exact model; with no dryer nearby, tap **No photo? Show the general
+   fix**. The plan shows every step as a picture drawn from the 3D model.
 2. Tap **Let's start** and watch the move in 3D. Then tap **I'm stuck**: **Ask Helpa** (type or talk) or
    **Check what I did** (snap a photo).
 3. Tap **Still broken** until Helpa calls for a part, then **Find a pro near me** to open the job. Find the thermal

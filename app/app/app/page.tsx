@@ -87,6 +87,13 @@ type Question = { session: string; question: string; choices: string[] };
 
 const noSubscription = () => () => {};
 
+/** What to snap for a picked problem, so the fix is for this exact machine. */
+function pickPrompt(category: string) {
+  if (category === "Car") return "Snap your car's VIN or the engine bay, so I fix your exact one.";
+  const thing = ({ "Heat and AC": "furnace or thermostat", "Outlet or lights out": "outlet or breaker panel" } as Record<string, string>)[category] ?? category.split(" ·")[0].toLowerCase();
+  return `Snap your ${thing} or its model sticker, so I fix your exact one.`;
+}
+
 export default function Home() {
   const firstRun = useSyncExternalStore(noSubscription, () => !hasOnboarded(), () => null);
   const [tutorial, setTutorial] = useState<"auto" | "open" | "closed">("auto");
@@ -123,6 +130,8 @@ export default function Home() {
   const [homeLoaded, setHomeLoaded] = useState(false);
   const [machineId, setMachineId] = useState<string>();
   const [prefill, setPrefill] = useState<{ identity: string; description: string }>();
+  // A problem picked from the list, waiting for a photo of the machine.
+  const [picked, setPicked] = useState<{ fix: string; says: string }>();
   const [savedName, setSavedName] = useState("");
   const runRef = useRef<{ photos: Blob[]; sample?: string; description: string; attempts: Attempt[]; fix?: string }>({ photos: [], description: "", attempts: [] });
   // Hands-free: spoken commands drive the steps while your hands are busy.
@@ -584,16 +593,24 @@ export default function Home() {
         }}
         onFix={() => {
           setPrefill(undefined);
+          setPicked(undefined);
           setBubble(cameraPrompt);
           setStage("start");
         }}
         onTell={() => {
           stopSpeaking();
           setPrefill({ identity: "", description: "" });
+          setPicked(undefined);
           setBubble("Tell me what's going on. Type it, or hold the mic and talk.");
           setStage("start");
         }}
-        onPickFix={(fix, says) => start([], says, undefined, [], fix)}
+        onPickFix={(fix, says, category) => {
+          stopSpeaking();
+          setPrefill(undefined);
+          setPicked({ fix, says });
+          setBubble(pickPrompt(category));
+          setStage("start");
+        }}
         onSample={(photo, sample) => start([photo], sample.complaint, sample.id)}
         onHelp={openTutorial}
       />
@@ -637,6 +654,7 @@ export default function Home() {
     screen = (
       <Capture
         prefill={prefill}
+        picked={picked && { says: picked.says, onSkip: () => start([], picked.says, undefined, [], picked.fix) }}
         onHome={() => {
           stopSpeaking();
           setStage("home");

@@ -27,6 +27,8 @@ type CaptureProps = {
   prefill?: { identity: string; description: string };
   /** Back to My Home, when there is one. */
   onHome?: () => void;
+  /** A problem picked from the list: the camera opens with it filled in, so a photo makes it this exact machine. */
+  picked?: { says: string; onSkip: () => void };
 };
 
 export const cameraPrompt = "Point me at the broken thing, or its model sticker.";
@@ -36,7 +38,7 @@ const scanFrames = 3;
 const suggestions = ["Dishwasher leaves grit", "Washer won't drain", "Dryer takes forever", "Garbage disposal hums", "Fridge is leaking", "Toilet keeps running"];
 
 /** Full-bleed camera first; falls back to (or switches to) a describe screen with text and hold-to-talk. */
-export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mood, speaking, prefill, onHome }: CaptureProps) {
+export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mood, speaking, prefill, onHome, picked }: CaptureProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const backdropRef = useRef<HTMLVideoElement>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
@@ -48,7 +50,7 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
   // The model number Helpa read off the sticker (or a VIN), sent along with the problem.
   const [identity, setIdentity] = useState(prefill?.identity ?? "");
   const [photos, setPhotos] = useState<{ blob: Blob; url: string }[]>([]);
-  const [description, setDescription] = useState(prefill?.description ?? "");
+  const [description, setDescription] = useState(prefill?.description ?? picked?.says ?? "");
   // Circle the problem: which photo is being drawn on, and whether any photo carries a circle.
   const [marking, setMarking] = useState<number | null>(null);
   const [circled, setCircled] = useState(false);
@@ -327,7 +329,14 @@ export default function Capture({ onSubmit, say, onListening, onHelp, bubble, mo
               </button>
             </div>
           )}
-          {photos.length === 0 && !scanning && captureMode !== "model" && <SampleSheetButton onPick={trySample} />}
+          {photos.length === 0 && !scanning && captureMode !== "model" &&
+            (picked ? (
+              <button className="sample-pill glass press" onClick={picked.onSkip}>
+                No photo? Show the general fix
+              </button>
+            ) : (
+              <SampleSheetButton onPick={trySample} />
+            ))}
           <div className="mode-switch" role="radiogroup" aria-label="Capture mode">
             {(["photo", "scan", "model"] as const).map((option) => (
               <button key={option} role="radio" aria-checked={captureMode === option} className="press" onClick={() => setCaptureMode(option)} disabled={scanning}>
