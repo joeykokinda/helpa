@@ -253,3 +253,11 @@ func TestKeepKnownIdentity(t *testing.T) {
 		t.Errorf("follow-up brand lost: %q", brand)
 	}
 }
+
+func TestWasherKindUnknown(t *testing.T) {
+	for appliance, want := range map[string]bool{"washer": true, "washing machine": true, "top-load washer": false, "Front-load washer": false, "dryer": false, "dishwasher": false} {
+		if washerKindUnknown(appliance) != want {
+			t.Errorf("%q: want %v", appliance, want)
+		}
+	}
+}

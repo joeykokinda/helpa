@@ -283,6 +283,18 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 			spotParts(ctx, photos, ident, emit)
 		}()
 	}
+	// Top-load or front-load changes nearly every washer step, so a washer of unknown kind is asked about first.
+	if washerKind := washerKindUnknown(ident.Appliance); washerKind && ident.Question == "" {
+		if answer, answered := session.ask(ctx, emit, "Is it a top-load or front-load washer?", []string{"Top-load (lid on top)", "Front-load (door on the front)", "Not sure"}); answered {
+			complaint += "\nHelpa asked: Is it a top-load or front-load washer?\nThe user answered: " + answer
+			if strings.HasPrefix(answer, "Top") {
+				ident.Appliance = "top-load washer"
+			} else if strings.HasPrefix(answer, "Front") {
+				ident.Appliance = "front-load washer"
+			}
+			emitIdentify(emit, ident)
+		}
+	}
 	if ident.confident() {
 		startTracks(ident)
 	}
@@ -316,6 +328,12 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 	showPlan(ctx, photos, plan, complaint, models, emit)
 	tracks.Wait()
 	return nil
+}
+
+// washerKindUnknown is a washer named without saying top-load or front-load ("washer", "washing machine").
+func washerKindUnknown(appliance string) bool {
+	lower := strings.ToLower(appliance)
+	return normalizeAppliance(appliance) == "washer" && !strings.Contains(lower, "top") && !strings.Contains(lower, "front") && !strings.Contains(lower, "combo")
 }
 
 // keepKnownIdentity clears a brand or model number nobody gave: a plan built on a library entry can carry that
