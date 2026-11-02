@@ -310,11 +310,52 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		tracks.Wait()
 		return err
 	}
+	plan = keepKnownIdentity(plan, ident, complaint, follow)
 	plan = markSafetyStop(plan)
 	emit(event{"type": "plan", "plan": plan})
 	showPlan(ctx, photos, plan, complaint, models, emit)
 	tracks.Wait()
 	return nil
+}
+
+// keepKnownIdentity clears a brand or model number nobody gave: a plan built on a library entry can carry that
+// entry's example machine ("Whirlpool WFW5720RW") when the photo showed no brand. Known means the first look found
+// it, the person wrote it (sticker reads are added to the complaint), or an earlier plan for the same job had it.
+func keepKnownIdentity(plan json.RawMessage, ident identification, complaint string, follow followUp) json.RawMessage {
+	var fields map[string]any
+	if json.Unmarshal(plan, &fields) != nil {
+		return plan
+	}
+	known := func(value string) bool {
+		value = strings.TrimSpace(value)
+		if value == "" {
+			return true
+		}
+		for _, source := range []string{ident.Brand, ident.ModelNumber, follow.Brand, follow.ModelNumber} {
+			if source != "" && (strings.EqualFold(source, value) || strings.Contains(strings.ToLower(source), strings.ToLower(value))) {
+				return true
+			}
+		}
+		return strings.Contains(strings.ToLower(complaint), strings.ToLower(value))
+	}
+	brand, _ := fields["brand"].(string)
+	model, _ := fields["model_number"].(string)
+	if known(brand) && known(model) {
+		return plan
+	}
+	if !known(brand) {
+		log.Printf("plan: dropping brand %q nobody gave", brand)
+		fields["brand"] = ""
+	}
+	if !known(model) {
+		log.Printf("plan: dropping model %q nobody gave", model)
+		fields["model_number"] = ""
+	}
+	cleaned, err := json.Marshal(fields)
+	if err != nil {
+		return plan
+	}
+	return cleaned
 }
 
 // installRequest matches the app's "my new part arrived, show me how to install it" message.

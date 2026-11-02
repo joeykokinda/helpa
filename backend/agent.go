@@ -142,7 +142,14 @@ func research(ctx context.Context, photos []string, complaint string, ident iden
 			brief += fmt.Sprintf("\nLibrary match: none that fits. Helpa's library has a %s %s, but the person mentions %q, so their machine is "+
 				"different. Don't call lookup_library; research their kind of machine on the web.", entry.Brand, entry.Appliance, entry.contradiction(complaint+" "+ident.Appliance))
 		} else if entry != nil {
-			emit(event{"type": "library", "brand": entry.Brand, "appliance": entry.Appliance, "model_family": entry.ModelFamily})
+			// Without a brand from the photo or the person, the entry is an example of their kind of machine, not theirs.
+			if ident.Brand == "" {
+				emit(event{"type": "library", "brand": "", "appliance": entry.Appliance, "model_family": fmt.Sprintf("Works on most %ss", entry.Appliance)})
+				brief += "\nTheir brand and model are unknown. The library entry below is one example machine of the same kind: use its fix, " +
+					"but leave brand and model_number empty in the plan and don't name its brand or model."
+			} else {
+				emit(event{"type": "library", "brand": entry.Brand, "appliance": entry.Appliance, "model_family": entry.ModelFamily})
+			}
 			brief += "\nLibrary match: " + entry.forAgent()
 		} else {
 			brief += "\nLibrary match: none. Research it on the web."
@@ -200,6 +207,11 @@ func runTool(ctx context.Context, call outputItem, session *fixSession, emit fun
 		entry := lookupLibrary(query)
 		if entry == nil {
 			return "No library match. Research it on the web."
+		}
+		// A lookup without a brand finds an example of the kind of machine, so the label doesn't name one.
+		if strings.TrimSpace(query.Brand) == "" {
+			emit(event{"type": "library", "brand": "", "appliance": entry.Appliance, "model_family": fmt.Sprintf("Works on most %ss", entry.Appliance)})
+			return entry.forAgent() + "\nThis is an example machine; the person's brand and model are unknown, so leave them empty in the plan."
 		}
 		emit(event{"type": "library", "brand": entry.Brand, "appliance": entry.Appliance, "model_family": entry.ModelFamily})
 		return entry.forAgent()

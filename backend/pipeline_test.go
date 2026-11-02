@@ -228,3 +228,28 @@ func TestPickedIdentity(t *testing.T) {
 		t.Errorf("picked disposal fix shouldn't name a brand, got %q %q", disposal.Brand, disposal.ModelNumber)
 	}
 }
+
+func TestKeepKnownIdentity(t *testing.T) {
+	plan := json.RawMessage(`{"appliance":"front-load washer","brand":"Whirlpool","model_number":"WFW5720RW","steps":[]}`)
+	read := func(raw json.RawMessage) (string, string) {
+		var fields map[string]any
+		json.Unmarshal(raw, &fields)
+		return fields["brand"].(string), fields["model_number"].(string)
+	}
+	// Nobody said Whirlpool: a library example's identity is dropped.
+	if brand, model := read(keepKnownIdentity(plan, identification{Appliance: "front-load washer"}, "It makes a grinding noise", followUp{})); brand != "" || model != "" {
+		t.Errorf("unknown machine kept %q %q", brand, model)
+	}
+	// The photo showed Whirlpool: kept, and the model too when the sticker was read.
+	if brand, model := read(keepKnownIdentity(plan, identification{Brand: "Whirlpool", ModelNumber: "WFW5720RW"}, "grinding", followUp{})); brand != "Whirlpool" || model != "WFW5720RW" {
+		t.Errorf("known machine lost %q %q", brand, model)
+	}
+	// The person typed it.
+	if brand, _ := read(keepKnownIdentity(plan, identification{}, "My whirlpool washer grinds", followUp{})); brand != "Whirlpool" {
+		t.Errorf("typed brand lost: %q", brand)
+	}
+	// A "Still broken" follow-up carries the brand from the first plan.
+	if brand, _ := read(keepKnownIdentity(plan, identification{}, "grinding", followUp{Brand: "Whirlpool"})); brand != "Whirlpool" {
+		t.Errorf("follow-up brand lost: %q", brand)
+	}
+}
