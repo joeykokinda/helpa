@@ -189,7 +189,7 @@
             "check": "The cap is back on snug with the new element inside."
           },
           {
-            "instruction": "Pour in 4.4 quarts of 0W-20",
+            "instruction": "Pour in 4.6 quarts of 0W-20",
             "details": [
               "Use the funnel, go slowly.",
               "Hold the last bit back to check the level first."
@@ -198,7 +198,7 @@
             "photo": -1,
             "motion": "none",
             "show_3d": true,
-            "check": "About 4.4 quarts are in and the cap is back on tight."
+            "check": "About 4.6 quarts are in and the cap is back on tight."
           },
           {
             "instruction": "Run it one minute, check for drips",

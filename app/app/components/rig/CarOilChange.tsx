@@ -1423,7 +1423,7 @@ const sampleSteps: { instruction: string; beats: Beat[] }[] = [
     ],
   },
   {
-    instruction: "Pour in 4.4 quarts of 0W-20",
+    instruction: "Pour in 4.6 quarts of 0W-20",
     beats: [
       { part: "oil_fill_cap", action: "remove", caption: "Lift off the fill cap" },
       { part: "new_oil", action: "turn", caption: "Pour 0W-20 slowly" },
