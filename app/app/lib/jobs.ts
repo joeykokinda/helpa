@@ -133,6 +133,19 @@ export function shortPart(name: string) {
   return short.replace(/^(A new |New )/, "").trim();
 }
 
+/** "Toyota" + "2015 Camry 2.5L" reads "2015 Toyota Camry 2.5L"; anything else is brand then model. */
+export function machineName(brand: string, model: string) {
+  const year = model.match(/^((?:19|20)\d\d) (.+)$/);
+  return (year && brand ? [year[1], brand, year[2]] : [brand, model]).filter(Boolean).join(" ");
+}
+
+/** A part's name inside a sentence: short, first letter lowered, brands, acronyms and grades ("SAE 0W-20") kept. */
+export function inSentence(name: string, brand = "") {
+  const short = shortPart(name).split(" - ")[0];
+  const keep = brand && short.toLowerCase().startsWith(brand.toLowerCase());
+  return !keep && /^[A-Z][a-z]/.test(short) ? short.charAt(0).toLowerCase() + short.slice(1) : short;
+}
+
 /** Needed parts Helpa hasn't found yet. */
 export function unfoundParts(job: Job) {
   const found = new Set(job.parts.flatMap((part) => [part.name, part.asked ?? ""]).map((name) => shortPart(name).toLowerCase()));
@@ -141,7 +154,7 @@ export function unfoundParts(job: Job) {
 
 /** What a pro needs to know before they come, so you aren't charged to diagnose it twice. */
 export function jobSummary(job: Job) {
-  const machine = [job.brand, job.model, job.appliance].filter(Boolean).join(" ");
+  const machine = [machineName(job.brand, job.model), job.appliance].filter(Boolean).join(" ");
   const lines = [`${machine.charAt(0).toUpperCase()}${machine.slice(1)}: ${job.title}`];
   // The cause only; the rest of a diagnosis is advice for the owner ("so this is a part swap for a pro").
   if (job.diagnosis) lines.push(`Likely cause: ${job.diagnosis.match(/^.+?[.!?](\s|$)/)?.[0]?.trim() ?? job.diagnosis}`);
@@ -236,7 +249,7 @@ export function nextUp(job: Job): string {
   const part = job.parts.find((candidate) => candidate.status !== "delivered") ?? job.parts[0];
   switch (job.status) {
     case "needs_part":
-      return part ? `Order the ${shortPart(part.name).toLowerCase()}` : `Find the ${job.parts_needed[0] ?? "part"}`;
+      return part ? `Order the ${inSentence(part.name, job.brand)}` : `Find the ${job.parts_needed[0] ? inSentence(job.parts_needed[0], job.brand) : "part"}`;
     case "waiting_part":
       return part?.status === "out_for_delivery" ? "Part arriving today" : part?.eta ? `Part arriving ${part.eta}` : "Part on its way";
     case "part_arrived":

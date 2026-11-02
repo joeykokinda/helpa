@@ -14,7 +14,7 @@ import Outcome from "../components/Outcome";
 import MachinePage from "../components/MachinePage";
 import MyHome from "../components/MyHome";
 import JobPage from "../components/JobPage";
-import { addFollowUp, createJob, listJobs, setJobStatus, type Job, type JobPart } from "../lib/jobs";
+import { addFollowUp, createJob, listJobs, machineName, setJobStatus, type Job, type JobPart } from "../lib/jobs";
 import Helpa, { type HelpaMood } from "../components/Helpa";
 import Icon, { type IconName } from "../components/Icons";
 import Onboarding, { hasOnboarded } from "../components/Onboarding";
@@ -334,7 +334,7 @@ export default function Home() {
   /** The part arrived: Helpa researches how to put it in on this exact machine and walks through it. */
   const installPart = (job: Job, part: JobPart) => {
     const number = part.part_number ? ` (part number ${part.part_number})` : "";
-    const machine = [job.brand, job.model, job.appliance].filter(Boolean).join(" ");
+    const machine = [machineName(job.brand, job.model), job.appliance].filter(Boolean).join(" ");
     start([], `My new ${part.name}${number} arrived. Show me how to install it on my ${machine}. The problem was: ${job.title}. ${job.diagnosis}`);
     trackRunJob(job.id);
   };

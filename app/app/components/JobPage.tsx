@@ -22,6 +22,8 @@ import {
   proMessage,
   reachOut,
   setJobStatus,
+  inSentence,
+  machineName,
   shortPart,
   unfoundParts,
   tellProSaid,
@@ -124,7 +126,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
   // A plan lists its main part first, and a new cause replaces the list. Parts already found aren't asked again.
   const unfound = unfoundParts(job);
   const neededPart = unfound[0];
-  const machine = [job.brand, job.model].filter(Boolean).join(" ") || job.appliance;
+  const machine = machineName(job.brand, job.model) || job.appliance;
 
   // The one thing to do now, as a big card: the autopilot for people who just want it fixed.
   let next: { title: string; detail: string; action?: ReactNode } = { title: statusLabel[job.status], detail: "" };
@@ -133,7 +135,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
   else if (job.status === "part_arrived" && part)
     next = {
       title: "Your part is here",
-      detail: `Helpa walks you through putting the new ${shortPart(part.name).split(" - ")[0].toLowerCase()} in, step by step.`,
+      detail: `Helpa walks you through putting the new ${inSentence(part.name, job.brand)} in, step by step.`,
       action: (
         <button className="btn btn-light press" onClick={() => onInstall(job, part)}>
           <Icon name="wrench" size={20} /> Install it now
@@ -152,14 +154,14 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
         ),
     };
   else if (job.status === "needs_part" && part)
-    next = { title: `Order the ${shortPart(part.name).toLowerCase()}`, detail: "Tap a store below, then come back and tap “I ordered it”. Helpa takes it from there." };
+    next = { title: `Order the ${inSentence(part.name, job.brand)}`, detail: "Tap a store below, then come back and tap “I ordered it”. Helpa takes it from there." };
   else if (job.status === "needs_pro")
     next = job.pros.length
       ? { title: "Call one of these pros", detail: "They're the best reviewed near you. Your message already says what's wrong and what you tried." }
       : { title: "Let's get a pro", detail: "Helpa finds the best-reviewed people near you who fix this, and writes the message for you." };
   else if (!job.parts.length && neededPart && job.status !== "done" && job.status !== "pro_booked")
     next = {
-      title: `Get the ${shortPart(neededPart).toLowerCase()}`,
+      title: `Get the ${inSentence(neededPart, job.brand)}`,
       detail: `Helpa finds the exact part for your ${machine} and where to buy it.`,
       action: (
         <button className="btn btn-light press" onClick={() => run(`part-${neededPart}`, () => findPart(job.id, neededPart))} disabled={Boolean(busy)}>
@@ -503,7 +505,7 @@ function PartCard({ job, part, busy, run, onInstall, onDemo }: RunProps & { part
             <p className="job-arrived-title">
               <Icon name="check" size={20} strokeWidth={3} /> Your part is here
             </p>
-            <p>Helpa walks you through putting the new {shortPart(part.name).split(" - ")[0].toLowerCase()} in, step by step on the 3D model.</p>
+            <p>Helpa walks you through putting the new {inSentence(part.name, job.brand)} in, step by step on the 3D model.</p>
             <button className="btn btn-primary press" onClick={() => onInstall(job, part)}>
               <Icon name="wrench" size={20} /> Install it now
             </button>
@@ -718,7 +720,7 @@ function ProSaid({ job, busy, run, onFix }: RunProps & { onFix: (job: Job, compl
               </button>
             )}
             {(update.status === "diy" || update.status === "needs_part") && (
-              <button className="btn btn-secondary btn-small press" onClick={() => onFix(job, `${update.diagnosis} ${partLabel ? `I need to replace the ${partLabel}.` : ""} Show me how to do it on my ${[job.brand, job.model, job.appliance].filter(Boolean).join(" ")}.`)}>
+              <button className="btn btn-secondary btn-small press" onClick={() => onFix(job, `${update.diagnosis} ${partLabel ? `I need to replace the ${partLabel}.` : ""} Show me how to do it on my ${[machineName(job.brand, job.model), job.appliance].filter(Boolean).join(" ")}.`)}>
                 <Icon name="cube" size={18} /> Show me how
               </button>
             )}
