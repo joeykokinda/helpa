@@ -30,7 +30,7 @@ Attach the 30-second cut (docs/VIDEO.md). Post the link in the first reply, not 
 
 ## Reply thread
 
-1. > Try it on your phone, no install: https://brach.taild3399f.ts.net
+1. > Try it on your phone, no install: https://helpa.pyras.org
    > Nothing broken? Tap "Try a sample".
 2. > How it works: Muse Wonder researches your exact model's manual, Muse Spark plans and checks each step, SAM 3.1
    > finds the part on your live camera and locks onto it. Agents run in parallel, so known fixes land in about 4 s.

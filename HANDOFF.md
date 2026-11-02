@@ -1,7 +1,7 @@
 # Helpa handoff
 
 **Project path:** `~/Projects/helpa` (GitHub: `git@github.com:joeykokinda/helpa.git`, branch `main`, public)
-**Live:** https://brach.taild3399f.ts.net (Tailscale Funnel on brach, public)
+**Live:** https://helpa.pyras.org (Cloudflare tunnel `jaeger` on brach → :3095; DNS CNAME `helpa` in the pyras.org zone). Backup: https://brach.taild3399f.ts.net (Tailscale Funnel → :3095). Cloudflare's 100 s request limit applies; the finders take about 15 to 20 s.
 **Deadline:** Wed Nov 4, 9:00 PM ET. Submit on the CV platform: public repo, 3-minute video, live link, X post link.
 **Rubric:** Impact 30%, Meta tooling 25%, Technical depth 20%, Demo 25%. Bonuses: open weights $10K, agentic $5K, creative $5K, viral on X $20K, community vote $10K.
 

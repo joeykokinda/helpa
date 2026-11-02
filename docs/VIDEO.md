@@ -4,7 +4,7 @@
 
 **Story:** your dryer stopped drying and your Camry is due for oil. A chatbot gives you a wall of text. Helpa reads the sticker, shows the move on a 3D twin of that exact dryer, answers your questions, checks your work from a photo, and when it's beyond you, finds a fair-priced pro and the exact part.
 
-**Total:** 2:58. Every on-screen phone shot is the live app at https://brach.taild3399f.ts.net/app on your iPhone.
+**Total:** 2:58. Every on-screen phone shot is the live app at https://helpa.pyras.org/app on your iPhone.
 
 ## Shot list
 
@@ -67,7 +67,7 @@ Helpa. Fix anything in your home, even if you know nothing. Try it at the link.
 
 ## Before you film
 
-- [ ] https://brach.taild3399f.ts.net/api/health says `"resting":false`.
+- [ ] https://helpa.pyras.org/api/health says `"resting":false`.
 - [ ] Practice run once on the iPhone; allow camera and motion when asked.
 - [ ] Clear My Home first (Safari → website data for the site) so the final My Home shot shows only the dryer and the Camry.
 - [ ] Laundry room light on, dryer lint screen has some real lint on it.

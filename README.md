@@ -9,8 +9,9 @@ it anything by voice or text, or snap a photo of what you did and it tells you i
 Built solo for the Meta Global AI Developer Hackathon (Oct 27 to Nov 4, 2026). Everything in this repo was written
 during the hackathon.
 
-**Try it:** https://brach.taild3399f.ts.net is the landing page (QR code, screenshots, a story clip); the app
-itself is at https://brach.taild3399f.ts.net/app on any phone (Android Chrome or iPhone Safari). No account.
+**Try it:** https://helpa.pyras.org is the landing page (QR code, screenshots, a story clip); the app
+itself is at https://helpa.pyras.org/app on any phone (Android Chrome or iPhone Safari). No account.
+(Backup link to the same server: https://brach.taild3399f.ts.net.)
 
 ### Test it in 60 seconds
 

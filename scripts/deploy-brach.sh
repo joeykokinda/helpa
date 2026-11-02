@@ -3,7 +3,7 @@
 # brach runs them as user services: helpa (Go, 127.0.0.1:8095) and helpa-web (Next, 127.0.0.1:3095).
 set -euo pipefail
 cd "$(dirname "$0")/.."
-site_url="${SITE_URL:-https://brach.taild3399f.ts.net}"
+site_url="${SITE_URL:-https://helpa.pyras.org}"
 out=.deploy
 rm -rf "$out" && mkdir -p "$out"
 
