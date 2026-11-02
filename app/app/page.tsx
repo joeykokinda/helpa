@@ -158,7 +158,7 @@ export default function Landing() {
               <span className="lp-pulse" aria-hidden="true" /> Your home repair helper
             </p>
             <h1>
-              Fix what&apos;s broken at home. <span>Even if you know nothing.</span>
+              Fix what&apos;s broken. <span>Even if you know nothing.</span>
             </h1>
             <p className="lp-lede">Snap it and follow each step in 3D. If it&apos;s too much, Helpa finds the part or a pro at a fair price.</p>
             <div className="lp-cta">
@@ -307,7 +307,7 @@ export default function Landing() {
           <div>
             <h2>Try it in a minute</h2>
             <p className="lp-path">
-              <strong>Dryer</strong> → <strong>Spins but no heat</strong> → snap your dryer (or <strong>No photo? Show the general fix</strong>) →{" "}
+              <strong>Dryer</strong> → <strong>Clothes still damp</strong> → snap your dryer (or <strong>No photo? Show the general fix</strong>) →{" "}
               <strong>Let&apos;s start</strong> → <strong>I&apos;m stuck</strong> → <strong>Hand it to a pro</strong>
             </p>
             <Link href="/app" className="lp-btn lp-btn-primary lp-btn-lg">

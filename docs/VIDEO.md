@@ -13,7 +13,7 @@
 | 1 | 0:00–0:06 | Laundry room | Hand pulls a soaking shirt out of the dryer, holds it up, drip. | "My dryer runs a full hour. Clothes come out soaking." | |
 | 2 | 0:06–0:10 | Driveway | Camry dash: maintenance light. | "And my car wants an oil change." | |
 | 3 | 0:10–0:20 | Laptop | A generic chatbot answer scrolling forever (no brand visible). Zoom on words like "lint trap", "vent duct", "thermal fuse". | "Ask a chatbot and you get this. Twelve paragraphs. Which part is the lint trap? Where's the vent? I've never opened a dryer." | |
-| 4 | 0:20–0:25 | Black title card | Helpa logo, mascot hops. | "So I built Helpa." | **Helpa** · Fix anything in your home. Even if you know nothing. |
+| 4 | 0:20–0:25 | Black title card | Helpa logo, mascot hops. | "So I built Helpa." | **Helpa** · Fix what's broken. Even if you know nothing. |
 | 5 | 0:25–0:35 | Dryer door rim, phone in hand | Camera → **Model #** → tap Dryer → the hint card shows where the sticker is on the 3D dryer → point at the sticker → "Got it! WED5050LW". | "Helpa knows where the sticker lives. It finds it and reads it, so it knows my exact dryer." | SAM 3.1 finds the label · Muse Spark reads it |
 | 6 | 0:35–0:42 | Phone | Tap **Use this** → "Clothes still wet" → **Help me fix it** → the working screen ticks off its lanes: what it is, the fix, 3D model, writing steps. "I know this one!" | "Agents work in parallel: identify, research the manual, build the 3D model, write the plan. About three seconds." | Parallel agents · Muse Spark + Muse Wonder |
 | 7 | 0:42–0:52 | Phone | Plan screen: "Your lint screen is choking the airflow." Scroll to the photo of your own dryer redrawn as a repair diagram (lint screen circled, arrow). | "It tells me why in one line, and draws the fix right on my own photo." | Muse Image draws on your photo |
@@ -29,7 +29,7 @@
 | 17 | 2:30–2:40 | Phone | **Find this part** → filter 04152-YZZA1, "Exact match", real prices from three stores → **Buy it (demo)** → Ordered → Shipped → Out for delivery → Arrived in five seconds → **Your part is here** → **Install it now** opens the 3D guide. | "It finds the exact filter with real prices, tracks the order, and the moment it arrives, walks me through putting it in." | Demo checkout · store checkout connects later |
 | 18 | 2:40–2:47 | Phone | My Home: Dryer "Repaired", Car with its 3D model. Ask Helpa: "What oil did I use?" → "4.6 quarts of 0W-20. Next change by Nov 2027." | "Everything I fix is saved. Helpa remembers my home." | My Home · Ask Helpa |
 | 19 | 2:47–2:53 | Fast montage | The pick-it grid (toilet, sink, fridge, furnace, outlet), Try a sample, a generated 3D model of a bathroom fan. | "Toilets, sinks, fridges, furnaces. If it's not in the library, Helpa builds the model on the spot." | 16 everyday things · on-demand 3D |
-| 20 | 2:53–2:58 | End card | "Built on Meta": Muse Spark, Muse Wonder, SAM 3.1, Muse Image, Muse Voice (add Muse Spark Open only if BASETEN_API_KEY is set on brach). Stats: 50 real problems tested · 8/8 dangerous cases sent to a pro · 3x less reading than a chatbot. Logo, link, QR. | "Helpa. Fix anything in your home, even if you know nothing. Try it at the link." | helpa.pyras.org |
+| 20 | 2:53–2:58 | End card | "Built on Meta": Muse Spark, Muse Wonder, SAM 3.1, Muse Image, Muse Voice (add Muse Spark Open only if BASETEN_API_KEY is set on brach). Stats: 50 real problems tested · 8/8 dangerous cases sent to a pro · 3x less reading than a chatbot. Logo, link, QR. | "Helpa. Fix what's broken, even if you know nothing. Try it at the link." | helpa.pyras.org |
 
 ## The full voiceover (read it straight through, about 2:55)
 
@@ -53,7 +53,7 @@ Same thing for my car. Exact engine, exact oil, exact drain plug. It finds the e
 
 Everything I fix is saved. Helpa remembers my home. Toilets, sinks, fridges, furnaces. If it's not in the library, Helpa builds the model on the spot.
 
-Helpa. Fix anything in your home, even if you know nothing. Try it at the link.
+Helpa. Fix what's broken, even if you know nothing. Try it at the link.
 
 ## How to film it
 
