@@ -182,7 +182,7 @@ func handleFindParts(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, "I couldn't find that part right now. Try again?", http.StatusBadGateway)
 		return
 	}
-	found.ID, found.Status = newID(), "found"
+	found.ID, found.Status, found.Asked = newID(), "found", shortPart(partName)
 	item, err := jobs.updateJob(device, current.ID, func(item *job) error {
 		item.Parts = append(item.Parts, found)
 		item.Status = "needs_part"

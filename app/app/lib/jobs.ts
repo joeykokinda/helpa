@@ -19,6 +19,8 @@ export type JobPart = {
   carrier?: string;
   eta?: string;
   last_note?: string;
+  /** The needed part it was found for. */
+  asked?: string;
 };
 export type JobPro = { name: string; trade: string; rating: number; reviews: number; phone: string; website: string; address: string; why: string; hours: string; contacted?: number };
 export type JobFollowUp = { id: string; label: string; due: number; done: boolean };
@@ -131,6 +133,12 @@ export function shortPart(name: string) {
   return short.replace(/^(A new |New )/, "").trim();
 }
 
+/** Needed parts Helpa hasn't found yet. */
+export function unfoundParts(job: Job) {
+  const found = new Set(job.parts.flatMap((part) => [part.name, part.asked ?? ""]).map((name) => shortPart(name).toLowerCase()));
+  return job.parts_needed.filter((name) => !found.has(shortPart(name).toLowerCase()));
+}
+
 /** What a pro needs to know before they come, so you aren't charged to diagnose it twice. */
 export function jobSummary(job: Job) {
   const machine = [job.brand, job.model, job.appliance].filter(Boolean).join(" ");
@@ -147,7 +155,7 @@ export const priceRange = (low: number, high: number) => (low > 0 && low !== hig
 export function proMessage(job: Job, free: string[]) {
   const lines = [`Hi! Could you help with my ${job.appliance}?`, "", jobSummary(job)];
   if (job.tried.length) lines.push(`Already tried: ${job.tried.slice(0, 4).join("; ")}`);
-  for (const name of job.parts_needed) if (!job.parts.some((part) => part.name.toLowerCase() === shortPart(name).toLowerCase())) lines.push(`Part it may need: ${name}`);
+  for (const name of unfoundParts(job)) lines.push(`Part it may need: ${name}`);
   lines.push("I can send photos.");
   if (free.length) lines.push(`I'm free ${free.map((label) => label.toLowerCase()).join(", or ")}.`);
   if (job.fair_price && job.fair_price.high > 0) lines.push(`Helpa says a fair price for this is ${priceRange(job.fair_price.low, job.fair_price.high)}. Could you confirm your price before coming?`);

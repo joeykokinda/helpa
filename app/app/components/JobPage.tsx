@@ -23,6 +23,7 @@ import {
   reachOut,
   setJobStatus,
   shortPart,
+  unfoundParts,
   tellProSaid,
   timeSlots,
   type Job,
@@ -121,7 +122,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
 
   const part = job.parts.find((candidate) => candidate.status !== "delivered") ?? job.parts[job.parts.length - 1];
   // The newest plan's parts come last; that's the one that matters now. Parts already found aren't asked again.
-  const unfound = job.parts_needed.filter((name) => !job.parts.some((found) => found.name.toLowerCase() === shortPart(name).toLowerCase()));
+  const unfound = unfoundParts(job);
   const neededPart = unfound[unfound.length - 1];
   const machine = [job.brand, job.model].filter(Boolean).join(" ") || job.appliance;
 

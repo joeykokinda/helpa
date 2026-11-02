@@ -45,7 +45,7 @@ func TestJobLoop(t *testing.T) {
 	found := call("POST", "/api/jobs/"+id+"/parts/find", map[string]any{})
 	item := found["job"].(map[string]any)
 	part := item["parts"].([]any)[0].(map[string]any)
-	if part["part_number"] != "3392519" || len(part["buy"].([]any)) == 0 || found["sample"] != true {
+	if part["part_number"] != "3392519" || len(part["buy"].([]any)) == 0 || found["sample"] != true || part["asked"] != "thermal fuse" {
 		t.Fatalf("part finder: %v", part)
 	}
 

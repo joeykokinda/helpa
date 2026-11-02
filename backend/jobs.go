@@ -40,6 +40,8 @@ type jobPart struct {
 	Fits       string      `json:"fits"`
 	Confidence string      `json:"confidence"`
 	Buy        []buyOption `json:"buy"`
+	// Asked is the needed part it was found for ("Engine oil of the same type"), so that one stops showing as missing.
+	Asked string `json:"asked,omitempty"`
 	// found, ordered, shipped, out_for_delivery, delivered
 	Status      string `json:"status"`
 	Store       string `json:"store,omitempty"`
