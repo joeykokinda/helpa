@@ -156,3 +156,28 @@ python3 tools/eval/rerun_diagnosis.py http://127.0.0.1:8160   # the 15 diagnosis
 ```
 The first-run results of those 15 cases are kept in `tools/eval/before-diagnosis.json`.
 `EVAL_CAP_USD` (default 6) stops the run before it spends more.
+
+## Washers from photos (2026-11-02)
+
+Eleven washer cases on the live app: nine Muse Image photos of real-looking laundry rooms plus two text-only
+complaints, checking whether Helpa gets the exact machine and asks when a photo can't tell it.
+
+| Case | What Helpa did |
+|---|---|
+| LG front-load, logo visible, water left in drum | Named LG; drain pump filter fix |
+| Samsung top-load (glass lid), shakes on spin | Named Samsung; asked "Does it also bang on spin when empty?" first |
+| Whirlpool model sticker, won't drain | Read WTW5057LW0 off the sticker; that model's library fix in 7 s |
+| Top-load with agitator, no brand, musty smell | Right kind; general clean-washer fix, labelled "works on most top-load washers" |
+| Front-load close-up, no brand, leaking | Right kind; door seal and drawer checks, no brand claimed |
+| Stacked washer and dryer, "the washer won't start" | Picked the washer on the bottom |
+| Washer and dryer side by side, "it won't turn on" | Asked "Which machine won't turn on? Washer on left / Dryer on right" |
+| Dark, blurry closet photo, grinding | Asked when it grinds; general fix |
+| "washer broke" (text only) | Asked top or front, then what it's doing |
+| "making a weird noise" (text only) | Asked top or front, then what the noise sounds like |
+
+Two bugs found and fixed in this run:
+- A library entry is a specific machine, and with no brand in the photo the plan could inherit it ("Whirlpool
+  WFW5720RW" for an unbranded washer). Plans now only keep a brand or model the photo, sticker or person gave.
+- A washer of unknown kind got front-load steps. Helpa now asks top-load or front-load before planning.
+
+Photos, runner and raw results were kept out of the repo (generated test images).
