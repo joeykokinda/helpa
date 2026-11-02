@@ -106,10 +106,12 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
         setSample(result.sample);
         onChange(result.job);
       } else onChange(result);
+      return true;
     } catch (reason) {
       const message = reason instanceof Error ? reason.message : "Something went wrong. Try again?";
       setError(message);
       setTimeout(() => setError((current) => (current === message ? "" : current)), 6000);
+      return false;
     } finally {
       setBusy(undefined);
     }
@@ -379,7 +381,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
   );
 }
 
-type RunProps = { job: Job; busy?: string; run: (label: string, work: () => Promise<Job | { job: Job; sample: boolean }>) => Promise<void> };
+type RunProps = { job: Job; busy?: string; run: (label: string, work: () => Promise<Job | { job: Job; sample: boolean }>) => Promise<boolean> };
 
 const deliverySteps: [JobPart["status"], string][] = [
   ["ordered", "Ordered"],
@@ -757,8 +759,8 @@ function ProFinder({ job, busy, run }: RunProps) {
       // private mode: asked again next time
     }
     // The pros first, then what the job should cost, so the message can say it and a quote can be checked.
-    run("pros", () => findPros(job.id, where)).then(() => {
-      if (!job.fair_price) run("fair", () => checkFairPrice(job.id, where));
+    run("pros", () => findPros(job.id, where)).then((found) => {
+      if (found && !job.fair_price) run("fair", () => checkFairPrice(job.id, where));
     });
   };
 
@@ -938,7 +940,7 @@ function ContactSheet({ job, pro, slots, busy, run, onClose }: RunProps & { pro:
           <input type="checkbox" checked={allowed} onChange={(changeEvent) => setAllowed(changeEvent.target.checked)} />
           Helpa may contact this business for me
         </label>
-        <button className="btn btn-primary press" disabled={!allowed || !message.trim() || Boolean(busy)} onClick={() => run("reach", () => reachOut(job.id, pro.name, message, slots)).then(onClose)}>
+        <button className="btn btn-primary press" disabled={!allowed || !message.trim() || Boolean(busy)} onClick={() => run("reach", () => reachOut(job.id, pro.name, message, slots)).then((sent) => sent && onClose())}>
           <Icon name="sparkle" size={20} /> {busy === "reach" ? "Sending…" : "Let Helpa reach out (demo)"}
         </button>
         <p className="job-demo-note">Demo: Helpa shows a sample reply. Calling or texting for you can be connected later (phone service + your permission).</p>
