@@ -1,146 +1,124 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Helpa, { type HelpaMood } from "./components/Helpa";
 import QrCode from "./components/landing/QrCode";
 import StoryPlayer, { type Scene } from "./components/landing/StoryPlayer";
 import { story } from "./components/landing/story";
 import "./landing.css";
 
 export const metadata: Metadata = {
-  title: "Helpa: fix anything in your home",
+  title: "Helpa: fix what's broken at home",
   description:
-    "Snap what's broken. Helpa finds your exact machine, shows every move in 3D, checks your work, and when it's beyond you, finds the exact part or a fair-priced pro.",
+    "Snap what's broken. Helpa works out your machine, shows each step on a 3D model, checks your work from a photo, and finds the exact part or a fair-priced pro when it's beyond you.",
 };
 
 const scenes: Scene[] = story;
 
 type Shot = { src: string; alt: string };
-type Stage = { kicker: string; title: string; body: string; points: string[]; shots: Shot[]; mood: HelpaMood };
+type Stage = { kicker: string; title: string; body: string; shots: Shot[] };
 
 /** The whole fix, in the order you live it. Every picture is the live app on a phone. */
 const stages: Stage[] = [
   {
     kicker: "Show it or say it",
     title: "Snap it, say it, or pick it.",
-    body: "Point your phone at the broken thing or its model sticker, hold to talk, or pick from 16 everyday things. Picking still asks for a photo, because every dryer is different and the fix should be for yours.",
-    points: ["Reads model stickers and VINs", "Circle the problem on your photo", "Hold to talk, or type"],
+    body: "Point your phone at the broken thing or its model sticker, hold to talk, or pick it from a list. You can circle the problem on your photo. Picking from the list still asks for a photo, because the fix should be for your machine, but you can skip it and get the general fix.",
     shots: [
       { src: "/landing/shots/camera.webp", alt: "Helpa's camera pointed at a front-load dryer" },
-      { src: "/landing/shots/describe.webp", alt: "The photo added and the problem typed in" },
+      { src: "/landing/shots/describe.webp", alt: "The photo added and the problem typed in: the clothes come out still wet" },
     ],
-    mood: "listening",
   },
   {
     kicker: "Agents at work",
-    title: "A team works on it at once.",
-    body: "Identifying the machine, researching its manual on the web, building its 3D model, spotting the parts on your photo and writing your steps all run in parallel. A known fix is ready in about 4 seconds; a researched one in about 20.",
-    points: ["Muse Spark identifies and plans", "Muse Wonder searches the web for the manual", "SAM 3.1 finds the parts on your photo"],
-    shots: [{ src: "/landing/shots/working.webp", alt: "Helpa working: figuring out what it is, finding the fix, building the 3D model" }],
-    mood: "searching",
+    title: "Several agents work on it at once.",
+    body: "Muse Spark works out what the machine is. Then the rest runs side by side: Muse Wonder searches the web for the manual and writes your steps (unless Helpa's library already has the fix), the 3D model is built and animated, and SAM 3.1 finds the parts on your photo. Median time to a plan: 4.5 seconds from the library, 22.5 seconds when researched.",
+    shots: [{ src: "/landing/shots/working.webp", alt: "Helpa is on it: figuring out what it is, finding the fix, building your 3D model, spotting parts on your photo" }],
   },
   {
     kicker: "Your plan",
-    title: "What's wrong, in one line. Drawn on your own photo.",
-    body: "Helpa tells you why it broke before telling you what to do, links the maker's manual, and Muse Image redraws your photo as a repair diagram with the part circled. Safety comes first, every time.",
-    points: ["Cause in one sentence", "Your photo, redrawn as a diagram", "Safety first, in yellow"],
+    title: "What's wrong, in one line.",
+    body: "Helpa tells you why it broke before telling you what to do, and links the maker's manual. Muse Image redraws your photo as a repair diagram with the part circled. Safety notes come before the first step.",
     shots: [
       { src: "/landing/shots/plan.webp", alt: "Plan: your lint screen is choking the airflow" },
       { src: "/landing/shots/drawn.webp", alt: "The dryer photo redrawn with the lint screen circled, and the safety card" },
     ],
-    mood: "explaining",
   },
   {
     kicker: "Every move in 3D",
-    title: "A 3D twin of your machine, with real joints.",
-    body: "Each step plays on a model of your machine: lint screens slide, filters twist then lift, drain plugs unscrew. You see what's happening inside, like hot air backing up at a clogged screen. Every step is read out loud; say “next” when your hands are full.",
-    points: ["Real joints and moves", "See inside: airflow, oil, water", "Hands-free: next, back, repeat"],
+    title: "Each step plays on a 3D model.",
+    body: "Lint screens slide out, filters twist off, drain plugs unscrew. You can see inside too, like hot air backing up behind a clogged lint screen. Helpa reads each step out loud. Turn on hands-free and say \u201cnext\u201d, \u201cback\u201d or \u201crepeat\u201d when your hands are full.",
     shots: [
       { src: "/landing/shots/step-airflow.webp", alt: "3D dryer showing hot air stuck at the lint screen" },
       { src: "/landing/shots/step-lint.webp", alt: "3D dryer with the lint screen sliding up" },
     ],
-    mood: "pointing",
   },
   {
     kicker: "I'm stuck",
-    title: "Stuck? Ask, or show Helpa what you did.",
-    body: "Ask Helpa anything about this exact step on your exact machine, typed or out loud. Or snap what you did, and it tells you whether you got it right, with a specific correction if you didn't. The animation ending never counts as you finishing.",
-    points: ["Answers about this step, out loud", "Checks your work from a photo", "Or hand it to a pro"],
-    shots: [
-      { src: "/landing/shots/stuck.webp", alt: "I'm stuck: Ask Helpa, Check what I did, Hand it to a pro" },
-      { src: "/landing/shots/ask.webp", alt: "Ask Helpa: which way does it go? Straight up, by the tab." },
-    ],
-    mood: "explaining",
+    title: "Stuck? Ask, or send a photo.",
+    body: "Ask about the step you're on, typed or out loud, and Helpa answers for your machine. Or snap what you did and it tells you if it's right, and what to change if it isn't. If it's too much, hand it to a pro.",
+    shots: [{ src: "/landing/shots/stuck.webp", alt: "I'm stuck: Ask Helpa, Check what I did, Hand it to a pro" }],
   },
   {
     kicker: "Still broken?",
-    title: "It doesn't give up. It goes to the next cause.",
-    body: "Test it. If it's still broken, Helpa rules that cause out and moves to the next most likely one: lint screen, then the vent, then the thermal fuse. When the fix means 240-volt wiring, gas or refrigerant, it stops and says this one's for a pro.",
-    points: ["Branches to the next likely cause", "Remembers what you ruled out", "Stops for anything dangerous"],
+    title: "Still broken? It tries the next cause.",
+    body: "Test it. If it still doesn't work, Helpa crosses that cause off and moves to the next most likely one: for a dryer, the lint screen, then the vent, then the thermal fuse. When the fix means 240-volt wiring, gas or refrigerant, it stops and tells you to call a pro.",
     shots: [
-      { src: "/landing/shots/next-cause.webp", alt: "Not a clogged lint screen. Next most likely: the vent hose" },
-      { src: "/landing/shots/safety.webp", alt: "Thermal fuse, with a safety-first card about 240-volt wiring" },
+      { src: "/landing/shots/next-cause.webp", alt: "Not a clogged lint screen. Next most likely: lint packed in the vent hose" },
+      { src: "/landing/shots/safety.webp", alt: "Thermal fuse, with a safety card: the back panel is near 240-volt wiring, leave it to a pro" },
     ],
-    mood: "worried",
   },
 ];
 
-type Track = { title: string; mood: HelpaMood; steps: string[]; shots: Shot[]; note: string };
+type Track = { title: string; steps: string[]; shots: Shot[]; note: string };
 
 const tracks: Track[] = [
   {
     title: "Needs a part?",
-    mood: "found",
     steps: [
-      "Finds the exact part number for your model, marked exact match or likely match.",
-      "Real stores, real prices, real links, searched live on the web.",
-      "Buy it, and Helpa tracks the order: ordered, shipped, out for delivery, here.",
-      "The moment it lands: “Your part is here” and Install it now opens the 3D guide.",
+      "Finds the part number for your model, marked exact match or likely match.",
+      "Shows stores that sell it, with prices and links, from a live web search.",
+      "Tracks the order until it arrives, then opens the 3D guide to install it.",
     ],
     shots: [
       { src: "/landing/shots/part.webp", alt: "Toyota oil filter element 04152-YZZA1, exact match, with store prices" },
       { src: "/landing/shots/arrived.webp", alt: "Ordered, shipped, out for delivery, arrived. Your part is here. Install it now." },
     ],
-    note: "Buying is a demo: the tracker plays through in five seconds. Store checkout can be connected later.",
+    note: "Buying is a demo: the order tracker plays through in about five seconds.",
   },
   {
     title: "Needs a pro?",
-    mood: "celebrate",
     steps: [
-      "Finds the best-reviewed local shops for the right trade, with ratings and why each one fits.",
-      "Checks what the repair should cost near you, with sources and red flags, so nobody overcharges you.",
-      "Writes the message: what's wrong, what you already ruled out, the part, when you're free, the fair price.",
-      "With your permission it reaches out, checks the quote against the fair price, and books the visit.",
-      "After the visit, tell Helpa what the tech said. It updates the job and checks the price.",
+      "Finds well-reviewed local shops for the repair, with ratings and why each one fits.",
+      "Looks up what the repair should cost near you, with sources and red flags.",
+      "Writes the message for you: what's wrong, what you ruled out, the part, the fair price.",
+      "After the visit, tell Helpa what the tech said. It updates the job and checks the quote.",
     ],
     shots: [
       { src: "/landing/shots/pros.webp", alt: "Four local appliance repair shops with ratings" },
       { src: "/landing/shots/fair-price.webp", alt: "Fair price: $75 to $350, with what it covers" },
-      { src: "/landing/shots/reply.webp", alt: "The shop's quote, within the fair range, with Accept" },
-      { src: "/landing/shots/pro-said.webp", alt: "What did the pro say: thermal fuse #279973, quoted $140, fair" },
     ],
-    note: "The shops and prices are real. Texting or calling from your phone works today; Helpa reaching out for you is a demo reply.",
+    note: "The shops, ratings and prices are real. You text or call them from your phone. Helpa sending the message for you is a demo with a sample reply.",
   },
 ];
 
 const models: { name: string; does: string }[] = [
-  { name: "Muse Spark", does: "Identifies the machine, reads stickers and VINs, writes the plan, answers your questions, checks your work from a photo, and reads what the pro said." },
-  { name: "Muse Wonder + web search", does: "Researches the manual, finds the exact part with live store prices, finds local pros, and checks what a repair should cost." },
-  { name: "SAM 3.1", does: "Finds the parts on your photo and the model sticker on the live camera." },
-  { name: "Muse Image", does: "Redraws your own photo as a repair diagram with the part circled." },
+  { name: "Muse Spark", does: "Works out the machine, reads model stickers and VINs, builds and animates the 3D model, answers your questions, checks your work from a photo, and reads what the pro said." },
+  { name: "Muse Wonder + web search", does: "Researches the manual and writes the steps, finds the part and the stores, finds local pros, and looks up a fair price." },
+  { name: "SAM 3.1", does: "Finds the parts on your photo, and the model sticker on the live camera." },
+  { name: "Muse Image", does: "Redraws your photo as a repair diagram with the part circled." },
   { name: "Muse Voice Transcribe", does: "Hold to talk: the problem, your questions, and what the tech told you." },
 ];
 
 const stats: { value: string; label: string }[] = [
-  { value: "49/50", label: "real problems identified right" },
+  { value: "49/50", label: "named the right appliance" },
   { value: "8/8", label: "dangerous cases sent to a pro" },
-  { value: "3×", label: "less to read than a chatbot" },
-  { value: "~4 s", label: "to a plan for a known fix" },
+  { value: "3×", label: "fewer words than a plain chatbot" },
+  { value: "4.5 s", label: "median to a plan from the library" },
 ];
 
 const honest: { real: string; demo: string }[] = [
   { real: "Machine, manual, plan, 3D model and photo checks", demo: "" },
-  { real: "Exact part numbers, stores and prices", demo: "Buying: the delivery plays through in 5 seconds" },
-  { real: "Local pros, ratings and fair prices", demo: "Helpa reaching out for you: a sample reply" },
+  { real: "Part numbers, stores and prices", demo: "Buying: the order tracker plays through in about 5 seconds" },
+  { real: "Local pros, ratings and fair prices", demo: "Helpa messaging a pro for you: a sample reply" },
   { real: "Texting or calling a pro from your phone", demo: "" },
 ];
 
@@ -180,9 +158,9 @@ export default function Landing() {
               <span className="lp-pulse" aria-hidden="true" /> Your home repair helper
             </p>
             <h1>
-              Fix anything in your home. <span>Even if you know nothing.</span>
+              Fix what&apos;s broken at home. <span>Even if you know nothing.</span>
             </h1>
-            <p className="lp-lede">Snap it. Follow every move in 3D. Too much? Helpa gets you the exact part or a fair-priced pro.</p>
+            <p className="lp-lede">Snap it and follow each step in 3D. If it&apos;s too much, Helpa finds the part or a pro at a fair price.</p>
             <div className="lp-cta">
               <Link href="/app" className="lp-btn lp-btn-primary lp-btn-lg">
                 Try it now
@@ -208,14 +186,14 @@ export default function Landing() {
               </li>
             ))}
           </ul>
-          <p className="lp-stats-note">From 50 real household problems run through the live app. Method and raw runs in the repo.</p>
+          <p className="lp-stats-note">50 household problems typed into the live pipeline (no photos); the chatbot comparison uses 10 of them. Method and raw runs are in the repo.</p>
         </section>
 
         <section className="lp-section" id="how">
           <div className="lp-heading">
             <p className="lp-kicker">How it works</p>
-            <h2>From &ldquo;it&apos;s broken&rdquo; to fixed, one step at a time.</h2>
-            <p>Washers, dryers, dishwashers, fridges, sinks, toilets, furnaces, outlets, your car&apos;s oil, and anything else: if it&apos;s not in the library, Helpa researches it and builds the 3D model on the spot.</p>
+            <h2>From &ldquo;it&apos;s broken&rdquo; to fixed.</h2>
+            <p>Helpa&apos;s library has ready fixes for 16 everyday things, from toilets and dryers to your car&apos;s oil. For anything else, it researches the fix on the web and builds a 3D model as it goes.</p>
           </div>
           <ol className="lp-stages">
             {stages.map((stage, index) => (
@@ -224,15 +202,9 @@ export default function Landing() {
                   <div className="lp-stage-head">
                     <span className="lp-level-number">{index + 1}</span>
                     <p className="lp-kicker">{stage.kicker}</p>
-                    <Helpa mood={stage.mood} size={52} />
                   </div>
                   <h3>{stage.title}</h3>
                   <p>{stage.body}</p>
-                  <ul className="lp-points">
-                    {stage.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
                 </div>
                 <div className={`lp-stage-shots lp-shots-${stage.shots.length}`}>
                   {stage.shots.map((shot) => (
@@ -247,16 +219,13 @@ export default function Landing() {
         <section className="lp-section" id="parts-pros">
           <div className="lp-heading">
             <p className="lp-kicker">When it&apos;s beyond you</p>
-            <h2>The right part, or the right pro at a fair price.</h2>
-            <p>Every fix becomes a job that Helpa keeps moving: what&apos;s wrong, what you ruled out, the part, the pro, the price. Nobody charges you to figure it out twice.</p>
+            <h2>The right part, or a pro at a fair price.</h2>
+            <p>Each fix becomes a job that keeps what&apos;s wrong, what you ruled out, the part, the pro and the price, so you don&apos;t have to explain it twice.</p>
           </div>
           <div className="lp-tracks">
             {tracks.map((track) => (
               <article key={track.title} className="lp-track">
-                <div className="lp-track-head">
-                  <h3>{track.title}</h3>
-                  <Helpa mood={track.mood} size={60} />
-                </div>
+                <h3>{track.title}</h3>
                 <ol className="lp-track-steps">
                   {track.steps.map((step) => (
                     <li key={step}>{step}</li>
@@ -275,26 +244,21 @@ export default function Landing() {
 
         <section className="lp-section lp-split">
           <div className="lp-split-copy">
-            <p className="lp-kicker">Your exact machine</p>
+            <p className="lp-kicker">Your car</p>
             <h2>Works on your car too.</h2>
-            <p>Snap the VIN or the engine bay and Helpa knows it&apos;s a 2015 Toyota Camry 2.5L: 0W-20, 4.6 quarts with the filter, a 14 mm drain plug, cartridge filter 04152-YZZA1. The 3D car shows where the oil drains and the filter drips.</p>
+            <p>Snap the VIN plate and Helpa reads it. For an oil change on a 2015 Toyota Camry 2.5L, that means 4.6 US quarts of 0W-20 with the filter, a 14 mm drain plug and filter element 04152-YZZA1. The 3D car shows where the oil drains out.</p>
           </div>
-          <div className="lp-stage-shots lp-shots-3">
-            <Phone shot={{ src: "/landing/shots/car-plan.webp", alt: "Plan for a 2015 Toyota Camry 2.5L oil change" }} />
+          <div className="lp-stage-shots lp-shots-2">
+            <Phone shot={{ src: "/landing/shots/car-plan.webp", alt: "Plan for a 2015 Toyota Camry 2.5L oil change: 4.6 quarts of 0W-20 with the filter" }} />
             <Phone shot={{ src: "/landing/shots/car-drain.webp", alt: "3D Camry: drain the oil from the 14 mm plug" }} />
-            <Phone shot={{ src: "/landing/shots/car-filter.webp", alt: "3D Camry: swap the cartridge filter" }} />
           </div>
         </section>
 
-        <section className="lp-section lp-split lp-split-flip">
-          <div className="lp-split-copy">
+        <section className="lp-section">
+          <div className="lp-heading">
             <p className="lp-kicker">My Home</p>
-            <h2>Helpa remembers your home.</h2>
-            <p>Every machine you fix is saved with its model, its history, your photos and care reminders. Open jobs show what Helpa is waiting on. Come back months later and ask: &ldquo;What oil did I use?&rdquo; No account; it lives on your phone.</p>
-          </div>
-          <div className="lp-stage-shots lp-shots-2">
-            <Phone shot={{ src: "/landing/shots/home.webp", alt: "Home: what needs fixing, open jobs, and the pick-it grid" }} />
-            <Phone shot={{ src: "/landing/shots/outcome.webp", alt: "Did that fix it? What we've checked" }} />
+            <h2>Helpa remembers your machines.</h2>
+            <p>Each machine you fix is saved with its model, past fixes, your photos and care reminders, like cleaning the dryer vent once a year. Later you can ask about it: &ldquo;What oil did I use?&rdquo; There&apos;s no account. Machines stay on your phone; open jobs are kept on Helpa&apos;s server under an anonymous ID.</p>
           </div>
         </section>
 
@@ -310,16 +274,8 @@ export default function Landing() {
                 </li>
               ))}
             </ul>
-            <ol className="lp-pipeline" aria-label="How a fix is made">
-              <li>Photo, words or sticker</li>
-              <li>Identify</li>
-              <li>Manual, 3D model, parts on the photo, in parallel</li>
-              <li>Plan with steps and safety</li>
-              <li>3D guide, questions, photo checks</li>
-              <li>Next cause, part or pro</li>
-            </ol>
             <p className="lp-band-note">
-              A Go backend runs the agents in parallel and streams each one&apos;s progress to the phone. A library of hand-built fixes and 3D rigs answers common problems with no model calls; anything else is researched live. Rate limits and a daily budget keep the public demo up, and a set of recorded real runs plays when it rests.
+              A Go backend identifies the machine, then runs research, the 3D model and finding the parts on your photo in parallel, streaming each one&apos;s progress to the phone. Library fixes with hand-built 3D rigs need no model calls; anything else is researched live. The public demo has rate limits and a daily spending cap. Once the cap is hit, it plays recorded runs until the next day.
             </p>
           </div>
         </section>
@@ -340,7 +296,7 @@ export default function Landing() {
               {honest.map((row) => (
                 <tr key={row.real}>
                   <td>{row.real}</td>
-                  <td>{row.demo || "—"}</td>
+                  <td>{row.demo}</td>
                 </tr>
               ))}
             </tbody>

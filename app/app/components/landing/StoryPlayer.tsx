@@ -3,7 +3,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Helpa, { type HelpaMood } from "../Helpa";
-import Icon from "../Icons";
 
 export type Scene = { at: number; caption: string; mood: HelpaMood };
 
@@ -44,12 +43,6 @@ export default function StoryPlayer({ src, poster, scenes, label }: { src: strin
           <div className="lp-phone-screen">
             <video ref={video} src={src} poster={poster} autoPlay muted loop playsInline preload="auto" onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)} aria-label={label} />
           </div>
-        </div>
-        <div className="lp-float lp-float-a" aria-hidden="true">
-          <Icon name="cube" size={20} /> Every move in 3D
-        </div>
-        <div className="lp-float lp-float-b" aria-hidden="true">
-          <Icon name="camera" size={20} /> Checks your work
         </div>
         <div className="lp-helpa">
           <AnimatePresence mode="wait">
