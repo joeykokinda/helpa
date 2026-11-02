@@ -133,7 +133,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
   else if (job.status === "part_arrived" && part)
     next = {
       title: "Your part is here",
-      detail: `Helpa walks you through putting the new ${shortPart(part.name).toLowerCase()} in, step by step.`,
+      detail: `Helpa walks you through putting the new ${shortPart(part.name).split(" - ")[0].toLowerCase()} in, step by step.`,
       action: (
         <button className="btn btn-light press" onClick={() => onInstall(job, part)}>
           <Icon name="wrench" size={20} /> Install it now
@@ -503,7 +503,7 @@ function PartCard({ job, part, busy, run, onInstall, onDemo }: RunProps & { part
             <p className="job-arrived-title">
               <Icon name="check" size={20} strokeWidth={3} /> Your part is here
             </p>
-            <p>Helpa walks you through putting the new {shortPart(part.name).toLowerCase()} in, step by step on the 3D model.</p>
+            <p>Helpa walks you through putting the new {shortPart(part.name).split(" - ")[0].toLowerCase()} in, step by step on the 3D model.</p>
             <button className="btn btn-primary press" onClick={() => onInstall(job, part)}>
               <Icon name="wrench" size={20} /> Install it now
             </button>

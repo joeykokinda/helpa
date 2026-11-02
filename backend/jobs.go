@@ -353,9 +353,14 @@ func registerJobRoutes() {
 					item.RuledOut = append(item.RuledOut, cause)
 				}
 			}
-			for _, part := range clipAll(body.PartsNeeded, 6, 120) {
-				if !slices.Contains(item.PartsNeeded, part) && len(item.PartsNeeded) < 6 {
-					item.PartsNeeded = append(item.PartsNeeded, part)
+			// A new cause brings its own parts; the ruled-out cause's parts no longer apply. Found parts stay in Parts.
+			if body.Diagnosis != "" && body.PartsNeeded != nil {
+				item.PartsNeeded = clipAll(body.PartsNeeded, 6, 120)
+			} else {
+				for _, part := range clipAll(body.PartsNeeded, 6, 120) {
+					if !slices.Contains(item.PartsNeeded, part) && len(item.PartsNeeded) < 6 {
+						item.PartsNeeded = append(item.PartsNeeded, part)
+					}
 				}
 			}
 			kind := "note"

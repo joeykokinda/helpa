@@ -42,6 +42,13 @@ func TestJobLoop(t *testing.T) {
 		"model": "WED5050LW", "diagnosis": "The thermal fuse has blown.", "ruledOut": []string{"a clogged lint screen"}, "partsNeeded": []string{"thermal fuse"}})
 	id := created["id"].(string)
 
+	// "Still broken" moved on from the vent: its hose drops out of the parts it may need.
+	vent := call("POST", "/api/jobs", map[string]any{"title": "Still damp", "appliance": "dryer", "partsNeeded": []string{"vent hose"}})
+	moved := call("POST", "/api/jobs/"+vent["id"].(string)+"/status", map[string]any{"diagnosis": "Thermal fuse", "partsNeeded": []string{"thermal fuse"}, "ruledOut": []string{"blocked vent"}})
+	if needed := moved["parts_needed"].([]any); len(needed) != 1 || needed[0] != "thermal fuse" {
+		t.Fatalf("parts after a new cause: %v", needed)
+	}
+
 	found := call("POST", "/api/jobs/"+id+"/parts/find", map[string]any{})
 	item := found["job"].(map[string]any)
 	part := item["parts"].([]any)[0].(map[string]any)
