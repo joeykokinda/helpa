@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -162,6 +163,10 @@ func handleFindParts(writer http.ResponseWriter, request *http.Request) {
 	if sample {
 		found, err = replayFinding[jobPart]("parts.json")
 		found.Name = partName
+		// A part number the pro gave beats the sample's.
+		if match := partNumberPattern.FindStringSubmatch(body.Part); match != nil {
+			found.PartNumber = match[1]
+		}
 	} else {
 		if overBudget(writer, 0.9) {
 			return
@@ -314,6 +319,8 @@ func handleFindPros(writer http.ResponseWriter, request *http.Request) {
 	}
 	replyJob(writer, item, err)
 }
+
+var partNumberPattern = regexp.MustCompile(`(?i)part number ([A-Z0-9-]{3,20})`)
 
 func plural(trade string) string {
 	if trade == "" {

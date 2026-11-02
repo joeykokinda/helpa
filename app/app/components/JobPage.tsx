@@ -245,7 +245,7 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
         )}
 
 
-        {(job.status === "needs_pro" || job.pros.length > 0) && job.status !== "pro_booked" && <ProFinder job={job} busy={busy} run={run} />}
+        {(job.status === "needs_pro" || job.pros.length > 0) && job.status !== "pro_booked" && !job.appointment && <ProFinder job={job} busy={busy} run={run} />}
 
         {job.appointment && (
           <article className="card job-card">
@@ -575,6 +575,7 @@ function ProThread({ job, busy, run }: RunProps) {
                 {fair && fair.high > 0 ? (high ? ` · above the fair ${priceRange(fair.low, fair.high)}` : ` · within the fair ${priceRange(fair.low, fair.high)}`) : ""}
               </p>
             )}
+            {contact.slot_label && <p className="job-muted">{booked ? "Booked" : "They can come"} {contact.slot_label.toLowerCase()}.</p>}
             {priceNote && (
               <p className="job-muted">
                 {high
@@ -587,7 +588,7 @@ function ProThread({ job, busy, run }: RunProps) {
             {!booked && (
               <div className="job-actions">
                 <button className="btn btn-primary btn-small press" onClick={() => run("book", () => bookPro(job.id, { name: contact.pro, phone: contact.phone ?? "" } as JobPro, contact.slot_at))} disabled={Boolean(busy)}>
-                  Accept {contact.slot_label.toLowerCase()}
+                  Accept
                 </button>
                 <button className="btn btn-secondary btn-small press" onClick={() => setPriceNote(true)}>
                   Ask about the price

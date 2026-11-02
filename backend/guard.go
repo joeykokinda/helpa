@@ -30,8 +30,9 @@ var routeLimits = map[string]routeLimit{
 	"/api/answer":     {perMinute: 60, burst: 20},
 	"/api/ask":        {perMinute: 10, burst: 4},
 	"/api/illustrate": {perMinute: 4, burst: 2},
-	"/api/jobs/find":  {perMinute: 3, burst: 2},
-	"/api/jobs/ai":    {perMinute: 10, burst: 4},
+	// Pros, then the fair price, then the part the pro named come one after another in a minute or two.
+	"/api/jobs/find": {perMinute: 6, burst: 5},
+	"/api/jobs/ai":   {perMinute: 10, burst: 4},
 }
 
 var defaultLimit = routeLimit{perMinute: 120, burst: 30}
