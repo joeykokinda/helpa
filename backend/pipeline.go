@@ -322,6 +322,12 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 	return nil
 }
 
+// installRequest matches the app's "my new part arrived, show me how to install it" message.
+func installRequest(complaint string) bool {
+	lower := strings.ToLower(complaint)
+	return strings.Contains(lower, "arrived") && strings.Contains(lower, "install")
+}
+
 var urgentWords = []string{"burning", "burnt smell", "smoke", "smoking", "fire", "flames", "melted", "melting", "smell gas", "gas smell", "smells like gas"}
 
 // hazardPattern marks a danger built into the repair itself, not just a job beyond the person. Warnings like
@@ -379,6 +385,11 @@ func libraryPlan(ident identification, complaint string, ruledOut []string, emit
 	}
 	if word := entry.contradiction(complaint + " " + ident.Appliance + " " + ident.Symptom); word != "" {
 		log.Printf("library: %s doesn't fit, the person mentions %q", entry.ID, word)
+		return nil
+	}
+	// Installing a part that just arrived is its own job, not the diagnosis the library would repeat.
+	if installRequest(complaint) {
+		log.Printf("library: skipping the ready fix, this is installing a new part")
 		return nil
 	}
 	// A burning smell or smoke can be a fire starting, so it gets a full look rather than the common fix.

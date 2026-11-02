@@ -688,7 +688,13 @@ function ProSaid({ job, busy, run, onFix }: RunProps & { onFix: (job: Job, compl
           {update.quoted_price > 0 && (
             <p className={`job-quote ${result?.aboveFair ? "job-quote-high" : ""}`}>
               Quoted ${update.quoted_price}
-              {fair && fair.high > 0 ? (result?.aboveFair ? ` · above the fair ${priceRange(fair.low, fair.high)}, ask why` : ` · fair (usually ${priceRange(fair.low, fair.high)})`) : ""}
+              {fair && fair.high > 0
+                ? result?.aboveFair
+                  ? ` · above the fair ${priceRange(fair.low, fair.high)}, ask why`
+                  : update.quoted_price < fair.low
+                    ? ` · below the usual ${priceRange(fair.low, fair.high)}, a good price`
+                    : ` · fair (usually ${priceRange(fair.low, fair.high)})`
+                : ""}
             </p>
           )}
           <p className="job-muted">{update.next_step}</p>
