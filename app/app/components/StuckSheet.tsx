@@ -3,12 +3,10 @@
 import { AnimatePresence, motion } from "motion/react";
 import Icon, { type IconName } from "./Icons";
 
-export type StuckChoice = "live" | "ask" | "check" | "pro";
+export type StuckChoice = "ask" | "check" | "pro";
 
 type StuckSheetProps = {
   open: boolean;
-  /** What they're fixing, for "Show me on my dryer". */
-  thing: string;
   /** False when there's no job to hand to a pro (it couldn't be saved). */
   canGetPro: boolean;
   onChoose: (choice: StuckChoice) => void;
@@ -16,12 +14,11 @@ type StuckSheetProps = {
 };
 
 /**
- * "I'm stuck": the 3D guide didn't do it, so Helpa offers the next level of help, starting with the strongest one,
- * the move shown on their own machine through the camera.
+ * "I'm stuck": the 3D guide didn't do it, so Helpa offers the next level of help: ask about it, show a photo of
+ * what they did, or hand it to a pro.
  */
-export default function StuckSheet({ open, thing, canGetPro, onChoose, onClose }: StuckSheetProps) {
+export default function StuckSheet({ open, canGetPro, onChoose, onClose }: StuckSheetProps) {
   const choices: { id: StuckChoice; icon: IconName; title: string; detail: string }[] = [
-    { id: "live", icon: "live", title: `Show me on my ${thing}`, detail: "Point your camera at it. I'll find the part and show the move right on it." },
     { id: "ask", icon: "help", title: "Ask Helpa", detail: "Ask anything about this step, by typing or out loud." },
     { id: "check", icon: "camera", title: "Check what I did", detail: "Snap a photo and I'll tell you if it's right." },
   ];

@@ -122,7 +122,7 @@ export default function Landing() {
           <div>
             <h2>Try it in a minute</h2>
             <p className="lp-path">
-              <strong>Dryer</strong> → <strong>Spins but no heat</strong> → <strong>Let&apos;s start</strong> → <strong>I&apos;m stuck</strong> → <strong>Show me on my dryer</strong>
+              <strong>Dryer</strong> → <strong>Spins but no heat</strong> → <strong>Let&apos;s start</strong> → <strong>I&apos;m stuck</strong> → <strong>Ask Helpa</strong>
             </p>
             <Link href="/app" className="lp-btn lp-btn-primary lp-btn-lg">
               Try it now

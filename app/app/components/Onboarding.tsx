@@ -21,7 +21,7 @@ const slides: { mood: HelpaMood; title: string; body: string; tags?: { icon: Ico
   {
     mood: "pointing",
     title: "Fix it step by step",
-    body: "I show each move in 3D and on your own camera, read every step out loud, and check your work. Hands busy? Just say \u201cnext\u201d.",
+    body: "I show each move in 3D, read every step out loud, and check your work from a photo. Hands busy? Just say \u201cnext\u201d.",
     tags: [
       { icon: "cube", label: "3D guide" },
       { icon: "speaker", label: "Read aloud" },

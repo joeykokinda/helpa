@@ -3,22 +3,21 @@
 **Helpa understands how your machine works and guides your hands through fixing it.**
 
 Point your phone at a broken dryer, dishwasher, toilet, sink, fridge or car, say what's wrong, or just pick it from a
-list. Helpa reads the model sticker, researches that exact machine, and shows each move on a 3D model of it. Then it
-plays the move as a hologram on your real machine through the camera, watches you do it, and tells you when you got
-it right. Simple enough for anyone: big buttons, every step read aloud, and "next" said out loud when your hands are full.
+list. Helpa reads the model sticker, researches that exact machine, and shows each move on a 3D model of it. Stuck? Ask
+it anything by voice or text, or snap a photo of what you did and it tells you if you got it right. Simple enough for anyone: big buttons, every step read aloud, and "next" said out loud when your hands are full.
 
 Built solo for the Meta Global AI Developer Hackathon (Oct 27 to Nov 4, 2026). Everything in this repo was written
 during the hackathon.
 
-**Try it:** https://brach.taild3399f.ts.net is the landing page (QR code, screenshots, a 3D-to-AR clip); the app
+**Try it:** https://brach.taild3399f.ts.net is the landing page (QR code, screenshots, a story clip); the app
 itself is at https://brach.taild3399f.ts.net/app on any phone (Android Chrome or iPhone Safari). No account.
 
 ### Test it in 60 seconds
 
 1. Open `/app`, and under **Or pick it** tap **Dryer**, then **Spins but no heat**. The plan shows every step as
    a picture drawn from the 3D model.
-2. Tap **Let's start** and watch the move in 3D. Then tap **I'm stuck** and **Show me on my dryer**, with the
-   camera on any dryer, for the AR hologram on the real machine.
+2. Tap **Let's start** and watch the move in 3D. Then tap **I'm stuck**: **Ask Helpa** (type or talk) or
+   **Check what I did** (snap a photo).
 3. Tap **Still broken** until Helpa calls for a part, then **Find a pro near me** to open the job. Find the thermal
    fuse, tap **I ordered it** and type the tracking number **DEMO**: the order plays through shipped, out for
    delivery and delivered in 90 seconds (with a push notification if you turned them on).
@@ -34,8 +33,6 @@ disposal hums, washer won't drain, Camry oil change). Add it to your home screen
 |---|---|---|---|
 | ![Working](docs/media/working.webp) | ![Car step](docs/media/car-step.webp) | ![Machine](docs/media/machine.webp) | ![Ask Helpa](docs/media/ask-helpa.webp) |
 
-Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hologram lint screen on a real dryer),
-`docs/media/live-oil.mp4` (oil stream from the Camry drain plug), `docs/media/sticker.mp4` (reading the model sticker).
 
 ## What it does
 
@@ -54,10 +51,9 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
   free. Book it, add it to your calendar, and get a reminder the day before. Fixed jobs get a check-up reminder.
 - **The plan in pictures.** Before you start, every step is drawn as a picture from the 3D model of your machine,
   the part in orange and the move on it, like a page of assembly instructions. Tap one to jump to that step.
-- **I'm stuck.** The 3D guide leads. If it isn't enough, "I'm stuck" offers the next level of help: the move shown
-  on your own machine through the camera (AR), Ask Helpa (answers about your machine and that exact step, out
+- **I'm stuck.** The 3D guide leads. If it isn't enough, "I'm stuck" offers the next level of help: Ask Helpa (answers about your machine and that exact step, out
   loud), a photo check of what you did, or handing the job to a pro.
-- **Hands-free.** Say "next", "back", "repeat", "show me" or "check" while you work, or just ask a question
+- **Hands-free.** Say "next", "back", "repeat" or "I'm stuck" while you work, or just ask a question
   ("which way does it turn?"); Helpa ignores its own voice.
 - **Your exact machine.** Snap the model sticker or VIN, or just say what's wrong. Helpa reads the identity
   ("Whirlpool WED5050LW", "2015 Toyota Camry 2.5L"), pulls that model's manual and parts list, and asks a tap-to-answer
@@ -65,10 +61,7 @@ Live Guide recordings on real machines (to add): `docs/media/live-lint.mp4` (hol
 - **A 3D twin with real joints.** Doors hinge, filters twist then lift, lint screens slide, drain plugs unscrew.
   Each step plays as beats on the model, with effects for what actually happens: air choking at a clogged lint
   screen, oil streaming into the pan, standing water draining.
-- **Live Guide (AR).** "I'm stuck → Show me on my dryer" finds the part on your live camera, locks onto it, and plays the move
-  as a frosted-glass hologram of your own part with an orange path for the move, the 3D twin in the corner playing the
-  same beat on the same clock. The picture fills the screen on a phone held upright.
-- **Your turn.** After the demo, Helpa watches the real part and answers **COMPLETED** (moves on by itself),
+- **Check what I did.** Snap a photo after a step and Helpa answers **COMPLETED** (moves on by itself),
   **INCOMPLETE** (a specific correction, like "that's the spray arm, the filter is the round cap below it") or
   **UNCERTAIN** (asks for a better angle). The animation finishing never counts as you finishing.
 - **My Home.** Every fix saves the machine with its model, history, photos and care reminders (lint screen every
@@ -108,13 +101,13 @@ flowchart LR
   and stream to the phone as they land. Known fixes (8 library machines) skip research and arrive in about 3 to 5 s.
 - **Hand-made recipe models.** Sink, toilet, fridge, smoke alarm, outlet and breaker panel, furnace and thermostat,
   shower head and door are recipes (`tools/build_home_fixes.py`), with their fixes' beats written alongside, so a
-  picked fix plays in 3D and on the camera with no model calls.
+  picked fix plays in 3D with no model calls.
 - **Rigs.** 8 hand-built models (top-vent dryer, dishwasher, front and top-load washers, range, over-the-range
   microwave, garbage disposal, car oil change), each with a catalog of parts, joints, actions, aliases and effects.
-  The catalog is the one animation language: the 3D view and the AR overlay both read it.
+  The catalog is the one animation language for every 3D step.
 - **On-demand models.** For anything else, Spark writes a declarative recipe (17 shapes, 31 materials, joints) from
   a per-category blueprint, validated and repaired before it renders.
-- **Live Guide.** SAM re-anchors about once a second; between updates the phone's motion sensors and small-patch
+- **Live Guide (AR prototype, not in the app).** SAM re-anchors about once a second; between updates the phone's motion sensors and small-patch
   matching keep the overlay attached. Slides use a cutout of the real part, hinges and twists a perspective plane
   around the pivot. When confidence drops the overlay fades instead of pointing at the wrong thing. If a part can't
   be found in about 4 s, Helpa asks you to tap it.
@@ -162,7 +155,8 @@ host. `tools/eval/` reruns the evaluation; `tools/record_samples.py` re-records 
 
 ## Known gaps
 
-- Live Guide is tested on recorded camera footage and in headless Chromium, not yet on a range of real phones.
+- The AR Live Guide (`app/components/LiveGuide.tsx`, dev page `/livepreview`) works but wasn't steady enough on real
+  phones for the deadline, so the app uses the 3D guide plus photo checks instead.
 - Library fixes cover the most common cause and don't branch to the next one yet. A known fix can override a
   detail that contradicts it ("coil burners" got the glass-top fix).
 - Every car problem reuses the oil-change rig; the 3D car body is generic, only its engine bay is Camry-specific.

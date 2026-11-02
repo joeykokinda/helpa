@@ -21,10 +21,9 @@ import Onboarding, { hasOnboarded } from "../components/Onboarding";
 import PartPhoto from "../components/PartPhoto";
 import { rigLoaders } from "../components/rig/registry";
 import { listMachines, saveFix, type Machine } from "../lib/home";
-import { answerQuestion, askHelpa, checkStep, describeSearch, illustrateStep, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "../lib/api";
-import { requestMotionPermission } from "../lib/live";
+import { answerQuestion, checkStep, describeSearch, illustrateStep, streamFix, type AgentEvent, type Attempt, type Plan, type Scene } from "../lib/api";
 import { usePrefs } from "../lib/prefs";
-import { useVoiceCommands, type VoiceCommand } from "../lib/voice";
+import { useVoiceCommands } from "../lib/voice";
 import HandsFree from "../components/HandsFree";
 import AskStep from "../components/AskStep";
 import StuckSheet, { type StuckChoice } from "../components/StuckSheet";
@@ -33,7 +32,6 @@ import { tidy } from "../lib/text";
 import type { Beat } from "../lib/rig/types";
 
 const RigStep = dynamic(() => import("../components/rig/RigStep"), { ssr: false });
-const LiveGuide = dynamic(() => import("../components/LiveGuide"), { ssr: false });
 const Storyboard = dynamic(() => import("../components/Storyboard"), { ssr: false });
 const Scene3D = dynamic(() => import("../components/Scene3D"), {
   ssr: false,
@@ -114,8 +112,6 @@ export default function Home() {
   const [stepIndex, setStepIndex] = useState(0);
   // "auto" picks 3D when this step has it; the 3D model can arrive a moment after the plan.
   const [view, setView] = useState<"auto" | "3d" | "photo">("auto");
-  // Live Guide: the step played as holograms on the camera, then watched while you do it.
-  const [live, setLive] = useState(false);
   const [check, setCheck] = useState<CheckState | null>(null);
   const checkInputRef = useRef<HTMLInputElement>(null);
   const checkToken = useRef(0);
@@ -138,7 +134,6 @@ export default function Home() {
   const [stuck, setStuck] = useState(false);
   const [spokenQuestion, setSpokenQuestion] = useState<{ text: string; at: number }>();
   const heardTimer = useRef(0);
-  const [liveCommand, setLiveCommand] = useState<{ command: Exclude<VoiceCommand, "ask" | "stuck">; at: number } | null>(null);
   // Jobs: every fix carried through to working again (the part, the pro, the reminder), worked on by Helpa's agents.
   const [jobs, setJobs] = useState<Job[]>([]);
   const [jobId, setJobId] = useState<string>();
@@ -347,7 +342,6 @@ export default function Home() {
     setAttempts(tried);
     const followUp = tried.length && plan ? { attempts: tried, brand: plan.brand, model_number: plan.model_number } : undefined;
     setSavedName("");
-    setLive(false);
     setRows([{ key: "look", title: photos.length ? "Looking at your photo" : "Understanding the problem", detail: description ? `"${firstSentence(description)}"` : "" }]);
     setLibraryHit(null);
     setActivePhoto(0);
@@ -521,12 +515,6 @@ export default function Home() {
     setTutorial("open");
   };
 
-  const openLive = () => {
-    requestMotionPermission();
-    stopSpeaking();
-    setLive(true);
-  };
-
   // Stuck for good: the job goes to the pro finder, with the step they got stuck on in its log.
   const handToPro = () => {
     const id = runJob.current;
@@ -561,33 +549,21 @@ export default function Home() {
     window.clearTimeout(heardTimer.current);
     heardTimer.current = window.setTimeout(() => setHeard(""), 2200);
     if (command === "stuck") {
-      // On the camera, being stuck means: show me again.
-      if (live) setLiveCommand({ command: "repeat", at: Date.now() });
-      else setStuck(true);
+      setStuck(true);
       return;
     }
     if (command === "ask") {
-      // On the camera there's no room for the sheet, so Helpa just answers out loud.
-      if (live)
-        askHelpa(stepContext(), [], words)
-          .then((reply) => say(reply.answer, "explaining"))
-          .catch(() => say("I didn't catch an answer for that. Ask me again?", "worried"));
-      else {
-        setAsking(true);
-        setSpokenQuestion({ text: words, at: Date.now() });
-      }
+      setAsking(true);
+      setSpokenQuestion({ text: words, at: Date.now() });
       return;
     }
-    // On the camera, the Live Guide acts on it (show again, check now); on the step page, the page does.
-    if (live) return setLiveCommand({ command, at: Date.now() });
     if (!plan || !step) return;
     if (command === "next") goToStep(stepIndex + 1);
     else if (command === "back") goToStep(stepIndex - 1);
-    else if (command === "repeat") say(step.instruction, "pointing");
-    else {
-      openLive();
-      if (command === "check") setLiveCommand({ command, at: Date.now() });
-    }
+    // A photo picker only opens from a tap, so "check" opens the menu with "Check what I did" in it.
+    else if (command === "check") setStuck(true);
+    // "Repeat" and "show me" both replay the step; the 3D guide on the page already shows the move.
+    else say(step.instruction, "pointing");
   });
 
   let screen: ReactNode = null;
@@ -702,22 +678,6 @@ export default function Home() {
         onStart={() => enterStep(0)}
         onRestart={restart}
         onHelp={openTutorial}
-      />
-    );
-  else if (stage === "step" && plan && step && live)
-    screen = (
-      <LiveGuide
-        plan={plan}
-        stepIndex={stepIndex}
-        rig={playableRig}
-        mood={mood}
-        speaking={speaking}
-        say={say}
-        onDone={() => goToStep(stepIndex + 1)}
-        onNext={() => goToStep(stepIndex + 1)}
-        onClose={() => setLive(false)}
-        command={liveCommand}
-        handsFree={<HandsFree state={voiceState} heard={heard} glass />}
       />
     );
   else if (stage === "step" && plan && step) {
@@ -893,13 +853,11 @@ export default function Home() {
         />
         <StuckSheet
           open={stuck}
-          thing={/^(car|truck|suv|vehicle)$/i.test(plan.appliance.trim()) ? "car" : tidy(plan.appliance).toLowerCase()}
           canGetPro={Boolean(currentJob)}
           onClose={() => setStuck(false)}
           onChoose={(choice: StuckChoice) => {
             setStuck(false);
-            if (choice === "live") openLive();
-            else if (choice === "ask") setAsking(true);
+            if (choice === "ask") setAsking(true);
             else if (choice === "check") retake();
             else handToPro();
           }}

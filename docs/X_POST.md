@@ -6,8 +6,8 @@ Attach the 30-second cut (docs/VIDEO.md). Post the link in the first reply, not 
 
 > My dryer stopped drying. A chatbot gave me 600 words.
 >
-> Helpa read my model sticker, showed me the clogged lint screen as a hologram on my actual dryer, then watched me
-> fix it.
+> Helpa read my model sticker, showed me the clogged lint screen on a 3D model of my exact dryer, then checked
+> my fix from a photo.
 >
 > Built solo for the Meta AI hackathon 🧵
 
