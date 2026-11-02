@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 // The chain after a diagnosis, offline: fair price, Helpa reaching out (only with permission), the shop's demo
@@ -75,5 +76,20 @@ func TestCleanPriceNeedsSources(t *testing.T) {
 	}
 	if unsourced := cleanPrice(fairPrice{Low: 100, High: 300}); unsourced.High != 0 {
 		t.Fatalf("numbers without a source must be dropped: %+v", unsourced)
+	}
+}
+
+func TestProUpdateKeepsTheBooking(t *testing.T) {
+	booked := &job{Status: "pro_booked", PartsNeeded: []string{"Thermal fuse"}, Appointment: &jobAppointment{Pro: "A Step Above", At: time.Now().Add(time.Hour).UnixMilli()}}
+	var update proUpdate
+	json.Unmarshal([]byte(`{"status":"needs_part","diagnosis":"The thermal fuse is bad.","quoted_price":140,"parts":[{"name":"Thermal fuse","part_number":"279973"}]}`), &update)
+	applyProUpdate(booked, "It's the thermal fuse, part 279973, $140", update)
+	if booked.Status != "pro_booked" || len(booked.PartsNeeded) != 1 || booked.PartsNeeded[0] != "Thermal fuse (part number 279973)" {
+		t.Fatalf("booked job after the pro named a part: %s %v", booked.Status, booked.PartsNeeded)
+	}
+	alone := &job{Status: "needs_pro"}
+	applyProUpdate(alone, "You need a new thermal fuse", proUpdate{Status: "needs_part"})
+	if alone.Status != "needs_part" {
+		t.Fatalf("unbooked job: %s", alone.Status)
 	}
 }

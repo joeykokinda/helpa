@@ -398,6 +398,8 @@ func applyProUpdate(item *job, said string, update proUpdate) {
 	if diagnosis := clip(update.Diagnosis, 600); diagnosis != "" {
 		item.Diagnosis = diagnosis
 	}
+	// The pro has seen it, so the parts they name replace Helpa's guesses.
+	var named []string
 	for _, part := range update.Parts {
 		name := clip(part.Name, 80)
 		if name == "" {
@@ -406,15 +408,24 @@ func applyProUpdate(item *job, said string, update proUpdate) {
 		if number := clip(part.PartNumber, 30); number != "" {
 			name = fmt.Sprintf("%s (part number %s)", name, number)
 		}
-		if !containsString(item.PartsNeeded, name) && len(item.PartsNeeded) < 6 {
-			item.PartsNeeded = append(item.PartsNeeded, name)
+		if !containsString(named, name) && len(named) < 6 {
+			named = append(named, name)
 		}
 	}
+	if len(named) > 0 {
+		item.PartsNeeded = named
+	}
+	booked := item.Appointment != nil && item.Appointment.At > time.Now().Add(-24*time.Hour).UnixMilli()
 	switch update.Status {
 	case "fixed":
 		item.Status = "done"
 	case "needs_part":
-		item.Status = "needs_part"
+		// A booked pro who names a part is bringing it; the visit is still the next thing.
+		if booked {
+			item.Status = "pro_booked"
+		} else {
+			item.Status = "needs_part"
+		}
 	case "pro_returning":
 		item.Status = "pro_booked"
 	case "diy":
