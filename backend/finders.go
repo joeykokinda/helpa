@@ -310,7 +310,12 @@ func handleFindPros(writer http.ResponseWriter, request *http.Request) {
 		if item.Status == "fixing" {
 			item.Status = "needs_pro"
 		}
-		item.note("pros_found", fmt.Sprintf("Found %d well-reviewed %s near %s.", len(pros), plural(trade), location))
+		// Coordinates from the phone read as "you" in the job's history.
+		where := location
+		if coordinatesPattern.MatchString(location) {
+			where = "you"
+		}
+		item.note("pros_found", fmt.Sprintf("Found %d well-reviewed %s near %s.", len(pros), plural(trade), where))
 		return nil
 	})
 	if item != nil {
@@ -321,6 +326,7 @@ func handleFindPros(writer http.ResponseWriter, request *http.Request) {
 }
 
 var partNumberPattern = regexp.MustCompile(`(?i)part number ([A-Z0-9-]{3,20})`)
+var coordinatesPattern = regexp.MustCompile(`^-?\d+(\.\d+)?, ?-?\d+(\.\d+)?$`)
 
 func plural(trade string) string {
 	if trade == "" {

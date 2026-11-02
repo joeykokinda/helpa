@@ -121,9 +121,9 @@ export default function JobPage({ job, onChange, onBack, onInstall, onFix, onDel
   const turnOnNotifications = async () => setNotify(await enableNotifications().catch(() => "unsupported" as const));
 
   const part = job.parts.find((candidate) => candidate.status !== "delivered") ?? job.parts[job.parts.length - 1];
-  // The newest plan's parts come last; that's the one that matters now. Parts already found aren't asked again.
+  // A plan lists its main part first, and a new cause replaces the list. Parts already found aren't asked again.
   const unfound = unfoundParts(job);
-  const neededPart = unfound[unfound.length - 1];
+  const neededPart = unfound[0];
   const machine = [job.brand, job.model].filter(Boolean).join(" ") || job.appliance;
 
   // The one thing to do now, as a big card: the autopilot for people who just want it fixed.

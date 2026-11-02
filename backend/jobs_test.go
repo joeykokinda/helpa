@@ -119,3 +119,9 @@ func TestShortPart(t *testing.T) {
 		}
 	}
 }
+
+func TestCoordinatesPattern(t *testing.T) {
+	if !coordinatesPattern.MatchString("40.426, -86.908") || coordinatesPattern.MatchString("West Lafayette, IN 47906") {
+		t.Fatal("coordinates pattern")
+	}
+}
