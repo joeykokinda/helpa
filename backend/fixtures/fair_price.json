@@ -1,0 +1,9 @@
+{
+  "summary": "Sample price (offline mode): a dryer repair like this usually runs $120 to $250 with a pro.",
+  "low": 120,
+  "high": 250,
+  "service_call": "$75 to $100, often waived if you go ahead with the repair",
+  "includes": "the part (about $10 to $40) plus an hour of labor",
+  "red_flags": ["More than $350 for this, ask why", "Replacing the whole heating element when the fuse is the problem", "A diagnostic fee on top of the repair price without saying so up front"],
+  "sources": ["https://homeguide.com/costs/dryer-repair-cost", "https://www.angi.com/articles/dryer-repair-cost.htm"]
+}

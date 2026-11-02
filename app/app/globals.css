@@ -4521,3 +4521,188 @@ body:has(.not-found) {
   background: var(--accent);
   color: #fff;
 }
+
+/* After the diagnosis: demo buy, fair price, the thread with a pro, what the pro said. */
+.job-demo-note {
+  color: var(--tertiary);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+.job-arrived {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--ok-soft);
+}
+.job-arrived-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ok);
+  font-size: 18px;
+  font-weight: 800;
+}
+.job-fair-range {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.job-flags {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 18px;
+  color: var(--secondary);
+  font-size: 14px;
+}
+.job-sources {
+  color: var(--tertiary);
+  font-size: 12.5px;
+}
+.job-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.job-bubble {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+.job-bubble-you {
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+  background: var(--primary);
+  color: var(--primary-text);
+}
+.job-bubble-them {
+  align-self: flex-start;
+  border-bottom-left-radius: 6px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.job-delivered {
+  align-self: flex-end;
+  color: var(--tertiary);
+  font-size: 12px;
+}
+.job-typing {
+  display: flex;
+  gap: 4px;
+  padding: 14px 16px;
+}
+.job-typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--secondary);
+  animation: job-typing 1s infinite ease-in-out;
+}
+.job-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.job-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes job-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+.job-quote {
+  align-self: flex-start;
+  margin-top: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ok-soft);
+  color: var(--ok);
+  font-size: 14px;
+  font-weight: 700;
+}
+.job-quote-high {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+.job-said {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.job-said textarea,
+.job-message {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.4;
+  resize: vertical;
+}
+.job-said-result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.job-mic-live {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+.job-permission {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.job-permission input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--accent);
+}
+.job-sheet-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgb(0 0 0 / 0.4);
+}
+.job-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 560px;
+  max-height: 88dvh;
+  margin: 0 auto;
+  padding: 20px 16px calc(env(safe-area-inset-bottom) + 20px);
+  overflow-y: auto;
+  border-radius: 28px 28px 0 0;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: var(--shadow-lg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .job-typing span {
+    animation: none;
+  }
+}
