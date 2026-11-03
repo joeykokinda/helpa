@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import QrCode from "./components/landing/QrCode";
-import StoryPlayer, { type Scene } from "./components/landing/StoryPlayer";
-import { story } from "./components/landing/story";
 import "./landing.css";
 
 export const metadata: Metadata = {
@@ -11,7 +9,6 @@ export const metadata: Metadata = {
     "Snap what's broken. Helpa works out your machine, shows each step on a 3D model, checks your work from a photo, and finds the exact part or a fair-priced pro when it's beyond you.",
 };
 
-const scenes: Scene[] = story;
 
 type Shot = { src: string; alt: string };
 type Stage = { kicker: string; title: string; body: string; shots: Shot[] };
@@ -108,27 +105,22 @@ const models: { name: string; does: string }[] = [
   { name: "Muse Voice Transcribe", does: "Hold to talk: the problem, your questions, and what the tech told you." },
 ];
 
-const stats: { value: string; label: string }[] = [
-  { value: "49/50", label: "named the right appliance" },
-  { value: "8/8", label: "dangerous cases sent to a pro" },
-  { value: "3×", label: "fewer words than a plain chatbot" },
-  { value: "4.5 s", label: "median to a plan from the library" },
+// Where Helpa is going, beside what it does today. "Today" is only what works in the live app.
+const roadmap: { today: string; next: string }[] = [
+  { today: "Finds your machine, its manual, and the cause, and shows every step in 3D", next: "Watches you through the camera and corrects you as you go" },
+  { today: "Finds the exact part with real stores and prices", next: "Orders it at the best price and tracks it to your door" },
+  { today: "Finds the best-reviewed pros near you and what the job should cost", next: "Gets quotes from several pros and picks the fair one with you" },
+  { today: "Writes the message; you text or call the pro from your phone in one tap", next: "Calls and texts pros for you, handles their replies, and books the visit" },
+  { today: "Keeps the whole job: what's wrong, what you ruled out, the part, the pro", next: "Handles the logistics: reminders, reschedules, and the follow-up after the visit" },
 ];
 
-const honest: { real: string; demo: string }[] = [
-  { real: "Machine, manual, plan, 3D model and photo checks", demo: "" },
-  { real: "Part numbers, stores and prices", demo: "Buying: the order tracker plays through in about 5 seconds" },
-  { real: "Local pros, ratings and fair prices", demo: "Helpa messaging a pro for you: a sample reply" },
-  { real: "Texting or calling a pro from your phone", demo: "" },
-];
-
-function Phone({ shot, className = "" }: { shot: Shot; className?: string }) {
+function Phone({ shot, className = "", eager = false }: { shot: Shot; className?: string; eager?: boolean }) {
   return (
     <figure className={`lp-phone lp-shot ${className}`}>
       <div className="lp-phone-screen">
         {/* Static screenshots of the live app; next/image adds nothing for these. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" />
+        <img src={shot.src} alt={shot.alt} loading={eager ? "eager" : "lazy"} decoding="async" />
       </div>
     </figure>
   );
@@ -174,19 +166,9 @@ export default function Landing() {
               </div>
             </div>
           </div>
-          <StoryPlayer src="/landing/story.mp4" poster="/landing/story-poster.jpg" scenes={scenes} label="A dryer that won't dry, fixed with Helpa: a photo, the plan, each step in 3D, fixed" />
-        </section>
-
-        <section className="lp-section lp-stats-wrap" aria-label="Tested on real problems">
-          <ul className="lp-stats">
-            {stats.map((stat) => (
-              <li key={stat.label}>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="lp-stats-note">50 household problems typed into the live pipeline (no photos); the chatbot comparison uses 10 of them. Method and raw runs are in the repo.</p>
+          <div className="lp-hero-visual">
+            <Phone shot={{ src: "/landing/shots/step-lint.webp", alt: "Helpa on a phone: step 2 of 6, pull the lint screen straight up, shown on a 3D dryer" }} className="lp-phone-hero" eager />
+          </div>
         </section>
 
         <section className="lp-section" id="how">
@@ -282,25 +264,26 @@ export default function Landing() {
 
         <section className="lp-section">
           <div className="lp-heading">
-            <p className="lp-kicker">Straight answers</p>
-            <h2>What&apos;s real, and what&apos;s a demo.</h2>
+            <p className="lp-kicker">Where it&apos;s going</p>
+            <h2>Today it guides you. Next, it does the legwork.</h2>
           </div>
           <table className="lp-honest">
             <thead>
               <tr>
-                <th scope="col">Real, live today</th>
-                <th scope="col">Demo, can be connected later</th>
+                <th scope="col">Works today</th>
+                <th scope="col">Coming next</th>
               </tr>
             </thead>
             <tbody>
-              {honest.map((row) => (
-                <tr key={row.real}>
-                  <td>{row.real}</td>
-                  <td>{row.demo}</td>
+              {roadmap.map((row) => (
+                <tr key={row.today}>
+                  <td>{row.today}</td>
+                  <td>{row.next}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <p className="lp-honest-note">In the app today, ordering a part and Helpa messaging a pro run as demos (a five-second delivery and a sample reply), so you can try the whole flow.</p>
         </section>
 
         <section className="lp-section lp-try">

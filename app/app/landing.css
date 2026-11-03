@@ -208,13 +208,7 @@ body:has(.lp) {
   object-fit: cover;
 }
 
-/* The story: a tilted phone on a warm glow, Helpa telling it, a bar per moment */
-.lp-story {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
+/* Hero: one phone on a warm glow */
 .lp-hero-visual {
   position: relative;
   display: flex;
@@ -232,75 +226,7 @@ body:has(.lp) {
     var(--surface-2);
 }
 .lp-phone-hero {
-  max-width: 340px;
-  transform: rotate(-2deg);
-}
-.lp-helpa {
-  position: absolute;
-  bottom: 0;
-  left: -4%;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  pointer-events: none;
-}
-.lp-helpa-bubble {
-  position: relative;
-  max-width: 270px;
-  margin-left: 48px;
-  padding: 13px 18px;
-  border-radius: 22px;
-  background: var(--surface);
-  color: var(--foreground);
-  font-size: 18px;
-  font-weight: 750;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
-  box-shadow: var(--shadow-lg);
-}
-/* The tail points down at Helpa. */
-.lp-helpa-bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -7px;
-  left: 30px;
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  background: var(--surface);
-  transform: rotate(45deg);
-}
-.lp-story-bars {
-  display: flex;
-  gap: 5px;
-  width: min(340px, 100%);
-}
-.lp-story-bars button {
-  position: relative;
-  flex: 1;
-  height: 16px;
-  padding: 6px 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-/* The track, with the moment's progress filled in orange on top. */
-.lp-story-bars button::before {
-  content: "";
-  position: absolute;
-  inset: 6px 0;
-  border-radius: 2px;
-  background: var(--surface-3);
-}
-.lp-story-bars span {
-  position: relative;
-  display: block;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--accent);
-  transform-origin: left;
+  max-width: 320px;
 }
 
 /* Sections */
@@ -413,10 +339,6 @@ main + .lp-footer {
     padding-top: 16px;
     padding-bottom: 48px;
   }
-  .lp-story {
-    width: min(360px, 100%);
-    margin: 0 auto;
-  }
   .lp-section {
     padding-top: 48px;
     padding-bottom: 48px;
@@ -440,18 +362,6 @@ main + .lp-footer {
   }
   .lp-phone-hero {
     max-width: 250px;
-  }
-  .lp-helpa {
-    left: -2%;
-  }
-  .lp-helpa-face {
-    width: 104px;
-    height: auto;
-  }
-  .lp-helpa-bubble {
-    max-width: 210px;
-    margin-left: 26px;
-    font-size: 15px;
   }
   .lp-band {
     margin: 0;
@@ -484,43 +394,6 @@ html {
 }
 .lp section[id] {
   scroll-margin-top: 72px;
-}
-
-/* Stats */
-.lp-stats-wrap {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.lp-stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  list-style: none;
-}
-.lp-stats li {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 22px 24px;
-  border-radius: 24px;
-  background: var(--surface-2);
-}
-.lp-stats strong {
-  font-size: clamp(30px, 3.4vw, 42px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-.lp-stats span {
-  color: var(--secondary);
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.35;
-}
-.lp-stats-note {
-  margin-top: 12px;
-  color: var(--tertiary);
-  font-size: 14px;
 }
 
 /* Screenshots in phone frames */
@@ -726,7 +599,7 @@ html {
   line-height: 1.5;
 }
 .lp-honest td:last-child {
-  color: var(--secondary);
+  font-weight: 650;
 }
 .lp-footer-note {
   color: var(--secondary);
@@ -735,9 +608,6 @@ html {
 @media (max-width: 900px) {
   .lp-links {
     display: none;
-  }
-  .lp-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .lp-stage,
   .lp-tracks,
@@ -778,4 +648,11 @@ html {
     flex-wrap: wrap;
     gap: 10px;
   }
+}
+
+.lp-honest-note {
+  margin-top: 14px;
+  color: var(--secondary);
+  font-size: 15px;
+  line-height: 1.5;
 }
