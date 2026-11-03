@@ -27,6 +27,8 @@ Say what the broken thing is and what is wrong, fast. Do not research or plan th
 
 - appliance: plain name, e.g. "electric dryer", "top-load washer", "garbage disposal". Empty if you cannot tell.
 - brand, model_number: only when readable on a photo or stated by the user, else empty. Never guess a model number.
+  brand is the name on the machine's badge, not the maker's company on the sticker: "Electrolux Home Products"
+  with a model starting FF or FG is Frigidaire; "Whirlpool Corporation" can be Maytag, KitchenAid or Amana.
 - confidence: 0 to 1, how sure you are about the appliance.
 - symptom: the problem in plain words, one short sentence.
 - question: ONE short question for the user, only when the answer changes the fix and neither the photos nor
@@ -304,6 +306,13 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 			// A second quick look with the answer can settle the appliance or match a ready fix,
 			// which beats a full research run.
 			if second, err := identify(ctx, photos, complaint, false); err == nil {
+				// The second look answers the question; it must not forget the sticker the first look read.
+				if second.Brand == "" {
+					second.Brand = ident.Brand
+				}
+				if second.ModelNumber == "" {
+					second.ModelNumber = ident.ModelNumber
+				}
 				ident = second
 				emitIdentify(emit, ident)
 			}

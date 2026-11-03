@@ -120,7 +120,8 @@ var labelSchema = map[string]any{
 const labelInstructions = `You read appliance model stickers and vehicle VIN plates from a phone photo.
 Copy the model number, serial number and VIN exactly as printed; never guess a character you cannot read,
 and set found to false if the model number (or VIN) is not clearly readable. For a VIN, decode the maker,
-model and model year into description. For an appliance, say the brand and kind of appliance.`
+model and model year into description. For an appliance, say the brand and kind of appliance. The brand is the badge name, not the maker on the sticker:
+Electrolux Home Products with a model starting FF or FG is Frigidaire.`
 
 // readLabel reads the identity off a cropped photo of a model sticker or VIN plate.
 func readLabel(ctx context.Context, photo string) (json.RawMessage, error) {
