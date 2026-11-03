@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Helpa diagrams</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #0e0e0f; --muted: #66665f; --faint: #a3a39c; --line: #e2e2dc; --desk: #f1f1ee; --card: #ffffff; --accent: #ff5b2e; --accent-soft: #ffe7de; --ok: #12a150; --ok-soft: #dcf5e6; --warn: #ffd23f; --meta: #0866ff; --meta-soft: #e6efff; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--desk); font-family: "Schibsted Grotesk", system-ui, sans-serif; color: var(--ink); }
+section { display: none; position: absolute; inset: 0; padding: 90px 110px; }
+section.on { display: block; }
+h1 { font-size: 76px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+h2 { font-size: 30px; font-weight: 600; color: var(--muted); margin-top: 18px; }
+.kicker { font-size: 24px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
+.card { background: var(--card); border-radius: 28px; box-shadow: 0 1px 2px rgb(14 14 15 / 0.05), 0 12px 34px rgb(14 14 15 / 0.07); padding: 26px 30px; }
+.chip { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 9px 18px; font-size: 21px; font-weight: 700; background: var(--meta-soft); color: var(--meta); white-space: nowrap; }
+.chip.orange { background: var(--accent-soft); color: var(--accent); }
+.chip.green { background: var(--ok-soft); color: var(--ok); }
+.chip.dark { background: var(--ink); color: #fff; }
+.label { font-size: 30px; font-weight: 750; letter-spacing: -0.01em; }
+.sub { font-size: 21px; color: var(--muted); margin-top: 6px; line-height: 1.3; }
+.in { opacity: 0; animation: rise 0.7s cubic-bezier(.2,.8,.2,1) forwards; }
+.pop { opacity: 0; animation: pop 0.55s cubic-bezier(.3,1.5,.5,1) forwards; }
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+@keyframes fill { from { width: 0; } to { width: 100%; } }
+@keyframes dash { to { stroke-dashoffset: 0; } }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgb(255 91 46 / 0.35); } 50% { box-shadow: 0 0 0 16px rgb(255 91 46 / 0); } }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.bar { height: 10px; border-radius: 99px; background: #eeeee9; overflow: hidden; margin-top: 16px; }
+.bar i { display: block; height: 100%; background: var(--accent); width: 0; animation: fill 2.4s ease-in-out forwards; }
+.check { width: 34px; height: 34px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 20px; }
+svg.wires { position: absolute; inset: 0; pointer-events: none; }
+svg.wires path { fill: none; stroke: #c9c9c1; stroke-width: 4; stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: dash 1.1s ease-out forwards; }
+svg.wires path.hot { stroke: var(--accent); }
+.mascot { width: 120px; height: 120px; border-radius: 28px; }
+.d { animation-delay: var(--d); }
+.d i { animation-delay: var(--d); }
+
+/* title */
+#title { display: none; text-align: center; padding-top: 250px; }
+#title.on { display: block; }
+#title .mascot { width: 200px; height: 200px; border-radius: 48px; animation: pop 0.7s cubic-bezier(.3,1.5,.5,1) both, bob 2.4s 0.8s ease-in-out infinite; }
+#title h1 { font-size: 150px; margin-top: 40px; }
+#title h1 b { color: var(--accent); }
+#title h2 { font-size: 46px; color: var(--ink); font-weight: 600; }
+
+/* pipeline */
+.grid-pipe { position: relative; height: 820px; margin-top: 40px; }
+.node { position: absolute; }
+.photo { width: 260px; height: 330px; border-radius: 26px; object-fit: cover; box-shadow: 0 12px 34px rgb(14 14 15 / 0.12); }
+
+/* loop */
+.loop { display: flex; gap: 26px; align-items: stretch; margin-top: 70px; }
+.loop .card { flex: 1; position: relative; }
+.arrow { align-self: center; font-size: 46px; color: var(--faint); font-weight: 800; }
+.ruled { font-size: 26px; font-weight: 650; display: flex; gap: 14px; align-items: center; margin-top: 18px; }
+.ruled s { color: var(--faint); }
+.loop .card { padding: 40px 42px; min-height: 520px; }
+.loop .label { font-size: 42px; margin-top: 24px !important; }
+.loop .sub { font-size: 28px; margin-top: 12px; }
+.loop .ruled { font-size: 28px; margin-top: 24px; }
+.loop .chip { font-size: 23px; }
+
+/* end */
+#end { text-align: center; padding-top: 150px; }
+.models { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin: 54px auto 0; max-width: 1760px; }
+.models .card { width: 310px; text-align: left; padding: 22px 26px; }
+.models .card .label { font-size: 28px; }
+.models .card .sub { font-size: 19px; }
+.url { font-size: 64px; font-weight: 800; margin-top: 64px; letter-spacing: -0.02em; }
+.url b { color: var(--accent); }
+.repo { font-size: 28px; color: var(--muted); margin-top: 14px; }
+</style>
+</head>
+<body>
+
+<section id="title">
+  <img class="mascot" src="mascot.svg" alt="">
+  <h1 class="in d" style="--d:0.35s">helpa<b>.</b></h1>
+  <h2 class="in d" style="--d:0.8s">Fix what's broken. Even if you know nothing.</h2>
+</section>
+
+<section id="pipeline">
+  <div class="kicker in">How it works</div>
+  <h1 class="in d" style="--d:0.15s">One photo. Five Meta models at once.</h1>
+  <div class="grid-pipe">
+    <svg class="wires" width="1700" height="820" viewBox="0 0 1700 820">
+      <path class="d" style="--d:1.2s" d="M 270 330 C 330 330, 330 330, 390 330"/>
+      <path class="d hot" style="--d:2.6s" d="M 760 330 C 830 330, 830 80, 900 80"/>
+      <path class="d hot" style="--d:2.7s" d="M 760 330 C 830 330, 830 270, 900 270"/>
+      <path class="d hot" style="--d:2.8s" d="M 760 330 C 830 330, 830 460, 900 460"/>
+      <path class="d hot" style="--d:2.9s" d="M 760 330 C 830 330, 830 650, 900 650"/>
+      <path class="d" style="--d:5.4s" d="M 1370 80 C 1420 80, 1420 330, 1460 330"/>
+      <path class="d" style="--d:5.5s" d="M 1370 270 C 1420 270, 1420 330, 1460 330"/>
+      <path class="d" style="--d:5.6s" d="M 1370 460 C 1420 460, 1420 330, 1460 330"/>
+      <path class="d" style="--d:5.7s" d="M 1370 650 C 1420 650, 1420 330, 1460 330"/>
+    </svg>
+    <div class="node in d" style="--d:0.5s; left:0; top:165px">
+      <img class="photo" src="dryer-label.jpg" alt="">
+      <div class="sub" style="text-align:center; font-weight:650; color:var(--ink)">Your photo + "clothes still wet"</div>
+    </div>
+    <div class="node card in d" style="--d:1.5s; left:390px; top:205px; width:370px">
+      <span class="chip">Muse Spark 1.3</span>
+      <div class="label" style="margin-top:14px">Reads the sticker</div>
+      <div class="sub">Frigidaire FFRE4120SW2</div>
+      <div class="chip orange pop d" style="--d:2.2s; margin-top:14px">Asks: "Warm inside?"</div>
+    </div>
+    <div class="node card in d" style="--d:3.0s; left:900px; top:0; width:470px; padding:18px 26px">
+      <span class="chip">Muse Wonder + web search</span>
+      <div class="label" style="font-size:26px; margin-top:10px">Finds the manual and the cause</div>
+      <div class="bar d" style="--d:3.4s"><i></i></div>
+    </div>
+    <div class="node card in d" style="--d:3.1s; left:900px; top:190px; width:470px; padding:18px 26px">
+      <span class="chip">Muse Spark 1.3</span>
+      <div class="label" style="font-size:26px; margin-top:10px">Builds the 3D twin, real joints</div>
+      <div class="bar d" style="--d:3.5s"><i></i></div>
+    </div>
+    <div class="node card in d" style="--d:3.2s; left:900px; top:380px; width:470px; padding:18px 26px">
+      <span class="chip">SAM 3.1</span>
+      <div class="label" style="font-size:26px; margin-top:10px">Finds each part on your photo</div>
+      <div class="bar d" style="--d:3.6s"><i></i></div>
+    </div>
+    <div class="node card in d" style="--d:3.3s; left:900px; top:570px; width:470px; padding:18px 26px">
+      <span class="chip">Muse Image</span>
+      <div class="label" style="font-size:26px; margin-top:10px">Draws the fix on your photo</div>
+      <div class="bar d" style="--d:3.7s"><i></i></div>
+    </div>
+    <div class="node card pop d" style="--d:6.2s; left:1460px; top:215px; width:250px; background:var(--ink); color:#fff">
+      <div class="label" style="color:#fff">Your plan</div>
+      <div class="sub" style="color:#c9c9c1">One move per step, played on your machine</div>
+    </div>
+  </div>
+</section>
+
+<section id="loop">
+  <div class="kicker in">It doesn't give up</div>
+  <h1 class="in d" style="--d:0.15s">Checks your work. Rules out causes. Knows when to stop.</h1>
+  <div class="loop">
+    <div class="card in d" style="--d:0.8s">
+      <span class="chip">Muse Spark 1.3 vision</span>
+      <div class="label" style="margin-top:16px">Check what I did</div>
+      <div class="sub">Your photo vs. what done looks like. "Pull the filter out and show me."</div>
+    </div>
+    <div class="arrow in d" style="--d:1.6s">→</div>
+    <div class="card in d" style="--d:2.0s">
+      <span class="chip orange">Still broken</span>
+      <div class="label" style="margin-top:16px">Next most likely cause</div>
+      <div class="ruled in d" style="--d:2.8s"><span class="check">✓</span><s>a clogged lint screen</s></div>
+      <div class="ruled in d" style="--d:3.4s"><span class="check">✓</span><s>a blocked vent hose</s></div>
+    </div>
+    <div class="arrow in d" style="--d:4.0s">→</div>
+    <div class="card in d" style="--d:4.4s; background:var(--warn)">
+      <span class="chip dark">Safety first</span>
+      <div class="label" style="margin-top:16px">240 volts? That's a pro.</div>
+      <div class="sub" style="color:var(--ink)">Gas, mains wiring and refrigerant always go to a pro.</div>
+    </div>
+  </div>
+</section>
+
+<section id="agents">
+  <div class="kicker in">When it's beyond you</div>
+  <h1 class="in d" style="--d:0.15s">Agents that finish the job.</h1>
+  <div class="loop" style="margin-top:60px">
+    <div class="card in d" style="--d:0.7s">
+      <span class="chip">Muse Wonder + web search</span>
+      <div class="label" style="margin-top:16px">Pro finder</div>
+      <div class="sub">The best-reviewed shops near you, and a fair price with sources.</div>
+      <div class="ruled in d" style="--d:1.6s"><span class="check">✓</span>Writes the message: model, symptom, what you tried</div>
+      <div class="ruled in d" style="--d:2.2s"><span class="check">✓</span>Checks the quote against the fair price</div>
+      <div class="ruled in d" style="--d:2.8s"><span class="check">✓</span>Books it, with your permission</div>
+    </div>
+    <div class="card in d" style="--d:1.2s">
+      <span class="chip">Muse Wonder + web search</span>
+      <div class="label" style="margin-top:16px">Part finder</div>
+      <div class="sub">The exact part for your model number, priced at real stores.</div>
+      <div class="ruled in d" style="--d:3.4s"><span class="check">✓</span>Tracks the order</div>
+      <div class="ruled in d" style="--d:4.0s"><span class="check">✓</span>When it arrives: the install guide in 3D</div>
+    </div>
+    <div class="card in d" style="--d:1.7s">
+      <span class="chip">Muse Voice + Muse Spark</span>
+      <div class="label" style="margin-top:16px">"What did the pro say?"</div>
+      <div class="sub">Say it out loud. The job updates: diagnosis, part, price, next step.</div>
+      <div class="ruled in d" style="--d:4.6s"><span class="check">✓</span>My Home remembers every fix</div>
+    </div>
+  </div>
+</section>
+
+<section id="end">
+  <img class="mascot pop" src="mascot.svg" alt="" style="width:150px;height:150px;border-radius:36px">
+  <h1 class="in d" style="--d:0.3s; margin-top:30px">Built on Meta</h1>
+  <div class="models">
+    <div class="card in d" style="--d:0.6s"><div class="label">Muse Spark 1.3</div><div class="sub">Reads, sees, checks, animates</div></div>
+    <div class="card in d" style="--d:0.8s"><div class="label">Muse Wonder</div><div class="sub">Researches with web search</div></div>
+    <div class="card in d" style="--d:1.0s"><div class="label">SAM 3.1</div><div class="sub">Finds parts on your photo</div></div>
+    <div class="card in d" style="--d:1.2s"><div class="label">Muse Image</div><div class="sub">Draws the fix on your photo</div></div>
+    <div class="card in d" style="--d:1.4s"><div class="label">Muse Voice</div><div class="sub">Hands-free, talk to it</div></div>
+  </div>
+  <div class="url in d" style="--d:1.9s">helpa<b>.</b>pyras.org</div>
+  <div class="repo in d" style="--d:2.2s">github.com/joeykokinda/helpa</div>
+</section>
+
+<script>
+  const scene = new URLSearchParams(location.search).get("s") || "title";
+  document.getElementById(scene).classList.add("on");
+</script>
+</body>
+</html>

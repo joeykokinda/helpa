@@ -1,88 +1,87 @@
 # Helpa: the 3-minute video
 
-**One sentence the judges should remember:** Helpa understands how your machine works and guides your hands through fixing it, and when you can't, it gets you the right part or the right pro at a fair price.
+**Format:** 1920x1080. Most of it is a split screen: **you on the left** (talking to camera, or your hands on the real machine), **the live app on the right** in a phone frame. The three "how it works" moments are full-screen animated diagrams. Every app shot is the real app at https://helpa.pyras.org/app making real Meta calls with photos of your own machines (`media/photos/`).
 
-**Story:** your dryer stopped drying and your Camry is due for oil. A chatbot gives you a wall of text. Helpa reads the sticker, shows the move on a 3D twin of that exact dryer, answers your questions, checks your work from a photo, and when it's beyond you, finds a fair-priced pro and the exact part.
+**The one thing judges should remember:** Helpa reads *your exact machine*, shows you the move on a 3D twin of it, checks your work, and when it's beyond you, gets the right pro or part at a fair price.
 
-**Total:** 2:58. Every on-screen phone shot is the live app at https://helpa.pyras.org/app on your iPhone.
+**Rubric map:** Impact (the hook and the close: anyone, any home, no skills), Meta tooling (each model is named on screen when it does something visible), Technical depth (parallel agents, brand-aware 3D twin, a diagnosis that branches), Demo (all live, your machines).
 
-## Shot list
+## Timeline
 
-| # | Time | Where | What's on screen | Voiceover | On-screen caption |
-|---|---|---|---|---|---|
-| 1 | 0:00–0:06 | Laundry room | Hand pulls a soaking shirt out of the dryer, holds it up, drip. | "My dryer runs a full hour. Clothes come out soaking." | |
-| 2 | 0:06–0:10 | Driveway | Camry dash: maintenance light. | "And my car wants an oil change." | |
-| 3 | 0:10–0:20 | Laptop | A generic chatbot answer scrolling forever (no brand visible). Zoom on words like "lint trap", "vent duct", "thermal fuse". | "Ask a chatbot and you get this. Twelve paragraphs. Which part is the lint trap? Where's the vent? I've never opened a dryer." | |
-| 4 | 0:20–0:25 | Black title card | Helpa logo, mascot hops. | "So I built Helpa." | **Helpa** · Fix what's broken. Even if you know nothing. |
-| 5 | 0:25–0:35 | Dryer door rim, phone in hand | Camera → **Model #** → tap Dryer → the hint card shows where the sticker is on the 3D dryer → point at the sticker → "Got it! WED5050LW". | "Helpa knows where the sticker lives. It finds it and reads it, so it knows my exact dryer." | SAM 3.1 finds the label · Muse Spark reads it |
-| 6 | 0:35–0:42 | Phone | Tap **Use this** → "Clothes still wet" → **Help me fix it** → the working screen ticks off its lanes: what it is, the fix, 3D model, writing steps. "I know this one!" | "Agents work in parallel: identify, research the manual, build the 3D model, write the plan. About three seconds." | Parallel agents · Muse Spark + Muse Wonder |
-| 7 | 0:42–0:52 | Phone | Plan screen: "Your lint screen is choking the airflow." Scroll to the photo of your own dryer redrawn as a repair diagram (lint screen circled, arrow). | "It tells me why in one line, and draws the fix right on my own photo." | Muse Image draws on your photo |
-| 8 | 0:52–1:02 | Phone | **Let's start** → Step 1 x-ray: glowing air backs up red at the clogged screen. Step 2: the lint screen slides up on the 3D twin. | "Every step plays on a 3D model of my machine, with real joints. Here's the air getting stuck." | 3D twin of your exact model |
-| 9 | 1:02–1:18 | Dryer, phone in hand | **I'm stuck** → **Ask Helpa** → hold to talk: "Which way does it come out?" → Helpa answers out loud: "Straight up, by the tab at the back." | "Still not sure? I just ask. It knows my exact dryer and this exact step, and answers out loud." | Muse Voice + Muse Spark |
-| 10 | 1:18–1:30 | Dryer | Your hand pulls the screen out and rolls the lint off (close-up of the lint sheet). **I'm stuck** → **Check what I did** → snap the clean screen → "Got it!" and it moves on. | "Then I snap what I did, and it tells me if I actually got it right, not just that the animation ended." | It checks your work from a photo |
-| 11 | 1:30–1:40 | Phone | Last step "Run a short timed dry, feel the vent" → **Did that fix it?** → **Still broken** → "Okay, so it wasn't the lint screen" → next cause: vent hose. | "Test run. Still damp. Helpa doesn't give up. It rules out the lint screen and moves to the next most likely cause." | Diagnosis that branches |
-| 12 | 1:40–1:48 | Phone | Vent steps, then **Still broken** again → plan shows "Not a clogged lint screen" ✓ "Not a blocked dryer vent" ✓ → thermal fuse, yellow **Safety first** (240-volt wiring) → **Let's start** → **I'm stuck** → **Hand it to a pro**. | "Now it's the thermal fuse. That's 240 volts. Helpa says: this one's for a pro." | Safety first |
-| 13 | 1:48–2:00 | Phone | **Find pros near me** → three real local shops with ratings. **Fair price: $80 to $185** card with red flags and sources. | "It finds the best-reviewed repair shops near me, and what this should actually cost, so nobody overcharges me." | Muse Wonder + web search · real shops, real prices |
-| 14 | 2:00–2:12 | Phone | **Contact** → the message is already written: model number, symptom, what I tried, the fair price. Tick permission → **Let Helpa reach out (demo)** → shop replies with a quote → green "within the fair range" → **Accept** → booked tomorrow morning. | "It writes the message for me: my model, what's wrong, what I already tried. With my permission it reaches out, checks the quote against the fair price, and books it." | Demo reply · real texting from your phone works today |
-| 15 | 2:12–2:20 | Phone, hold to talk | **What did the pro say?** → say "It's the thermal fuse, part 279973, $140" → job updates: thermal fuse, part #279973, "Quoted $140, fair". | "After the visit I just tell Helpa what the tech said. It updates the job and checks the price." | Muse Voice + Muse Spark |
-| 16 | 2:20–2:30 | Driveway, hood up | **Show me** → snap the car → hold to talk: "My 2015 Camry needs an oil change" → "2015 Toyota Camry 2.5L" → 3D car on ramps, oil streams from the 14 mm plug into the pan, "0W-20, 4.6 quarts". | "Same thing for my car. Exact engine, exact oil, exact drain plug." | Your exact car |
-| 17 | 2:30–2:40 | Phone | **Find this part** → filter 04152-YZZA1, "Exact match", real prices from three stores → **Buy it (demo)** → Ordered → Shipped → Out for delivery → Arrived in five seconds → **Your part is here** → **Install it now** opens the 3D guide. | "It finds the exact filter with real prices, tracks the order, and the moment it arrives, walks me through putting it in." | Demo checkout · store checkout connects later |
-| 18 | 2:40–2:47 | Phone | My Home: Dryer "Repaired", Car with its 3D model. Ask Helpa: "What oil did I use?" → "4.6 quarts of 0W-20. Next change by Nov 2027." | "Everything I fix is saved. Helpa remembers my home." | My Home · Ask Helpa |
-| 19 | 2:47–2:53 | Fast montage | The pick-it grid (toilet, sink, fridge, furnace, outlet), Try a sample, a generated 3D model of a bathroom fan. | "Toilets, sinks, fridges, furnaces. If it's not in the library, Helpa builds the model on the spot." | 16 everyday things · on-demand 3D |
-| 20 | 2:53–2:58 | End card | "Built on Meta": Muse Spark, Muse Wonder, SAM 3.1, Muse Image, Muse Voice (add Muse Spark Open only if BASETEN_API_KEY is set on brach). Stats: 50 real problems tested · 8/8 dangerous cases sent to a pro · 3x less reading than a chatbot. Logo, link, QR. | "Helpa. Fix what's broken, even if you know nothing. Try it at the link." | helpa.pyras.org |
+`L` is the left panel, `R` is the right panel. Clip names are files in `media/clips/`.
 
-## The full voiceover (read it straight through, about 2:55)
+| Time | Left | Right / full screen | What you say |
+|---|---|---|---|
+| 0:00–0:07 | **You** at the dryer, pull out a damp towel | full: your dryer walkaround (`IMG_6365`) | "My dryer ran a full hour and my clothes came out soaking wet. I have never opened a dryer in my life." |
+| 0:07–0:14 | **You** to camera | | "A repair visit is a hundred and fifty bucks before they touch anything. A chatbot gives you twelve paragraphs. So I built Helpa." |
+| 0:14–0:18 | full: `diagram-title` | | (no line, let it breathe) |
+| 0:18–0:34 | **B-roll:** you photograph the dryer sticker with the phone | R: `10-capture` (sped up through the wait) | "I snap the sticker and say what's wrong. Muse Spark reads it: Frigidaire FFRE4120SW2. And it asks me one question that actually changes the fix: is it getting warm inside?" |
+| 0:34–0:46 | full: `diagram-pipeline` | | "Then five Meta models go at once. Muse Wonder searches the web for my manual and the cause. Spark builds a 3D twin. SAM 3.1 finds the parts on my photo. Muse Image draws the fix right on it." |
+| 0:46–1:02 | **You** to camera | R: `11-plan-scroll` then `12-steps` | "One line on why. Then every step plays on a 3D model of my exact dryer. On a Frigidaire the lint screen is in the door, not on top like a Whirlpool, so that's where it shows me." |
+| 1:02–1:12 | **B-roll:** you at the open dryer, phone in hand | R: `13-ask` | "Not sure which way it comes out? I just ask. It knows my dryer and this exact step." |
+| 1:12–1:24 | **B-roll:** you pull the lint screen and snap it | R: `14-check` | "Then I snap what I did. And it's honest: pull it out and hold it up to the light, so I can see it's clean." |
+| 1:24–1:36 | full: `diagram-loop` | | "Still damp? It rules out the lint screen and goes after the next cause. And when the fix is behind 240 volts, it stops me. This one's for a pro." |
+| 1:36–2:02 | **You** to camera | R: `17-pro`, `18-findpros`, `19-contact`, `20-accept`, `21-prosaid` | "It finds the best-reviewed shops near me and what this should cost, with sources. It writes the message: my model, what's wrong, what I already tried. With my permission it reaches out, checks the quote against the fair price, and books it. After the visit I just tell it what the tech said, and the job updates." |
+| 2:02–2:20 | **B-roll:** you snap the washer, microwave and stove | R: `30-washer-capture`, `30-microwave-capture`, `30-range-capture` (fast) | "And it's not a dryer app. My washer, my microwave, my stove. It reads each one. The microwave, it won't let me open: there's a high-voltage capacitor in there." |
+| 2:20–2:34 | **You** to camera | R: `40-car`, `41-part` | "Needs a part? It finds the exact one for my model at real stores, tracks it, and when it shows up, walks me through putting it in. Works on my car too." |
+| 2:34–2:44 | full: `diagram-agents` | | "These are agents doing the boring parts of owning a home, and My Home remembers every machine I own." |
+| 2:44–2:52 | **You** to camera | | "Everything you saw, I built during this hackathon. It's live right now." |
+| 2:52–3:00 | full: `diagram-end` | | "Helpa. Fix what's broken, even if you know nothing. Try it at helpa dot pyras dot org." |
 
-My dryer runs a full hour. Clothes come out soaking. And my car wants an oil change.
+## What you record
 
-Ask a chatbot and you get this. Twelve paragraphs. Which part is the lint trap? Where's the vent? I've never opened a dryer.
+Shoot everything **landscape, 1080p or 4K, 30 or 60 fps**, on the iPhone back camera. Put the phone on something steady for the talking parts. In every talking shot, **stand in the left half of the frame**: the right half gets covered by the app.
 
-So I built Helpa.
+### A. Talking to camera (about 6 takes)
 
-Helpa knows where the sticker lives. It finds it and reads it, so it knows my exact dryer. Agents work in parallel: identify it, research the manual, build the 3D model, write the plan. About three seconds.
+Same spot each time, the dryer behind you if it fits. Say each line 2 or 3 times; I'll pick the best and cut the silences.
 
-It tells me why in one line, and draws the fix right on my own photo. Every step plays on a 3D model of my machine, with real joints. Here's the air getting stuck.
+1. "My dryer ran a full hour and my clothes came out soaking wet. I have never opened a dryer in my life." (holding the damp towel)
+2. "A repair visit is a hundred and fifty bucks before they touch anything. A chatbot gives you twelve paragraphs. So I built Helpa."
+3. "One line on why. Then every step plays on a 3D model of my exact dryer. On a Frigidaire the lint screen is in the door, not on top like a Whirlpool, so that's where it shows me."
+4. "It finds the best-reviewed shops near me and what this should cost, with sources. It writes the message: my model, what's wrong, what I already tried. With my permission it reaches out, checks the quote against the fair price, and books it. After the visit I just tell it what the tech said, and the job updates."
+5. "Needs a part? It finds the exact one for my model at real stores, tracks it, and when it shows up, walks me through putting it in. Works on my car too."
+6. "Everything you saw, I built during this hackathon. It's live right now."
 
-Still not sure? I just ask. It knows my exact dryer and this exact step, and answers out loud. Then I snap what I did, and it tells me if I actually got it right, not just that the animation ended.
+### B. Voiceover (one take, quiet room)
 
-Test run. Still damp. Helpa doesn't give up. It rules out the lint screen and moves to the next most likely cause. Now it's the thermal fuse. That's 240 volts. Helpa says: this one's for a pro.
+The lines for the full-screen diagrams and the B-roll, read straight through. Phone close to your mouth.
 
-It finds the best-reviewed repair shops near me, and what this should actually cost, so nobody overcharges me. It writes the message for me: my model, what's wrong, what I already tried. With my permission it reaches out, checks the quote against the fair price, and books it. After the visit I just tell Helpa what the tech said. It updates the job and checks the price.
+- "I snap the sticker and say what's wrong. Muse Spark reads it: Frigidaire FFRE4120SW2. And it asks me one question that actually changes the fix: is it getting warm inside?"
+- "Then five Meta models go at once. Muse Wonder searches the web for my manual and the cause. Spark builds a 3D twin. SAM 3.1 finds the parts on my photo. Muse Image draws the fix right on it."
+- "Not sure which way it comes out? I just ask. It knows my dryer and this exact step."
+- "Then I snap what I did. And it's honest: pull it out and hold it up to the light, so I can see it's clean."
+- "Still damp? It rules out the lint screen and goes after the next cause. And when the fix is behind 240 volts, it stops me. This one's for a pro."
+- "And it's not a dryer app. My washer, my microwave, my stove. It reads each one. The microwave, it won't let me open: there's a high-voltage capacitor in there."
+- "These are agents doing the boring parts of owning a home, and My Home remembers every machine I own."
+- "Helpa. Fix what's broken, even if you know nothing. Try it at helpa dot pyras dot org."
 
-Same thing for my car. Exact engine, exact oil, exact drain plug. It finds the exact filter with real prices, tracks the order, and the moment it arrives, walks me through putting it in.
+### C. B-roll with the phone in your hand (a second phone or a friend films)
 
-Everything I fix is saved. Helpa remembers my home. Toilets, sinks, fridges, furnaces. If it's not in the library, Helpa builds the model on the spot.
+Film over your shoulder so the real machine and the phone are both in frame. Helpa open on the phone, on the camera screen.
 
-Helpa. Fix what's broken, even if you know nothing. Try it at the link.
+1. Point the phone at the dryer sticker and tap the shutter.
+2. Open the dryer door, phone in hand, look at it like you're reading a step.
+3. Pull the lint screen straight up out of the door opening, peel the lint off, hold it up to the light, snap it with the phone.
+4. Snap the washer, then the microwave sticker, then the stove. About 2 seconds each.
+5. (Optional) A damp towel coming out of the dryer, close up.
 
-## How to film it
-
-- **Two cameras:** iPhone screen recording for every phone shot (Control Center → Screen Recording, long-press → Microphone off; record VO separately). A second phone or camera films your hands and the real dryer/car for shots 1, 2, 10, 16. For shot 10, film over your shoulder so the phone screen and the real dryer are both in frame.
-- **Record VO last,** in a quiet room, phone close to your mouth, then cut picture to it.
-- **Cut every wait.** Researched fixes take about 30 s and the drawn photo about 20 s: record them, then jump-cut. Never show a spinner longer than a second.
-- **Order to film:** dryer flow first (shots 5–15 in one session; tap **Still broken** twice to reach the fuse), car second (16–17), My Home last (18) so it shows both machines.
-- **Light:** turn on the laundry room light for the photo check; Helpa says so when a photo is too dark.
-- **Captions:** big, white, bottom third, one line each. Name the Meta model on screen every time one does something visible; that's 25% of the score.
-- **No chatbot brand** in shot 3. Use a plain chat UI.
-
-## Before you film
-
-- [ ] https://helpa.pyras.org/api/health says `"resting":false`.
-- [ ] Practice run once on the iPhone; allow camera and motion when asked.
-- [ ] Clear My Home first (Safari → website data for the site) so the final My Home shot shows only the dryer and the Camry.
-- [ ] Laundry room light on, dryer lint screen has some real lint on it.
-- [ ] Location on for the pro finder (or type 47906).
+Send me the files (drop them in `~/Downloads`) and I'll cut them in.
 
 ## The 30-second X cut
 
 | Time | Shot | Caption |
 |---|---|---|
-| 0:00–0:03 | Wet shirt out of the dryer | "My dryer stopped drying." |
-| 0:03–0:08 | 3D x-ray: hot air backs up red at the lint screen, then the screen slides out | "So my app showed me the fix on a 3D twin of my dryer." |
-| 0:08–0:12 | Hand pulls it → Check what I did → "Got it!" | "Then checked my work." |
-| 0:12–0:18 | Fair price + pro reply "within the fair range" → booked | "Too hard? It finds a pro and a fair price." |
-| 0:18–0:24 | Part found → Buy (demo) → arrives → Install it now | "Needs a part? Finds it, tracks it, shows you how." |
-| 0:24–0:27 | Camry oil streaming in 3D | "Works on your car too." |
-| 0:27–0:30 | Logo + link | "Helpa. Built on Meta's Muse + SAM 3.1." |
+| 0:00–0:03 | Damp towel out of the dryer | "My dryer stopped drying." |
+| 0:03–0:08 | `10-capture`: snap the sticker, "Frigidaire FFRE4120SW2" | "So my app read the sticker…" |
+| 0:08–0:13 | `12-steps`: lint screen slides up out of the door in 3D | "…and showed me the fix on a 3D twin of MY dryer." |
+| 0:13–0:17 | `14-check` | "Then checked my work." |
+| 0:17–0:24 | `18-findpros` + `20-accept` | "Too hard? It finds a pro at a fair price." |
+| 0:24–0:27 | `30-microwave-capture` safety stop | "And knows when to stop." |
+| 0:27–0:30 | `diagram-end` | "Helpa. Built on Meta's Muse + SAM 3.1." |
 
 Post copy and the reply thread are in `docs/X_POST.md`.
+
+## How the edit is built
+
+`media/rec.py` drives the live app and records clips at phone resolution. `media/diagrams/` holds the animated diagrams (`render.py` records them). `media/edit.py` assembles the timeline above into `media/out/helpa-demo.mp4`; until your footage arrives, the left panel shows a placeholder card with the line to say, so the timing can be checked.

@@ -1,0 +1,8 @@
+.profile*/
+out/
+clips/
+footage/
+*.log
+timeline.bak
+photos/
+diagrams/dryer-label.jpg
