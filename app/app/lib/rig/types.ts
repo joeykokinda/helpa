@@ -81,6 +81,8 @@ export type RigCatalog = {
   name: string;
   /** Appliance names this rig stands in for, e.g. "top-load dryer". */
   matches: string[];
+  /** Only for these brands, over a rig with the same match and no brands (where the lint screen sits differs). */
+  brands?: string[];
   parts: RigPartDef[];
   effects?: RigEffect[];
 };

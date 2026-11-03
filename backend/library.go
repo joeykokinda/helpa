@@ -670,7 +670,7 @@ func cachedRigBeats(libraryID, problemID, rigID string, stepCount int) [][]beat 
 func choreographLibrary(ctx context.Context) error {
 	for index := range library {
 		entry := &library[index]
-		rig := matchRig(entry.Appliance + " " + entry.ModelFamily)
+		rig := matchRig(entry.Appliance+" "+entry.ModelFamily, entry.Brand)
 		if rig == nil {
 			log.Printf("choreograph %s: no built-in model yet", entry.ID)
 			continue

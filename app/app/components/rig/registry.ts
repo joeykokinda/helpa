@@ -2,6 +2,7 @@ import type { Recipe } from "../../lib/rig/recipe";
 import type { Beat, RigCatalog } from "../../lib/rig/types";
 import dishwasher from "./catalogs/dishwasher.json";
 import carOilChange from "./catalogs/car_oil_change.json";
+import dryerDoorLint from "./catalogs/dryer_door_lint.json";
 import dryerTopVent from "./catalogs/dryer_top_vent.json";
 import garbageDisposal from "./catalogs/garbage_disposal.json";
 import microwaveOtr from "./catalogs/microwave_otr.json";
@@ -16,11 +17,12 @@ export type RigModule = {
   sampleSteps: { instruction: string; beats: Beat[] }[];
 };
 
-export const rigCatalogs = [dryerTopVent, dishwasher, washerFrontLoad, washerTopLoad, rangeElectric, microwaveOtr, garbageDisposal, carOilChange] as RigCatalog[];
+export const rigCatalogs = [dryerTopVent, dryerDoorLint, dishwasher, washerFrontLoad, washerTopLoad, rangeElectric, microwaveOtr, garbageDisposal, carOilChange] as RigCatalog[];
 
 /** Models load on demand so the 3D code for one appliance doesn't slow down the rest of the app. */
 export const rigLoaders: Record<string, () => Promise<RigModule>> = {
   dryer_top_vent: () => import("./Dryer").then((module) => module.rig),
+  dryer_door_lint: () => import("./Dryer").then((module) => module.doorLintRig),
   dishwasher: () => import("./Dishwasher").then((module) => module.rig),
   washer_front_load: () => import("./WasherFront").then((module) => module.rig),
   washer_top_load: () => import("./WasherTop").then((module) => module.rig),

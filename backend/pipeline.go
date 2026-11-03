@@ -512,7 +512,7 @@ func libraryPlan(ident identification, complaint string, ruledOut []string, emit
 // buildModel is the model track: a built-in rig when one fits (instant), otherwise an on-demand model.
 // An empty result means the plan step falls back to a generic scene, then to no visual at all.
 func buildModel(ctx context.Context, ident identification, complaint string, photos []string, emit func(event)) modelResult {
-	if rig := matchRig(ident.Appliance); rig != nil && !rigContradicted(rig.ID, complaint+" "+ident.Appliance) {
+	if rig := matchRig(ident.Appliance, ident.Brand); rig != nil && !rigContradicted(rig.ID, complaint+" "+ident.Appliance) {
 		emitTrack(emit, "model", "done", "Found a 3D model", rig.Name)
 		return modelResult{rig: rig}
 	}

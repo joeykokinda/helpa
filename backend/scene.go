@@ -91,6 +91,7 @@ func showPlan(ctx context.Context, photos []string, plan json.RawMessage, compla
 		LibraryID      string `json:"library_id"`
 		LibraryProblem string `json:"library_problem"`
 		Appliance      string `json:"appliance"`
+		Brand          string `json:"brand"`
 		StopForPro     bool   `json:"stop_for_pro"`
 	}
 	json.Unmarshal(plan, &parsed)
@@ -141,7 +142,7 @@ func showPlan(ctx context.Context, photos []string, plan json.RawMessage, compla
 	rig := model.rig
 	if rig == nil {
 		// The plan can name the appliance better than a vague first look did.
-		if candidate := matchRig(parsed.Appliance); candidate != nil && !rigContradicted(candidate.ID, complaint+" "+parsed.Appliance) {
+		if candidate := matchRig(parsed.Appliance, parsed.Brand); candidate != nil && !rigContradicted(candidate.ID, complaint+" "+parsed.Appliance) {
 			rig = candidate
 		}
 	}

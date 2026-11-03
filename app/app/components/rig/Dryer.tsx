@@ -4,6 +4,7 @@ import { RoundedBox } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
 import type { Beat, RigCatalog } from "../../lib/rig/types";
+import doorLintCatalogJson from "./catalogs/dryer_door_lint.json";
 import catalogJson from "./catalogs/dryer_top_vent.json";
 import type { RigModule } from "./registry";
 import { RigPart } from "./RigRuntime";
@@ -64,9 +65,9 @@ function rectangle(x: number, y: number, rectWidth: number, rectHeight: number) 
   return path;
 }
 
-function Cabinet() {
+function Cabinet({ inDoor }: { inDoor: boolean }) {
   const frontHoles = useMemo(() => [circle(doorCenter[0], doorCenter[1] - height / 2, openingRadius)], []);
-  const topHoles = useMemo(() => [rectangle(0, -slotZ, 0.31, 0.03)], []);
+  const topHoles = useMemo(() => (inDoor ? [] : [rectangle(0, -slotZ, 0.31, 0.03)]), [inDoor]);
   return (
     <group>
       {/* front panel with the door opening */}
@@ -93,10 +94,17 @@ function Cabinet() {
         <meshStandardMaterial color="#9aa0a8" roughness={0.7} />
       </mesh>
       {/* the slot rim the lint screen sits in */}
-      <mesh position={[0, height + 0.002, slotZ]}>
-        <boxGeometry args={[0.34, 0.006, 0.05]} />
-        <meshStandardMaterial color="#cfd3d8" roughness={0.5} />
-      </mesh>
+      {inDoor ? (
+        <mesh position={[0, doorLint.slotY, doorLint.z]}>
+          <boxGeometry args={[0.3, 0.008, 0.05]} />
+          <meshStandardMaterial color="#9aa0a8" roughness={0.6} />
+        </mesh>
+      ) : (
+        <mesh position={[0, height + 0.002, slotZ]}>
+          <boxGeometry args={[0.34, 0.006, 0.05]} />
+          <meshStandardMaterial color="#cfd3d8" roughness={0.5} />
+        </mesh>
+      )}
     </group>
   );
 }
@@ -162,14 +170,18 @@ function Door() {
   );
 }
 
-function LintScreen() {
+/** Frigidaire, GE, Samsung and LG put the screen in a slot at the bottom of the door opening instead. */
+const doorLint = { width: 0.26, height: 0.2, slotY: doorCenter[1] - openingRadius + 0.012, z: front - 0.04 };
+
+function LintScreen({ inDoor }: { inDoor: boolean }) {
   const mesh = useMemo(() => screenMeshTexture(), []);
   const lint = useMemo(() => lintTexture(), []);
-  const frameWidth = 0.3;
-  const frameHeight = 0.31;
+  const frameWidth = inDoor ? doorLint.width : 0.3;
+  const frameHeight = inDoor ? doorLint.height : 0.31;
+  // Seated with its handle just above the slot; slides straight up to come out.
+  const position: [number, number, number] = inDoor ? [0, doorLint.slotY - frameHeight / 2 + 0.012, doorLint.z] : [0, height - frameHeight / 2 + 0.012, slotZ];
   return (
-    // Seated with its handle just above the top panel; slides straight up to come out.
-    <RigPart id="lint_screen" position={[0, height - frameHeight / 2 + 0.012, slotZ]}>
+    <RigPart id="lint_screen" position={position}>
       {/* frame */}
       {[-1, 1].map((side) => (
         <mesh key={side} position={[(side * (frameWidth - 0.02)) / 2, 0, 0]}>
@@ -377,20 +389,22 @@ function AirPath() {
   );
 }
 
-export function DryerModel() {
-  return (
-    <group>
-      <Cabinet />
-      <Drum />
-      <InsideDrum />
-      <Door />
-      <LintScreen />
-      <Console />
-      <BehindTheDryer />
-      <Feet />
-      <AirPath />
-    </group>
-  );
+function dryerModel(inDoor: boolean) {
+  return function DryerModel() {
+    return (
+      <group>
+        <Cabinet inDoor={inDoor} />
+        <Drum />
+        <InsideDrum />
+        <Door />
+        <LintScreen inDoor={inDoor} />
+        <Console />
+        <BehindTheDryer />
+        <Feet />
+        <AirPath />
+      </group>
+    );
+  };
 }
 
 const sampleSteps: { instruction: string; beats: Beat[] }[] = [
@@ -430,4 +444,12 @@ const sampleSteps: { instruction: string; beats: Beat[] }[] = [
   },
 ];
 
-export const rig: RigModule = { catalog: dryerCatalog, Model: DryerModel, sampleSteps };
+export const rig: RigModule = { catalog: dryerCatalog, Model: dryerModel(false), sampleSteps };
+
+const doorLintSteps = sampleSteps.map((step) =>
+  step.instruction === "Clean the lint screen"
+    ? { ...step, beats: [{ part: "lint_screen", action: "remove" as const, caption: "Pull the screen up out of the slot" }, ...step.beats.slice(1)] }
+    : step,
+);
+
+export const doorLintRig: RigModule = { catalog: doorLintCatalogJson as RigCatalog, Model: dryerModel(true), sampleSteps: doorLintSteps };

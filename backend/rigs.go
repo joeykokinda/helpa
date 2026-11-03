@@ -28,6 +28,7 @@ type rigCatalog struct {
 	ID      string    `json:"id"`
 	Name    string    `json:"name"`
 	Matches []string  `json:"matches"`
+	Brands  []string  `json:"brands"`
 	Parts   []rigPart `json:"parts"`
 }
 
@@ -65,15 +66,25 @@ func loadRigCatalogs() []rigCatalog {
 }
 
 // matchRig picks the built-in model for an appliance name, preferring the longest matching phrase
-// so "front-load washer" beats plain "washer".
-func matchRig(appliance string) *rigCatalog {
+// so "front-load washer" beats plain "washer". A rig made for certain brands only matches those brands,
+// and beats the brand-less rig with the same phrase: a Frigidaire's lint screen is in the door, not on top.
+func matchRig(appliance, brand string) *rigCatalog {
 	name := strings.ToLower(appliance)
 	var best *rigCatalog
-	bestLength := 0
+	bestScore := 0
 	for index := range rigCatalogs {
-		for _, phrase := range rigCatalogs[index].Matches {
-			if containsWords(name, strings.ToLower(phrase)) && len(phrase) > bestLength {
-				best, bestLength = &rigCatalogs[index], len(phrase)
+		catalog := &rigCatalogs[index]
+		branded := len(catalog.Brands) > 0
+		if branded && !slices.ContainsFunc(catalog.Brands, func(candidate string) bool { return strings.EqualFold(candidate, strings.TrimSpace(brand)) }) {
+			continue
+		}
+		for _, phrase := range catalog.Matches {
+			score := len(phrase) * 2
+			if branded {
+				score++
+			}
+			if containsWords(name, strings.ToLower(phrase)) && score > bestScore {
+				best, bestScore = catalog, score
 			}
 		}
 	}

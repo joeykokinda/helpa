@@ -261,3 +261,15 @@ func TestWasherKindUnknown(t *testing.T) {
 		}
 	}
 }
+
+func TestMatchRigByBrand(t *testing.T) {
+	cases := map[string]string{"Frigidaire": "dryer_door_lint", "frigidaire ": "dryer_door_lint", "Whirlpool": "dryer_top_vent", "": "dryer_top_vent"}
+	for brand, want := range cases {
+		if rig := matchRig("electric dryer", brand); rig == nil || rig.ID != want {
+			t.Errorf("brand %q: got %v, want %s", brand, rig, want)
+		}
+	}
+	if rig := matchRig("top-load washer", "Frigidaire"); rig == nil || rig.ID != "washer_top_load" {
+		t.Errorf("a branded dryer rig must not take a washer: %v", rig)
+	}
+}
