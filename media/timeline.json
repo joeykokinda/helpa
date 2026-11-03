@@ -20,16 +20,19 @@
  },
  {
   "kind": "split",
-  "d": 12.25,
-  "left": "IMG_6365.MOV@9-21",
-  "app": "10-capture.mp4@0-43.5*3.6",
+  "d": 5.25,
+  "left": "IMG_6365.MOV@9-14",
+  "app": "10-capture.mp4@0-5.2",
   "chip": "Muse Spark 1.3 reads the sticker",
-  "caption": "I snap the sticker and say what's wrong. It reads it, and asks the one question that changes the fix.",
-  "zoom": [
-   0.5,
-   0.15,
-   1.12
-  ]
+  "caption": "I point it at the sticker and say what's wrong."
+ },
+ {
+  "kind": "split",
+  "d": 7.25,
+  "app": "10-capture.mp4@5.2-53.7*6.7",
+  "chip": "Muse Spark 1.3 reads the sticker",
+  "caption": "It reads it, and asks the one question that changes the fix.",
+  "left": "IMG_6365.MOV@14-21"
  },
  {
   "kind": "full",
@@ -48,14 +51,9 @@
   "kind": "split",
   "d": 8.25,
   "say": "On a Frigidaire the lint screen is in the door, not on top like a Whirlpool, so that's where it shows me.",
-  "app": "12-steps.mp4@6-13.6",
+  "app": "12-steps.mp4@7.75-13.6*0.72",
   "chip": "3D twin of my exact dryer",
-  "caption": "On a Frigidaire the lint screen is in the door, not on top, so that's where it shows me.",
-  "zoom": [
-   0.5,
-   0.55,
-   1.22
-  ]
+  "caption": "On a Frigidaire the lint screen is in the door, not on top, so that's where it shows me."
  },
  {
   "kind": "split",
@@ -71,12 +69,7 @@
   "say": "Then I snap what I did. And it's honest: pull it out and hold it up so I can see it's clean.",
   "app": "14-check.mp4@0-18.2*2",
   "chip": "Muse Spark checks my photo",
-  "caption": "Then I snap what I did, and it tells me if I actually got it right.",
-  "zoom": [
-   0.5,
-   0.3,
-   1.1
-  ]
+  "caption": "Then I snap what I did, and it tells me if I actually got it right."
  },
  {
   "kind": "full",
@@ -113,12 +106,7 @@
   "say": "With my permission it reaches out, checks the quote, and books it.",
   "app": "20-accept.mp4@0-5.9*1.5",
   "chip": "Quote checked against the fair price",
-  "caption": "With my permission it reaches out, checks the quote, and books it.",
-  "zoom": [
-   0.5,
-   0.25,
-   1.15
-  ]
+  "caption": "With my permission it reaches out, checks the quote, and books it."
  },
  {
   "kind": "split",
@@ -132,14 +120,9 @@
   "kind": "split",
   "d": 7.25,
   "say": "And it's not a dryer app. My washer.",
-  "app": "31-washer-steps.mp4@4-11",
+  "app": "31-washer-steps.mp4@35.5-42.6",
   "chip": "Frigidaire FFTW4120SW2 washer",
-  "caption": "It's not a dryer app. My washer\u2026",
-  "zoom": [
-   0.5,
-   0.5,
-   1.12
-  ]
+  "caption": "It's not a dryer app. My washer\u2026"
  },
  {
   "kind": "split",
@@ -147,12 +130,7 @@
   "say": "My microwave: it read the sticker and figured out it's stuck in demo mode.",
   "app": "30-microwave-capture.mp4@50-57.5",
   "chip": "Samsung ME16A4021AS microwave",
-  "caption": "\u2026my microwave: it worked out it's stuck in demo mode\u2026",
-  "zoom": [
-   0.5,
-   0.2,
-   1.15
-  ]
+  "caption": "\u2026my microwave: it worked out it's stuck in demo mode\u2026"
  },
  {
   "kind": "split",
@@ -176,12 +154,7 @@
   "say": "It tracks the order, and when it shows up, walks me through putting it in.",
   "app": "42-part.mp4@6-40.4*4.9",
   "chip": "Muse Wonder finds the exact part",
-  "caption": "The exact part at real stores, tracked, then the install guide.",
-  "zoom": [
-   0.5,
-   0.2,
-   1.1
-  ]
+  "caption": "The exact part at real stores, tracked, then the install guide."
  },
  {
   "kind": "full",
