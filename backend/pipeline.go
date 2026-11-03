@@ -262,6 +262,17 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		// The first look is a shortcut, not a gate: research can still identify on its own.
 		log.Printf("identify: %v", err)
 	}
+	if follow.Tried != "" {
+		// A follow-up after "Still broken": the person already answered the first look's question, and the
+		// sticker read then still names the machine (and so its 3D model).
+		ident.Question, ident.Choices = "", nil
+		if ident.Brand == "" {
+			ident.Brand = follow.Brand
+		}
+		if ident.ModelNumber == "" {
+			ident.ModelNumber = follow.ModelNumber
+		}
+	}
 	log.Printf("identify: %s (%.2f) fix=%q question=%q", ident.Appliance, ident.Confidence, ident.LibraryFix, ident.Question)
 	emitIdentify(emit, ident)
 
