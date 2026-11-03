@@ -66,7 +66,8 @@ with sync_playwright() as playwright:
     context = playwright.chromium.launch_persistent_context(PROFILE, executable_path=EXE, headless=True, no_viewport=True,
         args=["--ignore-gpu-blocklist", "--use-gl=angle", "--use-angle=gl-egl", "--force-device-scale-factor=2", "--window-size=600,1000",
               "--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream",
-              *([f"--use-file-for-fake-video-capture={os.environ['CAMERA']}"] if os.environ.get("CAMERA") else [])],
+              *([f"--use-file-for-fake-video-capture={os.environ['CAMERA']}"] if os.environ.get("CAMERA") else []),
+              *([f"--use-file-for-fake-audio-capture={os.environ['MIC']}"] if os.environ.get("MIC") else [])],
         permissions=["camera", "microphone", "geolocation"], geolocation={"latitude": 40.4259, "longitude": -86.9081})
     context.add_init_script("try{localStorage.setItem('helpa-onboarded','1')}catch(e){}")
     page = context.pages[0] if context.pages else context.new_page()

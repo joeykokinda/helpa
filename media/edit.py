@@ -86,14 +86,24 @@ def caption_png(text, chip, path):
     image.save(path)
 
 
+def title_png(text, path):
+    """A big machine name for the top of the left panel, so a quick cut still reads."""
+    face = font(72, "ExtraBold")
+    probe = ImageDraw.Draw(Image.new("RGBA", (10, 10)))
+    width = int(probe.textlength(text, font=face)) + 72
+    image = Image.new("RGBA", (width, 118), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    draw.rounded_rectangle((0, 0, width - 1, 117), 30, fill=(14, 14, 15, 235))
+    draw.text((36, 14), text, font=face, fill=(255, 255, 255))
+    image.save(path)
+
+
 def source(spec):
     """'clip.mp4@start-end*speed' -> (path, start, end, speed); end may be empty for the whole clip."""
     name, _, rest = spec.partition("@")
     rest, _, speed = rest.partition("*")
     start, _, end = rest.partition("-")
-    path = name if os.path.isabs(name) else (f"{FOOTAGE}/{name}" if os.path.exists(f"{FOOTAGE}/{name}") else f"{CLIPS}/{name}")
-    if not os.path.exists(path) and os.path.exists(os.path.expanduser(f"~/Downloads/{name}")):
-        path = os.path.expanduser(f"~/Downloads/{name}")
+    path = name if os.path.isabs(name) else next((f"{folder}/{name}" for folder in (FOOTAGE, CLIPS, os.path.expanduser("~/Downloads")) if os.path.exists(f"{folder}/{name}")), f"{FOOTAGE}/{name}")
     return path, float(start or 0), float(end) if end else None, float(speed or 1)
 
 
@@ -116,15 +126,35 @@ def render(index, segment):
         inputs.extend(["-loop", "1", "-framerate", str(FPS), "-t", str(duration), "-i", path] if loop else ["-i", path])
         return len(paths) - 1
 
+    if segment.get("shot") and os.path.exists(source(segment["shot"])[0]):
+        if segment["kind"] == "full":
+            segment = dict(segment, clip=segment["shot"], portrait=False)
+        if segment.get("shot_voice"):  # his own voice saying it into the phone replaces the stand-in
+            segment = dict(segment, voice=segment["shot"], voice_at=0)
     if segment["kind"] == "full":
         path, chain = trimmed(segment["clip"], duration)
         video = use(path)
-        filters.append(f"[{video}:v]{chain},scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1[base]")
+        if segment.get("portrait"):  # a phone-shot portrait clip: sharp in the middle over a blurred copy of itself
+            filters.append(f"[{video}:v]{chain},split[back][front]")
+            filters.append(f"[back]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},gblur=sigma=40,eq=brightness=-0.06[blurred]")
+            filters.append(f"[front]scale=-2:{H},setsar=1[sharp]")
+            filters.append("[blurred][sharp]overlay=(W-w)/2:0,setsar=1[base]")
+        else:
+            filters.append(f"[{video}:v]{chain},scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1[base]")
         last = "base"
+        if segment.get("caption"):  # a full-screen shot of rex's footage carries its caption bottom center
+            caption = f"{WORK}/caption-{index:02d}.png"
+            caption_png(segment["caption"], segment.get("chip", ""), caption)
+            card = use(caption, loop=True)
+            filters.append(f"[{card}:v]format=rgba,fade=in:st=0.15:d=0.3:alpha=1[card]")
+            filters.append(f"[{last}][card]overlay={(W - LEFT[2]) // 2}:{H - 340}[withcard]")
+            last = "withcard"
     else:
         frame = use(f"{WORK}/frame.png", loop=True)
         x, y, w, h = LEFT
-        left = segment.get("left")
+        left = segment.get("shot") if segment.get("shot") and os.path.exists(source(segment["shot"])[0]) else segment.get("left")
+        if left and not os.path.exists(source(left)[0]):
+            left = None
         if left:
             path, chain = trimmed(left, duration)
             left_input = use(path)
@@ -165,17 +195,30 @@ def render(index, segment):
             filters.append(f"[{card}:v]format=rgba,fade=in:st=0.15:d=0.3:alpha=1[card]")
             filters.append(f"[{last}][card]overlay={x}:{y + h - 320}[withcard]")
             last = "withcard"
+    if segment.get("title"):
+        title = f"{WORK}/title-{index:02d}.png"
+        title_png(segment["title"], title)
+        card = use(title, loop=True)
+        filters.append(f"[{card}:v]format=rgba,fade=in:st=0.1:d=0.25:alpha=1[titlecard]")
+        filters.append(f"[{last}][titlecard]overlay={LEFT[0] + 34}:{LEFT[1] + 34}[withtitle]")
+        last = "withtitle"
     filters.append(f"[{last}]trim=duration={duration},fps={FPS},format=yuv420p[out]")
     silence = len(paths)
     inputs.extend(["-f", "lavfi", "-t", str(duration), "-i", "anullsrc=r=48000:cl=stereo"])
     paths.append("silence")
     mix = [f"[{silence}:a]"]
+    shot = segment.get("shot")
+    if shot and segment.get("talk") and os.path.exists(source(shot)[0]) and not segment.get("voice"):
+        segment = dict(segment, voice=shot)  # a talking-to-camera take carries its own voice
+    if segment.get("voice") and not os.path.exists(source(segment["voice"])[0]):
+        segment = {key: value for key, value in segment.items() if key != "voice"}
     if segment.get("voice"):  # 'file@start-end': rex's line, placed at the start of the segment
         path, start, end, _ = source(segment["voice"])
         voice = use(path)
         stop = f":end={end}" if end else ""
+        delay = int(float(segment.get("voice_at", 0)) * 1000)
         filters.append(f"[{voice}:a]atrim=start={start}{stop},asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,"
-                       f"afade=t=in:d=0.04,loudnorm=I=-16:TP=-1.5[voice]")
+                       f"afade=t=in:d=0.04,loudnorm=I=-16:TP=-1.5,adelay={delay}|{delay}[voice]")
         mix.append("[voice]")
     elif segment.get("left") and segment.get("left_audio"):
         path, start, end, _ = source(segment["left"])

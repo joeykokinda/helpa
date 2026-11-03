@@ -1,21 +1,24 @@
 [
  {
-  "kind": "split",
-  "d": 8.25,
-  "left": "IMG_6365.MOV@0-8",
-  "app": "10-capture.mp4@0-1",
-  "caption": "My dryer ran a full hour and my clothes came out soaking wet. I have never opened a dryer in my life."
+  "kind": "full",
+  "d": 7.25,
+  "clip": "IMG_6365.MOV@1.5-8.75",
+  "caption": "My dryer ran a full hour and my clothes came out soaking wet. I've never opened a dryer in my life.",
+  "portrait": true,
+  "shot": "B0.mov"
  },
  {
   "kind": "split",
   "d": 9.25,
   "say": "A repair visit is a hundred and fifty bucks before they touch anything. A chatbot gives you twelve paragraphs. So I built Helpa.",
-  "app": "10-capture.mp4@0-1",
-  "caption": "A repair visit is $150 before they touch anything. A chatbot gives you twelve paragraphs. So I built Helpa."
+  "app": "11-plan-scroll.mp4@1.5-12.9*1.25",
+  "caption": "A repair visit is $150 before they touch anything. A chatbot gives you twelve paragraphs. So I built Helpa.",
+  "shot": "A1.mov",
+  "talk": true
  },
  {
   "kind": "full",
-  "d": 4.35,
+  "d": 4.0,
   "clip": "diagram-title.mp4"
  },
  {
@@ -24,20 +27,23 @@
   "left": "IMG_6365.MOV@9-14",
   "app": "10-capture.mp4@0-5.2",
   "chip": "Muse Spark 1.3 reads the sticker",
-  "caption": "I point it at the sticker and say what's wrong."
+  "caption": "I point it at the sticker and say what's wrong.",
+  "shot": "B1.mov"
  },
  {
   "kind": "split",
-  "d": 7.25,
-  "app": "10-capture.mp4@5.2-53.7*6.7",
+  "d": 5.0,
+  "app": "10-capture.mp4@5.2-53.7*10",
   "chip": "Muse Spark 1.3 reads the sticker",
   "caption": "It reads it, and asks the one question that changes the fix.",
-  "left": "IMG_6365.MOV@14-21"
+  "left": "IMG_6365.MOV@14-21",
+  "shot": "B2.mov"
  },
  {
   "kind": "full",
   "d": 13.35,
-  "clip": "diagram-pipeline.mp4"
+  "clip": "diagram-pipeline.mp4",
+  "voice": "V1.wav"
  },
  {
   "kind": "split",
@@ -45,7 +51,15 @@
   "say": "One line on why. Then every step plays on a 3D model of my exact dryer.",
   "app": "11-plan-scroll.mp4@0-12.9*1.85",
   "chip": "Muse Image draws the fix on my photo",
-  "caption": "One line on why, and the fix drawn on my own photo."
+  "caption": "One line on why, and the fix drawn on my own photo.",
+  "shot": "A2.mov",
+  "talk": true
+ },
+ {
+  "kind": "full",
+  "d": 6.35,
+  "clip": "diagram-drawn.mp4",
+  "voice": "V2.wav"
  },
  {
   "kind": "split",
@@ -53,7 +67,15 @@
   "say": "On a Frigidaire the lint screen is in the door, not on top like a Whirlpool, so that's where it shows me.",
   "app": "12-steps.mp4@7.75-13.6*0.72",
   "chip": "3D twin of my exact dryer",
-  "caption": "On a Frigidaire the lint screen is in the door, not on top, so that's where it shows me."
+  "caption": "On a Frigidaire the lint screen is in the door, not on top, so that's where it shows me.",
+  "shot": "A3.mov",
+  "talk": true
+ },
+ {
+  "kind": "full",
+  "d": 8.35,
+  "clip": "diagram-twin.mp4",
+  "voice": "V3.wav"
  },
  {
   "kind": "split",
@@ -61,44 +83,43 @@
   "left": "IMG_6365.MOV@11-18",
   "app": "13-ask.mp4@2-20.5*2.6",
   "chip": "Muse Spark answers for this exact step",
-  "caption": "Not sure which way it comes out? I just ask."
+  "caption": "Not sure which way it comes out? I just ask.",
+  "shot": "B3.mov"
  },
  {
   "kind": "split",
   "d": 9.25,
   "say": "Then I snap what I did. And it's honest: pull it out and hold it up so I can see it's clean.",
-  "app": "14-check.mp4@0-18.2*2",
+  "app": "14-check.mp4@0-18.2*2.4",
   "chip": "Muse Spark checks my photo",
-  "caption": "Then I snap what I did, and it tells me if I actually got it right."
+  "caption": "Then I snap what I did, and it tells me if I actually got it right.",
+  "shot": "B4.mov"
  },
  {
   "kind": "full",
-  "d": 12.35,
-  "clip": "diagram-loop.mp4"
+  "d": 8.35,
+  "clip": "diagram-loop.mp4",
+  "voice": "V4.wav"
  },
  {
   "kind": "split",
-  "d": 6.25,
-  "say": "(voiceover continues)",
-  "app": "16-vent.mp4@100-110.9*1.8",
-  "chip": "Two causes ruled out",
-  "caption": "Still damp? It rules out each cause by name and moves to the next."
- },
- {
-  "kind": "split",
-  "d": 11.25,
+  "d": 9.5,
   "say": "It finds the best-reviewed shops near me and what this should cost, with sources.",
-  "app": "18-findpros.mp4@0-31*2.8",
+  "app": "18-findpros.mp4@0-31*3.35",
   "chip": "Muse Wonder + web search",
-  "caption": "The best-reviewed shops near me, and what this should cost."
+  "caption": "The best-reviewed shops near me, and what this should cost.",
+  "shot": "A4.mov",
+  "talk": true
  },
  {
   "kind": "split",
-  "d": 6.25,
+  "d": 5.25,
   "say": "It writes the message: my model, what's wrong, what I already tried.",
-  "app": "19-contact.mp4@0-12*2",
+  "app": "19-contact.mp4@0-12*2.4",
   "chip": "Writes the message for me",
-  "caption": "It writes the message: my model, what's wrong, what I already tried."
+  "caption": "It writes the message: my model, what's wrong, what I already tried.",
+  "shot": "A4b.mov",
+  "talk": true
  },
  {
   "kind": "split",
@@ -106,47 +127,71 @@
   "say": "With my permission it reaches out, checks the quote, and books it.",
   "app": "20-accept.mp4@0-5.9*1.5",
   "chip": "Quote checked against the fair price",
-  "caption": "With my permission it reaches out, checks the quote, and books it."
+  "caption": "With my permission it reaches out, checks the quote, and books it.",
+  "shot": "A4c.mov",
+  "talk": true
+ },
+ {
+  "kind": "split",
+  "d": 9.75,
+  "say": "After the visit I just tell it what the tech said, and the job updates.",
+  "app": "21-prosaid.mp4@0.6-10.4",
+  "chip": "Muse Voice transcribes it",
+  "caption": "After the visit I just say what the tech told me\u2026",
+  "voice": "/home/rex/Projects/helpa/media/cam/prosaid.wav",
+  "voice_at": 1.35,
+  "shot": "B5.mov",
+  "shot_voice": true
+ },
+ {
+  "kind": "split",
+  "d": 4.25,
+  "say": "After the visit I just tell it what the tech said, and the job updates.",
+  "app": "21-prosaid.mp4@10.4-25.5*3.7",
+  "chip": "Muse Spark updates the job",
+  "caption": "\u2026and the job updates: the part, the price, fair or not.",
+  "shot": "A5.mov",
+  "talk": true
  },
  {
   "kind": "split",
   "d": 6.25,
-  "say": "After the visit I just tell it what the tech said, and the job updates.",
-  "app": "21-prosaid.mp4@0-11*1.8",
-  "chip": "Muse Voice + Muse Spark",
-  "caption": "After the visit I tell it what the tech said, and the job updates."
- },
- {
-  "kind": "split",
-  "d": 7.25,
   "say": "And it's not a dryer app. My washer.",
   "app": "31-washer-steps.mp4@35.5-42.6",
   "chip": "Frigidaire FFTW4120SW2 washer",
-  "caption": "It's not a dryer app. My washer\u2026"
- },
- {
-  "kind": "split",
-  "d": 7.25,
-  "say": "My microwave: it read the sticker and figured out it's stuck in demo mode.",
-  "app": "30-microwave-capture.mp4@50-57.5",
-  "chip": "Samsung ME16A4021AS microwave",
-  "caption": "\u2026my microwave: it worked out it's stuck in demo mode\u2026"
+  "caption": "It's not a dryer app. My washer\u2026",
+  "title": "Washer",
+  "shot": "B6.mov"
  },
  {
   "kind": "split",
   "d": 6.25,
-  "say": "My stove. And it always says when to stop.",
-  "app": "30-range-capture.mp4@41-46.7",
-  "chip": "Safety first, every time",
-  "caption": "\u2026my stove. And it always tells me when to stop."
+  "say": "My microwave: it read the sticker and figured out it's stuck in demo mode.",
+  "app": "30-microwave-capture.mp4@50-57.5",
+  "chip": "Samsung ME16A4021AS microwave",
+  "caption": "\u2026my microwave: it worked out it's stuck in demo mode\u2026",
+  "title": "Microwave",
+  "shot": "B7.mov"
  },
  {
   "kind": "split",
-  "d": 7.25,
+  "d": 5.25,
+  "say": "My stove. And it always says when to stop.",
+  "app": "30-range-capture.mp4@41-46.7",
+  "chip": "Safety first, every time",
+  "caption": "\u2026my stove. And it always tells me when to stop.",
+  "title": "Stove",
+  "shot": "B8.mov"
+ },
+ {
+  "kind": "split",
+  "d": 6.25,
   "say": "Needs a part? It finds the exact one for my model at real stores.",
-  "app": "40-car.mp4@0-24.8*3.5",
+  "app": "40-car.mp4@0-24.8*4.0",
   "chip": "Works on my car too",
-  "caption": "Works on my car too."
+  "caption": "Works on my car too.",
+  "title": "Car",
+  "shot": "B9.mov"
  },
  {
   "kind": "split",
@@ -154,23 +199,29 @@
   "say": "It tracks the order, and when it shows up, walks me through putting it in.",
   "app": "42-part.mp4@6-40.4*4.9",
   "chip": "Muse Wonder finds the exact part",
-  "caption": "The exact part at real stores, tracked, then the install guide."
+  "caption": "The exact part at real stores, tracked, then the install guide.",
+  "shot": "A6.mov",
+  "talk": true
  },
  {
   "kind": "full",
-  "d": 10.35,
-  "clip": "diagram-agents.mp4"
+  "d": 7.35,
+  "clip": "diagram-agents.mp4",
+  "voice": "V5.wav"
  },
  {
   "kind": "split",
   "d": 6.25,
   "say": "Everything you saw, I built during this hackathon. It's live right now.",
   "app": "50-home.mp4@0-7.6*1.2",
-  "caption": "Everything you saw, I built during this hackathon. It's live right now."
+  "caption": "Everything you saw, I built during this hackathon. It's live right now.",
+  "shot": "A7.mov",
+  "talk": true
  },
  {
   "kind": "full",
-  "d": 7.35,
-  "clip": "diagram-end.mp4"
+  "d": 7.6,
+  "clip": "diagram-end.mp4",
+  "voice": "V6.wav"
  }
 ]

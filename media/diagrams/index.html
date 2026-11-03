@@ -64,7 +64,7 @@ svg.wires path.hot { stroke: var(--accent); }
 .loop .chip { font-size: 23px; }
 
 /* end */
-#end { text-align: center; padding-top: 150px; }
+#end { text-align: center; padding-top: 110px; }
 .models { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin: 54px auto 0; max-width: 1760px; }
 .models .card { width: 310px; text-align: left; padding: 22px 26px; }
 .models .card .label { font-size: 28px; }
@@ -72,6 +72,25 @@ svg.wires path.hot { stroke: var(--accent); }
 .url { font-size: 64px; font-weight: 800; margin-top: 64px; letter-spacing: -0.02em; }
 .url b { color: var(--accent); }
 .repo { font-size: 28px; color: var(--muted); margin-top: 14px; }
+
+/* before / after */
+.pair { display: flex; align-items: center; justify-content: center; gap: 60px; margin-top: 46px; }
+.pair figure { margin: 0; text-align: center; }
+.pair img { height: 720px; border-radius: 30px; box-shadow: 0 14px 40px rgb(14 14 15 / 0.14); display: block; }
+.pair figcaption { margin-top: 18px; font-size: 26px; font-weight: 700; }
+.bigarrow { font-size: 90px; font-weight: 900; color: var(--accent); }
+/* twin */
+.twin { display: grid; grid-template-columns: 1fr 620px; gap: 56px; margin-top: 46px; align-items: center; }
+.steps-list { display: flex; flex-direction: column; gap: 20px; }
+.steps-list .card { display: flex; gap: 22px; align-items: center; padding: 24px 30px; }
+.num { width: 54px; height: 54px; flex: none; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 26px; }
+.steps-list .label { font-size: 32px; }
+.steps-list .sub { font-size: 23px; }
+.code { font-family: ui-monospace, "Geist Mono", monospace; font-size: 22px; background: #f6f6f3; border-radius: 12px; padding: 8px 14px; margin-top: 10px; display: inline-block; color: var(--ink); }
+.twin img { width: 620px; border-radius: 30px; box-shadow: 0 14px 40px rgb(14 14 15 / 0.14); }
+.qr { width: 190px; height: 190px; border-radius: 22px; background: #fff; padding: 14px; box-shadow: 0 10px 30px rgb(14 14 15 / 0.1); }
+.cta { display: flex; align-items: center; justify-content: center; gap: 44px; margin-top: 46px; }
+.cta .url { margin-top: 0; text-align: left; }
 </style>
 </head>
 <body>
@@ -161,29 +180,53 @@ svg.wires path.hot { stroke: var(--accent); }
 
 <section id="agents">
   <div class="kicker in">When it's beyond you</div>
-  <h1 class="in d" style="--d:0.15s">Agents that finish the job.</h1>
+  <h1 class="in d" style="--d:0.05s">Agents that finish the job.</h1>
   <div class="loop" style="margin-top:60px">
-    <div class="card in d" style="--d:0.7s">
+    <div class="card in d" style="--d:0.24s">
       <span class="chip">Muse Wonder + web search</span>
       <div class="label" style="margin-top:16px">Pro finder</div>
       <div class="sub">The best-reviewed shops near you, and a fair price with sources.</div>
-      <div class="ruled in d" style="--d:1.6s"><span class="check">✓</span>Writes the message: model, symptom, what you tried</div>
-      <div class="ruled in d" style="--d:2.2s"><span class="check">✓</span>Checks the quote against the fair price</div>
-      <div class="ruled in d" style="--d:2.8s"><span class="check">✓</span>Books it, with your permission</div>
+      <div class="ruled in d" style="--d:0.56s"><span class="check">✓</span>Writes the message: model, symptom, what you tried</div>
+      <div class="ruled in d" style="--d:0.77s"><span class="check">✓</span>Checks the quote against the fair price</div>
+      <div class="ruled in d" style="--d:0.98s"><span class="check">✓</span>Books it, with your permission</div>
     </div>
-    <div class="card in d" style="--d:1.2s">
+    <div class="card in d" style="--d:0.42s">
       <span class="chip">Muse Wonder + web search</span>
       <div class="label" style="margin-top:16px">Part finder</div>
       <div class="sub">The exact part for your model number, priced at real stores.</div>
-      <div class="ruled in d" style="--d:3.4s"><span class="check">✓</span>Tracks the order</div>
-      <div class="ruled in d" style="--d:4.0s"><span class="check">✓</span>When it arrives: the install guide in 3D</div>
+      <div class="ruled in d" style="--d:1.19s"><span class="check">✓</span>Tracks the order</div>
+      <div class="ruled in d" style="--d:1.40s"><span class="check">✓</span>When it arrives: the install guide in 3D</div>
     </div>
-    <div class="card in d" style="--d:1.7s">
+    <div class="card in d" style="--d:0.59s">
       <span class="chip">Muse Voice + Muse Spark</span>
       <div class="label" style="margin-top:16px">"What did the pro say?"</div>
       <div class="sub">Say it out loud. The job updates: diagnosis, part, price, next step.</div>
-      <div class="ruled in d" style="--d:4.6s"><span class="check">✓</span>My Home remembers every fix</div>
+      <div class="ruled in d" style="--d:1.60s"><span class="check">✓</span>My Home remembers every fix</div>
     </div>
+  </div>
+</section>
+
+
+<section id="drawn">
+  <div class="kicker in">Muse Image</div>
+  <h1 class="in d" style="--d:0.15s">It draws the fix on your own photo.</h1>
+  <div class="pair">
+    <figure class="in d" style="--d:0.5s"><img src="dryer-front.jpg" alt=""><figcaption>My photo</figcaption></figure>
+    <div class="bigarrow pop d" style="--d:1.3s">→</div>
+    <figure class="pop d" style="--d:1.7s"><img src="drawn.jpg" alt=""><figcaption>What Helpa shows me</figcaption></figure>
+  </div>
+</section>
+
+<section id="twin">
+  <div class="kicker in">The 3D twin</div>
+  <h1 class="in d" style="--d:0.15s">Not a video. A model with real joints.</h1>
+  <div class="twin">
+    <div class="steps-list">
+      <div class="card in d" style="--d:0.6s"><div class="num">1</div><div><div class="label">The sticker picks the model</div><div class="sub">FFRE4120SW2 is a Frigidaire: lint screen in the door, not on top.</div></div></div>
+      <div class="card in d" style="--d:1.4s"><div class="num">2</div><div><div class="label">Muse Spark maps each step onto its joints</div><div class="code">lint_screen remove → lint clean → lint_screen insert</div></div></div>
+      <div class="card in d" style="--d:2.2s"><div class="num">3</div><div><div class="label">Something it has never seen?</div><div class="sub">Muse Spark writes a new 3D model on the spot.</div></div></div>
+    </div>
+    <img class="pop d" style="--d:0.9s" src="twin.jpg" alt="">
   </div>
 </section>
 
@@ -197,8 +240,10 @@ svg.wires path.hot { stroke: var(--accent); }
     <div class="card in d" style="--d:1.2s"><div class="label">Muse Image</div><div class="sub">Draws the fix on your photo</div></div>
     <div class="card in d" style="--d:1.4s"><div class="label">Muse Voice</div><div class="sub">Hands-free, talk to it</div></div>
   </div>
-  <div class="url in d" style="--d:1.9s">helpa<b>.</b>pyras.org</div>
-  <div class="repo in d" style="--d:2.2s">github.com/joeykokinda/helpa</div>
+  <div class="cta">
+    <img class="qr pop d" style="--d:1.8s" src="qr.png" alt="">
+    <div class="in d" style="--d:2.0s"><div style="font-size:30px;font-weight:700;color:var(--muted)">Try it on your phone, free</div><div class="url">helpa<b>.</b>pyras.org</div><div class="repo" style="margin-top:8px">github.com/joeykokinda/helpa</div></div>
+  </div>
 </section>
 
 <script>
