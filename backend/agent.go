@@ -71,7 +71,7 @@ var planSchema = map[string]any{
 		"model_number":      map[string]any{"type": "string"},
 		"appliance":         map[string]any{"type": "string", "description": "Plain name, e.g. 'top-load washer'."},
 		"manual_url":        map[string]any{"type": "string"},
-		"diagnosis":         map[string]any{"type": "string", "description": "Two short sentences a beginner understands."},
+		"diagnosis":         map[string]any{"type": "string", "description": "Two short sentences a beginner understands. The first names the likely cause ('Lint is blocking the airflow.'), never only what it is not."},
 		"cause":             map[string]any{"type": "string", "description": "The cause these steps fix, a short noun phrase: 'a clogged lint screen'."},
 		"tools":             map[string]any{"type": "array", "items": map[string]any{"type": "string"}},
 		"replacement_parts": map[string]any{"type": "array", "items": map[string]any{"type": "string"}},
