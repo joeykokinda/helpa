@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import QrCode from "./components/landing/QrCode";
+import StoryPlayer from "./components/landing/StoryPlayer";
+import { story } from "./components/landing/story";
 import "./landing.css";
 
 export const metadata: Metadata = {
@@ -114,13 +116,13 @@ const roadmap: { today: string; next: string }[] = [
   { today: "Keeps the whole job: what's wrong, what you ruled out, the part, the pro", next: "Handles the logistics: reminders, reschedules, and the follow-up after the visit" },
 ];
 
-function Phone({ shot, className = "", eager = false }: { shot: Shot; className?: string; eager?: boolean }) {
+function Phone({ shot, className = "" }: { shot: Shot; className?: string }) {
   return (
     <figure className={`lp-phone lp-shot ${className}`}>
       <div className="lp-phone-screen">
         {/* Static screenshots of the live app; next/image adds nothing for these. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={shot.src} alt={shot.alt} loading={eager ? "eager" : "lazy"} decoding="async" />
+        <img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" />
       </div>
     </figure>
   );
@@ -166,9 +168,7 @@ export default function Landing() {
               </div>
             </div>
           </div>
-          <div className="lp-hero-visual">
-            <Phone shot={{ src: "/landing/shots/step-lint.webp", alt: "Helpa on a phone: step 2 of 6, pull the lint screen straight up, shown on a 3D dryer" }} className="lp-phone-hero" eager />
-          </div>
+          <StoryPlayer src="/landing/story.mp4" poster="/landing/story-poster.jpg" scenes={story} label="A dryer that won't dry, fixed with Helpa: a photo, the plan, each step in 3D, fixed" />
         </section>
 
         <section className="lp-section" id="how">

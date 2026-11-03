@@ -208,7 +208,13 @@ body:has(.lp) {
   object-fit: cover;
 }
 
-/* Hero: one phone on a warm glow */
+/* The story: a tilted phone on a warm glow, Helpa telling it, a bar per moment */
+.lp-story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
 .lp-hero-visual {
   position: relative;
   display: flex;
@@ -226,7 +232,74 @@ body:has(.lp) {
     var(--surface-2);
 }
 .lp-phone-hero {
-  max-width: 320px;
+  max-width: 340px;
+}
+.lp-helpa {
+  position: absolute;
+  bottom: 0;
+  left: -4%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  pointer-events: none;
+}
+.lp-helpa-bubble {
+  position: relative;
+  max-width: 270px;
+  margin-left: 48px;
+  padding: 13px 18px;
+  border-radius: 22px;
+  background: var(--surface);
+  color: var(--foreground);
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  box-shadow: var(--shadow-lg);
+}
+/* The tail points down at Helpa. */
+.lp-helpa-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 30px;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--surface);
+  transform: rotate(45deg);
+}
+.lp-story-bars {
+  display: flex;
+  gap: 5px;
+  width: min(340px, 100%);
+}
+.lp-story-bars button {
+  position: relative;
+  flex: 1;
+  height: 16px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+/* The track, with the moment's progress filled in orange on top. */
+.lp-story-bars button::before {
+  content: "";
+  position: absolute;
+  inset: 6px 0;
+  border-radius: 2px;
+  background: var(--surface-3);
+}
+.lp-story-bars span {
+  position: relative;
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: left;
 }
 
 /* Sections */
@@ -339,6 +412,10 @@ main + .lp-footer {
     padding-top: 16px;
     padding-bottom: 48px;
   }
+  .lp-story {
+    width: min(360px, 100%);
+    margin: 0 auto;
+  }
   .lp-section {
     padding-top: 48px;
     padding-bottom: 48px;
@@ -362,6 +439,18 @@ main + .lp-footer {
   }
   .lp-phone-hero {
     max-width: 250px;
+  }
+  .lp-helpa {
+    left: -2%;
+  }
+  .lp-helpa-face {
+    width: 104px;
+    height: auto;
+  }
+  .lp-helpa-bubble {
+    max-width: 210px;
+    margin-left: 26px;
+    font-size: 15px;
   }
   .lp-band {
     margin: 0;
