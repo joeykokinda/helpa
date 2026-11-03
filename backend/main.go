@@ -177,6 +177,35 @@ func handleFix(writer http.ResponseWriter, request *http.Request) {
 			flusher.Flush()
 		}
 	}
+	// Cloudflare drops a stream that is silent for 100 seconds, which a slow research run or an unanswered
+	// question can be. A comment line every 20 seconds keeps it open; EventSource parsers ignore it.
+	finished := make(chan struct{})
+	defer func() { lock.Lock(); close(finished); lock.Unlock() }()
+	go func() {
+		ticker := time.NewTicker(20 * time.Second)
+		defer ticker.Stop()
+		for {
+			select {
+			case <-finished:
+				return
+			case <-request.Context().Done():
+				return
+			case <-ticker.C:
+				lock.Lock()
+				select {
+				case <-finished:
+					lock.Unlock()
+					return
+				default:
+				}
+				fmt.Fprint(writer, ": ping\n\n")
+				if flusher != nil {
+					flusher.Flush()
+				}
+				lock.Unlock()
+			}
+		}
+	}()
 	session := newSession()
 	defer session.close()
 	if sample := openSample(request.FormValue("sample")); sample != nil {
