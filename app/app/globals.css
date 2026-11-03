@@ -4669,9 +4669,14 @@ body:has(.not-found) {
   padding-top: 12px;
   border-top: 1px solid var(--border);
 }
-.job-mic-live {
+.btn.job-mic-live {
   background: var(--accent);
   color: var(--accent-contrast);
+  animation: mic-live 1.3s ease-in-out infinite;
+}
+@keyframes mic-live {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  50% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent); }
 }
 .job-permission {
   display: flex;
