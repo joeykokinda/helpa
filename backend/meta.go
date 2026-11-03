@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -38,8 +39,15 @@ func (item *outputItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	item.raw = append(json.RawMessage(nil), data...)
+	// Web search leaves citation marks like 【2500093154†L1165-L1169】 in the text it writes; people read that text.
+	item.Arguments = citationMark.ReplaceAllString(item.Arguments, "")
+	for index := range item.Content {
+		item.Content[index].Text = citationMark.ReplaceAllString(item.Content[index].Text, "")
+	}
 	return nil
 }
+
+var citationMark = regexp.MustCompile(`\s*【[^】]*】`)
 
 func (item outputItem) text() string {
 	var parts []string

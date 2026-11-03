@@ -32,8 +32,9 @@ the floor of the tub"), with photo the index of the photo showing it. With no ph
 
 Never invent part numbers or manual URLs. If something is unsafe for a beginner (gas, mains wiring,
 refrigerant), say so in safety and stop at "call a pro", and set stop_for_pro.
-If the person already tried a fix and it didn't work, say in the diagnosis what that ruled out, then plan the next
-most likely cause. End every plan you expect the person to finish themselves with a short test that shows whether
+cause is the one cause these steps fix, a short noun phrase that reads after "Not" ("a clogged lint screen",
+"a crushed vent hose"). If the person already tried fixes and they didn't work, the app already shows what they
+ruled out: plan a different cause than every one tried, and lead the diagnosis with that new cause. End every plan you expect the person to finish themselves with a short test that shows whether
 it worked ("Run a short rinse and check the floor is dry").`
 
 const simpleStepRules = `Steps are for a total beginner, like a busy parent with no tools experience:
@@ -63,7 +64,7 @@ var stepSchema = map[string]any{
 var planSchema = map[string]any{
 	"type":                 "object",
 	"additionalProperties": false,
-	"required": []string{"brand", "model_number", "appliance", "manual_url", "diagnosis", "tools", "replacement_parts",
+	"required": []string{"brand", "model_number", "appliance", "manual_url", "diagnosis", "cause", "tools", "replacement_parts",
 		"safety", "steps", "library_id", "library_problem", "pro_visit_cost", "aftercare", "stop_for_pro"},
 	"properties": map[string]any{
 		"brand":             map[string]any{"type": "string"},
@@ -71,6 +72,7 @@ var planSchema = map[string]any{
 		"appliance":         map[string]any{"type": "string", "description": "Plain name, e.g. 'top-load washer'."},
 		"manual_url":        map[string]any{"type": "string"},
 		"diagnosis":         map[string]any{"type": "string", "description": "Two short sentences a beginner understands."},
+		"cause":             map[string]any{"type": "string", "description": "The cause these steps fix, a short noun phrase: 'a clogged lint screen'."},
 		"tools":             map[string]any{"type": "array", "items": map[string]any{"type": "string"}},
 		"replacement_parts": map[string]any{"type": "array", "items": map[string]any{"type": "string"}},
 		"safety":            map[string]any{"type": "array", "items": map[string]any{"type": "string"}},

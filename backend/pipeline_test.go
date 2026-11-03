@@ -273,3 +273,11 @@ func TestMatchRigByBrand(t *testing.T) {
 		t.Errorf("a branded dryer rig must not take a washer: %v", rig)
 	}
 }
+
+func TestCitationMarksStripped(t *testing.T) {
+	var item outputItem
+	json.Unmarshal([]byte(`{"type":"function_call","arguments":"{\"diagnosis\":\"Lint slows drying 【2500093154585759951†L1165-L1169】, and a hood can too【1†L2】.\"}"}`), &item)
+	if strings.Contains(item.Arguments, "【") || !strings.Contains(item.Arguments, "drying, and a hood can too.") {
+		t.Errorf("citation marks left: %s", item.Arguments)
+	}
+}
