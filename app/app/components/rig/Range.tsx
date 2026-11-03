@@ -481,7 +481,7 @@ function Body() {
         <meshStandardMaterial map={brushed} {...stainless} />
       </RoundedBox>
       {/* wall behind */}
-      <mesh position={[0, 1.2, wallZ]} receiveShadow>
+      <mesh position={[0, 1.2, wallZ]} receiveShadow userData={{ noOutline: true }}>
         <planeGeometry args={[3.2, 2.4]} />
         <meshBasicMaterial color="#f3efe9" />
       </mesh>

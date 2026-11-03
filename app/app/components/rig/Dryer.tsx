@@ -290,7 +290,7 @@ function BehindTheDryer() {
   return (
     <group>
       {/* wall behind */}
-      <mesh position={[0, 1.1, -front - 0.24]} receiveShadow>
+      <mesh position={[0, 1.1, -front - 0.24]} receiveShadow userData={{ noOutline: true }}>
         <planeGeometry args={[3.2, 2.2]} />
         <meshBasicMaterial color="#f3efe9" toneMapped={false} />
       </mesh>
