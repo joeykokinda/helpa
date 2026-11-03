@@ -281,3 +281,18 @@ func TestCitationMarksStripped(t *testing.T) {
 		t.Errorf("citation marks left: %s", item.Arguments)
 	}
 }
+
+func TestDiagramLabel(t *testing.T) {
+	cases := map[string]string{
+		"lint screen in the bottom of the door opening":   "lint screen",
+		"round mesh filter in the floor of the tub":       "round mesh filter",
+		"drain pump filter":                               "drain pump filter",
+		"flat grey plastic cover behind the kick plate":   "flat grey plastic cover",
+		"the big black rubber gasket around the door rim": "the big black rubber gasket",
+	}
+	for part, want := range cases {
+		if got := diagramLabel(part); got != want {
+			t.Errorf("diagramLabel(%q) = %q, want %q", part, got, want)
+		}
+	}
+}

@@ -20,7 +20,7 @@ problem is inside it. No people, no hands, no logos, no extra text.`
 
 // illustrate asks Muse Image to redraw the person's photo with the part to fix circled and the move drawn on.
 func illustrate(ctx context.Context, photo, appliance, part, move string) ([]byte, error) {
-	prompt := fmt.Sprintf("This is my %s. Circle the %s and draw the move: %s. Label it %q.", appliance, part, move, clip(part, 30))
+	prompt := fmt.Sprintf("This is my %s. Circle the %s and draw the move: %s. Label it %q.", appliance, part, move, diagramLabel(part))
 	reply, err := createResponse(ctx, map[string]any{
 		"model":        "muse-image-1.0",
 		"instructions": illustrateInstructions,
@@ -40,6 +40,21 @@ func illustrate(ctx context.Context, photo, appliance, part, move string) ([]byt
 		}
 	}
 	return nil, fmt.Errorf("muse image returned no picture")
+}
+
+// diagramLabel is the part's name without where it sits ("lint screen in the bottom of the door" is "lint screen"),
+// at most five words, so the handwritten label never ends mid-word.
+func diagramLabel(part string) string {
+	label := shortPart(part)
+	for _, cut := range []string{" in the ", " on the ", " at the ", " behind ", " under ", " inside ", " near ", " around ", ","} {
+		if index := strings.Index(strings.ToLower(label), cut); index > 2 {
+			label = label[:index]
+		}
+	}
+	if words := strings.Fields(label); len(words) > 5 {
+		label = strings.Join(words[:5], " ")
+	}
+	return label
 }
 
 // handleIllustrate is POST /api/illustrate: one photo plus the step, back comes the photo drawn as a repair diagram.
