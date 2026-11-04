@@ -38,16 +38,17 @@ export default function StuckSheet({ open, canGetPro, onChoose, onClose }: Stuck
             <ul className="stuck-list">
               {choices.map((choice, index) => (
                 <li key={choice.id}>
-                  <button className={`stuck-choice press ${index === 0 ? "stuck-choice-main" : ""}`} onClick={() => onChoose(choice.id)}>
-                    <span className="stuck-icon" aria-hidden="true">
-                      <Icon name={choice.icon} size={22} />
-                    </span>
-                    <span>
-                      <strong>{choice.title}</strong>
-                      <span>{choice.detail}</span>
-                    </span>
-                    <Icon name="next" size={18} />
-                  </button>
+                  {choice.id === "check" ? (
+                    // The page's camera input; a label opens it natively, which iOS Safari requires. Closing waits a tick so the label is
+                    // still mounted when the browser activates the input.
+                    <label htmlFor="check-photo" className={`stuck-choice press ${index === 0 ? "stuck-choice-main" : ""}`} onClick={() => setTimeout(() => onChoose(choice.id))}>
+                      <ChoiceBody choice={choice} />
+                    </label>
+                  ) : (
+                    <button className={`stuck-choice press ${index === 0 ? "stuck-choice-main" : ""}`} onClick={() => onChoose(choice.id)}>
+                      <ChoiceBody choice={choice} />
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -55,5 +56,20 @@ export default function StuckSheet({ open, canGetPro, onChoose, onClose }: Stuck
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+function ChoiceBody({ choice }: { choice: { icon: IconName; title: string; detail: string } }) {
+  return (
+    <>
+      <span className="stuck-icon" aria-hidden="true">
+        <Icon name={choice.icon} size={22} />
+      </span>
+      <span>
+        <strong>{choice.title}</strong>
+        <span>{choice.detail}</span>
+      </span>
+      <Icon name="next" size={18} />
+    </>
   );
 }

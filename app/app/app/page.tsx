@@ -121,7 +121,6 @@ export default function Home() {
   // "auto" picks 3D when this step has it; the 3D model can arrive a moment after the plan.
   const [view, setView] = useState<"auto" | "3d" | "photo">("auto");
   const [check, setCheck] = useState<CheckState | null>(null);
-  const checkInputRef = useRef<HTMLInputElement>(null);
   const checkToken = useRef(0);
   const startedAt = useRef(0);
   const [fixMinutes, setFixMinutes] = useState(0);
@@ -761,7 +760,6 @@ export default function Home() {
     if (has3d && guide3d) guide = guide3d;
     else if (stepPhoto) guide = <PartPhoto photoUrl={stepPhoto} samTexts={stepMask} />;
 
-    const retake = () => checkInputRef.current?.click();
     let actions: ReactNode;
     if (!check)
       actions = (
@@ -810,10 +808,11 @@ export default function Home() {
               Back to step
             </button>
           )}
-          <button className="btn btn-primary press" onClick={retake}>
+          {/* A label, not a scripted click: iOS Safari ignores input.click() on a hidden file input. */}
+          <label htmlFor="check-photo" className="btn btn-primary press">
             <Icon name="camera" size={20} />
             Try again
-          </button>
+          </label>
         </div>
       );
 
@@ -898,11 +897,11 @@ export default function Home() {
 
         {actions}
         <input
-          ref={checkInputRef}
+          id="check-photo"
           type="file"
           accept="image/*"
           capture="environment"
-          hidden
+          className="visually-hidden"
           onChange={(changeEvent) => {
             runCheck(changeEvent.target.files?.[0]);
             changeEvent.target.value = "";
@@ -915,8 +914,7 @@ export default function Home() {
           onChoose={(choice: StuckChoice) => {
             setStuck(false);
             if (choice === "ask") setAsking(true);
-            else if (choice === "check") retake();
-            else handToPro();
+            else if (choice === "pro") handToPro();
           }}
         />
         <AskStep
