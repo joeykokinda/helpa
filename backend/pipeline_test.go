@@ -289,6 +289,7 @@ func TestDiagramLabel(t *testing.T) {
 		"drain pump filter":                               "drain pump filter",
 		"flat grey plastic cover behind the kick plate":   "flat grey plastic cover",
 		"the big black rubber gasket around the door rim": "the big black rubber gasket",
+		"thin rectangular lint screen at bottom of door":  "thin rectangular lint screen",
 	}
 	for part, want := range cases {
 		if got := diagramLabel(part); got != want {

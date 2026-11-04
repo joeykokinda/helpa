@@ -16,7 +16,8 @@ Keep their exact machine, the same viewpoint and layout, so they instantly recog
 Style: clean hand-drawn ink outlines with flat, soft colors on warm paper, like a page from a friendly repair manual.
 Mark only the one part that matters: a thick orange marker loop around it and one curved orange arrow showing the move.
 Add at most one short handwritten label in plain English. If the photo already has an orange hand-drawn circle, the
-problem is inside it. No people, no hands, no logos, no extra text.`
+problem is inside it. No people, no hands, no logos, no extra text.
+Never rewrite the printed text on a sticker or label: keep it exactly as in the photo or leave it unreadable.`
 
 // illustrate asks Muse Image to redraw the person's photo with the part to fix circled and the move drawn on.
 func illustrate(ctx context.Context, photo, appliance, part, move string) ([]byte, error) {
@@ -46,7 +47,7 @@ func illustrate(ctx context.Context, photo, appliance, part, move string) ([]byt
 // at most five words, so the handwritten label never ends mid-word.
 func diagramLabel(part string) string {
 	label := shortPart(part)
-	for _, cut := range []string{" in the ", " on the ", " at the ", " behind ", " under ", " inside ", " near ", " around ", ","} {
+	for _, cut := range []string{" in ", " on ", " at ", " from ", " behind ", " under ", " inside ", " near ", " around ", ","} {
 		if index := strings.Index(strings.ToLower(label), cut); index > 2 {
 			label = label[:index]
 		}
