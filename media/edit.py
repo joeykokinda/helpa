@@ -81,18 +81,18 @@ def word_chunks(words):
     return chunks
 
 
-def word_caption_png(chunk, active, path):
+def word_caption_png(chunk, active, path, width=W, size=76):
     """One spoken line in big caption type, the word being said in Helpa orange."""
-    face = ImageFont.truetype(CAPTION_FONT, 76)
+    face = ImageFont.truetype(CAPTION_FONT, size)
     face.set_variation_by_axes([850])
     texts = [word[2].upper() for word in chunk]
     scratch = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
     space = scratch.textlength(" ", font=face)
     widths = [scratch.textlength(text, font=face) for text in texts]
     total = sum(widths) + space * (len(texts) - 1)
-    image = Image.new("RGBA", (W, 160), (0, 0, 0, 0))
+    image = Image.new("RGBA", (width, 160), (0, 0, 0, 0))
     draw = ImageDraw.Draw(image)
-    x = (W - total) / 2
+    x = (width - total) / 2
     for index, text in enumerate(texts):
         fill = ACCENT if index == active else (255, 255, 255)
         draw.text((x, 30), text, font=face, fill=fill, stroke_width=7, stroke_fill=INK)
@@ -182,6 +182,22 @@ def render(index, segment):
         inputs.extend(["-loop", "1", "-framerate", str(FPS), "-t", str(duration), "-i", path] if loop else ["-i", path])
         return len(paths) - 1
 
+    def spoken_captions(words, last, x, y, width, size):
+        """Overlays the line being spoken, a word at a time, and returns the new last label."""
+        chunks = word_chunks(words)
+        for chunk_number, chunk in enumerate(chunks):
+            chunk_end = chunks[chunk_number + 1][0][0] if chunk_number + 1 < len(chunks) else duration
+            chunk_end = min(chunk_end, chunk[-1][1] + 0.6)
+            for active, word in enumerate(chunk):
+                until = chunk[active + 1][0] if active + 1 < len(chunk) else chunk_end
+                card_path = f"{WORK}/word-{index:02d}-{chunk_number}-{active}.png"
+                word_caption_png(chunk, active, card_path, width, size)
+                card = use(card_path, loop=True)
+                label = f"w{chunk_number}x{active}"
+                filters.append(f"[{last}][{card}:v]overlay={x}:{y}:enable='between(t,{word[0]:.2f},{until:.2f})'[{label}]")
+                last = label
+        return last
+
     if segment.get("shot") and os.path.exists(source(segment["shot"])[0]):
         if segment["kind"] == "full":
             segment = dict(segment, clip=segment["shot"], portrait=False)
@@ -200,18 +216,7 @@ def render(index, segment):
         last = "base"
         # On camera, captions follow his voice word by word; other full shots carry a caption card bottom center
         if segment.get("words"):
-            chunks = word_chunks(segment["words"])
-            for chunk_number, chunk in enumerate(chunks):
-                chunk_end = chunks[chunk_number + 1][0][0] if chunk_number + 1 < len(chunks) else duration
-                chunk_end = min(chunk_end, chunk[-1][1] + 0.6)
-                for active, word in enumerate(chunk):
-                    until = chunk[active + 1][0] if active + 1 < len(chunk) else chunk_end
-                    card_path = f"{WORK}/word-{index:02d}-{chunk_number}-{active}.png"
-                    word_caption_png(chunk, active, card_path)
-                    card = use(card_path, loop=True)
-                    label = f"w{chunk_number}x{active}"
-                    filters.append(f"[{last}][{card}:v]overlay=0:{H - 250}:enable='between(t,{word[0]:.2f},{until:.2f})'[{label}]")
-                    last = label
+            last = spoken_captions(segment["words"], last, 0, H - 250, W, 76)
         lines = [] if segment.get("words") else segment.get("captions") or ([[0, segment["caption"]]] if segment.get("caption") else [])
         for number, (at, text) in enumerate(lines):
             until = lines[number + 1][0] if number + 1 < len(lines) else duration
@@ -262,7 +267,16 @@ def render(index, segment):
         filters.append(f"[appraw][{screen_mask}:v]alphamerge[screen]")
         filters.append(f"[{last}][screen]overlay={sx}:{sy}[withapp]")
         last = "withapp"
-        if segment.get("caption") or segment.get("chip"):
+        if segment.get("words"):  # his voiceover, a word at a time, with the Meta model chip above it
+            if segment.get("chip"):
+                caption = f"{WORK}/caption-{index:02d}.png"
+                caption_png("", segment["chip"], caption)
+                card = use(caption, loop=True)
+                filters.append(f"[{card}:v]format=rgba,fade=in:st=0.15:d=0.3:alpha=1[card]")
+                filters.append(f"[{last}][card]overlay={x}:{y + h - 320 - 120}[withcard]")
+                last = "withcard"
+            last = spoken_captions(segment["words"], last, x, y + h - 175, w, 60)
+        elif segment.get("caption") or segment.get("chip"):
             caption = f"{WORK}/caption-{index:02d}.png"
             caption_png(segment.get("caption", ""), segment.get("chip", ""), caption)
             card = use(caption, loop=True)
