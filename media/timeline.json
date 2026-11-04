@@ -43,7 +43,9 @@
     "left_y": 0.55,
     "app": "10-capture.mp4@5-9.5*0.75",
     "chip": "Say it or type it",
-    "caption": "\u201cMy dryer runs for a full hour, and the clothes are still wet.\u201d"
+    "caption": "\u201cMy dryer runs for a full hour, and the clothes are still wet.\u201d",
+    "voice_gain": -3,
+    "voice_highpass": 150
   },
   {
     "kind": "split",
@@ -190,14 +192,16 @@
   },
   {
     "kind": "split",
-    "d": 4.6,
+    "d": 4.0,
     "say": "And it's not just dryers. My dishwasher.",
     "app": "33-dish-steps.mp4@15.4-20.4",
     "chip": "Samsung dishwasher, in 3D",
     "caption": "And it's not just dryers. My dishwasher.",
     "title": "Dishwasher",
     "shot": "video-7970_singular_display.mov@5.5-11*1.2",
-    "left_y": 0.7
+    "left_y": 0.7,
+    "voice": "V12.wav",
+    "voice_at": 0.2
   },
   {
     "kind": "split",
@@ -214,7 +218,7 @@
   },
   {
     "kind": "split",
-    "d": 5.25,
+    "d": 4.0,
     "say": "My stove.",
     "app": "30-range-capture.mp4@41-46.7",
     "chip": "Safety first, every time",
@@ -222,34 +226,15 @@
     "title": "Stove",
     "shot": "video-7977_singular_display.mov@9.3-16.5",
     "voice": "V14.wav",
-    "left_y": 0.5
-  },
-  {
-    "kind": "split",
-    "d": 6.25,
-    "say": "My car.",
-    "app": "40-car.mp4@0-24.8*4.0",
-    "chip": "Works on my car too",
-    "caption": "My car.",
-    "title": "Car",
-    "shot": "G11.mov",
-    "voice": "V15.wav"
-  },
-  {
-    "kind": "split",
-    "d": 7.25,
-    "say": "It finds the exact part, tracks it, and when it shows up, walks me through putting it in.",
-    "app": "42-part.mp4@6-40.4*4.9",
-    "chip": "Muse Wonder finds the exact part",
-    "caption": "It finds the exact part, tracks it, and when it shows up, walks me through putting it in.",
-    "shot": "G12.mov",
-    "voice": "V16.wav"
+    "left_y": 0.5,
+    "voice_at": 0.2
   },
   {
     "kind": "full",
-    "d": 7.35,
+    "d": 6.0,
     "clip": "diagram-agents.mp4",
-    "voice": "V17.wav"
+    "voice": "V17.wav",
+    "voice_at": 0.2
   },
   {
     "kind": "split",
@@ -264,6 +249,7 @@
     "kind": "full",
     "d": 7.6,
     "clip": "diagram-end.mp4",
-    "voice": "V18.wav"
+    "voice": "V18.wav",
+    "voice_at": 0.2
   }
 ]

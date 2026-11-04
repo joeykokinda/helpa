@@ -233,7 +233,7 @@ def render(index, segment):
         stop = f":end={end}" if end else ""
         delay = int(float(segment.get("voice_at", 0)) * 1000)
         filters.append(f"[{voice}:a]atrim=start={start}{stop},asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,"
-                       f"afade=t=in:d=0.04,loudnorm=I=-16:TP=-1.5,adelay={delay}|{delay}[voice]")
+                       f"afade=t=in:d=0.04,areverse,afade=t=in:d=0.06,areverse,highpass=f={segment.get('voice_highpass', 85)},loudnorm=I=-16:TP=-1.5,volume={segment.get('voice_gain', 0)}dB,adelay={delay}|{delay}[voice]")
         mix.append("[voice]")
     elif segment.get("left") and segment.get("left_audio"):
         path, start, end, _ = source(segment["left"])
@@ -286,8 +286,8 @@ def main():
     music = f"{FOOTAGE}/music.mp3"
     if os.path.exists(music):
         # The music sits low and ducks further under rex's voice.
-        inputs += ["-stream_loop", "-1", "-i", music]
-        audio_chain.append(f"[{len(parts)}:a]atrim=duration={total:.3f},volume=0.22,afade=t=in:d=1.5,afade=t=out:st={total - 3:.3f}:d=3[music]")
+        inputs += ["-i", music]
+        audio_chain.append(f"[{len(parts)}:a]apad,atrim=duration={total:.3f},volume=0.22,afade=t=in:d=1.5,afade=t=out:st={total - 3:.3f}:d=3[music]")
         audio_chain.append(f"[{previous_audio}]asplit[speech][key]")
         audio_chain.append("[music][key]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[ducked]")
         audio_chain.append("[speech][ducked]amix=inputs=2:duration=first:normalize=0[mixed]")
