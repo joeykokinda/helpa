@@ -537,7 +537,7 @@ function FairPriceCard({ job, busy, run }: RunProps) {
       </h2>
       {fair.high > 0 ? <p className="job-fair-range">{priceRange(fair.low, fair.high)}</p> : null}
       <p>{fair.summary}</p>
-      {fair.includes && <p className="job-muted">Covers {fair.includes}.</p>}
+      {fair.includes && <p className="job-muted">Covers {/[.…]$/.test(fair.includes) ? fair.includes : `${fair.includes}.`}</p>}
       {fair.service_call && <p className="job-muted">Service call: {fair.service_call}.</p>}
       {fair.red_flags.length > 0 && (
         <ul className="job-flags">
