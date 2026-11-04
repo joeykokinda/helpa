@@ -26,6 +26,7 @@ import { usePrefs } from "../lib/prefs";
 import { useVoiceCommands } from "../lib/voice";
 import HandsFree from "../components/HandsFree";
 import AskStep from "../components/AskStep";
+import CheckCamera from "../components/CheckCamera";
 import StuckSheet, { type StuckChoice } from "../components/StuckSheet";
 import { shrinkPhoto, speak, stopSpeaking } from "../lib/media";
 import { tidy } from "../lib/text";
@@ -122,6 +123,7 @@ export default function Home() {
   const [view, setView] = useState<"auto" | "3d" | "photo">("auto");
   const [check, setCheck] = useState<CheckState | null>(null);
   const checkToken = useRef(0);
+  const [shooting, setShooting] = useState(false);
   const startedAt = useRef(0);
   const [fixMinutes, setFixMinutes] = useState(0);
   // My Home: the machines Helpa remembers, kept on the phone.
@@ -514,7 +516,7 @@ export default function Home() {
     showCheck(null);
   };
 
-  const runCheck = async (file: File | undefined) => {
+  const runCheck = async (file: Blob | undefined) => {
     if (!file || !step) return;
     const token = ++checkToken.current;
     const photoUrl = URL.createObjectURL(file);
@@ -808,11 +810,10 @@ export default function Home() {
               Back to step
             </button>
           )}
-          {/* A label, not a scripted click: iOS Safari ignores input.click() on a hidden file input. */}
-          <label htmlFor="check-photo" className="btn btn-primary press">
+          <button className="btn btn-primary press" onClick={() => setShooting(true)}>
             <Icon name="camera" size={20} />
             Try again
-          </label>
+          </button>
         </div>
       );
 
@@ -896,17 +897,15 @@ export default function Home() {
         </div>
 
         {actions}
-        <input
-          id="check-photo"
-          type="file"
-          accept="image/*"
-          capture="environment"
-          className="visually-hidden"
-          onChange={(changeEvent) => {
-            runCheck(changeEvent.target.files?.[0]);
-            changeEvent.target.value = "";
-          }}
-        />
+        {shooting && (
+          <CheckCamera
+            onClose={() => setShooting(false)}
+            onShot={(photo) => {
+              setShooting(false);
+              runCheck(photo);
+            }}
+          />
+        )}
         <StuckSheet
           open={stuck}
           canGetPro={Boolean(currentJob)}
@@ -914,7 +913,8 @@ export default function Home() {
           onChoose={(choice: StuckChoice) => {
             setStuck(false);
             if (choice === "ask") setAsking(true);
-            else if (choice === "pro") handToPro();
+            else if (choice === "check") setShooting(true);
+            else handToPro();
           }}
         />
         <AskStep
