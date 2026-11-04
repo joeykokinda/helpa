@@ -156,8 +156,14 @@ func cleanPrice(price fairPrice) fairPrice {
 	if price.Low > price.High {
 		price.Low, price.High = price.High, price.Low
 	}
-	price.Summary, price.ServiceCall, price.Includes = clip(price.Summary, 200), clip(price.ServiceCall, 120), clip(price.Includes, 160)
-	price.RedFlags = clipAll(price.RedFlags, 3, 140)
+	price.Summary, price.ServiceCall, price.Includes = clipWords(price.Summary, 240), clipWords(price.ServiceCall, 160), clipWords(price.Includes, 220)
+	flags := []string{}
+	for _, flag := range price.RedFlags {
+		if flag = clipWords(flag, 160); flag != "" && len(flags) < 3 {
+			flags = append(flags, flag)
+		}
+	}
+	price.RedFlags = flags
 	return price
 }
 

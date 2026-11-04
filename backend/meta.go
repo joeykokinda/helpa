@@ -40,14 +40,16 @@ func (item *outputItem) UnmarshalJSON(data []byte) error {
 	}
 	item.raw = append(json.RawMessage(nil), data...)
 	// Web search leaves citation marks like 【2500093154†L1165-L1169】 in the text it writes; people read that text.
-	item.Arguments = citationMark.ReplaceAllString(item.Arguments, "")
+	// Em dashes read as machine-written in short UI copy; a comma says the same.
+	item.Arguments = emDash.ReplaceAllString(citationMark.ReplaceAllString(item.Arguments, ""), ", ")
 	for index := range item.Content {
-		item.Content[index].Text = citationMark.ReplaceAllString(item.Content[index].Text, "")
+		item.Content[index].Text = emDash.ReplaceAllString(citationMark.ReplaceAllString(item.Content[index].Text, ""), ", ")
 	}
 	return nil
 }
 
 var citationMark = regexp.MustCompile(`\s*【[^】]*】`)
+var emDash = regexp.MustCompile(`\s*—\s*`)
 
 func (item outputItem) text() string {
 	var parts []string

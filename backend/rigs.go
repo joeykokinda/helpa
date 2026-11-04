@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"regexp"
 	"slices"
 	"strings"
 )
@@ -184,9 +185,20 @@ func choreograph(ctx context.Context, catalog *rigCatalog, plan json.RawMessage)
 	for _, part := range catalog.Parts {
 		allowed[part.ID] = part.Actions
 	}
+	away := offMachineSteps(plan)
+	for _, part := range catalog.Parts {
+		// The breaker panel model is where those steps do happen.
+		if offMachine.MatchString(part.ID+" "+strings.ReplaceAll(part.Label, "_", " ")) || strings.Contains(part.ID, "breaker") {
+			away = nil
+		}
+	}
 	stepBeats := make([][]beat, len(parsed.Steps))
 	for index, step := range parsed.Steps {
 		stepBeats[index] = []beat{}
+		// A step at the breaker panel happens away from the machine; any part on the model would point the wrong way.
+		if index < len(away) && away[index] {
+			continue
+		}
 		for _, candidate := range step.Beats {
 			// The schema can't tie actions to parts, so drop any pairing the model doesn't allow.
 			if slices.Contains(allowed[candidate.Part], candidate.Action) {
@@ -195,6 +207,24 @@ func choreograph(ctx context.Context, catalog *rigCatalog, plan json.RawMessage)
 		}
 	}
 	return stepBeats, nil
+}
+
+var offMachine = regexp.MustCompile(`(?i)\b(breakers?|fuse box|circuit panel|electrical panel|service panel)\b`)
+
+// offMachineSteps marks the plan steps that happen at the home's electrical panel rather than on the machine.
+func offMachineSteps(plan json.RawMessage) []bool {
+	var parsed struct {
+		Steps []struct {
+			Instruction string `json:"instruction"`
+			TargetPart  string `json:"target_part"`
+		} `json:"steps"`
+	}
+	json.Unmarshal(plan, &parsed)
+	away := make([]bool, len(parsed.Steps))
+	for index, step := range parsed.Steps {
+		away[index] = offMachine.MatchString(step.Instruction + " " + step.TargetPart)
+	}
+	return away
 }
 
 // containsWords reports whether phrase appears in text as whole words, so "car" doesn't match "carpet".

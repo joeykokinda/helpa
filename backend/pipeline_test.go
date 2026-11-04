@@ -276,8 +276,8 @@ func TestMatchRigByBrand(t *testing.T) {
 
 func TestCitationMarksStripped(t *testing.T) {
 	var item outputItem
-	json.Unmarshal([]byte(`{"type":"function_call","arguments":"{\"diagnosis\":\"Lint slows drying 【2500093154585759951†L1165-L1169】, and a hood can too【1†L2】.\"}"}`), &item)
-	if strings.Contains(item.Arguments, "【") || !strings.Contains(item.Arguments, "drying, and a hood can too.") {
+	json.Unmarshal([]byte(`{"type":"function_call","arguments":"{\"diagnosis\":\"Lint slows drying 【2500093154585759951†L1165-L1169】, and a hood can too【1†L2】 — ask why.\"}"}`), &item)
+	if strings.Contains(item.Arguments, "【") || !strings.Contains(item.Arguments, "drying, and a hood can too, ask why.") {
 		t.Errorf("citation marks left: %s", item.Arguments)
 	}
 }
@@ -295,5 +295,24 @@ func TestDiagramLabel(t *testing.T) {
 		if got := diagramLabel(part); got != want {
 			t.Errorf("diagramLabel(%q) = %q, want %q", part, got, want)
 		}
+	}
+}
+
+func TestClipWords(t *testing.T) {
+	text := "Visit to reset the breaker; high end allows for parts and labor to replace a faulty standard breaker"
+	got := clipWords(text, 80)
+	if got != "Visit to reset the breaker; high end allows for parts and labor to replace a…" {
+		t.Errorf("clipWords = %q", got)
+	}
+	if clipWords("short", 80) != "short" {
+		t.Error("short text should pass through")
+	}
+}
+
+func TestOffMachineSteps(t *testing.T) {
+	plan := json.RawMessage(`{"steps":[{"instruction":"Find your home breaker box","target_part":"breaker box"},{"instruction":"Push the dryer switch fully off","target_part":"dryer double breaker"},{"instruction":"Run dryer empty ten minutes","target_part":"start button"}]}`)
+	got := offMachineSteps(plan)
+	if len(got) != 3 || !got[0] || !got[1] || got[2] {
+		t.Errorf("offMachineSteps = %v, want [true true false]", got)
 	}
 }

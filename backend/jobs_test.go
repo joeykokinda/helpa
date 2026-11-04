@@ -125,3 +125,14 @@ func TestCoordinatesPattern(t *testing.T) {
 		t.Fatal("coordinates pattern")
 	}
 }
+
+func TestAppointmentLocalTime(t *testing.T) {
+	appointment := jobAppointment{At: time.Date(2026, 11, 5, 14, 0, 0, 0, time.UTC).UnixMilli(), Zone: "America/New_York"}
+	if got := appointment.local().Format("Mon Jan 2, 3:04 PM"); got != "Thu Nov 5, 9:00 AM" {
+		t.Errorf("local() = %q, want the phone's clock", got)
+	}
+	appointment.Zone = "Not/AZone"
+	if got := appointment.local().UTC().Hour(); got != 14 {
+		t.Errorf("a bad zone should keep the instant, got hour %d", got)
+	}
+}

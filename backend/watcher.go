@@ -112,7 +112,7 @@ func watchOnce(ctx context.Context, now time.Time) int {
 					until := time.UnixMilli(appointment.At).Sub(now)
 					if until > 0 && until < 24*time.Hour {
 						appointment.Notified = true
-						notices = append(notices, notice{"Pro visit tomorrow", fmt.Sprintf("%s comes %s. Your job summary is ready to show them.", appointment.Pro, time.UnixMilli(appointment.At).Format("Mon 3:04 PM")), "/app?job=" + item.ID})
+						notices = append(notices, notice{"Pro visit tomorrow", fmt.Sprintf("%s comes %s. Your job summary is ready to show them.", appointment.Pro, appointment.local().Format("Mon 3:04 PM")), "/app?job=" + item.ID})
 					}
 				}
 			}

@@ -116,7 +116,8 @@ export const markOrdered = (id: string, part: string, order: { store: string; tr
   call<Job>("POST", `/${id}/parts/${part}/ordered`, order);
 export const findPros = (id: string, location: string) => call<{ job: Job; sample: boolean }>("POST", `/${id}/pros/find`, { location });
 export const markContacted = (id: string, pro: string) => call<Job>("POST", `/${id}/appointment`, { contacted: pro });
-export const bookPro = (id: string, pro: JobPro, at: number) => call<Job>("POST", `/${id}/appointment`, { pro: pro.name, phone: pro.phone, at });
+export const bookPro = (id: string, pro: JobPro, at: number) =>
+  call<Job>("POST", `/${id}/appointment`, { pro: pro.name, phone: pro.phone, at, zone: Intl.DateTimeFormat().resolvedOptions().timeZone });
 export const checkFairPrice = (id: string, location = "") => call<Job>("POST", `/${id}/fair-price`, { location });
 export const reachOut = (id: string, pro: string, message: string, slots: { label: string; at: number }[]) =>
   call<Job>("POST", `/${id}/reach-out`, { pro, message, permission: true, slots });

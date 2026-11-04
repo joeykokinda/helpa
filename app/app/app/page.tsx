@@ -1180,7 +1180,7 @@ function PlanScreen({ plan, drawing, onGetPart, storyRig, onOpenStep, ruledOut, 
               )}
               {manualHost && (
                 <a className="source" href={plan.manual_url} target="_blank" rel="noreferrer">
-                  <Icon name="book" size={16} /> Manual from {manualHost}
+                  <Icon name="book" size={16} /> {/cloudfront|amazonaws|akamai|\bcdn/.test(manualHost) ? "Open the manual" : `Manual from ${manualHost}`}
                 </a>
               )}
             </div>

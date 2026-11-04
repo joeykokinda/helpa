@@ -80,7 +80,17 @@ type jobAppointment struct {
 	Pro      string `json:"pro"`
 	Phone    string `json:"phone,omitempty"`
 	At       int64  `json:"at"`
+	Zone     string `json:"zone,omitempty"`
 	Notified bool   `json:"notified,omitempty"`
+}
+
+// local is the appointment time on the person's own clock (the server runs on UTC).
+func (appointment jobAppointment) local() time.Time {
+	at := time.UnixMilli(appointment.At)
+	if zone, err := time.LoadLocation(appointment.Zone); err == nil && appointment.Zone != "" {
+		return at.In(zone)
+	}
+	return at
 }
 
 type job struct {
@@ -461,6 +471,7 @@ func registerJobRoutes() {
 		var body struct {
 			Pro, Phone string
 			At         int64
+			Zone       string // the phone's IANA time zone, so logs and reminders show its clock
 			Contacted  string // a pro's name, to log that you reached out
 		}
 		if !readBody(writer, request, &body) {
@@ -479,9 +490,9 @@ func registerJobRoutes() {
 			if body.At <= 0 || body.Pro == "" {
 				return fmt.Errorf("an appointment needs a pro and a time")
 			}
-			item.Appointment = &jobAppointment{Pro: clip(body.Pro, 80), Phone: clip(body.Phone, 30), At: body.At}
+			item.Appointment = &jobAppointment{Pro: clip(body.Pro, 80), Phone: clip(body.Phone, 30), At: body.At, Zone: clip(body.Zone, 60)}
 			item.Status = "pro_booked"
-			item.note("booked", fmt.Sprintf("%s is booked for %s.", item.Appointment.Pro, time.UnixMilli(body.At).Format("Mon Jan 2, 3:04 PM")))
+			item.note("booked", fmt.Sprintf("%s is booked for %s.", item.Appointment.Pro, item.Appointment.local().Format("Mon Jan 2, 3:04 PM")))
 			return nil
 		})
 		replyJob(writer, item, err)

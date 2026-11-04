@@ -240,6 +240,19 @@ func clip(text string, limit int) string {
 	return string(runes)
 }
 
+// clipWords is clip for text people read: a cut lands between words and says so, never "a faulty stan".
+func clipWords(text string, limit int) string {
+	text = strings.TrimSpace(text)
+	if len([]rune(text)) <= limit {
+		return text
+	}
+	cut := clip(text, limit-1)
+	if index := strings.LastIndex(cut, " "); index > 0 {
+		cut = cut[:index]
+	}
+	return strings.TrimRight(cut, " ,;:-") + "…"
+}
+
 // runPipeline identifies the appliance fast, then builds the model, spots parts and researches the fix in
 // parallel, asking the user when an answer would change the fix. The plan never waits on the model.
 func runPipeline(requestCtx context.Context, photos []string, complaint string, follow followUp, session *fixSession, emit func(event)) error {
