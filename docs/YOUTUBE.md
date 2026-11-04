@@ -5,7 +5,7 @@ Files, all in `media/out/`:
 | File | What it's for |
 |---|---|
 | `helpa-demo.mp4` | The video. 1920x1080, 30 fps, under 3:00. |
-| `thumbnail.png` | Custom thumbnail, 1280x720. |
+| `thumbnail-hd.jpg` | Custom thumbnail, 1920x1080. |
 | `helpa-demo.srt` | English captions, timed to the cut. Upload it so YouTube doesn't auto-caption "Helpa" as "Helper". |
 | `chapters.txt` | Chapter stamps, already pasted into the description below. Regenerate with `python captions.py` if the cut changes. |
 
@@ -52,7 +52,7 @@ Replace `CHAPTERS_GO_HERE` with the contents of `media/out/chapters.txt` (the fi
 - **Category:** Science & Technology.
 - **Tags:** helpa, meta ai, muse spark, sam 3.1, appliance repair, fix it yourself, ai app, hackathon, ray-ban meta, dryer repair
 - **Subtitles:** Upload file, With timing, `helpa-demo.srt`, English.
-- **Thumbnail:** Upload `thumbnail.png`.
+- **Thumbnail:** Upload `helpa-thumbnail.jpg`.
 - **Comments:** On. Pin a comment with the try link.
 - **End screen:** add a "link" element only if your channel is verified for external links; otherwise skip it, the URL is on the end card.
 
