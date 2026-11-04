@@ -140,12 +140,14 @@
   {
     "kind": "split",
     "d": 9.5,
-    "say": "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, tells me what it should cost,",
+    "say": "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, and what it should cost,",
     "app": "18-findpros.mp4@0-31*3.35",
     "chip": "Muse Wonder + web search",
-    "caption": "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me and what it should cost,",
-    "shot": "F2.mov",
-    "talk": true
+    "caption": "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, and what it should cost,",
+    "shot": "video-8053_singular_display.mov@6-26*2.1",
+    "voice": "VP1.wav",
+    "voice_at": 0.2,
+    "left_y": 0.55
   },
   {
     "kind": "split",
@@ -154,8 +156,10 @@
     "app": "19-contact.mp4@0-12*2.4",
     "chip": "Writes the message for me",
     "caption": "writes the message so I don't have to explain anything,",
-    "shot": "F2.mov",
-    "talk": true
+    "shot": "video-8053_singular_display.mov@40-50*1.9",
+    "voice": "VP2.wav",
+    "voice_at": 0.2,
+    "left_y": 0.55
   },
   {
     "kind": "split",
@@ -164,20 +168,22 @@
     "app": "20-accept.mp4@0-5.9*1.5",
     "chip": "Quote checked against the fair price",
     "caption": "and checks their quote before I book.",
-    "shot": "F2.mov",
-    "talk": true
+    "shot": "video-8053_singular_display.mov@50-60*2.3",
+    "voice": "VP3.wav",
+    "voice_at": 0.2,
+    "left_y": 0.55
   },
   {
     "kind": "split",
-    "d": 9.75,
-    "say": "After the visit I just tell it what the tech said, and the job updates.",
+    "d": 6.0,
+    "say": "After the visit, I just tell it what the tech said.",
     "app": "21-prosaid.mp4@0.6-10.4",
-    "chip": "Muse Voice transcribes it",
-    "caption": "\u201cIt was the thermal fuse. Part 279973. He charged $140.\u201d",
-    "voice": "/home/rex/Projects/helpa/media/cam/prosaid.wav",
-    "voice_at": 1.35,
-    "shot": "G7.mov",
-    "shot_voice": true
+    "chip": "Type it or say it",
+    "caption": "After the visit, I just tell it what the tech said.",
+    "voice": "VP4.wav",
+    "voice_at": 0.2,
+    "shot": "video-8045_singular_display.mov@8-18*1.6",
+    "left_y": 0.55
   },
   {
     "kind": "split",
@@ -186,9 +192,10 @@
     "app": "21-prosaid.mp4@10.4-25.5*1.95",
     "chip": "Muse Spark updates the job",
     "caption": "And it logs everything. What broke, what it cost, and whether I got ripped off.",
-    "shot": "G7.mov",
+    "shot": "video-8045_singular_display.mov@18-36*2.2",
     "voice": "V11.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "left_y": 0.55
   },
   {
     "kind": "split",

@@ -1,5 +1,25 @@
 # Helpa video: script and shoot list
 
+## Still to record (everything else is in the cut)
+
+**1. Two tripod clips, you on camera** (iPhone sideways on a tripod, about 4 feet away, dryer behind you, lights on, plain shirt; second phone in your shirt pocket recording Voice Memos; clap once at the start; do each one 3 times):
+
+| Clip | What it looks like | You say |
+|---|---|---|
+| `F1` | Glasses in your pocket. Open the dryer, pull out a damp towel, frown at it, look at camera. Toss the towel in the basket on "So I built Helpa", put the glasses on as you say "on my Meta glasses". | "My dryer runs a full hour and my clothes come out soaking wet. And I have no idea how to fix a dryer. A repair guy wants a hundred and fifty bucks just to show up. ChatGPT gives me an essay. So I built Helpa. Let me show you, on my Meta glasses." |
+| `F3` | Glasses on. Big smile at the end. | "Everything you just saw is real. It's live, it's open source, and I built it on Meta's models for this hackathon." |
+
+**2. One voice memo, four lines** (closet, phone 6 inches away, each line twice). These play over your pro clips:
+
+- **P1:** "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, and what it should cost,"
+- **P2:** "writes the message so I don't have to explain anything,"
+- **P3:** "and checks their quote before I book."
+- **P4:** "After the visit, I just tell it what the tech said."
+
+The middle on-camera clip (`F2`), the washer, the car and `G7` are no longer needed.
+
+---
+
 You on camera three times: the intro, the middle, the ending. Everything else is your voiceover over what your Meta glasses see, with the live app beside it and diagrams in between.
 
 **Labels:** `F` = you on camera (iPhone), `G` = glasses clip, `V` = voiceover line.
