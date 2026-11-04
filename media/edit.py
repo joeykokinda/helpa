@@ -176,14 +176,21 @@ def render(index, segment):
     inputs, filters = [], []
 
     paths = []
+    late = []  # word captions, burned in after the segment renders
 
-    def use(path, loop=False):
+    def use(path, loop=False, spec=None):
+        """Adds an input. A trimmed clip is also capped at its trim end, so ffmpeg sees it end and can finish the file."""
         paths.append(path)
-        inputs.extend(["-loop", "1", "-framerate", str(FPS), "-t", str(duration), "-i", path] if loop else ["-i", path])
+        if loop:
+            inputs.extend(["-loop", "1", "-framerate", str(FPS), "-t", str(duration), "-i", path])
+        else:
+            end = source(spec)[2] if spec else None
+            inputs.extend((["-t", f"{end + 1:.3f}"] if end else []) + ["-i", path])
         return len(paths) - 1
 
     def spoken_captions(words, last, x, y, width, size):
-        """Overlays the line being spoken, a word at a time, and returns the new last label."""
+        """Queues the line being spoken, a word at a time, for a second pass over the rendered segment.
+        Burning them in the main graph next to the long-GOP phone footage deadlocked ffmpeg."""
         chunks = word_chunks(words)
         for chunk_number, chunk in enumerate(chunks):
             chunk_end = chunks[chunk_number + 1][0][0] if chunk_number + 1 < len(chunks) else duration
@@ -192,10 +199,7 @@ def render(index, segment):
                 until = chunk[active + 1][0] if active + 1 < len(chunk) else chunk_end
                 card_path = f"{WORK}/word-{index:02d}-{chunk_number}-{active}.png"
                 word_caption_png(chunk, active, card_path, width, size)
-                card = use(card_path, loop=True)
-                label = f"w{chunk_number}x{active}"
-                filters.append(f"[{last}][{card}:v]overlay={x}:{y}:enable='between(t,{word[0]:.2f},{until:.2f})'[{label}]")
-                last = label
+                late.append((card_path, x, y, word[0], until))
         return last
 
     if segment.get("shot") and os.path.exists(source(segment["shot"])[0]):
@@ -205,7 +209,7 @@ def render(index, segment):
             segment = dict(segment, voice=segment["shot"], voice_at=0)
     if segment["kind"] == "full":
         path, chain = trimmed(segment["clip"], duration)
-        video = use(path)
+        video = use(path, spec=segment["clip"])
         if segment.get("portrait") or is_portrait(path):  # a phone-shot portrait clip: sharp in the middle over a blurred copy of itself
             filters.append(f"[{video}:v]{chain},split[back][front]")
             filters.append(f"[back]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},gblur=sigma=40,eq=brightness=-0.06[blurred]")
@@ -234,7 +238,7 @@ def render(index, segment):
             left = None
         if left:
             path, chain = trimmed(left, duration)
-            left_input = use(path)
+            left_input = use(path, spec=left)
             # left_y picks how high to crop tall footage: 0 keeps the top, 0.5 the middle (glasses POV keeps feet out of frame)
             focus = segment.get("left_y", 0.5)
             filters.append(f"[{left_input}:v]{chain},scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h}:(iw-{w})/2:(ih-{h})*{focus},setsar=1,format=rgba[leftraw]")
@@ -250,7 +254,7 @@ def render(index, segment):
         sx, sy, sw, sh = PHONE_SCREEN
         if segment.get("app"):
             path, chain = trimmed(segment["app"], duration)
-            app = use(path)
+            app = use(path, spec=segment["app"])
             zoom = segment.get("zoom")  # [focus x, focus y, final scale]: a slow push-in on that spot of the screen
             if zoom:
                 fx, fy, scale = zoom
@@ -323,6 +327,17 @@ def render(index, segment):
     subprocess.run(["ffmpeg", "-v", "error", "-y", *inputs,
                     "-filter_complex", ";".join(filters), "-map", "[out]", "-map", "[aout]",
                     "-c:v", "libx264", "-crf", "17", "-preset", "medium", "-c:a", "aac", "-b:a", "192k", "-t", str(duration), out], check=True)
+    if late:
+        base = out.replace(".mp4", "-base.mp4")
+        os.replace(out, base)
+        inputs, graph, last = ["-i", base], [], "0:v"
+        for number, (card_path, x, y, start, until) in enumerate(late, 1):
+            inputs += ["-loop", "1", "-framerate", str(FPS), "-t", str(duration), "-i", card_path]
+            graph.append(f"[{last}][{number}:v]overlay={x}:{y}:enable='between(t,{start:.2f},{until:.2f})'[c{number}]")
+            last = f"c{number}"
+        graph.append(f"[{last}]format=yuv420p[out]")
+        subprocess.run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(graph), "-map", "[out]", "-map", "0:a",
+                        "-c:v", "libx264", "-crf", "17", "-preset", "medium", "-c:a", "copy", "-t", str(duration), out], check=True)
     return out
 
 
