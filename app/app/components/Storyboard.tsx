@@ -23,8 +23,10 @@ type StoryboardProps = {
 const drawn = new Map<string, (string | null)[]>();
 
 /** The moment that tells a step best: its first real move, near the end of the move, with the guide still showing. */
-function momentFor(beats: Beat[]): StillMoment {
-  const moving = beats.findIndex((beat) => !pulseActions.includes(beat.action));
+function momentFor(beats: Beat[], named: (beat: Beat) => boolean = () => false): StillMoment {
+  // The part the step talks about ("open the hood") beats the first thing that moves (the driver door, for the release).
+  const spoken = beats.findIndex((beat) => named(beat) && !pulseActions.includes(beat.action));
+  const moving = spoken >= 0 ? spoken : beats.findIndex((beat) => !pulseActions.includes(beat.action));
   // Cleaning carries the gunk away, so it's caught just as it lifts off, while you can still see it on the part.
   if (moving >= 0) return { beat: moving, progress: beats[moving].action === "clean" ? 0.2 : 0.82 };
   const acting = beats.findIndex((beat) => beat.action !== "look");
@@ -51,10 +53,18 @@ export default function Storyboard({ rig, steps, onOpen }: StoryboardProps) {
 
   // The next step that has a move to show and no picture yet.
   const drawing = steps.findIndex((_, index) => shots[index] === undefined && (rig.stepBeats[index]?.length ?? 0) > 0);
+  const partLabel = (beat: Beat) => module?.catalog.parts.find((part) => part.id === beat.part)?.label ?? "";
+  const namedIn = (index: number) => (beat: Beat) => {
+    const instruction = (steps[index]?.instruction ?? "").toLowerCase();
+    return partLabel(beat)
+      .toLowerCase()
+      .split(/[^a-z]+/)
+      .some((word) => word.length > 3 && instruction.includes(word));
+  };
+  const momentAt = (index: number) => momentFor(rig.stepBeats[index] ?? [], namedIn(index));
   const labelOf = (index: number) => {
-    const beats = rig.stepBeats[index] ?? [];
-    const beat = beats[momentFor(beats).beat];
-    return beat ? (module?.catalog.parts.find((part) => part.id === beat.part)?.label ?? "") : "";
+    const beat = (rig.stepBeats[index] ?? [])[momentAt(index).beat];
+    return beat ? partLabel(beat) : "";
   };
 
   return (
@@ -95,7 +105,7 @@ export default function Storyboard({ rig, steps, onOpen }: StoryboardProps) {
             Model={module.Model}
             stepBeats={rig.stepBeats}
             stepIndex={drawing}
-            still={momentFor(rig.stepBeats[drawing])}
+            still={momentAt(drawing)}
             onStill={(image) =>
               setShots((current) => {
                 const next = [...current];

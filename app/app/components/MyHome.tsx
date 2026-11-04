@@ -66,8 +66,9 @@ export default function MyHome({ machines, jobs, onOpenJob, mood, speaking, onOp
     }
   };
   const due = machines.filter((machine) => careFor(machine).some((care) => isDue(machine, care))).length;
-  // A fix still underway lives on its own screens; home lists jobs Helpa is carrying (a part, a pro, a reminder).
-  const openJobs = jobs.filter((job) => job.status !== "done" && job.status !== "fixing");
+  // A fix still underway lives on its own screens; home lists jobs Helpa is carrying (a part, a pro, a reminder),
+  // including a fix where parts or pros were already looked up, so closing the tab doesn't lose them.
+  const openJobs = jobs.filter((job) => job.status !== "done" && (job.status !== "fixing" || job.parts.length > 0 || job.pros.length > 0));
 
   return (
     <section className="screen home" aria-label="My Home">
