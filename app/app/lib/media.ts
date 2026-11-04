@@ -61,9 +61,29 @@ export async function shrinkPhoto(file: Blob, maxSide = 1280): Promise<Blob> {
 
 let speechQueue: Promise<void> = Promise.resolve();
 
+const mutedKey = "helpa-muted";
+
+/** Whether Helpa's spoken voice is off; remembered on this phone. */
+export function isMuted(): boolean {
+  try {
+    return localStorage.getItem(mutedKey) === "1";
+  } catch {
+    return false;
+  }
+}
+
+export function setMuted(muted: boolean) {
+  try {
+    localStorage.setItem(mutedKey, muted ? "1" : "0");
+  } catch {
+    // private mode: the choice just lasts until the next speak
+  }
+  if (muted) stopSpeaking();
+}
+
 /** Speaks text aloud, one line at a time, reporting when Helpa's mouth should move. */
 export function speak(text: string, onSpeaking: (speaking: boolean) => void): Promise<void> {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return Promise.resolve();
+  if (typeof window === "undefined" || !("speechSynthesis" in window) || isMuted()) return Promise.resolve();
   speechQueue = speechQueue.then(
     () =>
       new Promise<void>((resolve) => {

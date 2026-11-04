@@ -27,6 +27,7 @@ import { useVoiceCommands } from "../lib/voice";
 import HandsFree from "../components/HandsFree";
 import AskStep from "../components/AskStep";
 import CheckCamera from "../components/CheckCamera";
+import MuteToggle from "../components/MuteToggle";
 import StuckSheet, { type StuckChoice } from "../components/StuckSheet";
 import { shrinkPhoto, speak, stopSpeaking } from "../lib/media";
 import { tidy } from "../lib/text";
@@ -830,6 +831,7 @@ export default function Home() {
           <span className="progress-count">
             {stepIndex + 1}/{plan.steps.length}
           </span>
+          <MuteToggle />
         </div>
 
         <div className="screen-body">
