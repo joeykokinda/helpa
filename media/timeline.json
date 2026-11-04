@@ -1246,50 +1246,115 @@
   },
   {
     "kind": "split",
-    "d": 4.0,
-    "say": "And checks their quote before I book.",
-    "app": "20-accept.mp4@0-5.9*1.5",
-    "chip": "Quote checked against the fair price",
-    "caption": "And checks their quote before I book.",
-    "shot": "video-8053_singular_display.mov@50-60*2.5",
-    "voice": "VP3.wav",
+    "d": 7.28,
+    "say": "Then it uses Muse Wonder to search local rates, checks their quote, and makes sure I'm not getting ripped off.",
+    "app": "20-accept.mp4@0-5.9*0.81",
+    "chip": "Muse Wonder checks the quote",
+    "caption": "Then it uses Muse Wonder to search local rates, checks their quote, and makes sure I'm not getting ripped off.",
+    "shot": "video-8053_singular_display.mov@50-60*1.37",
+    "voice": "VP3b.wav",
     "voice_at": 0.2,
     "left_y": 0.55,
     "words": [
       [
-        0.36,
-        0.52,
-        "And"
-      ],
-      [
         0.52,
         0.84,
+        "Then"
+      ],
+      [
+        1.0,
+        1.16,
+        "it"
+      ],
+      [
+        1.16,
+        1.48,
+        "uses"
+      ],
+      [
+        1.48,
+        1.96,
+        "Muse"
+      ],
+      [
+        1.96,
+        2.44,
+        "Wonder"
+      ],
+      [
+        2.6,
+        2.68,
+        "to"
+      ],
+      [
+        2.68,
+        3.0,
+        "search"
+      ],
+      [
+        3.0,
+        3.32,
+        "local"
+      ],
+      [
+        3.32,
+        3.88,
+        "rates,"
+      ],
+      [
+        3.88,
+        4.28,
         "checks"
       ],
       [
-        0.84,
-        1.08,
+        4.28,
+        4.44,
         "their"
       ],
       [
-        1.08,
-        1.32,
-        "quote"
+        4.44,
+        4.92,
+        "quote,"
       ],
       [
-        1.32,
-        1.56,
-        "before"
+        4.92,
+        5.08,
+        "and"
       ],
       [
-        1.56,
-        1.64,
-        "I"
+        5.08,
+        5.24,
+        "makes"
       ],
       [
-        1.64,
-        2.04,
-        "booked."
+        5.24,
+        5.48,
+        "sure"
+      ],
+      [
+        5.48,
+        5.72,
+        "I'm"
+      ],
+      [
+        5.64,
+        5.8,
+        "not"
+      ],
+      [
+        5.8,
+        6.04,
+        "getting"
+      ],
+      [
+        6.04,
+        6.36,
+        "ripped"
+      ],
+      [
+        6.36,
+        6.68,
+        "off."
       ]
     ]
   },
