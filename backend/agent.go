@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -158,6 +159,7 @@ func research(ctx context.Context, photos []string, complaint string, ident iden
 		}
 	}
 	input := []any{userMessage(brief, photos...)}
+	retries := 0
 	for turn := 0; turn < maxAgentTurns; turn++ {
 		var calls []outputItem
 		items, err := streamResponse(ctx, map[string]any{
@@ -178,6 +180,14 @@ func research(ctx context.Context, photos []string, complaint string, ident iden
 				calls = append(calls, item)
 			}
 		})
+		// Muse Wonder sometimes fails a turn mid-stream ("The model failed to generate a response"); the same turn
+		// usually works a moment later, and a retry beats sending the person back to the start.
+		if err != nil && retries < 2 && ctx.Err() == nil && transientMetaError(err) {
+			retries++
+			log.Printf("agent: retrying a failed turn: %v", err)
+			turn--
+			continue
+		}
 		if err != nil {
 			return nil, err
 		}
@@ -197,6 +207,11 @@ func research(ctx context.Context, photos []string, complaint string, ident iden
 		}
 	}
 	return nil, fmt.Errorf("agent ran out of turns")
+}
+
+func transientMetaError(err error) bool {
+	text := err.Error()
+	return strings.Contains(text, "server_error") || strings.Contains(text, "failed to generate") || strings.Contains(text, "unexpected EOF")
 }
 
 func runTool(ctx context.Context, call outputItem, session *fixSession, emit func(event)) string {

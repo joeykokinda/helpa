@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http/httptest"
 	"net/url"
@@ -314,5 +315,14 @@ func TestOffMachineSteps(t *testing.T) {
 	got := offMachineSteps(plan)
 	if len(got) != 3 || !got[0] || !got[1] || got[2] {
 		t.Errorf("offMachineSteps = %v, want [true true false]", got)
+	}
+}
+
+func TestTransientMetaError(t *testing.T) {
+	if !transientMetaError(fmt.Errorf(`meta api stream error: {"code":"server_error","message":"The model failed to generate a response."}`)) {
+		t.Error("a server_error mid-stream should be retried")
+	}
+	if transientMetaError(fmt.Errorf("meta api 400: bad request")) {
+		t.Error("a bad request should not be retried")
 	}
 }
