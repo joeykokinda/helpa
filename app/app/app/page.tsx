@@ -82,6 +82,7 @@ function iconFor(tool: string): IconName {
   return toolIcons.find(([pattern]) => pattern.test(tool))?.[1] ?? "toolbox";
 }
 
+const resumeKey = "helpa-resume";
 type Stage = "home" | "machine" | "job" | "start" | "working" | "plan" | "step" | "outcome" | "done";
 type Question = { session: string; question: string; choices: string[] };
 
@@ -178,6 +179,35 @@ export default function Home() {
       })
       .catch(() => {});
   }, []);
+
+  // A reload or the phone's back button mid-fix comes back to the same plan and step (this tab only).
+  useEffect(() => {
+    queueMicrotask(() => {
+      let saved;
+      try {
+        saved = JSON.parse(sessionStorage.getItem(resumeKey) ?? "null");
+      } catch {}
+      if (!saved?.plan || new URLSearchParams(window.location.search).get("job")) return;
+      runRef.current = { photos: [], description: saved.description ?? "", sample: saved.sample, attempts: saved.attempts ?? [] };
+      setPlan(saved.plan);
+      setScene(saved.scene ?? null);
+      setRig(saved.rig ?? null);
+      setAttempts(saved.attempts ?? []);
+      setStepIndex(saved.stepIndex ?? 0);
+      trackRunJob(saved.job);
+      startedAt.current = Date.now();
+      setStage(saved.stage);
+    });
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (stage === "done") sessionStorage.removeItem(resumeKey);
+      if (!plan || (stage !== "plan" && stage !== "step" && stage !== "outcome")) return;
+      const { description, sample } = runRef.current;
+      sessionStorage.setItem(resumeKey, JSON.stringify({ stage, plan, scene, rig, stepIndex, attempts, job: currentJob, description, sample }));
+    } catch {}
+  }, [stage, plan, scene, rig, stepIndex, attempts, currentJob]);
 
   // While a job or home is on screen, pick up what Helpa's agents did in the background (a part shipped, arrived).
   useEffect(() => {
@@ -514,6 +544,9 @@ export default function Home() {
 
   const restart = () => {
     stopSpeaking();
+    try {
+      sessionStorage.removeItem(resumeKey);
+    } catch {}
     setPrefill(undefined);
     setStage("home");
     setMood("idle");
@@ -806,41 +839,47 @@ export default function Home() {
                 <CheckMoment check={check} speaking={speaking} doneLooksLike={tidy(step.check ?? "")} guide={guide} onBack={backToStep} />
               </motion.div>
             ) : (
-              <motion.div key={stepIndex} className="step-content" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.25, ease: "easeOut" }}>
-                <div className="step-head">
-                  <button className="step-helpa press" onClick={() => say(step.instruction, "pointing")} aria-label="Hear this step again">
-                    <Helpa mood={mood} speaking={speaking} size={56} />
-                    <span className="step-helpa-badge" aria-hidden="true">
-                      <Icon name="speaker" size={12} />
-                    </span>
-                  </button>
-                  <div>
-                    <p className="eyebrow">
-                      Step {stepIndex + 1} of {plan.steps.length}
-                      {identityOf(plan) && <span className="eyebrow-identity"> · {identityOf(plan)}</span>}
-                    </p>
-                    <p className="step-hint" aria-hidden="true">
-                      {speaking ? "Reading it out loud" : "Tap me to hear it again"}
-                    </p>
-                  </div>
-                </div>
-                <HandsFree state={voiceState} heard={heard} />
-                <h1 className="step-text">{tidy(step.instruction)}</h1>
+              // The 3D card stays mounted across steps: remounting its canvas left it blank while the next step slid in.
+              <motion.div key="step" className="step-content" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ duration: 0.25, ease: "easeOut" }}>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div key={stepIndex} className="step-content" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.25, ease: "easeOut" }}>
+                    <div className="step-head">
+                      <button className="step-helpa press" onClick={() => say(step.instruction, "pointing")} aria-label="Hear this step again">
+                        <Helpa mood={mood} speaking={speaking} size={56} />
+                        <span className="step-helpa-badge" aria-hidden="true">
+                          <Icon name="speaker" size={12} />
+                        </span>
+                      </button>
+                      <div>
+                        <p className="eyebrow">
+                          Step {stepIndex + 1} of {plan.steps.length}
+                          {identityOf(plan) && <span className="eyebrow-identity"> · {identityOf(plan)}</span>}
+                        </p>
+                        <p className="step-hint" aria-hidden="true">
+                          {speaking ? "Reading it out loud" : "Tap me to hear it again"}
+                        </p>
+                      </div>
+                    </div>
+                    <HandsFree state={voiceState} heard={heard} />
+                    <h1 className="step-text">{tidy(step.instruction)}</h1>
 
-                {has3d && stepPhoto && (
-                  <div className="segmented" role="tablist" aria-label="View">
-                    <button role="tab" aria-selected={shownView === "3d"} className="press" onClick={() => setView("3d")}>
-                      <Icon name="cube" size={16} /> 3D guide
-                    </button>
-                    <button role="tab" aria-selected={shownView === "photo"} className="press" onClick={() => setView("photo")}>
-                      <Icon name="image" size={16} /> Your photo
-                    </button>
-                  </div>
-                )}
+                    {has3d && stepPhoto && (
+                      <div className="segmented" role="tablist" aria-label="View">
+                        <button role="tab" aria-selected={shownView === "3d"} className="press" onClick={() => setView("3d")}>
+                          <Icon name="cube" size={16} /> 3D guide
+                        </button>
+                        <button role="tab" aria-selected={shownView === "photo"} className="press" onClick={() => setView("photo")}>
+                          <Icon name="image" size={16} /> Your photo
+                        </button>
+                      </div>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+
                 {visual && <div className="visual-card">{visual}</div>}
 
                 {step.details?.length > 0 && (
-                  <details className="more-help">
+                  <details key={stepIndex} className="more-help">
                     <summary className="press">
                       More help
                       <Icon name="chevronDown" size={18} />
