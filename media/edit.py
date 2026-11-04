@@ -107,6 +107,19 @@ def source(spec):
     return path, float(start or 0), float(end) if end else None, float(speed or 1)
 
 
+def is_portrait(path):
+    """Phone and Ray-Ban Meta footage is usually upright; ffprobe reports the stored size plus a rotation."""
+    probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height:stream_side_data=rotation",
+                            "-of", "json", path], capture_output=True, text=True)
+    try:
+        stream = json.loads(probe.stdout)["streams"][0]
+    except (ValueError, IndexError, KeyError):
+        return False
+    rotated = any(abs(int(side.get("rotation", 0))) == 90 for side in stream.get("side_data_list", []))
+    width, height = (stream["height"], stream["width"]) if rotated else (stream["width"], stream["height"])
+    return height > width
+
+
 def trimmed(spec, duration):
     """An ffmpeg filter chain that trims, speeds up and holds the last frame to fill duration."""
     path, start, end, speed = source(spec)
@@ -134,7 +147,7 @@ def render(index, segment):
     if segment["kind"] == "full":
         path, chain = trimmed(segment["clip"], duration)
         video = use(path)
-        if segment.get("portrait"):  # a phone-shot portrait clip: sharp in the middle over a blurred copy of itself
+        if segment.get("portrait") or is_portrait(path):  # a phone-shot portrait clip: sharp in the middle over a blurred copy of itself
             filters.append(f"[{video}:v]{chain},split[back][front]")
             filters.append(f"[back]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},gblur=sigma=40,eq=brightness=-0.06[blurred]")
             filters.append(f"[front]scale=-2:{H},setsar=1[sharp]")

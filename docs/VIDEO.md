@@ -74,22 +74,33 @@ For B3, B4 and B6–B9 your words come from the voiceover file `V7.wav` (see bel
 | `A6.mov` | "It finds the exact part, tracks it, and when it shows up, walks me through putting it in." |
 | `A7.mov` | "Everything you just saw is live, built on Meta's models during this hackathon, and it's open source." |
 
-### B: hands and machine (10 files; get a friend to film these)
+### B: hands and machine (10 files, mostly on your Ray-Ban Meta glasses)
 
-Have Helpa open on your phone with the screen on. Film so the real machine and the phone are both in frame, over your shoulder or from the side. Each clip is 5 to 10 seconds of real action: move slowly and deliberately, and hold the end pose for 2 seconds.
+**Shoot these POV on the glasses.** The viewer sees exactly what you see: your hands, your phone with Helpa on it, the real machine. You don't need a friend, it looks native and modern, and it's Meta hardware in a Meta hackathon video. Only `B0` needs the iPhone on the tripod, because it has to show your face.
 
-| File | Action |
-|---|---|
-| `B0.mov` | **The opener, sound on.** Camera on the tripod, wide. Open the dryer, pull out a damp towel, hold it up, frown at it, look at camera, say line 0. Try it 3 times. |
-| `B1.mov` | Close over your shoulder: point the phone at the dryer's model sticker inside the door rim. Hold steady 2 seconds, tap the shutter. |
-| `B2.mov` | Side angle: you type on the phone, then look up at the dryer. |
-| `B3.mov` | Door open, phone in your hand, you look from the screen to the lint screen like you're following a step. |
-| `B4.mov` | **The best B-roll in the video; a friend must film it.** First snap the lint screen while it's still in its slot (Helpa says "pull it out and show me"). Then pull it straight up out of the door opening, peel the lint off with your fingers, hold it up to the light and snap again. Do it slowly, twice. |
-| `B5.mov` | **Sound on.** Phone held near your mouth like a voice memo. Say: "It was the thermal fuse. Part two seven nine nine seven three. He charged a hundred and forty dollars." |
-| `B6.mov` | Point the phone at the washer and tap the shutter. |
-| `B7.mov` | Point the phone at the microwave's sticker (inside the door) and tap the shutter. |
-| `B8.mov` | Point the phone at the stove and tap the shutter. |
-| `B9.mov` | Point the phone at the car: hood up, or the dash. |
+**Glasses settings and technique:**
+- In the Meta AI app, set video to the highest quality it offers, and clean the lens before every shot.
+- Start each clip with the capture button, **count "one, two" in your head**, do the action, hold the end pose for 2 seconds, then stop. I need that handle on both ends.
+- **Move your head like a steadicam:** slowly, and only when you have to. Point your face at your hands, not your eyes. The camera sits on the left temple, so keep the action slightly right of where you'd normally look.
+- **Keep the phone screen readable:** hold it at chest height, about 30 cm (1 ft) from your face, tilted toward you, brightness all the way up. Avoid glare from ceiling lights.
+- Good light on the machine: laundry room lights on, plus a lamp if you have one.
+- The glasses' mics are great for your voice, so `B5` is recorded on them too.
+- Export the clips from the Meta AI app to your camera roll, then AirDrop them.
+
+| File | Camera | Action |
+|---|---|---|
+| `B0.mov` | **iPhone, tripod, sound on** | **The opener.** Wide shot. Open the dryer, pull out a damp towel, hold it up, frown at it, look at camera, say line 0. Try it 3 times. |
+| `B1.mov` | Glasses | Open the dryer door, raise the phone to the model sticker on the door rim, hold steady 2 seconds, tap the shutter. |
+| `B2.mov` | Glasses | Look down at the phone and type "my dryer runs a full hour and the clothes are still wet", then look up at the dryer. |
+| `B3.mov` | Glasses | Door open, phone at chest height showing the 3D step. Look from the screen down to the lint screen slot and back. |
+| `B4.mov` | Glasses | **The best B-roll in the video.** Snap the lint screen while it's still in its slot (Helpa says "pull it out and show me"). Then pull it straight up out of the door opening, peel the lint off with your fingers, hold it up to the light, and snap again. Do it slowly, twice. |
+| `B5.mov` | Glasses, **sound on** | Phone at chest height on "What did the pro say?". Tap **Say it** (it pulses orange) and say out loud: "It was the thermal fuse. Part two seven nine nine seven three. He charged a hundred and forty dollars." Tap Stop, then **Update the job**. Your voice and the screen together are the shot. |
+| `B6.mov` | Glasses | Walk up to the washer and snap it. |
+| `B7.mov` | Glasses | Open the microwave and snap the sticker inside the door frame. |
+| `B8.mov` | Glasses | Snap the stove. |
+| `B9.mov` | Glasses | Pop the Camry's hood (or sit in the driver's seat facing the dash) and snap it. |
+
+For `B1` to `B9`, use the real app at helpa.pyras.org/app on the iPhone: what's on your phone screen in POV should match what's in the phone frame beside it. Run the dryer flow for real while filming. If a step shows something different from the recorded clips, that's fine: I'll match the cut to your footage.
 
 ### V: voiceover (one file is fine)
 
