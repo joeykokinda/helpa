@@ -109,7 +109,6 @@ export default function Home() {
   const [libraryHit, setLibraryHit] = useState<{ brand: string; appliance: string; model_family: string } | null>(null);
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
   const [activePhoto, setActivePhoto] = useState(0);
-  const [partMasks, setPartMasks] = useState<Record<number, string[]>>({});
   const [stepMasks, setStepMasks] = useState<Record<number, string>>({});
   const [plan, setPlan] = useState<Plan | null>(null);
   const [scene, setScene] = useState<Scene | null>(null);
@@ -279,11 +278,10 @@ export default function Home() {
         if (agentEvent.found > 0) {
           setMood("found");
           setActivePhoto(agentEvent.photo);
-          setPartMasks((current) => ({ ...current, [agentEvent.photo]: [...(current[agentEvent.photo] ?? []), agentEvent.sam] }));
           addRow({
             key: `part-${agentEvent.phrase}`,
             title: `Spotted the ${agentEvent.phrase}`,
-            detail: agentEvent.size_cm ? `About ${Math.round(agentEvent.size_cm)} cm, highlighted on your photo` : "Highlighted on your photo",
+            detail: agentEvent.size_cm ? `About ${Math.round(agentEvent.size_cm)} cm` : "",
           });
         }
         break;
@@ -386,7 +384,6 @@ export default function Home() {
     setRows([{ key: "look", title: photos.length ? "Looking at your photo" : "Understanding the problem", detail: description ? `"${firstSentence(description)}"` : "" }]);
     setLibraryHit(null);
     setActivePhoto(0);
-    setPartMasks({});
     setStepMasks({});
     setPlan(null);
     setScene(null);
@@ -709,7 +706,6 @@ export default function Home() {
         rows={rows}
         libraryHit={libraryHit}
         photoUrl={photoUrls[activePhoto]}
-        masks={partMasks[activePhoto] ?? []}
         mood={mood}
         speaking={speaking}
         bubble={bubble}
@@ -973,22 +969,10 @@ function SceneSkeleton({ text }: { text: string }) {
   );
 }
 
-function BubbleRow({ mood, speaking, bubble, size = 88 }: { mood: HelpaMood; speaking: boolean; bubble: string; size?: number }) {
-  return (
-    <div className="helpa-row">
-      <Helpa mood={mood} speaking={speaking} size={size} />
-      <motion.p key={bubble} className="bubble" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", stiffness: 300, damping: 22 }}>
-        {bubble}
-      </motion.p>
-    </div>
-  );
-}
-
 type WorkingProps = {
   rows: ProgressRow[];
   libraryHit: { brand: string; appliance: string; model_family: string } | null;
   photoUrl?: string;
-  masks: string[];
   mood: HelpaMood;
   speaking: boolean;
   bubble: string;
@@ -1030,7 +1014,7 @@ function QuestionCard({ question, onAnswer }: { question: Question; onAnswer: (a
   );
 }
 
-function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, question, onAnswer }: WorkingProps) {
+function Working({ rows, libraryHit, photoUrl, mood, speaking, bubble, question, onAnswer }: WorkingProps) {
   const [elapsed, setElapsed] = useState(0);
   useEffect(() => {
     const timer = setInterval(() => setElapsed((seconds) => seconds + 0.5), 500);
@@ -1040,6 +1024,13 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
   const lanesDone = lanes.filter((lane) => lane.state === "done").length;
   // ponytail: progress is a feel-good estimate (time plus finished lanes), not real completion
   const progress = Math.min(0.94, 0.05 + (lanesDone / lanes.length) * 0.5 + (1 - Math.exp(-elapsed / 40)) * 0.4);
+  const buildingModel = lanes.some((lane) => lane.id === "model" && lane.state === "active");
+  const current = lanes.find((lane) => lane.state === "active");
+  const status = buildingModel
+    ? "Building your 3D model. This one takes a minute, hang tight."
+    : current
+      ? `${current.title}…`
+      : "Getting started…";
 
   return (
     <section className="screen working" aria-label="Helpa is working">
@@ -1050,25 +1041,15 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
         </span>
       </div>
       <div className="screen-body">
-        {photoUrl ? (
-          <>
-            <div className="working-photo">
-              <PartPhoto photoUrl={photoUrl} samTexts={masks} />
-              <div className="scan-sweep" aria-hidden="true" />
-            </div>
-            <BubbleRow mood={mood} speaking={speaking} bubble={bubble} size={88} />
-          </>
-        ) : (
-          <div className="working-hero">
-            <div className="hero-stage">
-              <div className="hero-blob hero-blob-pulse" aria-hidden="true" />
-              <Helpa mood={mood} speaking={speaking} size={180} />
-            </div>
-            <motion.p key={bubble} className="bubble bubble-center" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
-              {bubble}
-            </motion.p>
+        <div className="working-hero">
+          <div className="hero-stage">
+            <div className="hero-blob hero-blob-pulse" aria-hidden="true" />
+            <Helpa mood={mood} speaking={speaking} size={180} />
           </div>
-        )}
+          <motion.p key={bubble} className="bubble bubble-center" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+            {bubble}
+          </motion.p>
+        </div>
 
         <AnimatePresence>{question && <QuestionCard key={question.session + question.question} question={question} onAnswer={onAnswer} />}</AnimatePresence>
 
@@ -1095,6 +1076,11 @@ function Working({ rows, libraryHit, photoUrl, masks, mood, speaking, bubble, qu
             <strong>{question ? "Waiting for your answer" : "Helpa is on it"}</strong>
             <span>{Math.round(progress * 100)}%</span>
           </div>
+          {!question && (
+            <p className="progress-status" role="status">
+              {status}
+            </p>
+          )}
           <div className="progress">
             <motion.span className="progress-fill" animate={{ width: `${progress * 100}%` }} transition={{ duration: 0.6 }} />
           </div>

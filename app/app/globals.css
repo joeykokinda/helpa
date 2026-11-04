@@ -1290,6 +1290,13 @@ a:focus-visible {
   font-variant-numeric: tabular-nums;
 }
 
+.progress-status {
+  margin: 4px 0 10px;
+  color: var(--secondary);
+  font-size: 15px;
+  font-weight: 600;
+}
+
 .progress {
   position: relative;
   flex: 1;
