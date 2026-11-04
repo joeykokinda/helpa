@@ -437,7 +437,10 @@ func applyProUpdate(item *job, said string, update proUpdate) {
 	case "diy":
 		item.Status = "fixing"
 	}
-	text := "The pro said: " + clip(said, 240)
+	text := "The pro said: " + clipWords(said, 240)
+	if !strings.ContainsAny(text[len(text)-1:], ".!?…") {
+		text += "."
+	}
 	if update.QuotedPrice > 0 {
 		text += fmt.Sprintf(" Quoted $%d.", update.QuotedPrice)
 	}

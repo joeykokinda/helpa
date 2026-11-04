@@ -3424,6 +3424,12 @@ a:focus-visible {
   background: var(--surface);
 }
 
+/* A pro's row is a white tile inside that card, so its controls go back to grey. */
+.card .job-pro .btn-secondary,
+.card .job-pro .chip {
+  background: var(--surface-2);
+}
+
 /* Home: show it, tell it, or pick it. */
 .home-title {
   font-size: 34px;
