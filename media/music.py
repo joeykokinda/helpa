@@ -21,17 +21,19 @@ FADE = 0.9  # crossfade length; each later piece starts this early so its downbe
 def main():
     segments = json.load(open(f"{HERE}/timeline.json"))
     # The same cut points edit.py uses: 0.35 s crossfades next to full-screen scenes, 0.2 s between app shots.
+    from edit import cut_fade
     starts = [0.0]
     for previous, segment in zip(segments, segments[1:]):
-        starts.append(starts[-1] + previous["d"] - (0.35 if "full" in (previous["kind"], segment["kind"]) else 0.2))
-    total, title_at = starts[-1] + segments[-1]["d"], starts[2]
+        starts.append(starts[-1] + previous["d"] - cut_fade(previous, segment))
+    title = next(index for index, segment in enumerate(segments) if "diagram-title" in segment.get("clip", ""))
+    total, title_at = starts[-1] + segments[-1]["d"], starts[title]
     # Splice only inside quiet stretches (the breakdown at beat 136, back into the intro pad), so each loop
     # sounds like the song building again and drops a second time.
     title_at += 0.35  # the title is fully in after its crossfade
     opening = (DROP - title_at, beat(136))
     pieces = [opening, (beat(40) - FADE, beat(136))]
     fill = total - (opening[1] - opening[0]) - (pieces[1][1] - pieces[1][0] - FADE)
-    last_start = min((beat(index) for index in range(40, 68, 4)), key=lambda start: abs(END - start - fill))
+    last_start = min((beat(index) for index in range(40, 112, 4)), key=lambda start: abs(END - start - fill))
     pieces.append((last_start - FADE, END))
     inputs, chain = [], []
     for start, stop in pieces:

@@ -98,6 +98,13 @@ def title_png(text, path):
     image.save(path)
 
 
+def cut_fade(previous, segment):
+    """Crossfade length into segment: a hard cut inside one take, 0.35 s around full-screen scenes, 0.2 s between app shots."""
+    if segment.get("cut"):
+        return 0.04
+    return 0.35 if "full" in (previous["kind"], segment["kind"]) else 0.2
+
+
 def source(spec):
     """'clip.mp4@start-end*speed' -> (path, start, end, speed); end may be empty for the whole clip."""
     name, _, rest = spec.partition("@")
@@ -241,7 +248,7 @@ def render(index, segment):
         stop = f":end={end}" if end else ""
         filters.append(f"[{ambient}:a]atrim=start={start}{stop},asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,volume=0.5[ambient]")
         mix.append("[ambient]")
-    if segment["kind"] == "full":
+    if segment["kind"] == "full" and not segment.get("cut") and not segment.get("talk"):
         whoosh = use(f"{WORK}/whoosh.wav")
         mix.append(f"[{whoosh}:a]")
     filters.append(f"{''.join(mix)}amix=inputs={len(mix)}:duration=first:normalize=0[aout]")
@@ -277,7 +284,7 @@ def main():
         inputs += ["-i", part]
     offset, previous_video, previous_audio = 0.0, "0:v", "0:a"
     for index in range(1, len(parts)):
-        fade = 0.35 if "full" in (timeline[index]["kind"], timeline[index - 1]["kind"]) else 0.2
+        fade = cut_fade(timeline[index - 1], timeline[index])
         offset += timeline[index - 1]["d"] - fade
         video_chain.append(f"[{previous_video}][{index}:v]xfade=transition=fade:duration={fade}:offset={offset:.3f}[v{index}]")
         audio_chain.append(f"[{previous_audio}][{index}:a]acrossfade=d={fade}[a{index}]")

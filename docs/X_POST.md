@@ -27,7 +27,7 @@ before posting).
 
 **Option 3: the hook**
 
-> I fixed my dryer and changed my Camry's oil with an app I built last week.
+> I fixed my dryer knowing nothing, with an app I built last week.
 >
 > It reads the sticker, shows every move in 3D, and tells me when I got it wrong.
 >
@@ -49,5 +49,5 @@ before posting).
 ## After posting
 
 - Pin it to your profile until Nov 8.
-- Reply to every comment the first hour; quote-post it once with a different clip (the Camry or the pro finder).
+- Reply to every comment the first hour; quote-post it once with a different clip (the pro finder or the dishwasher).
 - Share in the hackathon Discord and anywhere you have friends; ask them to like and repost, not just view.

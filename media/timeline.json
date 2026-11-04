@@ -1,21 +1,50 @@
 [
   {
     "kind": "full",
-    "d": 7.25,
-    "clip": "IMG_6365.MOV@1.5-8.75",
-    "caption": "My dryer runs a full hour and my clothes come out soaking wet. And I have no idea how to fix a dryer.",
-    "shot": "F1.mov",
-    "say": "My dryer runs a full hour and my clothes come out soaking wet. And I have no idea how to fix a dryer.",
-    "talk": true
+    "d": 6.8,
+    "shot": "IMG_6387.MOV@1.8-12.6*1.6",
+    "clip": "IMG_6387.MOV@1.8-12.6*1.6",
+    "chapter": "My dryer stopped drying"
   },
   {
-    "kind": "split",
-    "d": 9.25,
-    "say": "A repair guy wants a hundred and fifty bucks just to show up. ChatGPT gives me an essay. So I built Helpa. Let me show you, on my Meta glasses.",
-    "app": "11-plan-scroll.mp4@1.5-12.9*1.25",
-    "caption": "A repair guy wants $150 just to show up. ChatGPT gives me an essay. So I built Helpa.",
-    "shot": "F1.mov",
-    "talk": true
+    "kind": "full",
+    "d": 3.75,
+    "shot": "IMG_6387.MOV@15.3-19.05",
+    "talk": true,
+    "caption": "My dryer runs for a full hour and my clothes always come out soaking wet.",
+    "cut": true
+  },
+  {
+    "kind": "full",
+    "d": 4.75,
+    "shot": "IMG_6400.MOV@0.95-5.7",
+    "talk": true,
+    "caption": "When this happens to me, I personally have no idea how to fix a dryer.",
+    "cut": true
+  },
+  {
+    "kind": "full",
+    "d": 5.0,
+    "shot": "IMG_6400.MOV@5.7-10.7",
+    "talk": true,
+    "cut": true,
+    "caption": "But you know who does? This repair guy. But he charges me $150, and I have no idea what's right or wrong."
+  },
+  {
+    "kind": "full",
+    "d": 5.6,
+    "shot": "IMG_6400.MOV@10.7-16.3",
+    "talk": true,
+    "cut": true,
+    "caption": "Then we have ChatGPT, but ChatGPT just writes me a whole essay. So how is this supposed to help me?"
+  },
+  {
+    "kind": "full",
+    "d": 3.1,
+    "shot": "IMG_6400.MOV@16.3-19.4",
+    "talk": true,
+    "cut": true,
+    "caption": "That's why I built Helpa. Now let me show you how it works."
   },
   {
     "kind": "full",
@@ -33,7 +62,8 @@
     "voice": "V1.wav",
     "say": "I snap the sticker and tell it what's wrong.",
     "left_y": 0.55,
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "chapter": "Snap the sticker, say what's wrong"
   },
   {
     "kind": "split",
@@ -65,7 +95,9 @@
     "d": 13.65,
     "clip": "diagram-pipeline.mp4",
     "voice": "V3.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "srt": "Under the hood, that's Meta's models all working at once. Muse Wonder digs up my manual online. Muse Spark builds a plan. SAM 3.1 finds the parts in my photo, and Muse Image draws the fix directly on it.",
+    "chapter": "Five Meta models at once"
   },
   {
     "kind": "split",
@@ -84,7 +116,8 @@
     "d": 6.0,
     "clip": "diagram-drawn.mp4",
     "voice": "V5.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "srt": "That's my actual dryer, with the fix drawn right on it."
   },
   {
     "kind": "split",
@@ -96,14 +129,16 @@
     "shot": "g7998-stab.mp4@12-23",
     "voice": "V6.wav",
     "left_y": 0.55,
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "chapter": "The fix on a 3D twin of my dryer"
   },
   {
     "kind": "full",
     "d": 10.07,
     "clip": "diagram-twin.mp4",
     "voice": "V7.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "srt": "That's not a canned animation. It's a real model with moving parts, and Spark choreographs every step onto it. Never seen your machine? It builds one."
   },
   {
     "kind": "split",
@@ -128,14 +163,16 @@
     "shot": "g7998-stab.mp4@23.5-41*2.0",
     "voice": "V9.wav",
     "left_y": 0.55,
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "chapter": "It checks my work"
   },
   {
     "kind": "full",
     "d": 6.78,
     "clip": "diagram-loop.mp4",
     "voice": "V10.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "srt": "Still not drying? It crosses that off and goes after the next cause. And if it's dangerous, it'll tell me to stop."
   },
   {
     "kind": "split",
@@ -147,7 +184,8 @@
     "shot": "video-8053_singular_display.mov@6-26*2.1",
     "voice": "VP1.wav",
     "voice_at": 0.2,
-    "left_y": 0.55
+    "left_y": 0.55,
+    "chapter": "When it's beyond me: pros at a fair price"
   },
   {
     "kind": "split",
@@ -208,7 +246,8 @@
     "shot": "video-7970_singular_display.mov@5.5-11*1.2",
     "left_y": 0.7,
     "voice": "V12.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "chapter": "Not just dryers"
   },
   {
     "kind": "split",
@@ -239,24 +278,26 @@
   {
     "kind": "full",
     "d": 6.0,
-    "clip": "diagram-agents.mp4",
+    "clip": "diagram-fan.mp4",
     "voice": "V17.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "srt": "It's like having a friend who could fix anything.",
+    "chapter": "Every machine in your home"
   },
   {
-    "kind": "split",
-    "d": 6.25,
-    "say": "Everything you just saw is real. It's live, it's open source, and I built it on Meta's models for this hackathon.",
-    "app": "50-home.mp4@0-7.6*1.2",
-    "caption": "Everything you just saw is real. It's live, it's open source, and I built it on Meta's models for this hackathon.",
-    "shot": "F3.mov",
-    "talk": true
+    "kind": "full",
+    "d": 6.15,
+    "shot": "IMG_6396.MOV@1.25-7.4",
+    "talk": true,
+    "caption": "Everything you just saw is real, live, and open source. And I built it all on Meta's models for this hackathon.",
+    "chapter": "Built for the Meta hackathon"
   },
   {
     "kind": "full",
     "d": 7.6,
     "clip": "diagram-end.mp4",
     "voice": "V18.wav",
-    "voice_at": 0.2
+    "voice_at": 0.2,
+    "srt": "Helpa. Fix it yourself. Try it free at helpa.pyras.org."
   }
 ]

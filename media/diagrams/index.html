@@ -91,6 +91,21 @@ svg.wires path.hot { stroke: var(--accent); }
 .qr { width: 190px; height: 190px; border-radius: 22px; background: #fff; padding: 14px; box-shadow: 0 10px 30px rgb(14 14 15 / 0.1); }
 .cta { display: flex; align-items: center; justify-content: center; gap: 44px; margin-top: 46px; }
 .cta .url { margin-top: 0; text-align: left; }
+
+/* fan: every machine, live app recordings on phones in a 3D arc */
+#fan { padding: 0; background: radial-gradient(120% 90% at 50% 100%, #ffd9cb 0%, #fff1ea 38%, var(--desk) 72%); perspective: 2200px; }
+#fan h1 { position: absolute; top: 74px; left: 0; right: 0; text-align: center; font-size: 92px; }
+#fan h1 span { display: inline-block; opacity: 0; animation: word 0.6s cubic-bezier(.2,.9,.25,1) forwards; animation-delay: var(--d); }
+#fan h1 b { color: var(--accent); }
+@keyframes word { from { opacity: 0; transform: translateY(40px) rotate(4deg); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+.fan { position: absolute; left: 50%; top: 270px; transform-style: preserve-3d; }
+.fan .slot { position: absolute; left: -165px; transform-style: preserve-3d; transform: translateX(var(--x)) translateY(var(--y)) translateZ(var(--z)) rotateY(var(--r)); }
+.fan .phone { width: 330px; height: 714px; border-radius: 58px; background: var(--ink); padding: 13px; box-shadow: 0 40px 80px rgb(14 14 15 / 0.28), 0 8px 20px rgb(14 14 15 / 0.18);
+  opacity: 0; animation: lift 1.0s cubic-bezier(.2,.9,.25,1) forwards, float 4.2s ease-in-out infinite; animation-delay: var(--d), calc(var(--d) + 1s); }
+.fan .phone video { width: 100%; height: 100%; border-radius: 46px; object-fit: cover; display: block; background: #fff; }
+.fan .tag { position: absolute; bottom: -62px; left: 0; right: 0; text-align: center; font-size: 26px; font-weight: 750; opacity: 0; animation: rise 0.6s ease-out forwards; animation-delay: calc(var(--d) + 0.5s); }
+@keyframes lift { from { opacity: 0; transform: translateY(260px) rotateX(18deg); } to { opacity: 1; transform: none; } }
+@keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -16px; } }
 </style>
 </head>
 <body>
@@ -227,6 +242,17 @@ svg.wires path.hot { stroke: var(--accent); }
       <div class="card in d" style="--d:2.2s"><div class="num">3</div><div><div class="label">Something it has never seen?</div><div class="sub">Muse Spark writes a new 3D model on the spot.</div></div></div>
     </div>
     <img class="pop d" style="--d:0.9s" src="twin.jpg" alt="">
+  </div>
+</section>
+
+<section id="fan">
+  <h1><span style="--d:0.10s">Every&nbsp;</span><span style="--d:0.22s">machine&nbsp;</span><span style="--d:0.34s">in&nbsp;</span><span style="--d:0.46s">your&nbsp;</span><span style="--d:0.58s"><b>home.</b></span></h1>
+  <div class="fan">
+    <div class="slot" style="--x:-720px;--y:60px;--z:-260px;--r:26deg;--d:0.40s"><div class="phone" style="--d:0.40s"><video src="fan/dryer.webm" autoplay muted loop playsinline></video></div><div class="tag" style="--d:0.40s">Dryer</div></div>
+    <div class="slot" style="--x:-360px;--y:18px;--z:-90px;--r:13deg;--d:0.55s"><div class="phone" style="--d:0.55s"><video src="fan/washer.webm" autoplay muted loop playsinline></video></div><div class="tag" style="--d:0.55s">Washer</div></div>
+    <div class="slot" style="--x:0px;--y:0px;--z:0px;--r:0deg;--d:0.25s"><div class="phone" style="--d:0.25s"><video src="fan/dish.webm" autoplay muted loop playsinline></video></div><div class="tag" style="--d:0.25s">Dishwasher</div></div>
+    <div class="slot" style="--x:360px;--y:18px;--z:-90px;--r:-13deg;--d:0.55s"><div class="phone" style="--d:0.55s"><video src="fan/microwave.webm" autoplay muted loop playsinline></video></div><div class="tag" style="--d:0.55s">Microwave</div></div>
+    <div class="slot" style="--x:720px;--y:60px;--z:-260px;--r:-26deg;--d:0.40s"><div class="phone" style="--d:0.40s"><video src="fan/stove.webm" autoplay muted loop playsinline></video></div><div class="tag" style="--d:0.40s">Stove</div></div>
   </div>
 </section>
 
