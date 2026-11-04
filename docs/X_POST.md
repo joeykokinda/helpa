@@ -1,40 +1,53 @@
-# X post drafts
+# X post
 
-Attach the 30-second cut (docs/VIDEO.md). Post the link in the first reply, not the main post.
+Counts for the Most Viral bonus: engagement (likes, reposts, replies) up to **Nov 8 EOD**. Paste the post URL into the
+submission form. Attach the 30-second cut (docs/VIDEO.md) as native video, not a YouTube link. Put links in the
+first reply, not the main post (X buries posts with links). Tag `@AIatMeta` and `@cerebral_valley` (check both handles
+before posting).
 
-## Option 1: the problem
+## Main post (pick one)
 
-> My dryer stopped drying. A chatbot gave me 600 words.
+**Option 1: the problem**
+
+> My clothes came out of the dryer soaking wet and a chatbot gave me 600 words.
 >
-> Helpa read my model sticker, showed me the clogged lint screen on a 3D model of my exact dryer, then checked
-> my fix from a photo.
+> So I built Helpa. It read my dryer's sticker, showed me the fix on a 3D model of my exact machine, and checked my
+> work from a photo.
 >
-> Built solo for the Meta AI hackathon 🧵
+> Built solo in a week and a half for the @AIatMeta hackathon 🧵
 
-## Option 2: the capability
+**Option 2: the capability**
 
-> AI that guides your hands, not just your reading.
+> AI that shows your hands what to do, not just tells you.
 >
-> Point your phone at a broken machine: Helpa finds the exact model, builds a 3D twin, plays the fix on the real
-> thing through your camera, and checks your work.
+> Point your phone at a broken machine. Helpa finds the exact model, plays the fix on a 3D twin of it, checks your
+> work from a photo, and if it's beyond you, finds the part or a pro at a fair price.
 >
-> Built on Meta's Muse + SAM 3.1
+> Built on Meta's Muse + SAM 3.1 🧵
 
-## Option 3: the hook
+**Option 3: the hook**
 
-> I fixed my dryer and changed my Camry's oil with an app that watches what my hands are doing.
+> I fixed my dryer and changed my Camry's oil with an app I built last week.
 >
-> "Perfect. Now let's clean it." 👀
+> It reads the sticker, shows every move in 3D, and tells me when I got it wrong.
 >
-> Meet Helpa, built for the Meta AI hackathon
+> Meet Helpa, built for the @AIatMeta hackathon 🧵
 
 ## Reply thread
 
-1. > Try it on your phone, no install: https://helpa.pyras.org
-   > Nothing broken? Tap "Try a sample".
-2. > How it works: Muse Wonder researches your exact model's manual, Muse Spark plans and checks each step, SAM 3.1
-   > finds the part on your live camera and locks onto it. Agents run in parallel, so known fixes land in about 4 s.
-3. > We tested 50 real repair problems: 49 identified right, all 8 dangerous ones sent to a pro, and 3× less to read
-   > than a chatbot answer. Full eval: https://github.com/joeykokinda/helpa/blob/main/docs/EVAL.md
-4. > Code: https://github.com/joeykokinda/helpa
-   > If it helped, a vote in the community round means a lot 🙏
+1. > Try it on your phone, no install, no account: https://helpa.pyras.org
+   > Nothing broken? Tap "Watch a fix".
+2. > How it works: Muse Spark reads the model, Muse Wonder researches its manual, SAM 3.1 finds the parts on your
+   > photo, Muse Image draws the fix on it, Muse Voice hears you. They run in parallel, so known fixes land in about 4 s.
+3. > When it's beyond DIY, agents take over: the exact part number with buy links, tracking until it arrives, or the
+   > best-reviewed local pros with a message already written.
+4. > Tested on 50 real repair problems: 49 identified right, all 8 dangerous ones sent to a pro, 3x less to read than a
+   > chatbot. https://github.com/joeykokinda/helpa/blob/main/docs/EVAL.md
+5. > Code (MIT): https://github.com/joeykokinda/helpa
+   > If you like it, a vote in the community gallery means a lot 🙏 <gallery link>
+
+## After posting
+
+- Pin it to your profile until Nov 8.
+- Reply to every comment the first hour; quote-post it once with a different clip (the Camry or the pro finder).
+- Share in the hackathon Discord and anywhere you have friends; ask them to like and repost, not just view.

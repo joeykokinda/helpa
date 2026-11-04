@@ -6,8 +6,13 @@ Point your phone at a broken dryer, dishwasher, toilet, sink, fridge or car, say
 list. Helpa reads the model sticker, researches that exact machine, and shows each move on a 3D model of it. Stuck? Ask
 it anything by voice or text, or snap a photo of what you did and it tells you if you got it right. Simple enough for anyone: big buttons, every step read aloud, and "next" said out loud when your hands are full.
 
-Built solo for the Meta Global AI Developer Hackathon (Oct 27 to Nov 4, 2026). Everything in this repo was written
-during the hackathon.
+Built solo by Joey Kokinda ([@joeykokinda](https://github.com/joeykokinda)) for the Meta Global AI Developer Hackathon,
+Indie Developer track. **Everything in this repo was written during the event**: kickoff was Mon Oct 26, 12:00 PM ET, and
+the first commit is Oct 26, 4:13 PM ET. No earlier codebase, template or product. See
+[What was built during the hackathon](#what-was-built-during-the-hackathon).
+
+**Meta models:** Muse Spark, Muse Wonder, SAM 3.1, Muse Image and Muse Voice Transcribe, all live through the Meta Model
+API. Muse Spark Open (open weights) is wired in for photo checks. Details in [Meta models](#meta-models).
 
 **Try it:** https://helpa.pyras.org is the landing page (QR code, screenshots, a story clip); the app
 itself is at https://helpa.pyras.org/app on any phone (Android Chrome or iPhone Safari). No account.
@@ -27,13 +32,13 @@ itself is at https://helpa.pyras.org/app on any phone (Android Chrome or iPhone 
 Nothing broken? **Watch a fix** on the first screen replays recorded real runs (gritty dishes, clothes still wet,
 disposal hums, washer won't drain, Camry oil change). Add it to your home screen to use it like an app.
 
-| My Home | The plan | 3D step | Done |
+| Pick it | The plan | 3D step | Stuck? |
 |---|---|---|---|
-| ![My Home](docs/media/my-home.webp) | ![Plan](docs/media/plan.webp) | ![3D step with airflow](docs/media/step-3d.webp) | ![Done](docs/media/done.webp) |
+| ![Pick it](app/public/landing/shots/home.webp) | ![Plan](app/public/landing/shots/plan.webp) | ![3D step with airflow](app/public/landing/shots/step-airflow.webp) | ![I'm stuck](app/public/landing/shots/stuck.webp) |
 
-| Agents working | Camry oil change | Machine page | Ask Helpa |
+| Agents working | Camry oil change | Exact part | Local pros |
 |---|---|---|---|
-| ![Working](docs/media/working.webp) | ![Car step](docs/media/car-step.webp) | ![Machine](docs/media/machine.webp) | ![Ask Helpa](docs/media/ask-helpa.webp) |
+| ![Working](app/public/landing/shots/working.webp) | ![Car step](app/public/landing/shots/car-drain.webp) | ![Part](app/public/landing/shots/part.webp) | ![Pros](app/public/landing/shots/pros.webp) |
 
 
 ## What it does
@@ -75,11 +80,11 @@ disposal hums, washer won't drain, Camry oil change). Add it to your home screen
 | Model | What Helpa uses it for |
 |---|---|
 | `muse-spark-1.3` | Fast identification, choreographing plan steps onto rig parts, generating on-demand 3D recipes, step checks (COMPLETED / INCOMPLETE / UNCERTAIN), sticker and VIN reading, Ask Helpa |
-| `muse-wonder-1.0` | The research agent for unknown problems: finds the manual, diagnoses, writes beginner steps, calls tools. It also built the 8-machine library of known fixes ahead of time |
-| `sam-3.1` | Highlights parts on your photos; live locate on camera frames (up to 4 part names in parallel, cropped to where the part sits); point prompts when you tap a part; finds the model sticker |
+| `muse-wonder-1.0` | The research agent for unknown problems: finds the manual, diagnoses, writes beginner steps, calls tools. Also the part finder and pro finder agents, and it researched the Whirlpool and Camry entries in the fix library and reviewed its own 3D animations (`tools/review_library.py`) |
+| `sam-3.1` | Finds and highlights the parts from each step on your own photo, and finds the model sticker so Spark can read a tight crop. (Live locate on camera frames powers the AR prototype, not the shipped app) |
 | `muse-voice-transcribe-1.0` | Describe the problem, or ask Helpa, out loud |
 | `muse-image-1.0` | Redraws your own photo as a repair diagram (part circled, move drawn on) for the plan and the share card; the "Try a sample" photos |
-| `muse-spark-open-1026` (open weights, Baseten) | Check my work, when `BASETEN_API_KEY` is set; Muse Spark backs it up. The check says when the open model made the call |
+| `muse-spark-open-1026` (open weights, Baseten) | Check what I did, run first on the open model when `BASETEN_API_KEY` is set, with Muse Spark as the fallback; the result says which model made the call (`backend/openweights.go`). Off on the live server until Baseten credits land |
 | Hosted `web_search` | Manuals, exploded parts diagrams, specs (Camry: 0W-20, 4.6 qt with filter, 14 mm plug) |
 
 ## How it works
@@ -95,7 +100,6 @@ flowchart LR
   research --> choreo["Choreograph<br/>Spark: steps to beats"]
   model --> choreo
   choreo -->|plan, rig, beats| phone
-  phone -->|live frames| locate["/api/locate<br/>SAM 3.1"]
   phone -->|check frame| check["/api/check<br/>Spark"]
 ```
 
@@ -115,6 +119,23 @@ flowchart LR
   be found in about 4 s, Helpa asks you to tap it.
 - **Budget and limits.** Per-visitor rate limits per endpoint and a daily Meta spend cap (`HELPA_DAILY_BUDGET_USD`,
   default $15). Past the cap Helpa says it's resting and plays a sample instead of failing.
+
+## What was built during the hackathon
+
+All of it. One person, one repo, 171 commits from Oct 26 (after kickoff) to Nov 4. `git log --reverse` shows the
+order; roughly:
+
+| When (ET) | What landed |
+|---|---|
+| Oct 26 (from 4 PM, after kickoff) | Spikes proving SAM 3.1 part masks and Muse Wonder manual research; the Go agent loop over SSE; the phone flow; the rig system with real joints; the first Whirlpool fix library, researched by Muse Wonder |
+| Oct 27 | More hand-built rigs (range, microwave, washers, disposal, Camry oil change), Muse visual review of its own animations |
+| Oct 28 | Try a sample, My Home and Ask Helpa, rate limits and daily budget, the 50-case eval, deploy, branching diagnosis and safety stops, pick-it home, circle it, Muse Image drawings, the open-weights check |
+| Oct 29 | Jobs: part finder, pro finder, tracking watcher with Web Push; landing page; AR moved out of the main flow |
+| Nov 1 to 4 | Fair price, reaching out to a pro, photo-first exact-model fixes, real-phone fixes, landing, demo video |
+
+Not ours: open-source libraries (Next.js, React, three.js, react-three-fiber, the Go standard library), the Schibsted
+Grotesk font (OFL), and facts from public manuals found by web search at runtime. The sample photos were generated
+with Muse Image during the event.
 
 ## Evaluation
 
@@ -153,7 +174,9 @@ host. `tools/eval/` reruns the evaluation; `tools/record_samples.py` re-records 
 - `app/`: Next.js PWA (screens, Helpa, rigs, recipe renderer, Live Guide)
 - `backend/`: Go API (pipeline, library, rigs, choreographer, live locate and checks, Ask, guard, replay)
 - `tools/`: eval, sample recording, rig thumbnails, catalog sync, library review
-- `docs/`: evaluation, video plan
+- `docs/`: evaluation, video plan, submission notes
+- `spike/`: the first-afternoon checks that SAM 3.1 and Muse Wonder could do the job
+- `media/`: scripts that cut the demo video
 
 ## Known gaps
 
@@ -164,3 +187,7 @@ host. `tools/eval/` reruns the evaluation; `tools/record_samples.py` re-records 
 - Every car problem reuses the oil-change rig; the 3D car body is generic, only its engine bay is Camry-specific.
 - SAM finds the model sticker reliably up close, not with the whole machine in view.
 - The daily budget lives in memory and resets on restart.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
