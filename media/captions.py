@@ -20,6 +20,12 @@ for index, segment in enumerate(timeline):
         start += timeline[index - 1]["d"] - cut_fade(timeline[index - 1], segment)
     if segment.get("chapter"):
         chapters.append(f"{int(start) // 60}:{int(start) % 60:02d} {segment['chapter']}")
+    if segment.get("captions"):
+        lines = segment["captions"]
+        for number, (at, line) in enumerate(lines):
+            until = lines[number + 1][0] if number + 1 < len(lines) else segment["d"]
+            cues.append((start + at, start + until, line))
+        continue
     text = segment.get("srt") or segment.get("caption")
     if not text:
         continue

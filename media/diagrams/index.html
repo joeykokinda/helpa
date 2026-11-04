@@ -106,6 +106,20 @@ svg.wires path.hot { stroke: var(--accent); }
 .fan .tag { position: absolute; bottom: -62px; left: 0; right: 0; text-align: center; font-size: 26px; font-weight: 750; opacity: 0; animation: rise 0.6s ease-out forwards; animation-delay: calc(var(--d) + 0.5s); }
 @keyframes lift { from { opacity: 0; transform: translateY(260px) rotateX(18deg); } to { opacity: 1; transform: none; } }
 @keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -16px; } }
+
+/* vertical (?v=1): the same scenes laid out 1080x1920 for the X cut */
+html.v, html.v body { width: 1080px; height: 1920px; }
+html.v #fan h1 { top: 300px; font-size: 104px; line-height: 1.05; padding: 0 70px; }
+html.v .fan { top: 700px; transform: scale(0.98); transform-origin: 50% 0; }
+html.v .fan .slot { transform: translateX(calc(var(--x) * 0.5)) translateY(calc(var(--y) * 2.2)) translateZ(var(--z)) rotateY(var(--r)); }
+html.v .fan .tag { font-size: 34px; }
+html.v #end { padding: 260px 70px 0; }
+html.v #end h1 { font-size: 96px; }
+html.v .models { max-width: 960px; }
+html.v .models .card { width: 450px; }
+html.v .cta { flex-direction: column; gap: 30px; margin-top: 70px; }
+html.v .url { margin-top: 0; font-size: 76px; }
+html.v .qr { width: 260px; height: 260px; }
 </style>
 </head>
 <body>
@@ -275,6 +289,7 @@ svg.wires path.hot { stroke: var(--accent); }
 <script>
   const scene = new URLSearchParams(location.search).get("s") || "title";
   document.getElementById(scene).classList.add("on");
+  if (new URLSearchParams(location.search).get("v")) document.documentElement.classList.add("v");
 </script>
 </body>
 </html>

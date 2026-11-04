@@ -16,35 +16,28 @@
   },
   {
     "kind": "full",
-    "d": 4.75,
-    "shot": "IMG_6400.MOV@0.95-5.7",
-    "talk": true,
-    "caption": "When this happens to me, I personally have no idea how to fix a dryer.",
-    "cut": true
-  },
-  {
-    "kind": "full",
-    "d": 5.0,
-    "shot": "IMG_6400.MOV@5.7-10.7",
+    "d": 18.45,
+    "shot": "IMG_6400.MOV@0.95-19.4",
     "talk": true,
     "cut": true,
-    "caption": "But you know who does? This repair guy. But he charges me $150, and I have no idea what's right or wrong."
-  },
-  {
-    "kind": "full",
-    "d": 5.6,
-    "shot": "IMG_6400.MOV@10.7-16.3",
-    "talk": true,
-    "cut": true,
-    "caption": "Then we have ChatGPT, but ChatGPT just writes me a whole essay. So how is this supposed to help me?"
-  },
-  {
-    "kind": "full",
-    "d": 3.1,
-    "shot": "IMG_6400.MOV@16.3-19.4",
-    "talk": true,
-    "cut": true,
-    "caption": "That's why I built Helpa. Now let me show you how it works."
+    "captions": [
+      [
+        0,
+        "When this happens to me, I personally have no idea how to fix a dryer."
+      ],
+      [
+        4.75,
+        "But you know who does? This repair guy. But he charges me $150, and I have no idea what's right or wrong."
+      ],
+      [
+        9.75,
+        "Then we have ChatGPT, but ChatGPT just writes me a whole essay. So how is this supposed to help me?"
+      ],
+      [
+        15.35,
+        "That's why I built Helpa. Now let me show you how it works."
+      ]
+    ]
   },
   {
     "kind": "full",
@@ -176,12 +169,12 @@
   },
   {
     "kind": "split",
-    "d": 9.5,
-    "say": "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, and what it should cost,",
-    "app": "18-findpros.mp4@0-31*3.35",
+    "d": 6.0,
+    "say": "Some stuff you shouldn't touch yourself, so Helpa finds the best shops near me, and what it should cost.",
+    "app": "18-findpros.mp4@6-31*4.2",
     "chip": "Muse Wonder + web search",
-    "caption": "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, and what it should cost,",
-    "shot": "video-8053_singular_display.mov@6-26*2.1",
+    "caption": "Some stuff you shouldn't touch yourself, so Helpa finds the best shops near me, and what it should cost.",
+    "shot": "video-8053_singular_display.mov@8-22*2.3",
     "voice": "VP1.wav",
     "voice_at": 0.2,
     "left_y": 0.55,
@@ -189,38 +182,38 @@
   },
   {
     "kind": "split",
-    "d": 5.25,
-    "say": "writes the message so I don't have to explain anything,",
-    "app": "19-contact.mp4@0-12*2.4",
+    "d": 4.0,
+    "say": "It writes a message so I don't have to explain anything.",
+    "app": "19-contact.mp4@0-12*3.0",
     "chip": "Writes the message for me",
-    "caption": "writes the message so I don't have to explain anything,",
-    "shot": "video-8053_singular_display.mov@40-50*1.9",
+    "caption": "It writes a message so I don't have to explain anything.",
+    "shot": "video-8053_singular_display.mov@40-50*2.5",
     "voice": "VP2.wav",
     "voice_at": 0.2,
     "left_y": 0.55
   },
   {
     "kind": "split",
-    "d": 4.25,
-    "say": "and checks their quote before I book.",
+    "d": 4.0,
+    "say": "And checks their quote before I book.",
     "app": "20-accept.mp4@0-5.9*1.5",
     "chip": "Quote checked against the fair price",
-    "caption": "and checks their quote before I book.",
-    "shot": "video-8053_singular_display.mov@50-60*2.3",
+    "caption": "And checks their quote before I book.",
+    "shot": "video-8053_singular_display.mov@50-60*2.5",
     "voice": "VP3.wav",
     "voice_at": 0.2,
     "left_y": 0.55
   },
   {
     "kind": "split",
-    "d": 6.0,
-    "say": "After the visit, I just tell it what the tech said.",
-    "app": "21-prosaid.mp4@0.6-10.4",
+    "d": 4.0,
+    "say": "After the visit is done, I just tell it what the tech told me.",
+    "app": "21-prosaid.mp4@0.6-10.4*2.45",
     "chip": "Type it or say it",
-    "caption": "After the visit, I just tell it what the tech said.",
+    "caption": "After the visit is done, I just tell it what the tech told me.",
     "voice": "VP4.wav",
     "voice_at": 0.2,
-    "shot": "video-8045_singular_display.mov@8-18*1.6",
+    "shot": "video-8045_singular_display.mov@8-18*2.5",
     "left_y": 0.55
   },
   {

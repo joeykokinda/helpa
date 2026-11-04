@@ -162,13 +162,16 @@ def render(index, segment):
         else:
             filters.append(f"[{video}:v]{chain},scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1[base]")
         last = "base"
-        if segment.get("caption"):  # a full-screen shot of rex's footage carries its caption bottom center
-            caption = f"{WORK}/caption-{index:02d}.png"
-            caption_png(segment["caption"], segment.get("chip", ""), caption)
+        # A full-screen shot of rex's footage carries its caption bottom center; "captions" swaps lines inside one take
+        lines = segment.get("captions") or ([[0, segment["caption"]]] if segment.get("caption") else [])
+        for number, (at, text) in enumerate(lines):
+            until = lines[number + 1][0] if number + 1 < len(lines) else duration
+            caption = f"{WORK}/caption-{index:02d}-{number}.png"
+            caption_png(text, segment.get("chip", "") if number == 0 else "", caption)
             card = use(caption, loop=True)
-            filters.append(f"[{card}:v]format=rgba,fade=in:st=0.15:d=0.3:alpha=1[card]")
-            filters.append(f"[{last}][card]overlay={(W - LEFT[2]) // 2}:{H - 340}[withcard]")
-            last = "withcard"
+            filters.append(f"[{card}:v]format=rgba[card{number}]")
+            filters.append(f"[{last}][card{number}]overlay={(W - LEFT[2]) // 2}:{H - 340}:enable='between(t,{at},{until})'[withcard{number}]")
+            last = f"withcard{number}"
     else:
         frame = use(f"{WORK}/frame.png", loop=True)
         x, y, w, h = LEFT

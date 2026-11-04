@@ -6,7 +6,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "clips")
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(executable_path="/home/rex/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome")
-    page = browser.new_page(viewport={"width": 1920, "height": 1080})
+    vertical = bool(os.environ.get("VERTICAL"))  # 1080x1920 layouts for the X cut, written as diagram-<scene>-v.mp4
+    width, height = (1080, 1920) if vertical else (1920, 1080)
+    page = browser.new_page(viewport={"width": width, "height": height})
     cdp = page.context.new_cdp_session(page)
     holder = {"frames": []}
     cdp.on("Page.screencastFrame", lambda frame: (holder["frames"].append((frame["metadata"]["timestamp"], frame["data"])), cdp.send("Page.screencastFrameAck", {"sessionId": frame["sessionId"]})))
@@ -15,8 +17,8 @@ with sync_playwright() as playwright:
         page.goto(f"file://{HERE}/index.html?s=blank", wait_until="networkidle")
         page.evaluate("document.fonts.ready")
         holder["frames"] = []
-        cdp.send("Page.startScreencast", {"format": "jpeg", "quality": 95, "maxWidth": 1920, "maxHeight": 1080})
-        page.goto(f"file://{HERE}/index.html?s={scene}", wait_until="networkidle")
+        cdp.send("Page.startScreencast", {"format": "jpeg", "quality": 95, "maxWidth": width, "maxHeight": height})
+        page.goto(f"file://{HERE}/index.html?s={scene}{'&v=1' if vertical else ''}", wait_until="networkidle")
         page.wait_for_timeout(int(float(seconds) * 1000))
         cdp.send("Page.stopScreencast")
         work = tempfile.mkdtemp()
@@ -29,7 +31,7 @@ with sync_playwright() as playwright:
         lines.append(f"file '{work}/{len(frames) - 1:05d}.jpg'")
         open(f"{work}/list.txt", "w").write("\n".join(lines) + "\n")
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{work}/list.txt", "-vf", "fps=30,format=yuv420p",
-                        "-c:v", "libx264", "-crf", "16", f"{OUT}/diagram-{scene}.mp4"], check=True)
+                        "-c:v", "libx264", "-crf", "16", f"{OUT}/diagram-{scene}{'-v' if vertical else ''}.mp4"], check=True)
         subprocess.run(["rm", "-rf", work])
         print("diagram", scene, len(frames), "frames", flush=True)
     browser.close()
