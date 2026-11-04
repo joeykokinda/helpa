@@ -174,7 +174,7 @@ host. `tools/eval/` reruns the evaluation; `tools/record_samples.py` re-records 
 - `app/`: Next.js PWA (screens, Helpa, rigs, recipe renderer, Live Guide)
 - `backend/`: Go API (pipeline, library, rigs, choreographer, live locate and checks, Ask, guard, replay)
 - `tools/`: eval, sample recording, rig thumbnails, catalog sync, library review
-- `docs/`: evaluation, video plan, submission notes
+- `docs/`: the evaluation (EVAL.md)
 - `spike/`: the first-afternoon checks that SAM 3.1 and Muse Wonder could do the job
 - `media/`: scripts that cut the demo video
 
