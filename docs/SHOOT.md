@@ -89,7 +89,44 @@ You on camera three times: the intro, the middle, the ending. Everything else is
 - Read each line twice, with a 2-second pause after.
 - Warm and a little amazed, like showing a friend. Messed up? Pause and redo it.
 
-The lines are the `V` rows in the script above, in order.
+Read these in order. Each one plays over the clip or diagram in brackets.
+
+1. "I snap the sticker and tell it what's wrong."  
+   *(over: G1 snapping the dryer sticker / app camera)*
+2. "It knows my exact dryer, down to the model number. Then it asks me one thing: does it still get warm?"  
+   *(over: G2 typing / app agents working)*
+3. "Under the hood, that's Meta's models all working at once. Muse Wonder digs up my manual online. Muse Spark builds the plan. SAM 3.1 finds the parts in my photo. And Muse Image draws the fix on it."  
+   *(over: Diagram: five models)*
+4. "One line on what's probably wrong. Then the plan."  
+   *(over: G3 scrolling the plan / app plan)*
+5. "That's my actual dryer, with the fix drawn right on it."  
+   *(over: My photo next to the drawn fix)*
+6. "And every step plays on a 3D model of my dryer. On this Frigidaire the lint screen's in the door, not on top. So that's where it shows me."  
+   *(over: G4 looking from the 3D step to the dryer / app 3D)*
+7. "That's not a canned animation. It's a real model with moving parts, and Spark choreographs every step onto it. Never seen your machine? It builds one."  
+   *(over: Diagram: the 3D twin)*
+8. "Don't know which way it comes out? Just ask."  
+   *(over: G5 asking a question / app Ask)*
+9. "Then I show it what I did. And it caught me. I wasn't done yet."  
+   *(over: G6 lint screen pulled, cleaned, snapped / app check)*
+10. "Still not drying? It crosses that off and goes after the next cause. And if it's dangerous, it tells me to stop."  
+   *(over: Diagram: rules out causes)*
+11. "And it logs everything. What broke, what it cost, and whether I got ripped off."  
+   *(over: G7 the job updates)*
+12. "And it's not just dryers. My washer."  
+   *(over: G8 washer)*
+13. "My microwave. Turns out it was stuck in demo mode."  
+   *(over: G9 microwave)*
+14. "My stove."  
+   *(over: G10 stove)*
+15. "My car."  
+   *(over: G11 car)*
+16. "It finds the exact part, tracks it, and when it shows up, walks me through putting it in."  
+   *(over: G12 air filter / app part found, tracked, install)*
+17. "It's like having a friend who can fix anything."  
+   *(over: Diagram: agents)*
+18. "Helpa. Fix it yourself. Try it free at helpa dot pyras dot org."  
+   *(over: End card: Built on Meta, QR, link)*
 
 ## Send
 
