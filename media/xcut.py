@@ -17,7 +17,7 @@ SHOTS = [
     ("talk", 3.75, dict(shot="IMG_6387.MOV@15.3-19.05", captions=[(0, "My dryer runs a full hour and my clothes come out soaking wet.")])),
     ("talk", 7.3, dict(shot="IMG_6400.MOV@10.7-18.0", captions=[(0, "Then we have ChatGPT, but ChatGPT just writes me a whole essay."),
                                                                 (3.7, "So how is this supposed to help me?"), (5.6, "That's why I built Helpa.")])),
-    ("app", 3.0, dict(app="10-capture.mp4@0.8-5*1.4", pov="video-7998_singular_display.mov@4.6-10*1.8", voice="V1.wav",
+    ("app", 3.0, dict(app="10-capture.mp4@0.8-4.4*1.2", pov="video-7998_singular_display.mov@4.6-10*1.8", voice="V1.wav",
                       caption="I snap the sticker and tell it what's wrong.", chip="Muse Spark reads my exact dryer")),
     ("app", 3.4, dict(app="12-steps.mp4@7.75-13.6*1.7", pov=f"{STAB}@12-20*2.3", caption="Every step, on a 3D model of my dryer.", chip="3D twin")),
     ("app", 7.8, dict(app="14-check.mp4@0-18.2*2.33", pov=f"{STAB}@23.5-41*2.25", voice="V9.wav",
