@@ -73,7 +73,7 @@ You on camera three times: the intro, the middle, the ending. Everything else is
 | `G3` | Scroll down through the plan slowly. |
 | `G4` | Phone showing the 3D step. Look from the screen down to the lint screen slot, then back. |
 | `G5` | Tap Ask, type "which way does it come out", read the answer. |
-| `G6` | **Best shot.** Snap the lint screen while it's still in. Pull it out, peel the lint off, hold it up, snap again. |
+| `G6` | **Best shot.** Snap the lint screen while it's still in (Helpa says "almost there"). Pull it out, peel the lint off, then for the second snap hold the clean screen right in front of the phone, filling the frame, so Helpa says "Looks done!". |
 | `G7` | **Sound on.** On "What did the pro say?", tap **Say it** and say: "It was the thermal fuse. Part two seven nine nine seven three. He charged a hundred and forty dollars." Tap Stop, then **Update the job**, and hold on the result. |
 | `G8` | Walk up to the washer and snap it. |
 | `G9` | Open the microwave and snap the sticker inside the door frame. |
