@@ -45,6 +45,8 @@ For B3, B4 and B6–B9 your words come from the voiceover file `V7.wav` (see bel
 
 ## What you record
 
+**Simple version: [`SHOOT.md`](SHOOT.md).** The detail below is reference.
+
 ### Setup (do this once)
 
 - **Camera:** iPhone back camera, **landscape**, 4K 30 fps (Settings → Camera → Record Video). Don't use the selfie camera.
