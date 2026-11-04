@@ -45,7 +45,7 @@ For B3, B4 and B6–B9 your words come from the voiceover file `V7.wav` (see bel
 
 ## What you record
 
-**Simple version: [`SHOOT.md`](SHOOT.md).** The detail below is reference.
+**Current plan: [`SHOOT.md`](SHOOT.md)** (all voiceover, glasses clips C1 to C15, lines V1 to V24). The detail below is the older version, kept for reference.
 
 ### Setup (do this once)
 
