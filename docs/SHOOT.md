@@ -8,30 +8,30 @@ You on camera three times: the intro, the middle, the ending. Everything else is
 
 | Time | On screen | Audio |
 |---|---|---|
-| 0:00 | `F1` full screen: you at the dryer, pull out a damp towel, look at camera | **You:** "My clothes came out of the dryer soaking wet, and I've never fixed a dryer in my life." |
-| 0:06 | `F1` you on the left, the app on the right | **You:** "A repair visit is a hundred and fifty bucks just to show up. A chatbot gives me twelve paragraphs. So I built Helpa. Let me show you, on my Meta glasses." *(put the glasses on)* |
+| 0:00 | `F1` full screen: you at the dryer, pull out a damp towel, look at camera | **You:** "My dryer runs a full hour and my clothes come out soaking wet. And I have no idea how to fix a dryer." |
+| 0:06 | `F1` you on the left, the app on the right | **You:** "A repair guy wants a hundred and fifty bucks just to show up. ChatGPT gives me an essay. So I built Helpa. Let me show you, on my Meta glasses." *(put the glasses on)* |
 | 0:15 | Title: Helpa | music |
-| 0:19 | `G1` snapping the dryer sticker / app camera | **V1:** "I point it at the sticker and say what's wrong." |
-| 0:24 | `G2` typing / app agents working | **V2:** "Muse Spark reads my exact model, and asks the one question that changes the fix." |
-| 0:29 | Diagram: five models | **V3:** "Five Meta models fire at once. Muse Wonder searches the web for my manual and the cause. Spark builds a 3D twin. SAM 3.1 finds the parts on my photo. And Muse Image draws the fix right on it." |
-| 0:42 | `G3` scrolling the plan / app plan | **V4:** "It tells me what's likely wrong in one line, then gives me the plan." |
-| 0:49 | My photo next to the drawn fix | **V5:** "That's my actual dryer, redrawn with the fix on it." |
-| 0:55 | `G4` looking from the 3D step to the dryer / app 3D | **V6:** "Every step plays on a 3D twin of my exact machine. On a Frigidaire the lint screen is in the door, not on top, so that's where it shows me." |
-| 1:03 | Diagram: the 3D twin | **V7:** "It's not a video. The sticker picks a model with real joints, and Muse Spark maps every step onto them. Something it's never seen? It builds the model on the spot." |
-| 1:11 | `G5` asking a question / app Ask | **V8:** "Not sure which way it comes out? I just ask." |
-| 1:18 | `G6` lint screen pulled, cleaned, snapped / app check | **V9:** "Then I snap what I did. First try, it tells me I'm not done. It actually checks." |
-| 1:27 | Diagram: rules out causes | **V10:** "Still damp? It rules out that cause by name and goes after the next one. And when it's dangerous, it stops me." |
-| 1:35 | `F2` you on camera / app pros, message, quote | **You:** "When it's beyond me, Helpa works as my agent. It finds the best-reviewed shops near me and what this should cost, writes the message with my model and what I already tried, and with my permission, checks the quote and books it." |
+| 0:19 | `G1` snapping the dryer sticker / app camera | **V1:** "I snap the sticker and tell it what's wrong." |
+| 0:24 | `G2` typing / app agents working | **V2:** "It knows my exact dryer, down to the model number. Then it asks me one thing: does it still get warm?" |
+| 0:29 | Diagram: five models | **V3:** "Under the hood, that's Meta's models all working at once. Muse Wonder digs up my manual online. Muse Spark builds the plan. SAM 3.1 finds the parts in my photo. And Muse Image draws the fix on it." |
+| 0:42 | `G3` scrolling the plan / app plan | **V4:** "One line on what's probably wrong. Then the plan." |
+| 0:49 | My photo next to the drawn fix | **V5:** "That's my actual dryer, with the fix drawn right on it." |
+| 0:55 | `G4` looking from the 3D step to the dryer / app 3D | **V6:** "And every step plays on a 3D model of my dryer. On this Frigidaire the lint screen's in the door, not on top. So that's where it shows me." |
+| 1:03 | Diagram: the 3D twin | **V7:** "That's not a canned animation. It's a real model with moving parts, and Spark choreographs every step onto it. Never seen your machine? It builds one." |
+| 1:11 | `G5` asking a question / app Ask | **V8:** "Don't know which way it comes out? Just ask." |
+| 1:18 | `G6` lint screen pulled, cleaned, snapped / app check | **V9:** "Then I show it what I did. And it caught me. I wasn't done yet." |
+| 1:27 | Diagram: rules out causes | **V10:** "Still not drying? It crosses that off and goes after the next cause. And if it's dangerous, it tells me to stop." |
+| 1:35 | `F2` you on camera / app pros, message, quote | **You:** "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, tells me what it should cost, writes the message so I don't have to explain anything, and checks their quote before I book." |
 | 1:53 | `G7` you talking into the app | **You, through the glasses:** "It was the thermal fuse. Part two seven nine nine seven three. He charged a hundred and forty dollars." |
-| 2:02 | `G7` the job updates | **V11:** "And the job updates. The part, the price, fair or not." |
-| 2:06 | `G8` washer | **V12:** "And it's not a dryer app. My washer." |
-| 2:12 | `G9` microwave | **V13:** "My microwave: it figured out it's stuck in demo mode." |
+| 2:02 | `G7` the job updates | **V11:** "And it logs everything. What broke, what it cost, and whether I got ripped off." |
+| 2:06 | `G8` washer | **V12:** "And it's not just dryers. My washer." |
+| 2:12 | `G9` microwave | **V13:** "My microwave. Turns out it was stuck in demo mode." |
 | 2:18 | `G10` stove | **V14:** "My stove." |
-| 2:23 | `G11` car | **V15:** "Even my car." |
+| 2:23 | `G11` car | **V15:** "My car." |
 | 2:29 | `G12` air filter / app part found, tracked, install | **V16:** "It finds the exact part, tracks it, and when it shows up, walks me through putting it in." |
-| 2:36 | Diagram: agents | **V17:** "These are agents doing the boring parts of owning a home." |
-| 2:43 | `F3` you on camera, glasses on / app home | **You:** "Everything you just saw is live, built on Meta's models during this hackathon, and it's open source." |
-| 2:49 | End card: Built on Meta, QR, link | **V18:** "Helpa. Fix what's broken, even if you know nothing. Try it at helpa dot pyras dot org." |
+| 2:36 | Diagram: agents | **V17:** "It's like having a friend who can fix anything." |
+| 2:43 | `F3` you on camera, glasses on / app home | **You:** "Everything you just saw is real. It's live, it's open source, and I built it on Meta's models for this hackathon." |
+| 2:49 | End card: Built on Meta, QR, link | **V18:** "Helpa. Fix it yourself. Try it free at helpa dot pyras dot org." |
 
 ---
 
@@ -53,9 +53,9 @@ You on camera three times: the intro, the middle, the ending. Everything else is
 
 | Clip | What it looks like | You say |
 |---|---|---|
-| `F1` | Glasses in your pocket. Open the dryer, pull out a damp towel, look at it, look at camera, say the first line. Toss the towel in the basket on "So I built Helpa", then put the glasses on as you say "on my Meta glasses". | "My clothes came out of the dryer soaking wet, and I've never fixed a dryer in my life. A repair visit is a hundred and fifty bucks just to show up. A chatbot gives me twelve paragraphs. So I built Helpa. Let me show you, on my Meta glasses." |
-| `F2` | Glasses on. Lean on the washer. | "When it's beyond me, Helpa works as my agent. It finds the best-reviewed shops near me and what this should cost, writes the message with my model and what I already tried, and with my permission, checks the quote and books it." |
-| `F3` | Glasses on. Big smile at the end. | "Everything you just saw is live, built on Meta's models during this hackathon, and it's open source." |
+| `F1` | Glasses in your pocket. Open the dryer, pull out a damp towel, look at it, look at camera, say the first line. Toss the towel in the basket on "So I built Helpa", then put the glasses on as you say "on my Meta glasses". | "My dryer runs a full hour and my clothes come out soaking wet. And I have no idea how to fix a dryer. A repair guy wants a hundred and fifty bucks just to show up. ChatGPT gives me an essay. So I built Helpa. Let me show you, on my Meta glasses." |
+| `F2` | Glasses on. Lean on the washer. | "Some stuff you shouldn't touch yourself. So Helpa finds the best shops near me, tells me what it should cost, writes the message so I don't have to explain anything, and checks their quote before I book." |
+| `F3` | Glasses on. Big smile at the end. | "Everything you just saw is real. It's live, it's open source, and I built it on Meta's models for this hackathon." |
 
 ## Part 2: glasses (12 clips)
 
