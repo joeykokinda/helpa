@@ -133,6 +133,15 @@ html.v .qr { width: 260px; height: 260px; }
 #hero .fan .slot { left: -150px; }
 #end .built { margin-top: 40px; font-size: 30px; font-weight: 750; color: var(--accent); }
 html.v #end .built { font-size: 34px; line-height: 1.3; padding: 0 40px; }
+
+/* thumb: the YouTube thumbnail, a still of the fan under a huge wordmark */
+#thumb { padding: 0; background: radial-gradient(120% 95% at 50% 100%, #ffc9b5 0%, #ffe9df 40%, var(--desk) 75%); perspective: 2200px; text-align: center; }
+#thumb h1 { position: absolute; top: 18px; left: 0; right: 0; font-size: 300px; letter-spacing: -0.05em; line-height: 1; }
+#thumb h1 b { color: var(--accent); }
+#thumb h2 { position: absolute; top: 330px; left: 0; right: 0; font-size: 68px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+#thumb h2 em { font-style: normal; color: var(--accent); }
+#thumb .fan { top: 470px; }
+#thumb .fan .phone { opacity: 1; animation: none; }
 </style>
 </head>
 <body>
@@ -279,6 +288,18 @@ html.v #end .built { font-size: 34px; line-height: 1.3; padding: 0 40px; }
     <div class="slot" style="--x:-420px;--y:50px;--z:-160px;--r:18deg"><div class="phone" style="--d:0.35s"><video src="fan/hero-snap.webm" autoplay muted loop playsinline></video></div></div>
     <div class="slot" style="--x:0px;--y:0px;--z:0px;--r:0deg"><div class="phone" style="--d:0.2s"><video src="fan/hero-3d.webm" autoplay muted loop playsinline></video></div></div>
     <div class="slot" style="--x:420px;--y:50px;--z:-160px;--r:-18deg"><div class="phone" style="--d:0.35s"><video src="fan/hero-check.webm" autoplay muted loop playsinline></video></div></div>
+  </div>
+</section>
+
+<section id="thumb">
+  <h1>helpa<b>.</b></h1>
+  <h2>Fix anything. <em>In 3D.</em></h2>
+  <div class="fan">
+    <div class="slot" style="--x:-720px;--y:60px;--z:-260px;--r:26deg"><div class="phone"><video src="fan/dryer.webm" autoplay muted loop playsinline></video></div></div>
+    <div class="slot" style="--x:-360px;--y:18px;--z:-90px;--r:13deg"><div class="phone"><video src="fan/washer.webm" autoplay muted loop playsinline></video></div></div>
+    <div class="slot" style="--x:0px;--y:0px;--z:0px;--r:0deg"><div class="phone"><video src="fan/dish.webm" autoplay muted loop playsinline></video></div></div>
+    <div class="slot" style="--x:360px;--y:18px;--z:-90px;--r:-13deg"><div class="phone"><video src="fan/microwave.webm" autoplay muted loop playsinline></video></div></div>
+    <div class="slot" style="--x:720px;--y:60px;--z:-260px;--r:-26deg"><div class="phone"><video src="fan/stove.webm" autoplay muted loop playsinline></video></div></div>
   </div>
 </section>
 
