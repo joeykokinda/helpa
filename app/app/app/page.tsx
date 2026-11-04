@@ -1187,22 +1187,25 @@ function PlanScreen({ plan, drawing, onGetPart, storyRig, onOpenStep, ruledOut, 
           )}
         </motion.article>
 
-        {drawing && (
-          <motion.figure className="drawing-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-            {drawing.url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={drawing.url} alt={`Your ${tidy(plan.appliance)} with the part to fix circled`} />
-            ) : (
-              <div className="drawing-pending skeleton" role="status">
-                <Icon name="pen" size={26} />
-                <span>Drawing the fix on your photo…</span>
-              </div>
-            )}
-            <figcaption>
-              <Icon name="pen" size={14} /> Drawn on your photo by Muse Image
-            </figcaption>
-          </motion.figure>
-        )}
+        <motion.article className="card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
+          <h2 className="card-title">
+            Next steps: {plan.steps.length} simple steps
+          </h2>
+          {storyRig ? (
+            // Every step as a picture from the 3D model of their machine; tap one to start there.
+            <Storyboard rig={storyRig} steps={plan.steps} onOpen={onOpenStep} />
+          ) : (
+            <ol className="step-list">
+              {plan.steps.map((planStep, index) => (
+                <li key={index}>
+                  <span className="step-number">{index + 1}</span>
+                  <span>{firstSentence(tidy(planStep.instruction))}</span>
+                </li>
+              ))}
+            </ol>
+          )}
+        </motion.article>
+
 
         {plan.safety.length > 0 && (
           <motion.article className="card safety-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
@@ -1256,24 +1259,23 @@ function PlanScreen({ plan, drawing, onGetPart, storyRig, onOpenStep, ruledOut, 
           </motion.article>
         )}
 
-        <motion.article className="card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}>
-          <h2 className="card-title">
-            {plan.steps.length} simple steps
-          </h2>
-          {storyRig ? (
-            // Every step as a picture from the 3D model of their machine; tap one to start there.
-            <Storyboard rig={storyRig} steps={plan.steps} onOpen={onOpenStep} />
-          ) : (
-            <ol className="step-list">
-              {plan.steps.map((planStep, index) => (
-                <li key={index}>
-                  <span className="step-number">{index + 1}</span>
-                  <span>{firstSentence(tidy(planStep.instruction))}</span>
-                </li>
-              ))}
-            </ol>
-          )}
-        </motion.article>
+
+        {drawing && (
+          <motion.figure className="drawing-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}>
+            {drawing.url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={drawing.url} alt={`Your ${tidy(plan.appliance)} with the part to fix circled`} />
+            ) : (
+              <div className="drawing-pending skeleton" role="status">
+                <Icon name="pen" size={26} />
+                <span>Drawing the fix on your photo…</span>
+              </div>
+            )}
+            <figcaption>
+              <Icon name="pen" size={14} /> Drawn on your photo by Muse Image
+            </figcaption>
+          </motion.figure>
+        )}
       </div>
       <div className="bottom-bar">
         <button className="btn btn-primary press" onClick={onStart}>
