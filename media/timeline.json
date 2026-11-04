@@ -3,7 +3,7 @@
   "kind": "full",
   "d": 7.25,
   "clip": "IMG_6365.MOV@1.5-8.75",
-  "caption": "My dryer ran a full hour and my clothes came out soaking wet. I've never opened a dryer in my life.",
+  "caption": "My clothes came out of the dryer soaking wet, and I've never fixed a dryer in my life.",
   "portrait": true,
   "shot": "B0.mov"
  },
@@ -12,7 +12,7 @@
   "d": 9.25,
   "say": "A repair visit is a hundred and fifty bucks before they touch anything. A chatbot gives you twelve paragraphs. So I built Helpa.",
   "app": "11-plan-scroll.mp4@1.5-12.9*1.25",
-  "caption": "A repair visit is $150 before they touch anything. A chatbot gives you twelve paragraphs. So I built Helpa.",
+  "caption": "A repair visit is $150 just to show up. A chatbot gives me twelve paragraphs. So I built Helpa.",
   "shot": "A1.mov",
   "talk": true
  },
@@ -92,7 +92,7 @@
   "say": "Then I snap what I did. And it's honest: pull it out and hold it up so I can see it's clean.",
   "app": "14-check.mp4@0-18.2*2.4",
   "chip": "Muse Spark checks my photo",
-  "caption": "Then I snap what I did, and it tells me if I actually got it right.",
+  "caption": "I snap what I did. First try, it tells me I'm not done. It actually checks.",
   "shot": "B4.mov"
  },
  {
@@ -107,7 +107,7 @@
   "say": "It finds the best-reviewed shops near me and what this should cost, with sources.",
   "app": "18-findpros.mp4@0-31*3.35",
   "chip": "Muse Wonder + web search",
-  "caption": "The best-reviewed shops near me, and what this should cost.",
+  "caption": "When it's beyond me, Helpa works as my agent: the best shops near me, and a fair price.",
   "shot": "A4.mov",
   "talk": true
  },
@@ -214,7 +214,7 @@
   "d": 6.25,
   "say": "Everything you saw, I built during this hackathon. It's live right now.",
   "app": "50-home.mp4@0-7.6*1.2",
-  "caption": "Everything you saw, I built during this hackathon. It's live right now.",
+  "caption": "Everything you just saw is live, built on Meta's models during this hackathon, and open source.",
   "shot": "A7.mov",
   "talk": true
  },
