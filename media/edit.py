@@ -171,7 +171,9 @@ def render(index, segment):
         if left:
             path, chain = trimmed(left, duration)
             left_input = use(path)
-            filters.append(f"[{left_input}:v]{chain},scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h},setsar=1,format=rgba[leftraw]")
+            # left_y picks how high to crop tall footage: 0 keeps the top, 0.5 the middle (glasses POV keeps feet out of frame)
+            focus = segment.get("left_y", 0.5)
+            filters.append(f"[{left_input}:v]{chain},scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h}:(iw-{w})/2:(ih-{h})*{focus},setsar=1,format=rgba[leftraw]")
         else:
             placeholder = f"{WORK}/placeholder-{index:02d}.png"
             placeholder_png(segment.get("say", ""), placeholder)

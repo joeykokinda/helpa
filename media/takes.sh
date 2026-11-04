@@ -26,6 +26,9 @@ microwave) rec goto:/app wait:1200 \
  rec:30-microwave-capture wait:800 tap:"Show me" wait:1300 upload:microwave-label.jpg wait:800 type:textarea::"My microwave runs and the light is on but it doesn't heat the food" wait:500 tap:"Help me fix it" plan:1 wait:3000 snap:mw-plan smooth:400 wait:2500 snap:mw-plan2 stop ;;
 part) rec goto:/app wait:1500 text:"My 2015 Camry needs an oil change" wait:2000 \
  rec:42-part wait:1000 click:"text=04152-YZZA1" wait:1500 snap:part-0 waittext:"Buy it" wait:2500 snap:part-found smooth:300 wait:1500 tap:"Buy it" wait:9000 snap:part-arrived tap:"Install it now" wait:6000 snap:part-install stop ;;
+dishwasher) CAMERA=cam/dishwasher.y4m rec goto:/app wait:1200 \
+ rec:32-dish-capture wait:800 tap:"Show me" wait:2500 upload:dishwasher.jpg wait:800 type:textarea::"My dishwasher leaves the dishes gritty" wait:500 tap:"Help me fix it" plan:1 wait:3000 snap:dish-plan stop \
+ rec:33-dish-steps tap:"Let's start" wait:6500 tap:Next wait:6500 snap:dish-step stop ;;
 home) rec goto:/app wait:1500 \
  rec:50-home wait:3000 snap:home smooth:400 wait:2500 snap:home2 stop ;;
 esac
