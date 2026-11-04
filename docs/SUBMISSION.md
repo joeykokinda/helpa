@@ -143,7 +143,7 @@ Self-hosted on a home server behind a Cloudflare tunnel.
 - Repo: https://github.com/joeykokinda/helpa
 - Live (landing): https://helpa.pyras.org
 - Live (app, open on a phone): https://helpa.pyras.org/app
-- Demo video: `<YouTube unlisted link>`
+- Demo video: https://youtu.be/kVYaoN_IzeY
 - X post: `<x.com/... link>`
 - Eval: https://github.com/joeykokinda/helpa/blob/main/docs/EVAL.md
 

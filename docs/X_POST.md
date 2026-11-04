@@ -35,7 +35,8 @@ before posting).
 
 ## Reply thread
 
-1. > Try it on your phone, no install, no account: https://helpa.pyras.org
+1. > Full 3-minute demo: https://youtu.be/kVYaoN_IzeY
+   > Try it on your phone, no install, no account: https://helpa.pyras.org
    > Nothing broken? Tap "Watch a fix".
 2. > How it works: Muse Spark reads the model, Muse Wonder researches its manual, SAM 3.1 finds the parts on your
    > photo, Muse Image draws the fix on it, Muse Voice hears you. They run in parallel, so known fixes land in about 4 s.
