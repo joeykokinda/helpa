@@ -531,9 +531,12 @@ func clipAll(values []string, count, limit int) []string {
 	return out
 }
 
+var sentenceEnd = regexp.MustCompile(`[.!?](\s|$)`)
+
+// firstSentence ends at a stop followed by a space, so "the 2.5L engine" stays whole.
 func firstSentence(text string) string {
-	if index := strings.IndexAny(text, ".!?"); index > 0 {
-		return text[:index+1]
+	if match := sentenceEnd.FindStringIndex(text); match != nil && match[0] > 0 {
+		return text[:match[0]+1]
 	}
 	return text
 }

@@ -34,6 +34,7 @@ func TestMatchBlueprint(t *testing.T) {
 		"road bike":                              "bicycle",
 		"over-the-range hood fan":                "range_hood",
 		"Breville toaster":                       "generic",
+		"Samsung electric range":                 "generic",
 	} {
 		if got := matchBlueprint(appliance); got == nil || got.ID != want {
 			t.Errorf("matchBlueprint(%q) = %v, want %s", appliance, got, want)

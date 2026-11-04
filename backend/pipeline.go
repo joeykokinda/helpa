@@ -346,6 +346,7 @@ func runPipeline(requestCtx context.Context, photos []string, complaint string, 
 		startTracks(ident)
 	}
 
+	ident = namedInComplaint(ident, complaint)
 	plan := libraryPlan(ident, complaint, follow.RuledOut, emit)
 	if plan == nil {
 		plan, err = research(ctx, photos, complaint, ident, session, emit)
@@ -455,6 +456,28 @@ func markSafetyStop(plan json.RawMessage) json.RawMessage {
 		return plan
 	}
 	return marked
+}
+
+// namedInComplaint fills a brand the photo didn't show when the person named the library fix's machine in words:
+// "my 2015 Camry" is the Toyota the car fix is written for, and the fix's specs already assume that car.
+func namedInComplaint(ident identification, complaint string) identification {
+	entry, _ := findLibraryFix(ident.LibraryFix)
+	if entry == nil || ident.Brand != "" || entry.Brand == "" {
+		return ident
+	}
+	lower := strings.ToLower(complaint)
+	for _, model := range entry.ModelNumbers {
+		for _, word := range wordPattern.FindAllString(strings.ToLower(model), -1) {
+			if len(word) > 3 && !strings.ContainsAny(word, "0123456789") && containsWords(lower, word) {
+				ident.Brand = entry.Brand
+				if normalizeAppliance(entry.Appliance) == "car" && ident.ModelNumber == "" {
+					ident.ModelNumber = entry.ModelNumbers[0]
+				}
+				return ident
+			}
+		}
+	}
+	return ident
 }
 
 // pickedIdentity is a fix picked from the app's list. No brand: picking says nothing about whose machine it

@@ -161,6 +161,9 @@ func stem(word string) string {
 	return word
 }
 
+// qualifierWords describe a thing without naming it: an "electric range" is not an "electric water heater".
+var qualifierWords = map[string]bool{"electric": true, "front": true, "load": true, "portable": true, "small": true, "large": true, "kitchen": true}
+
 // matchBlueprint picks the blueprint for an appliance name: a whole matching phrase wins (longest first),
 // otherwise the most phrase words in common; nothing in common means the generic blueprint.
 func matchBlueprint(appliance string) *blueprint {
@@ -179,9 +182,13 @@ func matchBlueprint(appliance string) *blueprint {
 				score = 100 + len(phrase)
 			} else {
 				for _, word := range wordPattern.FindAllString(phrase, -1) {
-					if len(word) > 3 && words[stem(word)] {
+					if len(word) > 3 && words[stem(word)] && !qualifierWords[word] {
 						score += len(word)
 					}
+				}
+				// One short shared word ("range" in "range hood") isn't the same thing.
+				if score < 6 {
+					score = 0
 				}
 			}
 			if score > bestScore {

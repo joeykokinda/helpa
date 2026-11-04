@@ -326,3 +326,13 @@ func TestTransientMetaError(t *testing.T) {
 		t.Error("a bad request should not be retried")
 	}
 }
+
+func TestNamedInComplaint(t *testing.T) {
+	ident := namedInComplaint(identification{Appliance: "car", LibraryFix: "car-oil-change/engine_oil_due_for_change"}, "My 2015 Camry needs an oil change")
+	if ident.Brand != "Toyota" || ident.ModelNumber == "" {
+		t.Errorf("a named Camry should be the library's Toyota, got %q %q", ident.Brand, ident.ModelNumber)
+	}
+	if other := namedInComplaint(identification{Appliance: "car", LibraryFix: "car-oil-change/engine_oil_due_for_change"}, "My car needs an oil change"); other.Brand != "" {
+		t.Errorf("no car named, no brand: got %q", other.Brand)
+	}
+}

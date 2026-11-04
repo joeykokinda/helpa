@@ -136,3 +136,9 @@ func TestAppointmentLocalTime(t *testing.T) {
 		t.Errorf("a bad zone should keep the instant, got hour %d", got)
 	}
 }
+
+func TestFirstSentenceKeepsDecimals(t *testing.T) {
+	if got := firstSentence("Your 2015 Camry 2.5L is due for oil. It takes 4.6 quarts."); got != "Your 2015 Camry 2.5L is due for oil." {
+		t.Errorf("firstSentence = %q", got)
+	}
+}
