@@ -241,9 +241,11 @@ def render(index, segment):
         path, start, end, _ = source(segment["voice"])
         voice = use(path)
         stop = f":end={end}" if end else ""
+        length = (end - start) if end else float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path],
+                                                                capture_output=True, text=True).stdout) - start
         delay = int(float(segment.get("voice_at", 0)) * 1000)
         filters.append(f"[{voice}:a]atrim=start={start}{stop},asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,"
-                       f"afade=t=in:d=0.04,areverse,afade=t=in:d=0.06,areverse,highpass=f={segment.get('voice_highpass', 85)},loudnorm=I=-16:TP=-1.5,volume={segment.get('voice_gain', 0)}dB,adelay={delay}|{delay}[voice]")
+                       f"afade=t=in:d=0.04,afade=t=out:st={max(length - 0.06, 0):.3f}:d=0.06,highpass=f={segment.get('voice_highpass', 85)},loudnorm=I=-16:TP=-1.5,volume={segment.get('voice_gain', 0)}dB,adelay={delay}|{delay}[voice]")
         mix.append("[voice]")
     elif segment.get("left") and segment.get("left_audio"):
         path, start, end, _ = source(segment["left"])

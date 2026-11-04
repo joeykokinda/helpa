@@ -85,12 +85,12 @@
   },
   {
     "kind": "full",
-    "d": 13.65,
+    "d": 10.3,
     "clip": "diagram-pipeline.mp4",
-    "voice": "V3.wav",
+    "voice": "V3.wav@3.45-",
     "voice_at": 0.2,
-    "srt": "Under the hood, that's Meta's models all working at once. Muse Wonder digs up my manual online. Muse Spark builds a plan. SAM 3.1 finds the parts in my photo, and Muse Image draws the fix directly on it.",
-    "chapter": "Five Meta models at once"
+    "srt": "Muse Wonder digs up my manual online. Muse Spark builds a plan. SAM 3.1 finds the parts in my photo, and Muse Image draws the fix directly on it.",
+    "chapter": "Meta's models, all at once"
   },
   {
     "kind": "split",
