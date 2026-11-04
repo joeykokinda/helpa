@@ -25,7 +25,7 @@ def main():
     starts = [0.0]
     for previous, segment in zip(segments, segments[1:]):
         starts.append(starts[-1] + previous["d"] - cut_fade(previous, segment))
-    title = next(index for index, segment in enumerate(segments) if "diagram-title" in segment.get("clip", ""))
+    title = next(index for index, segment in enumerate(segments) if "diagram-hero" in segment.get("clip", ""))
     total, title_at = starts[-1] + segments[-1]["d"], starts[title]
     # Splice only inside quiet stretches (the breakdown at beat 136, back into the intro pad), so each loop
     # sounds like the song building again and drops a second time.

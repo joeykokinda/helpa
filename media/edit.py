@@ -64,6 +64,42 @@ def placeholder_png(line, path):
     image.save(path)
 
 
+CAPTION_FONT = f"{HERE}/fonts/Montserrat.ttf"
+
+
+def word_chunks(words):
+    """Groups [start, end, word] into 1 to 3 word lines, breaking at punctuation and pauses."""
+    chunks, current = [], []
+    for index, word in enumerate(words):
+        current.append(word)
+        pause = index + 1 < len(words) and words[index + 1][0] - word[1] > 0.35
+        if len(current) == 3 or word[2][-1] in ".,?!" or pause:
+            chunks.append(current)
+            current = []
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def word_caption_png(chunk, active, path):
+    """One spoken line in big caption type, the word being said in Helpa orange."""
+    face = ImageFont.truetype(CAPTION_FONT, 76)
+    face.set_variation_by_axes([850])
+    texts = [word[2].upper() for word in chunk]
+    scratch = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
+    space = scratch.textlength(" ", font=face)
+    widths = [scratch.textlength(text, font=face) for text in texts]
+    total = sum(widths) + space * (len(texts) - 1)
+    image = Image.new("RGBA", (W, 160), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    x = (W - total) / 2
+    for index, text in enumerate(texts):
+        fill = ACCENT if index == active else (255, 255, 255)
+        draw.text((x, 30), text, font=face, fill=fill, stroke_width=7, stroke_fill=INK)
+        x += widths[index] + space
+    image.save(path)
+
+
 def caption_png(text, chip, path):
     """A caption card for the bottom of the left panel, with an optional Meta model chip above it."""
     x, y, w, h = LEFT
@@ -162,8 +198,21 @@ def render(index, segment):
         else:
             filters.append(f"[{video}:v]{chain},scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1[base]")
         last = "base"
-        # A full-screen shot of rex's footage carries its caption bottom center; "captions" swaps lines inside one take
-        lines = segment.get("captions") or ([[0, segment["caption"]]] if segment.get("caption") else [])
+        # On camera, captions follow his voice word by word; other full shots carry a caption card bottom center
+        if segment.get("words"):
+            chunks = word_chunks(segment["words"])
+            for chunk_number, chunk in enumerate(chunks):
+                chunk_end = chunks[chunk_number + 1][0][0] if chunk_number + 1 < len(chunks) else duration
+                chunk_end = min(chunk_end, chunk[-1][1] + 0.6)
+                for active, word in enumerate(chunk):
+                    until = chunk[active + 1][0] if active + 1 < len(chunk) else chunk_end
+                    card_path = f"{WORK}/word-{index:02d}-{chunk_number}-{active}.png"
+                    word_caption_png(chunk, active, card_path)
+                    card = use(card_path, loop=True)
+                    label = f"w{chunk_number}x{active}"
+                    filters.append(f"[{last}][{card}:v]overlay=0:{H - 250}:enable='between(t,{word[0]:.2f},{until:.2f})'[{label}]")
+                    last = label
+        lines = [] if segment.get("words") else segment.get("captions") or ([[0, segment["caption"]]] if segment.get("caption") else [])
         for number, (at, text) in enumerate(lines):
             until = lines[number + 1][0] if number + 1 < len(lines) else duration
             caption = f"{WORK}/caption-{index:02d}-{number}.png"

@@ -120,6 +120,16 @@ html.v .models .card { width: 450px; }
 html.v .cta { flex-direction: column; gap: 30px; margin-top: 70px; }
 html.v .url { margin-top: 0; font-size: 76px; }
 html.v .qr { width: 260px; height: 260px; }
+
+/* hero: the title on the beat drop, three live app recordings rising behind it */
+#hero { padding: 0; background: radial-gradient(120% 90% at 50% 100%, #ffd9cb 0%, #fff1ea 38%, var(--desk) 72%); perspective: 2200px; text-align: center; }
+#hero h1 { position: absolute; top: 70px; left: 0; right: 0; font-size: 170px; letter-spacing: -0.045em; }
+#hero h1 b { color: var(--accent); }
+#hero h1 span { display: inline-block; opacity: 0; animation: word 0.7s cubic-bezier(.2,.9,.25,1) forwards; animation-delay: var(--d); }
+#hero h2 { position: absolute; top: 290px; left: 0; right: 0; font-size: 44px; color: var(--ink); font-weight: 650; opacity: 0; animation: rise 0.7s ease-out forwards; animation-delay: 0.55s; }
+#hero .fan { top: 400px; }
+#hero .fan .phone { width: 300px; height: 650px; }
+#hero .fan .slot { left: -150px; }
 </style>
 </head>
 <body>
@@ -135,47 +145,47 @@ html.v .qr { width: 260px; height: 260px; }
   <h1 class="in d" style="--d:0.15s">One photo. Meta's models, all at once.</h1>
   <div class="grid-pipe">
     <svg class="wires" width="1700" height="820" viewBox="0 0 1700 820">
-      <path class="d" style="--d:1.2s" d="M 270 330 C 330 330, 330 330, 390 330"/>
-      <path class="d hot" style="--d:2.6s" d="M 760 330 C 830 330, 830 80, 900 80"/>
-      <path class="d hot" style="--d:2.7s" d="M 760 330 C 830 330, 830 270, 900 270"/>
-      <path class="d hot" style="--d:2.8s" d="M 760 330 C 830 330, 830 460, 900 460"/>
-      <path class="d hot" style="--d:2.9s" d="M 760 330 C 830 330, 830 650, 900 650"/>
-      <path class="d" style="--d:5.4s" d="M 1370 80 C 1420 80, 1420 330, 1460 330"/>
-      <path class="d" style="--d:5.5s" d="M 1370 270 C 1420 270, 1420 330, 1460 330"/>
-      <path class="d" style="--d:5.6s" d="M 1370 460 C 1420 460, 1420 330, 1460 330"/>
-      <path class="d" style="--d:5.7s" d="M 1370 650 C 1420 650, 1420 330, 1460 330"/>
+      <path class="d" style="--d:1.6s" d="M 270 330 C 330 330, 330 330, 390 330"/>
+      <path class="d hot" style="--d:5.5s" d="M 760 330 C 830 330, 830 80, 900 80"/>
+      <path class="d hot" style="--d:5.6s" d="M 760 330 C 830 330, 830 270, 900 270"/>
+      <path class="d hot" style="--d:5.7s" d="M 760 330 C 830 330, 830 460, 900 460"/>
+      <path class="d hot" style="--d:5.8s" d="M 760 330 C 830 330, 830 650, 900 650"/>
+      <path class="d" style="--d:15.4s" d="M 1370 80 C 1420 80, 1420 330, 1460 330"/>
+      <path class="d" style="--d:15.5s" d="M 1370 270 C 1420 270, 1420 330, 1460 330"/>
+      <path class="d" style="--d:15.6s" d="M 1370 460 C 1420 460, 1420 330, 1460 330"/>
+      <path class="d" style="--d:15.7s" d="M 1370 650 C 1420 650, 1420 330, 1460 330"/>
     </svg>
     <div class="node in d" style="--d:0.5s; left:0; top:165px">
       <img class="photo" src="dryer-label.jpg" alt="">
       <div class="sub" style="text-align:center; font-weight:650; color:var(--ink)">Your photo + "clothes still wet"</div>
     </div>
-    <div class="node card in d" style="--d:1.5s; left:390px; top:205px; width:370px">
+    <div class="node card in d" style="--d:2.0s; left:390px; top:205px; width:370px">
       <span class="chip">Muse Spark 1.3</span>
       <div class="label" style="margin-top:14px">Reads the sticker</div>
       <div class="sub">Frigidaire FFRE4120SW2</div>
-      <div class="chip orange pop d" style="--d:2.2s; margin-top:14px">Asks: "Warm inside?"</div>
+      <div class="chip orange pop d" style="--d:3.4s; margin-top:14px">Asks: "Warm inside?"</div>
     </div>
-    <div class="node card in d" style="--d:3.0s; left:900px; top:0; width:470px; padding:18px 26px">
+    <div class="node card in d" style="--d:7.0s; left:900px; top:0; width:470px; padding:18px 26px">
       <span class="chip">Muse Wonder + web search</span>
       <div class="label" style="font-size:26px; margin-top:10px">Finds the manual and the cause</div>
-      <div class="bar d" style="--d:3.4s"><i></i></div>
+      <div class="bar d" style="--d:7.3s"><i></i></div>
     </div>
-    <div class="node card in d" style="--d:3.1s; left:900px; top:190px; width:470px; padding:18px 26px">
+    <div class="node card in d" style="--d:9.2s; left:900px; top:190px; width:470px; padding:18px 26px">
       <span class="chip">Muse Spark 1.3</span>
       <div class="label" style="font-size:26px; margin-top:10px">Builds the 3D twin, real joints</div>
-      <div class="bar d" style="--d:3.5s"><i></i></div>
+      <div class="bar d" style="--d:9.5s"><i></i></div>
     </div>
-    <div class="node card in d" style="--d:3.2s; left:900px; top:380px; width:470px; padding:18px 26px">
+    <div class="node card in d" style="--d:10.9s; left:900px; top:380px; width:470px; padding:18px 26px">
       <span class="chip">SAM 3.1</span>
       <div class="label" style="font-size:26px; margin-top:10px">Finds each part on your photo</div>
-      <div class="bar d" style="--d:3.6s"><i></i></div>
+      <div class="bar d" style="--d:11.2s"><i></i></div>
     </div>
-    <div class="node card in d" style="--d:3.3s; left:900px; top:570px; width:470px; padding:18px 26px">
+    <div class="node card in d" style="--d:13.5s; left:900px; top:570px; width:470px; padding:18px 26px">
       <span class="chip">Muse Image</span>
       <div class="label" style="font-size:26px; margin-top:10px">Draws the fix on your photo</div>
-      <div class="bar d" style="--d:3.7s"><i></i></div>
+      <div class="bar d" style="--d:13.8s"><i></i></div>
     </div>
-    <div class="node card pop d" style="--d:6.2s; left:1460px; top:215px; width:250px; background:var(--ink); color:#fff">
+    <div class="node card pop d" style="--d:16.1s; left:1460px; top:215px; width:250px; background:var(--ink); color:#fff">
       <div class="label" style="color:#fff">Your plan</div>
       <div class="sub" style="color:#c9c9c1">One move per step, played on your machine</div>
     </div>
@@ -256,6 +266,16 @@ html.v .qr { width: 260px; height: 260px; }
       <div class="card in d" style="--d:2.2s"><div class="num">3</div><div><div class="label">Something it has never seen?</div><div class="sub">Muse Spark writes a new 3D model on the spot.</div></div></div>
     </div>
     <img class="pop d" style="--d:0.9s" src="twin.jpg" alt="">
+  </div>
+</section>
+
+<section id="hero">
+  <h1><span style="--d:0.0s">help</span><span style="--d:0.08s">a</span><span style="--d:0.16s"><b>.</b></span></h1>
+  <h2>Fix what's broken. Even if you know nothing.</h2>
+  <div class="fan">
+    <div class="slot" style="--x:-420px;--y:50px;--z:-160px;--r:18deg"><div class="phone" style="--d:0.35s"><video src="fan/hero-snap.webm" autoplay muted loop playsinline></video></div></div>
+    <div class="slot" style="--x:0px;--y:0px;--z:0px;--r:0deg"><div class="phone" style="--d:0.2s"><video src="fan/hero-3d.webm" autoplay muted loop playsinline></video></div></div>
+    <div class="slot" style="--x:420px;--y:50px;--z:-160px;--r:-18deg"><div class="phone" style="--d:0.35s"><video src="fan/hero-check.webm" autoplay muted loop playsinline></video></div></div>
   </div>
 </section>
 
