@@ -448,7 +448,7 @@ function PartCard({ job, part, busy, run, onInstall, onDemo }: RunProps & { part
             ))}
           </ul>
           <button className="btn btn-primary press" onClick={() => buyDemo(store || part.buy[0]?.store || "the store")} disabled={Boolean(busy)}>
-            <Icon name="tag" size={20} /> Buy it{store ? ` from ${store}` : ""} (demo)
+            <Icon name="tag" size={20} /> {store ? `Buy from ${store}` : "Buy it"} (demo)
           </button>
           <p className="job-demo-note">Demo: nothing is bought. Real checkout and auto-ordering can be connected later (store APIs).</p>
           {ordering ? (
@@ -590,7 +590,7 @@ function ProThread({ job, busy, run }: RunProps) {
                 {fair && fair.high > 0 ? (high ? ` · above the fair ${priceRange(fair.low, fair.high)}` : ` · within the fair ${priceRange(fair.low, fair.high)}`) : ""}
               </p>
             )}
-            {contact.slot_label && <p className="job-muted">{booked ? "Booked" : "They can come"} {contact.slot_label.toLowerCase()}.</p>}
+            {contact.slot_label && <p className="job-muted">{booked ? "Booked" : "They can come"} {contact.slot_label.replace(/^(Today|Tomorrow)/, (word) => word.toLowerCase())}.</p>}
             {priceNote && (
               <p className="job-muted">
                 {high

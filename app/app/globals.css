@@ -430,7 +430,10 @@ body {
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
-  white-space: nowrap;
+  /* A label too long for its button wraps inside it instead of running off the edge. */
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .btn-primary {
@@ -455,8 +458,8 @@ body {
   width: auto;
   min-height: 46px;
   font-size: 16px;
-  padding: 0 14px 0 20px;
-  gap: 2px;
+  padding: 0 16px;
+  gap: 6px;
 }
 
 .btn:disabled,
@@ -4134,9 +4137,10 @@ span.hands-free-glass {
 }
 .job-actions .btn {
   width: auto;
-  flex: 1;
-  min-width: 72px;
+  /* Grow to share the row, never shrink below the label: a row that doesn't fit moves a button to the next line. */
+  flex: 1 0 auto;
   text-decoration: none;
+  white-space: nowrap;
 }
 .job-chips {
   display: flex;
@@ -4647,7 +4651,7 @@ body:has(.not-found) {
   align-self: flex-start;
   margin-top: 6px;
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: 14px;
   background: var(--ok-soft);
   color: var(--ok);
   font-size: 14px;
