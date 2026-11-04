@@ -27,12 +27,12 @@ Snap the sticker and say what's wrong. Helpa reads your exact machine, plays the
 Try it free on your phone: https://helpa.pyras.org
 Code (open source): https://github.com/joeykokinda/helpa
 
-Built solo for the Meta Global AI Developer Hackathon, on Meta's models:
+Built solo, from scratch, during the Meta Global AI Developer Hackathon (Oct 26 to Nov 4), on Meta's models:
 - Muse Spark 1.3: reads the sticker, plans the fix, maps every step onto the 3D model, checks your photo
 - Muse Wonder + web search: digs up the manual and the likely cause, finds pros and fair prices
 - SAM 3.1: finds the parts in your photo
 - Muse Image: draws the fix right on your photo
-- Muse Voice: hands-free, just talk to it
+- Muse Voice Transcribe: hands-free, just talk to it
 POV shots filmed on Meta Ray-Ban Display glasses.
 
 CHAPTERS_GO_HERE
