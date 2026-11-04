@@ -312,7 +312,7 @@ def render(index, segment):
                                                                 capture_output=True, text=True).stdout) - start
         delay = int(float(segment.get("voice_at", 0)) * 1000)
         filters.append(f"[{voice}:a]atrim=start={start}{stop},asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,"
-                       f"afade=t=in:d=0.04,afade=t=out:st={max(length - 0.06, 0):.3f}:d=0.06,highpass=f={segment.get('voice_highpass', 85)},loudnorm=I=-16:TP=-1.5,volume={segment.get('voice_gain', 0)}dB,adelay={delay}|{delay}[voice]")
+                       f"afade=t=in:d=0.04,afade=t=out:st={max(length - 0.06, 0):.3f}:d=0.06,highpass=f={segment.get('voice_highpass', 100)},adeclick,loudnorm=I=-16:TP=-1.5,volume={segment.get('voice_gain', 0)}dB,adelay={delay}|{delay}[voice]")
         mix.append("[voice]")
     elif segment.get("left") and segment.get("left_audio"):
         path, start, end, _ = source(segment["left"])
@@ -379,7 +379,7 @@ def main():
         inputs += ["-i", music]
         audio_chain.append(f"[{len(parts)}:a]apad,atrim=duration={total:.3f},volume=0.22,afade=t=in:d=1.5,afade=t=out:st={total - 3:.3f}:d=3[music]")
         audio_chain.append(f"[{previous_audio}]asplit[speech][key]")
-        audio_chain.append("[music][key]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[ducked]")
+        audio_chain.append("[music][key]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=900[ducked]")
         audio_chain.append("[speech][ducked]amix=inputs=2:duration=first:normalize=0[mixed]")
         previous_audio = "mixed"
     subprocess.run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(video_chain + audio_chain),

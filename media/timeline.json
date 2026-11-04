@@ -548,8 +548,8 @@
     "app": "10-capture.mp4@5-9.5*0.75",
     "chip": "Say it or type it",
     "caption": "\u201cMy dryer runs for a full hour, and the clothes are still wet.\u201d",
-    "voice_gain": -3,
-    "voice_highpass": 150
+    "voice_gain": 1.5,
+    "voice_highpass": 120
   },
   {
     "kind": "split",
@@ -1298,7 +1298,7 @@
     "d": 4.0,
     "say": "After the visit is done, I just tell it what the tech told me.",
     "app": "21-prosaid.mp4@0.6-10.4*2.45",
-    "chip": "Type it or say it",
+    "chip": "Muse Voice Transcribe logs it",
     "caption": "After the visit is done, I just tell it what the tech told me.",
     "voice": "VP4.wav",
     "voice_at": 0.2,
